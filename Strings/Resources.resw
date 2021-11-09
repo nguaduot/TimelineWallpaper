@@ -193,7 +193,7 @@
     <value>图源</value>
   </data>
   <data name="BtnProvider3G.Text" xml:space="preserve">
-    <value>3G - 电脑壁纸专家</value>
+    <value>3G壁纸 - 电脑壁纸专家</value>
   </data>
   <data name="BtnProviderBing.Text" xml:space="preserve">
     <value>Microsoft Bing - 每天发现一个新地方</value>
@@ -292,7 +292,7 @@
     <value>设置桌面/锁屏背景功能不受支持。</value>
   </data>
   <data name="Provider_3g" xml:space="preserve">
-    <value>3G</value>
+    <value>3G壁纸</value>
   </data>
   <data name="Provider_bing" xml:space="preserve">
     <value>Microsoft Bing</value>
