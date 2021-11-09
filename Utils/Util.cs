@@ -17,7 +17,7 @@ namespace TimelineWallpaper.Utils {
         private static extern int WritePrivateProfileString(string section, string key, string value, string filePath);
 
         private static async Task<StorageFile> GenerateIni() {
-            string iniFileName = "timelinewallpaper.ini";
+            string iniFileName = "timelinewallpaper-2.0.ini";
             StorageFolder folder = ApplicationData.Current.LocalFolder;
             StorageFile iniFile = await folder.TryGetItemAsync(iniFileName) as StorageFile;
             if (iniFile == null) {
@@ -36,7 +36,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=3g       图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=daihan   图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
                     "; provider=pixivel  图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
-                    "; provider=ymyouli  图源：一梦幽黎 https://www.ymyouli.com",
+                    "; provider=ymyouli  图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "",
                     "push=",
                     "; push=         推送：关闭推送（默认）",
