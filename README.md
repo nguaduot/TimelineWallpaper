@@ -9,7 +9,7 @@
 
 ## 开始
 
-如果想安装哔哩，请打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。
+如果想安装拾光，请打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。
 
 在应用压缩包下载完成后，解压压缩包，找到 `install.ps1` 脚本，右键 **使用 PowerShell 运行**，根据提示进行安装。
 
@@ -25,3 +25,7 @@
 + [呆憨API](https://api.daihan.top/html/acg.html) - 随机二次元ACG图片
 + [Pixivel](https://pixivel.moe) - Pixel 图片缓存/代理
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
+
+# 截图
+
+![截图](./screenshot.png)
