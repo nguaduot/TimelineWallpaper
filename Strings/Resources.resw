@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDesc" xml:space="preserve">
+    <value>时光如歌，岁月如诗。拾光，每日一景</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>拾光 for Windows 11</value>
+  </data>
+  <data name="AppNameShort" xml:space="preserve">
+    <value>拾光</value>
+  </data>
+  <data name="Btn3GSort.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Btn3GSort1.Text" xml:space="preserve">
+    <value>最新壁纸</value>
+  </data>
+  <data name="Btn3GSort2.Text" xml:space="preserve">
+    <value>热门壁纸</value>
+  </data>
+  <data name="BtnAbout.Text" xml:space="preserve">
+    <value>拾光 v2.0</value>
+  </data>
+  <data name="BtnBingLang.Text" xml:space="preserve">
+    <value>地区</value>
+  </data>
+  <data name="BtnBingLangCn.Text" xml:space="preserve">
+    <value>中国</value>
+  </data>
+  <data name="BtnBingLangDe.Text" xml:space="preserve">
+    <value>德国</value>
+  </data>
+  <data name="BtnBingLangDef.Text" xml:space="preserve">
+    <value>自动识别</value>
+  </data>
+  <data name="BtnBingLangFr.Text" xml:space="preserve">
+    <value>法国</value>
+  </data>
+  <data name="BtnBingLangJp.Text" xml:space="preserve">
+    <value>日本</value>
+  </data>
+  <data name="BtnBingLangUs.Text" xml:space="preserve">
+    <value>美国</value>
+  </data>
+  <data name="BtnContact.Text" xml:space="preserve">
+    <value>nguaduot@163.com</value>
+  </data>
+  <data name="BtnIni.Text" xml:space="preserve">
+    <value>打开配置文件</value>
+  </data>
+  <data name="BtnNasaMirror.Text" xml:space="preserve">
+    <value>镜像</value>
+  </data>
+  <data name="BtnNasaMirrorBjp.Text" xml:space="preserve">
+    <value>北京天文馆</value>
+  </data>
+  <data name="BtnNasaMirrorDef.Text" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="BtnNext.Text" xml:space="preserve">
+    <value>回顾</value>
+  </data>
+  <data name="BtnOneplusSort.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="BtnOneplusSort1.Text" xml:space="preserve">
+    <value>最新添加</value>
+  </data>
+  <data name="BtnOneplusSort2.Text" xml:space="preserve">
+    <value>点赞最多</value>
+  </data>
+  <data name="BtnOneplusSort3.Text" xml:space="preserve">
+    <value>浏览最多</value>
+  </data>
+  <data name="BtnProvider.Text" xml:space="preserve">
+    <value>图源</value>
+  </data>
+  <data name="BtnProvider3G.Text" xml:space="preserve">
+    <value>3G - 电脑壁纸专家</value>
+  </data>
+  <data name="BtnProviderBing.Text" xml:space="preserve">
+    <value>Microsoft Bing - 每天发现一个新地方</value>
+  </data>
+  <data name="BtnProviderDaihan.Text" xml:space="preserve">
+    <value>呆憨API - 随机二次元ACG图片</value>
+  </data>
+  <data name="BtnProviderNasa.Text" xml:space="preserve">
+    <value>NASA - 每日天文一图</value>
+  </data>
+  <data name="BtnProviderOneplus.Text" xml:space="preserve">
+    <value>OnePlus - Shot on OnePlus</value>
+  </data>
+  <data name="BtnProviderYmyouli.Text" xml:space="preserve">
+    <value>一梦幽黎 - 本站资源准备历时数年</value>
+  </data>
+  <data name="BtnPush.Text" xml:space="preserve">
+    <value>推送</value>
+  </data>
+  <data name="BtnPushDesktop.Text" xml:space="preserve">
+    <value>推送桌面背景</value>
+  </data>
+  <data name="BtnPushLock.Text" xml:space="preserve">
+    <value>推送锁屏背景</value>
+  </data>
+  <data name="BtnPushNone.Text" xml:space="preserve">
+    <value>关闭推送</value>
+  </data>
+  <data name="BtnSave.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="BtnSetDesktop.Text" xml:space="preserve">
+    <value>用作桌面背景</value>
+  </data>
+  <data name="BtnSetLock.Text" xml:space="preserve">
+    <value>用作锁屏背景</value>
+  </data>
+  <data name="BtnVolumnOff.Text" xml:space="preserve">
+    <value>关闭声音</value>
+  </data>
+  <data name="BtnVolumnOn.Text" xml:space="preserve">
+    <value>打开声音</value>
+  </data>
+  <data name="BtnYmyouliCol.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="BtnYmyouliCol126.Text" xml:space="preserve">
+    <value>4K图片 - 游戏动漫人物</value>
+  </data>
+  <data name="BtnYmyouliCol182.Text" xml:space="preserve">
+    <value>8K图片 - 游戏动漫人物</value>
+  </data>
+  <data name="BtnYmyouliCol183.Text" xml:space="preserve">
+    <value>8K图片 - 游戏动漫场景</value>
+  </data>
+  <data name="BtnYmyouliCol184.Text" xml:space="preserve">
+    <value>8K图片 - 自然风景</value>
+  </data>
+  <data name="BtnYmyouliCol185.Text" xml:space="preserve">
+    <value>8K图片 - 花草植物</value>
+  </data>
+  <data name="BtnYmyouliCol215.Text" xml:space="preserve">
+    <value>8K图片 - 意境</value>
+  </data>
+  <data name="BtnYmyouliColDef.Text" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="MsgLostProvider" xml:space="preserve">
+    <value>无法连接图源，请重试或更换图源。</value>
+  </data>
+  <data name="MsgNoInternet" xml:space="preserve">
+    <value>无网络连接，请联网后重试。</value>
+  </data>
+  <data name="MsgNoPermission" xml:space="preserve">
+    <value>无后台权限，请开启后重试。</value>
+  </data>
+  <data name="MsgSave0" xml:space="preserve">
+    <value>下载出错。</value>
+  </data>
+  <data name="MsgSave1" xml:space="preserve">
+    <value>当前图片已保存到您的「图片」库。仅限用作桌面壁纸。</value>
+  </data>
+  <data name="MsgSetDesktop0" xml:space="preserve">
+    <value>设置出错。</value>
+  </data>
+  <data name="MsgSetDesktop1" xml:space="preserve">
+    <value>已将当前图片设置为桌面背景。</value>
+  </data>
+  <data name="MsgSetLock0" xml:space="preserve">
+    <value>设置出错。</value>
+  </data>
+  <data name="MsgSetLock1" xml:space="preserve">
+    <value>已将当前图片设置为锁屏背景。</value>
+  </data>
+  <data name="MsgWallpaper0" xml:space="preserve">
+    <value>设置桌面/锁屏背景功能不受支持。</value>
+  </data>
+  <data name="Provider_3g" xml:space="preserve">
+    <value>3G</value>
+  </data>
+  <data name="Provider_bing" xml:space="preserve">
+    <value>Microsoft Bing</value>
+  </data>
+  <data name="Provider_daihan" xml:space="preserve">
+    <value>呆憨API</value>
+  </data>
+  <data name="Provider_lofter" xml:space="preserve">
+    <value>Lofter</value>
+  </data>
+  <data name="Provider_nasa" xml:space="preserve">
+    <value>NASA</value>
+  </data>
+  <data name="Provider_oneplus" xml:space="preserve">
+    <value>OnePlus</value>
+  </data>
+  <data name="Provider_pixivel" xml:space="preserve">
+    <value>Pixivel</value>
+  </data>
+  <data name="Provider_ymyouli" xml:space="preserve">
+    <value>一梦幽黎</value>
+  </data>
+  <data name="Slogan_3g" xml:space="preserve">
+    <value>电脑壁纸专家</value>
+  </data>
+  <data name="Slogan_bing" xml:space="preserve">
+    <value>每天发现一个新地方</value>
+  </data>
+  <data name="Slogan_daihan" xml:space="preserve">
+    <value>随机二次元ACG图片</value>
+  </data>
+  <data name="Slogan_lofter" xml:space="preserve">
+    <value>看见每一种兴趣</value>
+  </data>
+  <data name="Slogan_nasa" xml:space="preserve">
+    <value>每日天文一图</value>
+  </data>
+  <data name="Slogan_oneplus" xml:space="preserve">
+    <value>Shot on OnePlus</value>
+  </data>
+  <data name="Slogan_pixivel" xml:space="preserve">
+    <value>Pixel 图片缓存/代理</value>
+  </data>
+  <data name="Slogan_ymyouli" xml:space="preserve">
+    <value>本站资源准备历时数年</value>
+  </data>
+  <data name="TextTItle.Text" xml:space="preserve">
+    <value>时光如歌，岁月如诗。拾光，每日一景</value>
+  </data>
+  <data name="TitleErrLoad" xml:space="preserve">
+    <value>加载失败</value>
+  </data>
+  <data name="TitleErrPush" xml:space="preserve">
+    <value>推送失败</value>
+  </data>
+</root>

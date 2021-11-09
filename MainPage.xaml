@@ -1,0 +1,488 @@
+﻿<Page
+    x:Class="TimelineWallpaper.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TimelineWallpaper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Page.Resources>
+
+        <MenuFlyout x:Name="FlyoutMenu">
+            <MenuFlyoutItem Name="BtnSetDesktop"
+                            x:Uid="BtnSetDesktop"
+                            Visibility="Collapsed"
+                            Click="BtnSetDesktop_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE7F7;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="B" Modifiers="Control" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Name="BtnSetLock"
+                            x:Uid="BtnSetLock"
+                            Visibility="Collapsed"
+                            Click="BtnSetLock_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xEE3F;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="L" Modifiers="Control" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Name="BtnVolumnOn"
+                            x:Uid="BtnVolumnOn"
+                            Visibility="Collapsed"
+                            Click="BtnVolumn_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE767;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Name="BtnVolumnOff"
+                            x:Uid="BtnVolumnOff"
+                            Visibility="Collapsed"
+                            Click="BtnVolumn_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE74F;" />
+                </MenuFlyoutItem.Icon>
+            </MenuFlyoutItem>
+            <MenuFlyoutSeparator />
+            <MenuFlyoutItem Name="BtnSave"
+                            x:Uid="BtnSave"
+                            IsEnabled="False"
+                            Click="BtnSave_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE896;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="S" Modifiers="Control" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Name="BtnNext"
+                            x:Uid="BtnNext"
+                            Click="BtnNext_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xEB9E;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Left" Modifiers="None" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutSeparator />
+            <MenuFlyoutSubItem Name="BtnPush"
+                               x:Uid="BtnPush">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xECC5;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnPushNone"
+                                          x:Uid="BtnPushNone"
+                                          Click="BtnPush_Click"
+                                          Tag=""
+                                          GroupName="Push" />
+                <muxc:RadioMenuFlyoutItem Name="BtnPushDesktop"
+                                          x:Uid="BtnPushDesktop"
+                                          Click="BtnPush_Click"
+                                          Tag="desktop"
+                                          GroupName="Push" />
+                <muxc:RadioMenuFlyoutItem Name="BtnPushLock"
+                                          x:Uid="BtnPushLock"
+                                          Click="BtnPush_Click"
+                                          Tag="lock"
+                                          GroupName="Push" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnProvider"
+                               x:Uid="BtnProvider">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE81E;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderBing"
+                                          x:Uid="BtnProviderBing"
+                                          Tag="bing"
+                                          Click="BtnProvider_Click"
+                                          GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderNasa"
+                                          x:Uid="BtnProviderNasa"
+                                          Click="BtnProvider_Click"
+                                          Tag="nasa"
+                                          GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderOneplus"
+                                          x:Uid="BtnProviderOneplus"
+                                          Click="BtnProvider_Click"
+                                          Tag="oneplus"
+                                          GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProvider3G"
+                                          x:Uid="BtnProvider3G"
+                                          Click="BtnProvider_Click"
+                                          Tag="3g"
+                                          GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderDaihan"
+                                          x:Uid="BtnProviderDaihan"
+                                          Click="BtnProvider_Click"
+                                          Tag="daihan"
+                                          GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderYmyouli"
+                                          x:Uid="BtnProviderYmyouli"
+                                          Click="BtnProvider_Click"
+                                          Tag="ymyouli"
+                                          GroupName="Provider" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnBingLang"
+                               x:Uid="BtnBingLang"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE774;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnBingLangDef"
+                                          x:Uid="BtnBingLangDef"
+                                          Tag=""
+                                          Click="BtnBingLang_Click"
+                                          GroupName="BingLang" />
+                <muxc:RadioMenuFlyoutItem Name="BtnBingLangCn"
+                                          x:Uid="BtnBingLangCn"
+                                          Tag="zh-cn"
+                                          Click="BtnBingLang_Click"
+                                          GroupName="BingLang" />
+                <muxc:RadioMenuFlyoutItem Name="BtnBingLangUs"
+                                          x:Uid="BtnBingLangUs"
+                                          Click="BtnBingLang_Click"
+                                          Tag="en-us"
+                                          GroupName="BingLang" />
+                <muxc:RadioMenuFlyoutItem Name="BtnBingLangJp"
+                                          x:Uid="BtnBingLangJp"
+                                          Click="BtnBingLang_Click"
+                                          Tag="ja-jp"
+                                          GroupName="BingLang" />
+                <muxc:RadioMenuFlyoutItem Name="BtnBingLangDe"
+                                          x:Uid="BtnBingLangDe"
+                                          Click="BtnBingLang_Click"
+                                          Tag="de-de"
+                                          GroupName="BingLang" />
+                <muxc:RadioMenuFlyoutItem Name="BtnBingLangFr"
+                                          x:Uid="BtnBingLangFr"
+                                          Click="BtnBingLang_Click"
+                                          Tag="fr-fr"
+                                          GroupName="BingLang" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnNasaMirror"
+                               x:Uid="BtnNasaMirror"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE774;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnNasaMirrorDef"
+                                          x:Uid="BtnNasaMirrorDef"
+                                          Tag=""
+                                          Click="BtnNasaMirror_Click"
+                                          GroupName="NasaMirror" />
+                <muxc:RadioMenuFlyoutItem Name="BtnNasaMirrorBjp"
+                                          x:Uid="BtnNasaMirrorBjp"
+                                          Tag="bjp"
+                                          Click="BtnNasaMirror_Click"
+                                          GroupName="NasaMirror" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnOneplusSort"
+                               x:Uid="BtnOneplusSort"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE8CB;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnOneplusSort1"
+                                          x:Uid="BtnOneplusSort1"
+                                          Tag="date"
+                                          Click="BtnOneplusSort_Click"
+                                          GroupName="OneplusSort" />
+                <muxc:RadioMenuFlyoutItem Name="BtnOneplusSort2"
+                                          x:Uid="BtnOneplusSort2"
+                                          Tag="rate"
+                                          Click="BtnOneplusSort_Click"
+                                          GroupName="OneplusSort" />
+                <muxc:RadioMenuFlyoutItem Name="BtnOneplusSort3"
+                                          x:Uid="BtnOneplusSort3"
+                                          Tag="view"
+                                          Click="BtnOneplusSort_Click"
+                                          GroupName="OneplusSort" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="Btn3GSort"
+                               x:Uid="Btn3GSort"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE8CB;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="Btn3GSort1"
+                                          x:Uid="Btn3GSort1"
+                                          Tag="date"
+                                          Click="Btn3GSort_Click"
+                                          GroupName="3GSort" />
+                <muxc:RadioMenuFlyoutItem Name="Btn3GSort2"
+                                          x:Uid="Btn3GSort2"
+                                          Tag="view"
+                                          Click="Btn3GSort_Click"
+                                          GroupName="3GSort" />
+            </MenuFlyoutSubItem>
+            <!--<MenuFlyoutSubItem Name="BtnPixivelSanity"
+                               x:Uid="BtnPixivelSanity"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE8C9;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnPixivelSanity5"
+                                          x:Uid="BtnPixivelSanity5"
+                                          Tag="5"
+                                          Click="BtnPixivelSanity_Click"
+                                          GroupName="PixivelSanity" />
+                <muxc:RadioMenuFlyoutItem Name="BtnPixivelSanity10"
+                                          x:Uid="BtnPixivelSanity10"
+                                          Tag="10"
+                                          Click="BtnPixivelSanity_Click"
+                                          GroupName="PixivelSanity" />
+            </MenuFlyoutSubItem>-->
+            <MenuFlyoutSubItem Name="BtnYmyouliCol"
+                               x:Uid="BtnYmyouliCol"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE8F1;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliColDef"
+                                          x:Uid="BtnYmyouliColDef"
+                                          Tag=""
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliCol126"
+                                          x:Uid="BtnYmyouliCol126"
+                                          Tag="126"
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliCol182"
+                                          x:Uid="BtnYmyouliCol182"
+                                          Tag="182"
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliCol183"
+                                          x:Uid="BtnYmyouliCol183"
+                                          Tag="183"
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliCol215"
+                                          x:Uid="BtnYmyouliCol215"
+                                          Tag="215"
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliCol184"
+                                          x:Uid="BtnYmyouliCol184"
+                                          Tag="184"
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+                <muxc:RadioMenuFlyoutItem Name="BtnYmyouliCol185"
+                                          x:Uid="BtnYmyouliCol185"
+                                          Tag="185"
+                                          Click="BtnYmyouliCol_Click"
+                                          GroupName="YmyouliCol" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutItem Name="BtnIni"
+                            x:Uid="BtnIni"
+                            KeyboardAcceleratorTextOverride=""
+                            Click="BtnIni_Click">
+                <MenuFlyoutItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE713;" />
+                </MenuFlyoutItem.Icon>
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="O" Modifiers="Control" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutSeparator />
+            <MenuFlyoutItem x:Uid="BtnAbout"
+                            IsEnabled="False" />
+            <MenuFlyoutItem x:Uid="BtnContact"
+                            IsEnabled="False" />
+        </MenuFlyout>
+
+        <!--<muxc:TeachingTip x:Name="TipPreview"
+                          Target="{x:Bind ViewBar}"
+                          Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                          IsLightDismissEnabled="False"
+                          PreferredPlacement="Auto"
+                          HeroContentPlacement="Auto">
+            <muxc:TeachingTip.HeroContent>
+                <Image Name="ImgPreview"
+                       Stretch="Uniform"
+                       MaxHeight="456" />
+            </muxc:TeachingTip.HeroContent>
+        </muxc:TeachingTip>-->
+
+    </Page.Resources>
+
+    <RelativePanel>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ViewBar.Margin" Value="24" />
+                        <Setter Target="ViewBar.Padding" Value="16,12" />
+                        <Setter Target="ViewBar.CornerRadius" Value="14" />
+                        <Setter Target="Info.Margin" Value="24,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!--<Image Name="ImgUhd"
+               Opacity="0"
+               Source="Assets/StoreLogo.scale-100.png"
+               Scale="1.014,1.014,1.014"
+               KeyboardAcceleratorPlacementMode="Hidden"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               ContextFlyout="{x:Bind FlyoutMenu}"
+               DoubleTapped="ImgUhd_DoubleTapped"
+               Stretch="UniformToFill">
+            <Image.OpacityTransition>
+                <ScalarTransition />
+            </Image.OpacityTransition>
+            <Image.ScaleTransition>
+                <Vector3Transition />
+            </Image.ScaleTransition>
+            <Image.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Right" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Up" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Down" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
+            </Image.KeyboardAccelerators>
+        </Image>-->
+
+        <MediaPlayerElement Name="ImgUhd"
+                            Opacity="0"
+                            PosterSource="Assets/StoreLogo.png"
+                            Scale="1.014,1.014,1.014"
+                            KeyboardAcceleratorPlacementMode="Hidden"
+                            ContextFlyout="{x:Bind FlyoutMenu}"
+                            AreTransportControlsEnabled="False"
+                            AutoPlay="True"
+                            Stretch="UniformToFill"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True"
+                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                            DoubleTapped="ImgUhd_DoubleTapped"
+                            PointerWheelChanged="ImgUhd_PointerWheelChanged">
+            <MediaPlayerElement.OpacityTransition>
+                <ScalarTransition />
+            </MediaPlayerElement.OpacityTransition>
+            <MediaPlayerElement.ScaleTransition>
+                <Vector3Transition />
+            </MediaPlayerElement.ScaleTransition>
+            <MediaPlayerElement.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Right" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Up" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Down" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
+            </MediaPlayerElement.KeyboardAccelerators>
+        </MediaPlayerElement>
+
+        <StackPanel Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                    Name="ViewBar"
+                    RelativePanel.AlignBottomWithPanel="True"
+                    MaxWidth="640"
+                    Margin="12"
+                    Padding="12,10"
+                    CornerRadius="12"
+                    PointerEntered="ViewBar_PointerEntered"
+                    PointerExited="ViewBar_PointerExited">
+
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition IsStaggeringEnabled="True" />
+                </TransitionCollection>
+            </StackPanel.Transitions>
+
+            <TextBlock Name="TextTitle"
+                       x:Uid="TextTitle"
+                       Style="{StaticResource SubtitleTextBlockStyle}"
+                       TextWrapping="NoWrap"
+                       TextTrimming="CharacterEllipsis">
+            </TextBlock>
+
+            <muxc:ProgressBar Name="ProgressLoading"
+                              Margin="0,8,0,0"
+                              ShowPaused="False"
+                              ShowError="False"
+                              IsIndeterminate="True" />
+
+            <TextBlock Name="TextDetailCaption"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       TextWrapping="NoWrap"
+                       TextTrimming="CharacterEllipsis"
+                       Visibility="Collapsed"
+                       Margin="0,8,0,0"
+                       IsTextSelectionEnabled="True" />
+            <TextBlock Name="TextDetailLocation"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       TextWrapping="NoWrap"
+                       TextTrimming="CharacterEllipsis"
+                       Visibility="Collapsed"
+                       Margin="0,8,0,0"
+                       IsTextSelectionEnabled="True" />
+            <TextBlock Name="TextDetailDesc"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       TextWrapping="Wrap"
+                       Margin="0,8,0,0"
+                       Visibility="Collapsed"
+                       IsTextSelectionEnabled="True" />
+            <TextBlock Name="TextDetailCopyright"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       IsTextSelectionEnabled="True"
+                       Margin="0,8,0,0"
+                       Visibility="Collapsed"
+                       TextWrapping="NoWrap"
+                       TextTrimming="CharacterEllipsis" />
+            <TextBlock Name="TextDetailDate"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       TextWrapping="NoWrap"
+                       Visibility="Collapsed"
+                       TextTrimming="CharacterEllipsis"
+                       Margin="0,8,0,0" />
+            <TextBlock Name="TextDetailSize"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       TextWrapping="NoWrap"
+                       Visibility="Collapsed"
+                       TextTrimming="CharacterEllipsis"
+                       Opacity="0.8"
+                       Margin="0,8,0,0" />
+
+        </StackPanel>
+
+        <muxc:InfoBar Name="Info"
+                      RelativePanel.Above="ViewBar"
+                      Margin="12,0"
+                      IsOpen="False" />
+
+    </RelativePanel>
+    
+</Page>
