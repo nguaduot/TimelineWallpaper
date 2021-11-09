@@ -4,6 +4,14 @@
 
 > 拾光如歌，岁月如诗。拾光，每日一景
 
+## 开始
+
+如果想安装哔哩，请打开右侧的 [Release](https://github.com/nuaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。
+
+在应用压缩包下载完成后，解压压缩包，找到 `install.ps1` 脚本，右键 **使用 PowerShell 运行**，根据提示进行安装。
+
+**Watch** 项目，以获取应用的更新动态。
+
 ## 图源
 
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
