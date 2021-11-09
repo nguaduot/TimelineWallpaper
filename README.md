@@ -1,6 +1,7 @@
 # 拾光 for Windows 11
 
 [![img](https://img.shields.io/github/release/nguaduot/TimelineWallpaper?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC)](https://github.com/nguaduot/TimelineWallpaper/releases)
+![GitHub All Releases](https://img.shields.io/github/downloads/nguaduot/TimelineWallpaper/total)
 
 > 拾光如歌，岁月如诗。拾光，每日一景
 
