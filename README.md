@@ -5,6 +5,8 @@
 
 > 拾光如歌，岁月如诗。拾光，每日一景
 
+`拾光` 是一款壁纸应用，集成丰富图源，每日推送桌面/锁屏，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 系统。
+
 ## 开始
 
 如果想安装哔哩，请打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。
