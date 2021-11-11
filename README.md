@@ -1,6 +1,6 @@
 # 拾光 for Windows 11
 
-[![img](https://img.shields.io/github/release/nguaduot/TimelineWallpaper?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC)](https://github.com/nguaduot/TimelineWallpaper/releases)
+[![img](https://img.shields.io/github/release/nguaduot/TimelineWallpaper)](https://github.com/nguaduot/TimelineWallpaper/releases)
 ![GitHub All Releases](https://img.shields.io/github/downloads/nguaduot/TimelineWallpaper/total)
 
 > 拾光如歌，岁月如诗。拾光，每日一景
@@ -25,6 +25,8 @@
 + [呆憨API](https://api.daihan.top/html/acg.html) - 随机二次元ACG图片
 + [Pixivel](https://pixivel.moe) - Pixel 图片缓存/代理
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
+
+*特别注明：所有图源均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。*
 
 # 截图
 
