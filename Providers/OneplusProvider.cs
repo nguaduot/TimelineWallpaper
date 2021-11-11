@@ -50,7 +50,7 @@ namespace TimelineWallpaper.Providers {
             }
 
             // "1"：最新添加，"2"：点赞最多，"3"：浏览最多
-            string sort = "rate".Equals(ini.OnePlus.Sort) ? "2" : ("view".Equals(ini.OnePlus.Sort) ? "3" : "1");
+            string sort = "rate".Equals(ini.OnePlus.Order) ? "2" : ("view".Equals(ini.OnePlus.Order) ? "3" : "1");
             OneplusRequest request = new OneplusRequest {
                 PageSize = 14, // 不限
                 CurrentPage = nextPage++,

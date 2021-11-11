@@ -42,10 +42,10 @@ namespace TimelineWallpaper.Providers {
                 meta.Id = bean.Video;
                 meta.Video = bean.Video.Split("?")[0];
             }
-            Match match = Regex.Match(meta.Id, @"https://lofter.lf127.net/(.+?)/(.+?)(\..+?)");
+            Match match = Regex.Match(meta.Id, @"https://lofter.lf127.net/(.+?)/[^\.]+(\.[^\?]+)");
             if (match.Success) {
-                meta.Id = match.Groups[1].Value + match.Groups[2].Value;
-                meta.Format = match.Groups[3].Value;
+                meta.Id = match.Groups[1].Value;
+                meta.Format = match.Groups[2].Value;
             }
 
             return meta;

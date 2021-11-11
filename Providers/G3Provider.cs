@@ -57,7 +57,7 @@ namespace TimelineWallpaper.Providers {
         }
 
         public override async Task<bool> LoadData(Ini ini) {
-            bool sortByHot = "view".Equals(ini.G3.Sort);
+            bool sortByHot = "view".Equals(ini.G3.Order);
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus + 1 < metas.Count || (sortByHot && nextPage > 1)) {
                 return true;

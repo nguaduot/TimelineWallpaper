@@ -109,24 +109,16 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
-        private void BtnOneplusSort_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveOneplusSort(((RadioMenuFlyoutItem)sender).Tag.ToString());
+        private void BtnOneplusOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveOneplusOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
             provider = null;
             StatusLoading();
             LoadFocusAsync();
         }
 
-        private void Btn3GSort_Click(object sender, RoutedEventArgs e) {
-            IniUtil.Save3GSort(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnPixivelSanity_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SavePixivelSanity(((RadioMenuFlyoutItem)sender).Tag.ToString());
+        private void Btn3GOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.Save3GOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
             provider = null;
             StatusLoading();
@@ -141,14 +133,27 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
+        private void BtnInfinityOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveInfinityOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
         private void BtnIni_Click(object sender, RoutedEventArgs e) {
             LaunchIni();
+        }
+
+        private void BtnLibPic_Click(object sender, RoutedEventArgs e) {
+            LaunchPicLib();
+            ToggleInfo(null);
         }
 
         private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
             ProgressLoading.Visibility = Visibility.Visible;
             ToggleStory(true);
-            Info.IsOpen = false;
+            ToggleInfo(null);
         }
 
         private void ViewBar_PointerExited(object sender, PointerRoutedEventArgs e) {
@@ -156,7 +161,7 @@ namespace TimelineWallpaper {
                 ProgressLoading.Visibility = Visibility.Collapsed;
             }
             ToggleStory(false);
-            Info.IsOpen = false;
+            ToggleInfo(null);
         }
 
         private void ImgUhd_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
@@ -212,17 +217,6 @@ namespace TimelineWallpaper {
                     break;
             }
             args.Handled = true;
-        }
-
-        private void ImgBiOpend(object sender, RoutedEventArgs e) {
-            //float ratioImg = (float)bi.PixelWidth / bi.PixelHeight;
-            //float ratioWin = Window.Current.Content.ActualSize.X / Window.Current.Content.ActualSize.Y;
-            //TipPreview.IsOpen = Math.Abs(ratioImg - ratioWin) / ratioWin > 0.1;
-            string imgSize = sender is BitmapImage bi ? bi.PixelWidth + "x" + bi.PixelHeight : "0x0";
-            StorageFile file = meta.CacheUhd ?? meta.CacheVideo ?? meta.CacheAudio;
-            string fileSize = FileUtil.ConvertFileSize(file != null ? new FileInfo(file.Path).Length : 0);
-            TextDetailSize.Text = string.Format("{0} | {1}, {2}",
-                resLoader.GetString("Provider_" + provider.Id), imgSize, fileSize);
         }
 
         private async void LoadFocusAsync() {
@@ -321,21 +315,18 @@ namespace TimelineWallpaper {
             }
 
             BtnProviderBing.IsChecked = BtnProviderBing.Tag.Equals(ini.Provider);
-            BtnBingLang.Visibility = BtnProviderBing.IsChecked
-                ? Visibility.Visible : Visibility.Collapsed;
+            BtnBingLang.Visibility = BtnProviderBing.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderNasa.IsChecked = BtnProviderNasa.Tag.Equals(ini.Provider);
-            BtnNasaMirror.Visibility = BtnProviderNasa.IsChecked
-                ? Visibility.Visible : Visibility.Collapsed;
+            BtnNasaMirror.Visibility = BtnProviderNasa.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderOneplus.IsChecked = BtnProviderOneplus.Tag.Equals(ini.Provider);
-            BtnOneplusSort.Visibility = BtnProviderOneplus.IsChecked
-                ? Visibility.Visible : Visibility.Collapsed;
+            BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProvider3G.IsChecked = BtnProvider3G.Tag.Equals(ini.Provider);
-            Btn3GSort.Visibility = BtnProvider3G.IsChecked
-                ? Visibility.Visible : Visibility.Collapsed;
+            Btn3GOrder.Visibility = BtnProvider3G.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderDaihan.IsChecked = BtnProviderDaihan.Tag.Equals(ini.Provider);
             BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
-            BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked
-                ? Visibility.Visible : Visibility.Collapsed;
+            BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
+            BtnInfinityOrder.Visibility = BtnProviderInfinity.IsChecked ? Visibility.Visible : Visibility.Collapsed;
 
             BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(ini.Bing.Lang);
             BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(ini.Bing.Lang);
@@ -345,11 +336,11 @@ namespace TimelineWallpaper {
             BtnBingLangFr.IsChecked = BtnBingLangFr.Tag.Equals(ini.Bing.Lang);
             BtnNasaMirrorDef.IsChecked = BtnNasaMirrorDef.Tag.Equals(ini.Nasa.Mirror);
             BtnNasaMirrorBjp.IsChecked = BtnNasaMirrorBjp.Tag.Equals(ini.Nasa.Mirror);
-            BtnOneplusSort1.IsChecked = BtnOneplusSort1.Tag.Equals(ini.OnePlus.Sort);
-            BtnOneplusSort2.IsChecked = BtnOneplusSort2.Tag.Equals(ini.OnePlus.Sort);
-            BtnOneplusSort3.IsChecked = BtnOneplusSort3.Tag.Equals(ini.OnePlus.Sort);
-            Btn3GSort1.IsChecked = Btn3GSort1.Tag.Equals(ini.G3.Sort);
-            Btn3GSort2.IsChecked = Btn3GSort2.Tag.Equals(ini.G3.Sort);
+            BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(ini.OnePlus.Order);
+            BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(ini.OnePlus.Order);
+            BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(ini.OnePlus.Order);
+            Btn3GOrder1.IsChecked = Btn3GOrder1.Tag.Equals(ini.G3.Order);
+            Btn3GOrder2.IsChecked = Btn3GOrder2.Tag.Equals(ini.G3.Order);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);
@@ -357,6 +348,8 @@ namespace TimelineWallpaper {
             BtnYmyouliCol215.IsChecked = BtnYmyouliCol215.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol184.IsChecked = BtnYmyouliCol184.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol185.IsChecked = BtnYmyouliCol184.Tag.Equals(ini.Ymyouli.Col);
+            BtnInfinityOrder0.IsChecked = BtnInfinityOrder0.Tag.Equals(ini.Infinity.Order);
+            BtnInfinityOrder1.IsChecked = BtnInfinityOrder1.Tag.Equals(ini.Infinity.Order);
             return true;
         }
 
@@ -383,6 +376,8 @@ namespace TimelineWallpaper {
             TextDetailCopyright.Text = meta.Copyright ?? "";
             // 日期
             TextDetailDate.Text = meta.Date?.ToLongDateString();
+            // 文件属性
+            TextDetailProperties.Text = "";
         }
 
         private void ShowImg(Meta meta) {
@@ -390,48 +385,36 @@ namespace TimelineWallpaper {
                 StatusError();
                 return;
             }
+            ImgUhd.Source = meta.CacheVideo != null ? MediaSource.CreateFromStorageFile(meta.CacheVideo) : null;
             if (meta.CacheUhd != null) {
-                ImgUhd.Source = null;
                 BitmapImage biUhd = new BitmapImage();
                 ImgUhd.PosterSource = biUhd;
-                //biUhd.DecodePixelType = DecodePixelType.Logical;
-                //biUhd.DecodePixelWidth = (int)Window.Current.Content.ActualSize.X;
-                //biUhd.DecodePixelHeight = (int)Window.Current.Content.ActualSize.Y;
-                biUhd.ImageOpened += ImgBiOpend;
+                if (meta.Dimen.Width > Window.Current.Content.ActualSize.X
+                    && meta.Dimen.Height > Window.Current.Content.ActualSize.Y) {
+                    biUhd.DecodePixelType = DecodePixelType.Logical;
+                    if (meta.Dimen.Width / Window.Current.Content.ActualSize.X
+                        > meta.Dimen.Height / Window.Current.Content.ActualSize.Y) {
+                        biUhd.DecodePixelHeight = (int)Window.Current.Content.ActualSize.Y;
+                    } else {
+                        biUhd.DecodePixelWidth = (int)Window.Current.Content.ActualSize.X;
+                    }
+                }
                 biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
-            } else if (meta.CacheVideo != null) {
-                ImgUhd.PosterSource = null;
-                ImgUhd.Source = meta.CacheVideo != null ? MediaSource.CreateFromStorageFile(meta.CacheVideo) : null;
-                //MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
-                //MediaComposition mediaComposition = new MediaComposition();
-                //mediaComposition.Clips.Add(mediaClip);
-                //BitmapImage bi = new BitmapImage();
-                //ImgPreview.Source = bi;
-                //bi.ImageOpened += ImgBiOpend;
-                //bi.SetSource(await mediaComposition.GetThumbnailAsync(
-                //    TimeSpan.FromMilliseconds(5000), 0, 0, VideoFramePrecision.NearestFrame));
             } else {
-                ImgUhd.Source = null;
                 ImgUhd.PosterSource = null;
             }
 
-            BtnSetDesktop.Visibility = meta.CacheUhd != null ? Visibility.Visible : Visibility.Collapsed;
-            BtnSetLock.Visibility = meta.CacheUhd != null ? Visibility.Visible : Visibility.Collapsed;
+            StorageFile file = meta.CacheUhd ?? meta.CacheVideo ?? meta.CacheAudio;
+            string fileSize = FileUtil.ConvertFileSize(file != null ? new FileInfo(file.Path).Length : 0);
+            TextDetailProperties.Text = string.Format(resLoader.GetString("DetailSize"),
+                resLoader.GetString("Provider_" + provider.Id), meta.Dimen.Width, meta.Dimen.Height, fileSize);
+            BtnSetDesktop.IsEnabled = meta.CacheUhd != null;
+            BtnSetLock.IsEnabled = meta.CacheUhd != null;
             BtnVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && ImgUhd.MediaPlayer.Volume == 0
                 ? Visibility.Visible : Visibility.Collapsed;
             BtnVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && ImgUhd.MediaPlayer.Volume > 0
                 ? Visibility.Visible : Visibility.Collapsed;
             BtnSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
-
-            //SolidColorBrush brush;
-            //if (meta.Dominant != null) {
-            //    brush = meta.Dominant;
-            //} else {
-            //    UISettings uiSettings = new UISettings();
-            //    brush = new SolidColorBrush(uiSettings.GetColorValue(UIColorType.Accent));
-            //}
-            //ColorBar1.Fill = brush;
-            //ColorBar2.Fill = brush;
 
             StatusEnjoy();
         }
@@ -450,7 +433,7 @@ namespace TimelineWallpaper {
             ProgressLoading.ShowPaused = false;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = Visibility.Visible;
-            Info.IsOpen = false;
+            ToggleInfo(null);
         }
 
         private void StatusError() {
@@ -461,28 +444,28 @@ namespace TimelineWallpaper {
             TextDetailDesc.Text = "";
             TextDetailCopyright.Text = "";
             TextDetailDate.Text = "";
+            TextDetailProperties.Text = "";
             ProgressLoading.ShowError = true;
             ProgressLoading.Visibility = Visibility.Visible;
-            if (!NetworkInterface.GetIsNetworkAvailable()) {
-                Info.Message = resLoader.GetString("MsgNoInternet");
-            } else {
-                Info.Message = resLoader.GetString("MsgLostProvider");
-            }
-            Info.Severity = InfoBarSeverity.Error;
-            Info.Title = resLoader.GetString("TitleErrLoad");
-            Info.IsOpen = true;
+
+            BtnSetDesktop.IsEnabled = false;
+            BtnSetLock.IsEnabled = false;
+            BtnVolumnOn.Visibility = Visibility.Collapsed;
+            BtnVolumnOff.Visibility = Visibility.Collapsed;
+            BtnSave.IsEnabled = false;
+
+            ToggleInfo(!NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
+                : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
         }
 
         private async void DownloadAsync() {
-            if (await BaseProvider.Download(provider, meta)) {
-                Info.Severity = InfoBarSeverity.Success;
-                Info.Message = resLoader.GetString("MsgSave1");
+            bool res = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
+                resLoader.GetString("Provider_" + provider.Id));
+            if (res) {
+                ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, true);
             } else {
-                Info.Severity = InfoBarSeverity.Error;
-                Info.Message = resLoader.GetString("MsgSave0");
+                ToggleInfo(resLoader.GetString("MsgSave0"));
             }
-            Info.Title = resLoader.GetStringForUri(new Uri("ms-resource:///Resources/BtnSave/Text"));
-            Info.IsOpen = true;
         }
 
         private async void SetWallpaperAsync(Meta meta, bool setDesktopOrLock) {
@@ -490,14 +473,8 @@ namespace TimelineWallpaper {
                 return;
             }
 
-            string title = resLoader.GetStringForUri(new Uri(setDesktopOrLock
-                ? "ms-resource:///Resources/BtnSetDesktop/Text"
-                : "ms-resource:///Resources/BtnSetLock/Text"));
             if (!UserProfilePersonalizationSettings.IsSupported()) {
-                Info.Severity = InfoBarSeverity.Error;
-                Info.Message = resLoader.GetString("MsgWallpaper0");
-                Info.Title = title;
-                Info.IsOpen = true;
+                ToggleInfo(resLoader.GetString("MsgWallpaper0"));
                 return;
             }
             // Your app can't set wallpapers from any folder.
@@ -510,18 +487,27 @@ namespace TimelineWallpaper {
                 ? await profileSettings.TrySetWallpaperImageAsync(fileWallpaper)
                 : await profileSettings.TrySetLockScreenImageAsync(fileWallpaper);
             if (wallpaperSet) {
-                Info.Severity = InfoBarSeverity.Success;
-                Info.Message = resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop1" : "MsgSetLock1");
+                ToggleInfo(resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop1" : "MsgSetLock1"), InfoBarSeverity.Success);
             } else {
-                Info.Severity = InfoBarSeverity.Error;
-                Info.Message = resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop0" : "MsgSetLock0");
+                ToggleInfo(resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop0" : "MsgSetLock0"));
             }
-            Info.Title = title;
-            Info.IsOpen = true;
         }
 
         private async void LaunchIni() {
-            _ = await Launcher.LaunchFileAsync(await IniUtil.GetIniPath());
+            try {
+                _ = await Launcher.LaunchFileAsync(await IniUtil.GetIniPath());
+            } catch (Exception) {
+                Debug.WriteLine("launch file failed");
+            }
+        }
+
+        private async void LaunchPicLib() {
+            try {
+                var folder = await KnownFolders.PicturesLibrary.GetFolderAsync(resLoader.GetString("AppNameShort"));
+                _ = await Launcher.LaunchFolderAsync(folder);
+            } catch (Exception) {
+                Debug.WriteLine("launch folder failed");
+            }
         }
 
         private void ToggleFullscreenMode() {
@@ -547,15 +533,26 @@ namespace TimelineWallpaper {
                 TextDetailDesc.Visibility = TextDetailDesc.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
                 TextDetailCopyright.Visibility = TextDetailCopyright.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
                 TextDetailDate.Visibility = TextDetailDate.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailSize.Visibility = TextDetailSize.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+                TextDetailProperties.Visibility = TextDetailProperties.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
             } else {
                 TextDetailCaption.Visibility = Visibility.Collapsed;
                 TextDetailLocation.Visibility = Visibility.Collapsed;
                 TextDetailDesc.Visibility = Visibility.Collapsed;
                 TextDetailCopyright.Visibility = Visibility.Collapsed;
                 TextDetailDate.Visibility = Visibility.Collapsed;
-                TextDetailSize.Visibility = Visibility.Collapsed;
+                TextDetailProperties.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void ToggleInfo(string msg, InfoBarSeverity severity = InfoBarSeverity.Error, bool linkLibPic = false) {
+            if (string.IsNullOrEmpty(msg)) {
+                Info.IsOpen = false;
+                return;
+            }
+            Info.Severity = severity;
+            Info.Message = msg;
+            BtnLibPic.Visibility = linkLibPic ? Visibility.Visible : Visibility.Collapsed;
+            Info.IsOpen = true;
         }
 
         //private void UpdateTile(Meta meta) {
@@ -620,10 +617,7 @@ namespace TimelineWallpaper {
             Debug.WriteLine("RequestAccessAsync: " + reqStatus);
             if (reqStatus != BackgroundAccessStatus.AlwaysAllowed
                 && reqStatus != BackgroundAccessStatus.AllowedSubjectToSystemPolicy) {
-                Info.Severity = InfoBarSeverity.Error;
-                Info.Message = resLoader.GetString("TitleErrPush");
-                Info.Title = resLoader.GetString("MsgNoPermission");
-                Info.IsOpen = true;
+                ToggleInfo(resLoader.GetString("TitleErrPush"));
                 return false;
             }
             if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(BG_TASK_NAME_TIMER))) {

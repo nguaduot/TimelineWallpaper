@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Windows.Storage;
 using Windows.UI.Xaml.Media;
 
@@ -39,6 +40,9 @@ namespace TimelineWallpaper.Beans {
 
         // 文件格式
         public string Format { set; get; }
+
+        // 原图/视频尺寸
+        public Size Dimen { set; get; }
 
         // 原图本地缓存文件
         public StorageFile CacheUhd { set; get; }

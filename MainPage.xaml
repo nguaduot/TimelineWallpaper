@@ -15,7 +15,7 @@
         <MenuFlyout x:Name="FlyoutMenu">
             <MenuFlyoutItem Name="BtnSetDesktop"
                             x:Uid="BtnSetDesktop"
-                            Visibility="Collapsed"
+                            IsEnabled="False"
                             Click="BtnSetDesktop_Click">
                 <MenuFlyoutItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons"
@@ -27,7 +27,7 @@
             </MenuFlyoutItem>
             <MenuFlyoutItem Name="BtnSetLock"
                             x:Uid="BtnSetLock"
-                            Visibility="Collapsed"
+                            IsEnabled="False"
                             Click="BtnSetLock_Click">
                 <MenuFlyoutItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons"
@@ -138,6 +138,11 @@
                                           Click="BtnProvider_Click"
                                           Tag="ymyouli"
                                           GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderInfinity"
+                                          x:Uid="BtnProviderInfinity"
+                                          Click="BtnProvider_Click"
+                                          Tag="infinity"
+                                          GroupName="Provider" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnBingLang"
                                x:Uid="BtnBingLang"
@@ -195,46 +200,46 @@
                                           Click="BtnNasaMirror_Click"
                                           GroupName="NasaMirror" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Name="BtnOneplusSort"
-                               x:Uid="BtnOneplusSort"
+            <MenuFlyoutSubItem Name="BtnOneplusOrder"
+                               x:Uid="BtnOneplusOrder"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons"
                               Glyph="&#xE8CB;" />
                 </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="BtnOneplusSort1"
-                                          x:Uid="BtnOneplusSort1"
+                <muxc:RadioMenuFlyoutItem Name="BtnOneplusOrder1"
+                                          x:Uid="BtnOneplusOrder1"
                                           Tag="date"
-                                          Click="BtnOneplusSort_Click"
-                                          GroupName="OneplusSort" />
-                <muxc:RadioMenuFlyoutItem Name="BtnOneplusSort2"
-                                          x:Uid="BtnOneplusSort2"
+                                          Click="BtnOneplusOrder_Click"
+                                          GroupName="OneplusOrder" />
+                <muxc:RadioMenuFlyoutItem Name="BtnOneplusOrder2"
+                                          x:Uid="BtnOneplusOrder2"
                                           Tag="rate"
-                                          Click="BtnOneplusSort_Click"
-                                          GroupName="OneplusSort" />
-                <muxc:RadioMenuFlyoutItem Name="BtnOneplusSort3"
-                                          x:Uid="BtnOneplusSort3"
+                                          Click="BtnOneplusOrder_Click"
+                                          GroupName="OneplusOrder" />
+                <muxc:RadioMenuFlyoutItem Name="BtnOneplusOrder3"
+                                          x:Uid="BtnOneplusOrder3"
                                           Tag="view"
-                                          Click="BtnOneplusSort_Click"
-                                          GroupName="OneplusSort" />
+                                          Click="BtnOneplusOrder_Click"
+                                          GroupName="OneplusOrder" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Name="Btn3GSort"
-                               x:Uid="Btn3GSort"
+            <MenuFlyoutSubItem Name="Btn3GOrder"
+                               x:Uid="Btn3GOrder"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons"
                               Glyph="&#xE8CB;" />
                 </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="Btn3GSort1"
-                                          x:Uid="Btn3GSort1"
+                <muxc:RadioMenuFlyoutItem Name="Btn3GOrder1"
+                                          x:Uid="Btn3GOrder1"
                                           Tag="date"
-                                          Click="Btn3GSort_Click"
-                                          GroupName="3GSort" />
-                <muxc:RadioMenuFlyoutItem Name="Btn3GSort2"
-                                          x:Uid="Btn3GSort2"
+                                          Click="Btn3GOrder_Click"
+                                          GroupName="3GOrder" />
+                <muxc:RadioMenuFlyoutItem Name="Btn3GOrder2"
+                                          x:Uid="Btn3GOrder2"
                                           Tag="view"
-                                          Click="Btn3GSort_Click"
-                                          GroupName="3GSort" />
+                                          Click="Btn3GOrder_Click"
+                                          GroupName="3GOrder" />
             </MenuFlyoutSubItem>
             <!--<MenuFlyoutSubItem Name="BtnPixivelSanity"
                                x:Uid="BtnPixivelSanity"
@@ -297,6 +302,24 @@
                                           Click="BtnYmyouliCol_Click"
                                           GroupName="YmyouliCol" />
             </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnInfinityOrder"
+                               x:Uid="BtnInfinityOrder"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons"
+                              Glyph="&#xE8CB;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnInfinityOrder0"
+                                          x:Uid="BtnInfinityOrder0"
+                                          Tag=""
+                                          Click="BtnInfinityOrder_Click"
+                                          GroupName="InfinityOrder" />
+                <muxc:RadioMenuFlyoutItem Name="BtnInfinityOrder1"
+                                          x:Uid="BtnInfinityOrder1"
+                                          Tag="rate"
+                                          Click="BtnInfinityOrder_Click"
+                                          GroupName="InfinityOrder" />
+            </MenuFlyoutSubItem>
             <MenuFlyoutItem Name="BtnIni"
                             x:Uid="BtnIni"
                             KeyboardAcceleratorTextOverride=""
@@ -343,7 +366,7 @@
                         <Setter Target="ViewBar.Margin" Value="24" />
                         <Setter Target="ViewBar.Padding" Value="16,12" />
                         <Setter Target="ViewBar.CornerRadius" Value="14" />
-                        <Setter Target="Info.Margin" Value="24,0" />
+                        <Setter Target="Info.Margin" Value="24" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -468,7 +491,7 @@
                        Visibility="Collapsed"
                        TextTrimming="CharacterEllipsis"
                        Margin="0,8,0,0" />
-            <TextBlock Name="TextDetailSize"
+            <TextBlock Name="TextDetailProperties"
                        Style="{StaticResource CaptionTextBlockStyle}"
                        TextWrapping="NoWrap"
                        Visibility="Collapsed"
@@ -479,9 +502,15 @@
         </StackPanel>
 
         <muxc:InfoBar Name="Info"
-                      RelativePanel.Above="ViewBar"
-                      Margin="12,0"
-                      IsOpen="False" />
+                      Margin="12"
+                      IsOpen="False">
+            <muxc:InfoBar.ActionButton>
+                <HyperlinkButton Name="BtnLibPic"
+                                 x:Uid="BtnLibPic"
+                                 Visibility="Collapsed"
+                                 Click="BtnLibPic_Click" />
+            </muxc:InfoBar.ActionButton>
+        </muxc:InfoBar>
 
     </RelativePanel>
     

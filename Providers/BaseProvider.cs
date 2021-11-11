@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using TimelineWallpaper.Utils;
+using Windows.Storage.Streams;
+using Windows.Graphics.Imaging;
+using Windows.Media.Editing;
+using System.Drawing;
 
 namespace TimelineWallpaper.Providers {
     public class BaseProvider {
@@ -84,35 +87,33 @@ namespace TimelineWallpaper.Providers {
                     Debug.WriteLine("cache error");
                 }
             }
-            // 提取图片主题色
-            //if (meta.Cache != null) {
-            //    fileProperties = await meta.Cache.GetBasicPropertiesAsync();
-            //    if (fileProperties.Size > 0) {
-            //        using (var stream = await meta.Cache.OpenAsync(FileAccessMode.Read)) {
-            //            var decoder = await BitmapDecoder.CreateAsync(stream);
-            //            var colorThief = new ColorThief();
-            //            var dominantColor = await colorThief.GetColor(decoder);
-            //            Debug.WriteLine("dominant color: " + dominantColor.Color);
-            //            meta.Dominant = new SolidColorBrush(Windows.UI.Color.FromArgb(dominantColor.Color.A,
-            //                dominantColor.Color.R, dominantColor.Color.G, dominantColor.Color.B));
-            //        }
-            //    }
-            //}
+            if (meta.CacheUhd != null) {
+                using(IRandomAccessStream stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                }
+            }
+            if (meta.CacheVideo != null) {
+                MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
+                MediaComposition mediaComposition = new MediaComposition();
+                mediaComposition.Clips.Add(mediaClip);
+                var stream = await mediaComposition.GetThumbnailAsync(TimeSpan.FromMilliseconds(5000), 0, 0,
+                    VideoFramePrecision.NearestFrame);
+                var decoder = await BitmapDecoder.CreateAsync(stream);
+                meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+            }
             return meta;
         }
 
-        public static async Task<bool> Download(BaseProvider provider, Meta meta) {
+        public static async Task<bool> Download(Meta meta, string appName, string provider) {
             if (meta == null || !meta.IsCached()) {
                 return false;
             }
 
             try {
-                string appName = new ResourceLoader().GetString("AppNameShort");
                 StorageFolder folder = await KnownFolders.PicturesLibrary
                     .CreateFolderAsync(appName, CreationCollisionOption.OpenIfExists);
-                string title = meta.GetTitleOrCaption();
-                title = !string.IsNullOrEmpty(title) ? title : (!string.IsNullOrEmpty(meta.Caption) ? meta.Caption : "");
-                string name = string.Format("{0}_{1}_{2}_{3}{4}", appName, provider.Id, meta.Date?.ToString("yyMMdd"), title, meta.Format);
+                string name = string.Format("{0}_{1}_{2}{3}", appName, provider, meta.Id, meta.Format);
                 name = FileUtil.MakeValidFileName(name, "");
                 _ = await meta.GetCacheOne().CopyAsync(folder, name, NameCollisionOption.ReplaceExisting);
                 return true;

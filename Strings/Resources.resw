@@ -126,13 +126,13 @@
   <data name="AppNameShort" xml:space="preserve">
     <value>拾光</value>
   </data>
-  <data name="Btn3GSort.Text" xml:space="preserve">
+  <data name="Btn3GOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
-  <data name="Btn3GSort1.Text" xml:space="preserve">
+  <data name="Btn3GOrder1.Text" xml:space="preserve">
     <value>最新壁纸</value>
   </data>
-  <data name="Btn3GSort2.Text" xml:space="preserve">
+  <data name="Btn3GOrder2.Text" xml:space="preserve">
     <value>热门壁纸</value>
   </data>
   <data name="BtnAbout.Text" xml:space="preserve">
@@ -162,8 +162,20 @@
   <data name="BtnContact.Text" xml:space="preserve">
     <value>nguaduot@163.com</value>
   </data>
+  <data name="BtnInfinityOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="BtnInfinityOrder0.Text" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="BtnInfinityOrder1.Text" xml:space="preserve">
+    <value>热度</value>
+  </data>
   <data name="BtnIni.Text" xml:space="preserve">
     <value>打开配置文件</value>
+  </data>
+  <data name="BtnLibPic.Content" xml:space="preserve">
+    <value>前往</value>
   </data>
   <data name="BtnNasaMirror.Text" xml:space="preserve">
     <value>镜像</value>
@@ -177,16 +189,16 @@
   <data name="BtnNext.Text" xml:space="preserve">
     <value>回顾</value>
   </data>
-  <data name="BtnOneplusSort.Text" xml:space="preserve">
+  <data name="BtnOneplusOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
-  <data name="BtnOneplusSort1.Text" xml:space="preserve">
+  <data name="BtnOneplusOrder1.Text" xml:space="preserve">
     <value>最新添加</value>
   </data>
-  <data name="BtnOneplusSort2.Text" xml:space="preserve">
+  <data name="BtnOneplusOrder2.Text" xml:space="preserve">
     <value>点赞最多</value>
   </data>
-  <data name="BtnOneplusSort3.Text" xml:space="preserve">
+  <data name="BtnOneplusOrder3.Text" xml:space="preserve">
     <value>浏览最多</value>
   </data>
   <data name="BtnProvider.Text" xml:space="preserve">
@@ -200,6 +212,9 @@
   </data>
   <data name="BtnProviderDaihan.Text" xml:space="preserve">
     <value>呆憨API - 随机二次元ACG图片</value>
+  </data>
+  <data name="BtnProviderInfinity.Text" xml:space="preserve">
+    <value>Infinity - 365天精选壁纸</value>
   </data>
   <data name="BtnProviderNasa.Text" xml:space="preserve">
     <value>NASA - 每日天文一图</value>
@@ -261,35 +276,38 @@
   <data name="BtnYmyouliColDef.Text" xml:space="preserve">
     <value>随机</value>
   </data>
+  <data name="DetailSize" xml:space="preserve">
+    <value>{0} / {1}x{2}, {3}</value>
+  </data>
   <data name="MsgLostProvider" xml:space="preserve">
-    <value>无法连接图源，请重试或更换图源。</value>
+    <value>无法连接图源 {0}</value>
   </data>
   <data name="MsgNoInternet" xml:space="preserve">
-    <value>无网络连接，请联网后重试。</value>
+    <value>无网络连接</value>
   </data>
   <data name="MsgNoPermission" xml:space="preserve">
-    <value>无后台权限，请开启后重试。</value>
+    <value>无后台权限</value>
   </data>
   <data name="MsgSave0" xml:space="preserve">
-    <value>下载出错。</value>
+    <value>保存失败</value>
   </data>
   <data name="MsgSave1" xml:space="preserve">
-    <value>当前图片已保存到您的「图片」库。仅限用作桌面壁纸。</value>
+    <value>已保存至「图片」库</value>
   </data>
   <data name="MsgSetDesktop0" xml:space="preserve">
-    <value>设置出错。</value>
+    <value>设为桌面背景失败</value>
   </data>
   <data name="MsgSetDesktop1" xml:space="preserve">
-    <value>已将当前图片设置为桌面背景。</value>
+    <value>已设为桌面背景</value>
   </data>
   <data name="MsgSetLock0" xml:space="preserve">
-    <value>设置出错。</value>
+    <value>设为锁屏背景失败</value>
   </data>
   <data name="MsgSetLock1" xml:space="preserve">
-    <value>已将当前图片设置为锁屏背景。</value>
+    <value>已设为锁屏背景</value>
   </data>
   <data name="MsgWallpaper0" xml:space="preserve">
-    <value>设置桌面/锁屏背景功能不受支持。</value>
+    <value>设置桌面/锁屏背景功能受限</value>
   </data>
   <data name="Provider_3g" xml:space="preserve">
     <value>3G壁纸</value>
@@ -299,6 +317,9 @@
   </data>
   <data name="Provider_daihan" xml:space="preserve">
     <value>呆憨API</value>
+  </data>
+  <data name="Provider_infinity" xml:space="preserve">
+    <value>Infinity</value>
   </data>
   <data name="Provider_lofter" xml:space="preserve">
     <value>Lofter</value>
@@ -324,6 +345,9 @@
   <data name="Slogan_daihan" xml:space="preserve">
     <value>随机二次元ACG图片</value>
   </data>
+  <data name="Slogan_infinity" xml:space="preserve">
+    <value>365天精选壁纸</value>
+  </data>
   <data name="Slogan_lofter" xml:space="preserve">
     <value>看见每一种兴趣</value>
   </data>
@@ -341,11 +365,5 @@
   </data>
   <data name="TextTItle.Text" xml:space="preserve">
     <value>时光如歌，岁月如诗。拾光，每日一景</value>
-  </data>
-  <data name="TitleErrLoad" xml:space="preserve">
-    <value>加载失败</value>
-  </data>
-  <data name="TitleErrPush" xml:space="preserve">
-    <value>推送失败</value>
   </data>
 </root>

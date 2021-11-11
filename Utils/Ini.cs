@@ -4,7 +4,8 @@ using TimelineWallpaper.Providers;
 namespace TimelineWallpaper.Utils {
     public class Ini {
         public static HashSet<string> PROVIDER = new HashSet<string>() {
-            "bing", "nasa", "oneplus", "lofter", "3g", "daihan", "pixivel", "ymyouli"
+            "bing", "nasa", "oneplus",
+            "lofter", "3g", "daihan", "pixivel", "ymyouli", "infinity"
         };
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
 
@@ -42,6 +43,8 @@ namespace TimelineWallpaper.Utils {
 
         public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
 
+        public ProviderInfinity Infinity { set; get; } = new ProviderInfinity();
+
         public BaseProvider GenerateProvider() {
             switch (Provider) {
                 case "nasa":
@@ -61,6 +64,8 @@ namespace TimelineWallpaper.Utils {
                     return new PixivelProvider();
                 case "ymyouli":
                     return new YmyouliProvider();
+                case "infinity":
+                    return new InfinityProvider();
                 case "bing":
                 default:
                     return new BingProvider();
@@ -89,24 +94,24 @@ namespace TimelineWallpaper.Utils {
     }
 
     public class ProviderOnePlus {
-        public static HashSet<string> SORT = new HashSet<string>() { "date", "rate", "view" };
+        public static HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
 
-        private string sort = "date";
-        public string Sort {
-            set => sort = SORT.Contains(value) ? value : "date";
-            get => sort;
+        private string order = "date";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "date";
+            get => order;
         }
     }
 
     public class ProviderLofter { }
 
     public class Provider3G {
-        public static HashSet<string> SORT = new HashSet<string>() { "date", "view" };
+        public static HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
 
-        private string sort = "date";
-        public string Sort {
-            set => sort = SORT.Contains(value) ? value : "date";
-            get => sort;
+        private string order = "date";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "date";
+            get => order;
         }
     }
 
@@ -125,6 +130,16 @@ namespace TimelineWallpaper.Utils {
         public string Col {
             set => col = YmyouliProvider.COL_MODULE_DIC.ContainsKey(value) ? value : "";
             get => col;
+        }
+    }
+
+    public class ProviderInfinity {
+        public static HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
+
+        private string order = "";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "";
+            get => order;
         }
     }
 }

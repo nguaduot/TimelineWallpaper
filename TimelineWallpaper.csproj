@@ -128,9 +128,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Beans\InfinityApi.cs" />
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
+    <Compile Include="Providers\InfinityProvider.cs" />
     <Compile Include="Providers\YmyouliProvider.cs" />
     <Compile Include="Providers\PixivelProvider.cs" />
     <Compile Include="Providers\DaihanProvider.cs" />
