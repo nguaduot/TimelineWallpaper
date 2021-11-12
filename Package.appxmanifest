@@ -9,7 +9,7 @@
   <Identity
     Name="com.nguaduot.uwp.timelinewallpaper"
     Publisher="CN=nguaduot"
-    Version="2.0.14.0" />
+    Version="2.0.15.0" />
 
   <mp:PhoneIdentity PhoneProductId="88ba238a-8234-470e-b5a1-1b1efdbbcaf9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

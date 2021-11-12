@@ -31,4 +31,4 @@
 
 # 截图
 
-![截图](./screenshot.png)
+![截图](./screenshot.jpg)
