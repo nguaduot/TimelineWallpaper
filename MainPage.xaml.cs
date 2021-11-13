@@ -17,6 +17,7 @@ using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.System;
 using Windows.System.UserProfile;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,6 +32,8 @@ namespace TimelineWallpaper {
         private Ini ini = null;
         private BaseProvider provider = null;
         private Meta meta = null;
+
+        private DispatcherTimer resizeTimer = null;
 
         private const string BG_TASK_NAME = "PushTask";
         private const string BG_TASK_NAME_TIMER = "PushTaskTimer";
@@ -48,6 +51,22 @@ namespace TimelineWallpaper {
             ImgUhd.MediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
             ImgUhd.MediaPlayer.IsLoopingEnabled = true;
             ImgUhd.MediaPlayer.Volume = 0;
+
+            resizeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1500) };
+            resizeTimer.Tick += ResizeTimer_Tick;
+            Window.Current.SizeChanged += Current_SizeChanged;
+        }
+
+        private void ResizeTimer_Tick(object sender, object e) {
+            Debug.WriteLine("ResizeTimer_Tick " + DateTime.Now);
+            resizeTimer.Stop();
+            ReDecodeImg();
+        }
+
+        private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e) {
+            Debug.WriteLine("Current_SizeChanged " + DateTime.Now);
+            resizeTimer.Stop();
+            resizeTimer.Start();
         }
 
         private void BtnSetDesktop_Click(object sender, RoutedEventArgs e) {
@@ -387,17 +406,17 @@ namespace TimelineWallpaper {
             }
             ImgUhd.Source = meta.CacheVideo != null ? MediaSource.CreateFromStorageFile(meta.CacheVideo) : null;
             if (meta.CacheUhd != null) {
+                float winW = Window.Current.Content.ActualSize.X;
+                float winH = Window.Current.Content.ActualSize.Y;
                 BitmapImage biUhd = new BitmapImage();
                 ImgUhd.PosterSource = biUhd;
-                if (meta.Dimen.Width > Window.Current.Content.ActualSize.X
-                    && meta.Dimen.Height > Window.Current.Content.ActualSize.Y) {
-                    biUhd.DecodePixelType = DecodePixelType.Logical;
-                    if (meta.Dimen.Width / Window.Current.Content.ActualSize.X
-                        > meta.Dimen.Height / Window.Current.Content.ActualSize.Y) {
-                        biUhd.DecodePixelHeight = (int)Window.Current.Content.ActualSize.Y;
-                    } else {
-                        biUhd.DecodePixelWidth = (int)Window.Current.Content.ActualSize.X;
-                    }
+                biUhd.DecodePixelType = DecodePixelType.Logical;
+                if (meta.Dimen.Width / meta.Dimen.Height > winW / winH) {
+                    biUhd.DecodePixelWidth = (int)Math.Round(winH * meta.Dimen.Width / meta.Dimen.Height);
+                    biUhd.DecodePixelHeight = (int)Math.Round(winH);
+                } else {
+                    biUhd.DecodePixelWidth = (int)Math.Round(winW);
+                    biUhd.DecodePixelHeight = (int)Math.Round(winW * meta.Dimen.Height / meta.Dimen.Width);
                 }
                 biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
             } else {
@@ -417,6 +436,23 @@ namespace TimelineWallpaper {
             BtnSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
             StatusEnjoy();
+        }
+
+        private void ReDecodeImg() {
+            if (ImgUhd.PosterSource == null) {
+                return;
+            }
+            float winW = Window.Current.Content.ActualSize.X;
+            float winH = Window.Current.Content.ActualSize.Y;
+            BitmapImage bi = ImgUhd.PosterSource as BitmapImage;
+            bi.DecodePixelType = DecodePixelType.Logical;
+            if (bi.PixelWidth / bi.PixelHeight > winW / winH) {
+                bi.DecodePixelWidth = (int)Math.Round(winH * bi.PixelWidth / bi.PixelHeight);
+                bi.DecodePixelHeight = (int)Math.Round(winH);
+            } else {
+                bi.DecodePixelWidth = (int)Math.Round(winW);
+                bi.DecodePixelHeight = (int)Math.Round(winW * bi.PixelHeight / bi.PixelWidth);
+            }
         }
 
         private void StatusEnjoy() {
