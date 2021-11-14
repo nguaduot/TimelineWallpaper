@@ -26,6 +26,7 @@
 + [Pixivel](https://pixivel.moe) - Pixel 图片缓存/代理
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
++ [保罗API](https://api.paugram.com/help/wallpaper) - 随机动漫壁纸
 
 *特别注明：所有图源均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。*
 
