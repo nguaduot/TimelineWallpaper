@@ -204,14 +204,8 @@
   <data name="BtnProvider.Text" xml:space="preserve">
     <value>图源</value>
   </data>
-  <data name="BtnProvider3G.Text" xml:space="preserve">
-    <value>3G壁纸 - 电脑壁纸专家</value>
-  </data>
   <data name="BtnProviderBing.Text" xml:space="preserve">
     <value>Microsoft Bing - 每天发现一个新地方</value>
-  </data>
-  <data name="BtnProviderDaihan.Text" xml:space="preserve">
-    <value>呆憨API - 随机二次元ACG图片</value>
   </data>
   <data name="BtnProviderInfinity.Text" xml:space="preserve">
     <value>Infinity - 365天精选壁纸</value>
@@ -318,11 +312,17 @@
   <data name="Provider_daihan" xml:space="preserve">
     <value>呆憨API</value>
   </data>
+  <data name="Provider_dmoe" xml:space="preserve">
+    <value>樱花API</value>
+  </data>
   <data name="Provider_infinity" xml:space="preserve">
     <value>Infinity</value>
   </data>
   <data name="Provider_lofter" xml:space="preserve">
     <value>Lofter</value>
+  </data>
+  <data name="Provider_mty" xml:space="preserve">
+    <value>墨天逸API</value>
   </data>
   <data name="Provider_nasa" xml:space="preserve">
     <value>NASA</value>
@@ -336,6 +336,12 @@
   <data name="Provider_pixivel" xml:space="preserve">
     <value>Pixivel</value>
   </data>
+  <data name="Provider_seovx" xml:space="preserve">
+    <value>夏末博客API</value>
+  </data>
+  <data name="Provider_toubiec" xml:space="preserve">
+    <value>晓晴API</value>
+  </data>
   <data name="Provider_ymyouli" xml:space="preserve">
     <value>一梦幽黎</value>
   </data>
@@ -348,11 +354,17 @@
   <data name="Slogan_daihan" xml:space="preserve">
     <value>随机二次元ACG图片</value>
   </data>
+  <data name="Slogan_dmoe" xml:space="preserve">
+    <value>随机二次元图片</value>
+  </data>
   <data name="Slogan_infinity" xml:space="preserve">
     <value>365天精选壁纸</value>
   </data>
   <data name="Slogan_lofter" xml:space="preserve">
     <value>看见每一种兴趣</value>
+  </data>
+  <data name="Slogan_mty" xml:space="preserve">
+    <value>随机图片</value>
   </data>
   <data name="Slogan_nasa" xml:space="preserve">
     <value>每日天文一图</value>
@@ -365,6 +377,12 @@
   </data>
   <data name="Slogan_pixivel" xml:space="preserve">
     <value>Pixel 图片缓存/代理</value>
+  </data>
+  <data name="Slogan_seovx" xml:space="preserve">
+    <value>在线古风美图二次元</value>
+  </data>
+  <data name="Slogan_toubiec" xml:space="preserve">
+    <value>随机二次元图片</value>
   </data>
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>本站资源准备历时数年</value>

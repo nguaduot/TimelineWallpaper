@@ -377,13 +377,10 @@ namespace TimelineWallpaper {
             BtnNasaMirror.Visibility = BtnProviderNasa.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderOneplus.IsChecked = BtnProviderOneplus.Tag.Equals(ini.Provider);
             BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProvider3G.IsChecked = BtnProvider3G.Tag.Equals(ini.Provider);
-            Btn3GOrder.Visibility = BtnProvider3G.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
             BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
             BtnInfinityOrder.Visibility = BtnProviderInfinity.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderDaihan.IsChecked = BtnProviderDaihan.Tag.Equals(ini.Provider);
 
             BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(ini.Bing.Lang);
             BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(ini.Bing.Lang);
@@ -396,8 +393,6 @@ namespace TimelineWallpaper {
             BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(ini.OnePlus.Order);
             BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(ini.OnePlus.Order);
             BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(ini.OnePlus.Order);
-            Btn3GOrder1.IsChecked = Btn3GOrder1.Tag.Equals(ini.G3.Order);
-            Btn3GOrder2.IsChecked = Btn3GOrder2.Tag.Equals(ini.G3.Order);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);

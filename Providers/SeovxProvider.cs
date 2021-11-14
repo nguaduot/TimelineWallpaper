@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
 
 namespace TimelineWallpaper.Providers {
-    public class DaihanProvider : BaseProvider {
-        // 随机二次元ACG图片-呆憨API
-        // https://api.daihan.top/html/acg.html
-        private const string URL_API = "https://api.daihan.top/api/acg/index.php";
+    public class SeovxProvider : BaseProvider {
+        // 在线古风美图二次元API - 夏沫博客
+        // https://cdn.seovx.com/
+        private const string URL_API = "https://cdn.seovx.com/{0}/?mom=302";
 
-        public DaihanProvider() {
-            Id = "daihan";
+        public SeovxProvider() {
+            Id = "seovx";
         }
 
         private Meta ParseBean(Uri uriImg) {
@@ -21,11 +21,14 @@ namespace TimelineWallpaper.Providers {
             if (uriImg == null) {
                 return meta;
             }
+            if (uriImg.ToString().StartsWith("//")) {
+                uriImg = new Uri("https:" + uriImg.ToString());
+            }
             string[] name = uriImg.Segments[uriImg.Segments.Length - 1].Split(".");
             meta.Id = name[0];
             meta.Format = "." + name[1];
-            meta.Uhd = uriImg.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/original/");
-            meta.Thumb = uriImg.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/middle/");
+            meta.Uhd = uriImg.AbsoluteUri;
+            meta.Thumb = uriImg.AbsoluteUri;
             meta.Date = DateTime.Now;
             return meta;
         }
@@ -40,12 +43,13 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            Debug.WriteLine("provider url: " + URL_API);
+            string uriApi = string.Format(URL_API, ini.Seovx.Cate);
+            Debug.WriteLine("provider url: " + uriApi);
             try {
                 HttpClient client = new HttpClient(new HttpClientHandler {
                     AllowAutoRedirect = false
                 });
-                HttpResponseMessage msg = await client.GetAsync(URL_API);
+                HttpResponseMessage msg = await client.GetAsync(uriApi);
                 Meta meta = ParseBean(msg.Headers.Location);
                 if (!meta.IsValid()) {
                     return metas.Count > 0;

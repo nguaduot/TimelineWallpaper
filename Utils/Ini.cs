@@ -5,8 +5,8 @@ namespace TimelineWallpaper.Utils {
     public class Ini {
         public static HashSet<string> PROVIDER = new HashSet<string>() {
             "bing", "nasa", "oneplus",
-            "lofter", "3g", "pixivel", "ymyouli", "infinity",
-            "daihan", "paul"
+            "ymyouli", "infinity", "3g", "pixivel", "lofter",
+            "daihan", "dmoe", "toubiec", "mty", "seovx", "paul"
         };
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
 
@@ -34,17 +34,25 @@ namespace TimelineWallpaper.Utils {
 
         public ProviderOnePlus OnePlus { set; get; } = new ProviderOnePlus();
 
-        public ProviderLofter Lofter { set; get; } = new ProviderLofter();
+        public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
+
+        public ProviderInfinity Infinity { set; get; } = new ProviderInfinity();
 
         public Provider3G G3 { set; get; } = new Provider3G();
 
         public ProviderPixivel Pixivel { set; get; } = new ProviderPixivel();
 
-        public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
-
-        public ProviderInfinity Infinity { set; get; } = new ProviderInfinity();
+        public ProviderLofter Lofter { set; get; } = new ProviderLofter();
 
         public ProviderDaihan Daihan { set; get; } = new ProviderDaihan();
+
+        public ProviderDmoe Dmoe { set; get; } = new ProviderDmoe();
+
+        public ProviderToubiec Toubiec { set; get; } = new ProviderToubiec();
+
+        public ProviderMty Mty { set; get; } = new ProviderMty();
+
+        public ProviderSeovx Seovx { set; get; } = new ProviderSeovx();
 
         public ProviderPaul Paul { set; get; } = new ProviderPaul();
 
@@ -57,18 +65,26 @@ namespace TimelineWallpaper.Utils {
                     return new NasaProvider();
                 case "oneplus":
                     return new OneplusProvider();
-                case "lofter":
-                    return new LofterProvider();
-                case "3g":
-                    return new G3Provider();
-                case "pixivel":
-                    return new PixivelProvider();
                 case "ymyouli":
                     return new YmyouliProvider();
                 case "infinity":
                     return new InfinityProvider();
+                case "3g":
+                    return new G3Provider();
+                case "pixivel":
+                    return new PixivelProvider();
+                case "lofter":
+                    return new LofterProvider();
                 case "daihan":
                     return new DaihanProvider();
+                case "dmoe":
+                    return new DmoeProvider();
+                case "toubiec":
+                    return new ToubiecProvider();
+                case "mty":
+                    return new MtyProvider();
+                case "seovx":
+                    return new SeovxProvider();
                 case "paul":
                     return new PaulProvider();
                 case "bing":
@@ -108,7 +124,23 @@ namespace TimelineWallpaper.Utils {
         }
     }
 
-    public class ProviderLofter { }
+    public class ProviderYmyouli {
+        private string col = "";
+        public string Col {
+            set => col = YmyouliProvider.COL_MODULE_DIC.ContainsKey(value) ? value : "";
+            get => col;
+        }
+    }
+
+    public class ProviderInfinity {
+        public static HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
+
+        private string order = "";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "";
+            get => order;
+        }
+    }
 
     public class Provider3G {
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
@@ -128,25 +160,25 @@ namespace TimelineWallpaper.Utils {
         }
     }
 
-    public class ProviderYmyouli {
-        private string col = "";
-        public string Col {
-            set => col = YmyouliProvider.COL_MODULE_DIC.ContainsKey(value) ? value : "";
-            get => col;
-        }
-    }
-
-    public class ProviderInfinity {
-        public static HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
-
-        private string order = "";
-        public string Order {
-            set => order = ORDER.Contains(value) ? value : "";
-            get => order;
-        }
-    }
+    public class ProviderLofter { }
 
     public class ProviderDaihan { }
+
+    public class ProviderDmoe { }
+
+    public class ProviderToubiec { }
+
+    public class ProviderMty { }
+
+    public class ProviderSeovx {
+        public static HashSet<string> CATE = new HashSet<string>() { "", "d", "ha" };
+
+        private string cate = "d";
+        public string Cate {
+            set => cate = CATE.Contains(value) ? value : "d";
+            get => cate;
+        }
+    }
 
     public class ProviderPaul { }
 }

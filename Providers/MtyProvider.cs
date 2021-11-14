@@ -5,27 +5,29 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
+using Newtonsoft.Json;
 
 namespace TimelineWallpaper.Providers {
-    public class DaihanProvider : BaseProvider {
-        // 随机二次元ACG图片-呆憨API
-        // https://api.daihan.top/html/acg.html
-        private const string URL_API = "https://api.daihan.top/api/acg/index.php";
+    public class MtyProvider : BaseProvider {
+        // 墨天逸 - 随机图片API
+        // https://api.mtyqx.cn/
+        private const string URL_API = "https://api.mtyqx.cn/api/random.php?return=json";
 
-        public DaihanProvider() {
-            Id = "daihan";
+        public MtyProvider() {
+            Id = "mty";
         }
 
-        private Meta ParseBean(Uri uriImg) {
+        private Meta ParseBean(DmoeApiItem bean) {
             Meta meta = new Meta();
-            if (uriImg == null) {
+            if (bean?.ImgUrl == null) {
                 return meta;
             }
-            string[] name = uriImg.Segments[uriImg.Segments.Length - 1].Split(".");
+            Uri uri = new Uri(bean.ImgUrl);
+            string[] name = uri.Segments[uri.Segments.Length - 1].Split(".");
             meta.Id = name[0];
             meta.Format = "." + name[1];
-            meta.Uhd = uriImg.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/original/");
-            meta.Thumb = uriImg.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/middle/");
+            meta.Uhd = uri.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/original/");
+            meta.Thumb = uri.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/middle/");
             meta.Date = DateTime.Now;
             return meta;
         }
@@ -42,11 +44,11 @@ namespace TimelineWallpaper.Providers {
 
             Debug.WriteLine("provider url: " + URL_API);
             try {
-                HttpClient client = new HttpClient(new HttpClientHandler {
-                    AllowAutoRedirect = false
-                });
-                HttpResponseMessage msg = await client.GetAsync(URL_API);
-                Meta meta = ParseBean(msg.Headers.Location);
+                HttpClient client = new HttpClient();
+                string jsonData = await client.GetStringAsync(URL_API);
+                Debug.WriteLine("provider data: " + jsonData);
+                DmoeApiItem item = JsonConvert.DeserializeObject<DmoeApiItem>(jsonData);
+                Meta meta = ParseBean(item);
                 if (!meta.IsValid()) {
                     return metas.Count > 0;
                 }

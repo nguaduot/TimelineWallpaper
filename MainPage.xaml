@@ -123,11 +123,6 @@
                                           Click="BtnProvider_Click"
                                           Tag="oneplus"
                                           GroupName="Provider" />
-                <muxc:RadioMenuFlyoutItem Name="BtnProvider3G"
-                                          x:Uid="BtnProvider3G"
-                                          Click="BtnProvider_Click"
-                                          Tag="3g"
-                                          GroupName="Provider" />
                 <muxc:RadioMenuFlyoutItem Name="BtnProviderYmyouli"
                                           x:Uid="BtnProviderYmyouli"
                                           Click="BtnProvider_Click"
@@ -137,11 +132,6 @@
                                           x:Uid="BtnProviderInfinity"
                                           Click="BtnProvider_Click"
                                           Tag="infinity"
-                                          GroupName="Provider" />
-                <muxc:RadioMenuFlyoutItem Name="BtnProviderDaihan"
-                                          x:Uid="BtnProviderDaihan"
-                                          Click="BtnProvider_Click"
-                                          Tag="daihan"
                                           GroupName="Provider" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnBingLang"
@@ -223,42 +213,6 @@
                                           Click="BtnOneplusOrder_Click"
                                           GroupName="OneplusOrder" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Name="Btn3GOrder"
-                               x:Uid="Btn3GOrder"
-                               Visibility="Collapsed">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
-                              Glyph="&#xE8CB;" />
-                </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="Btn3GOrder1"
-                                          x:Uid="Btn3GOrder1"
-                                          Tag="date"
-                                          Click="Btn3GOrder_Click"
-                                          GroupName="3GOrder" />
-                <muxc:RadioMenuFlyoutItem Name="Btn3GOrder2"
-                                          x:Uid="Btn3GOrder2"
-                                          Tag="view"
-                                          Click="Btn3GOrder_Click"
-                                          GroupName="3GOrder" />
-            </MenuFlyoutSubItem>
-            <!--<MenuFlyoutSubItem Name="BtnPixivelSanity"
-                               x:Uid="BtnPixivelSanity"
-                               Visibility="Collapsed">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
-                              Glyph="&#xE8C9;" />
-                </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="BtnPixivelSanity5"
-                                          x:Uid="BtnPixivelSanity5"
-                                          Tag="5"
-                                          Click="BtnPixivelSanity_Click"
-                                          GroupName="PixivelSanity" />
-                <muxc:RadioMenuFlyoutItem Name="BtnPixivelSanity10"
-                                          x:Uid="BtnPixivelSanity10"
-                                          Tag="10"
-                                          Click="BtnPixivelSanity_Click"
-                                          GroupName="PixivelSanity" />
-            </MenuFlyoutSubItem>-->
             <MenuFlyoutSubItem Name="BtnYmyouliCol"
                                x:Uid="BtnYmyouliCol"
                                Visibility="Collapsed">

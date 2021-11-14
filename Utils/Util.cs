@@ -33,12 +33,16 @@ namespace TimelineWallpaper.Utils {
                     "; provider=bing      图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
                     "; provider=nasa      图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus   图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
-                    "; provider=lofter    图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
-                    "; provider=3g        图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
-                    "; provider=daihan    图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
-                    "; provider=pixivel   图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
                     "; provider=ymyouli   图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity  图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
+                    "; provider=3g        图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
+                    "; provider=pixivel   图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
+                    "; provider=lofter    图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
+                    "; provider=daihan    图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
+                    "; provider=dmoe      图源：樱花API - 随机二次元图片 https://www.dmoe.cc",
+                    "; provider=toubiec   图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
+                    "; provider=mty       图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
+                    "; provider=seovx     图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
                     "; provider=paul      图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
                     "push=",
@@ -71,21 +75,6 @@ namespace TimelineWallpaper.Utils {
                     "; order=date  排序：最新添加（默认）",
                     "; order=rate  排序：点赞最多",
                     "; order=view  排序：浏览最多",
-                    "",
-                    "[lofter]",
-                    "",
-                    "[3g]",
-                    "",
-                    "order=date",
-                    "; order=date  排序：最新壁纸（默认）",
-                    "; order=view  排序：热门壁纸",
-                    "",
-                    "[daihan]",
-                    "",
-                    "[pixivel]",
-                    "",
-                    "sanity=5",
-                    "; sanity={n}   敏感度：1-10（默认为5）",
                     "",
                     "[ymyouli]",
                     "",
@@ -120,6 +109,32 @@ namespace TimelineWallpaper.Utils {
                     "order=",
                     "; order=      排序：随机（默认）",
                     "; order=rate  排序：热度",
+                    "",
+                    "[3g]",
+                    "",
+                    "order=date",
+                    "; order=date  排序：最新壁纸（默认）",
+                    "; order=view  排序：热门壁纸",
+                    "",
+                    "[pixivel]",
+                    "",
+                    "sanity=5",
+                    "; sanity={n}   敏感度：1-10（默认为5）",
+                    "",
+                    "[lofter]",
+                    "",
+                    "[daihan]",
+                    "",
+                    "[dmoe]",
+                    "",
+                    "[toubiec]",
+                    "",
+                    "[seovx]",
+                    "",
+                    "cate=d",
+                    "; cate=    类别：美图",
+                    "; cate=d   类别：二次元（默认）",
+                    "; cate=ha  类别：古风",
                     "",
                     "[paul]",
                     ""
@@ -162,6 +177,16 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("oneplus", "order", order, iniFile.Path);
         }
 
+        public static async void SaveYmyouliCol(string col) {
+            StorageFile iniFile = await GenerateIni();
+            _ = WritePrivateProfileString("ymyouli", "col", col, iniFile.Path);
+        }
+
+        public static async void SaveInfinityOrder(string order) {
+            StorageFile iniFile = await GenerateIni();
+            _ = WritePrivateProfileString("infinity", "order", order, iniFile.Path);
+        }
+
         public static async void Save3GOrder(string order) {
             StorageFile iniFile = await GenerateIni();
             _ = WritePrivateProfileString("3g", "order", order, iniFile.Path);
@@ -172,14 +197,9 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("pixivel", "sanity", sanity, iniFile.Path);
         }
 
-        public static async void SaveYmyouliCol(string col) {
+        public static async void SaveSeovxCate(string cate) {
             StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("ymyouli", "col", col, iniFile.Path);
-        }
-
-        public static async void SaveInfinityOrder(string order) {
-            StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("infinity", "order", order, iniFile.Path);
+            _ = WritePrivateProfileString("seovx", "cate", cate, iniFile.Path);
         }
 
         public static async Task<StorageFile> GetIniPath() {
@@ -203,15 +223,17 @@ namespace TimelineWallpaper.Utils {
             ini.Nasa.Mirror = sb.ToString();
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile.Path);
             ini.OnePlus.Order = sb.ToString();
+            _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
+            ini.Ymyouli.Col = sb.ToString();
+            _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);
+            ini.Infinity.Order = sb.ToString();
             _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile.Path);
             ini.G3.Order = sb.ToString();
             _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile.Path);
             _ = int.TryParse(sb.ToString(), out int sanity);
             ini.Pixivel.Sanity = sanity;
-            _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
-            ini.Ymyouli.Col = sb.ToString();
-            _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);
-            ini.Infinity.Order = sb.ToString();
+            _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile.Path);
+            ini.Seovx.Cate = sb.ToString();
             return ini;
         }
     }
