@@ -280,7 +280,7 @@
     <value>{0} / {1}x{2}, {3}</value>
   </data>
   <data name="MsgLostProvider" xml:space="preserve">
-    <value>无法连接图源 {0}</value>
+    <value>无法连接图源：{0}</value>
   </data>
   <data name="MsgNoInternet" xml:space="preserve">
     <value>无网络连接</value>
@@ -330,6 +330,9 @@
   <data name="Provider_oneplus" xml:space="preserve">
     <value>OnePlus</value>
   </data>
+  <data name="Provider_paul" xml:space="preserve">
+    <value>保罗API</value>
+  </data>
   <data name="Provider_pixivel" xml:space="preserve">
     <value>Pixivel</value>
   </data>
@@ -357,13 +360,16 @@
   <data name="Slogan_oneplus" xml:space="preserve">
     <value>Shot on OnePlus</value>
   </data>
+  <data name="Slogan_paul" xml:space="preserve">
+    <value>随机动漫壁纸</value>
+  </data>
   <data name="Slogan_pixivel" xml:space="preserve">
     <value>Pixel 图片缓存/代理</value>
   </data>
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>本站资源准备历时数年</value>
   </data>
-  <data name="TextTItle.Text" xml:space="preserve">
+  <data name="TextTitle.Text" xml:space="preserve">
     <value>时光如歌，岁月如诗。拾光，每日一景</value>
   </data>
 </root>

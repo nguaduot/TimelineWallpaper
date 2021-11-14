@@ -34,6 +34,7 @@ namespace TimelineWallpaper {
         private Meta meta = null;
 
         private DispatcherTimer resizeTimer = null;
+        private DispatcherTimer stretchTimer = null;
 
         private const string BG_TASK_NAME = "PushTask";
         private const string BG_TASK_NAME_TIMER = "PushTaskTimer";
@@ -48,23 +49,23 @@ namespace TimelineWallpaper {
         }
 
         private void Init() {
-            ImgUhd.MediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
-            ImgUhd.MediaPlayer.IsLoopingEnabled = true;
-            ImgUhd.MediaPlayer.Volume = 0;
+            MpeUhd.MediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
+            MpeUhd.MediaPlayer.IsLoopingEnabled = true;
+            MpeUhd.MediaPlayer.Volume = 0;
 
-            resizeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1500) };
-            resizeTimer.Tick += ResizeTimer_Tick;
+            // 前者会在应用启动时触发，后者不会
+            //this.SizeChanged += Current_SizeChanged;
             Window.Current.SizeChanged += Current_SizeChanged;
         }
 
-        private void ResizeTimer_Tick(object sender, object e) {
-            Debug.WriteLine("ResizeTimer_Tick " + DateTime.Now);
-            resizeTimer.Stop();
-            ReDecodeImg();
-        }
-
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e) {
-            Debug.WriteLine("Current_SizeChanged " + DateTime.Now);
+            if (resizeTimer == null) {
+                resizeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1500) };
+                resizeTimer.Tick += (sender2, e2) => {
+                    resizeTimer.Stop();
+                    ReDecodeImg();
+                };
+            }
             resizeTimer.Stop();
             resizeTimer.Start();
         }
@@ -78,9 +79,9 @@ namespace TimelineWallpaper {
         }
 
         private void BtnVolumn_Click(object sender, RoutedEventArgs e) {
-            ImgUhd.MediaPlayer.Volume = ImgUhd.MediaPlayer.Volume > 0 ? 0 : 0.5;
-            BtnVolumnOn.Visibility = ImgUhd.MediaPlayer.Volume == 0 ? Visibility.Visible : Visibility.Collapsed;
-            BtnVolumnOff.Visibility = ImgUhd.MediaPlayer.Volume > 0 ? Visibility.Visible : Visibility.Collapsed;
+            MpeUhd.MediaPlayer.Volume = MpeUhd.MediaPlayer.Volume > 0 ? 0 : 0.5;
+            BtnVolumnOn.Visibility = MpeUhd.MediaPlayer.Volume == 0 ? Visibility.Visible : Visibility.Collapsed;
+            BtnVolumnOff.Visibility = MpeUhd.MediaPlayer.Volume > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e) {
@@ -199,8 +200,45 @@ namespace TimelineWallpaper {
         //}
 
         private void ImgUhd_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
-            //bool forward = e.GetCurrentPoint(this).Properties.MouseWheelDelta > 0;
-            ImgUhd.Stretch = ImgUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
+            if (stretchTimer == null) {
+                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
+                stretchTimer.Tick += (sender2, e2) => {
+                    stretchTimer.Stop();
+                    ImgUhd.Stretch = ImgUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
+                    MpeUhd.Stretch = MpeUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
+                };
+            }
+            stretchTimer.Stop();
+            stretchTimer.Start();
+
+            //CompositeTransform ImgUhdTransform = ImgUhd.RenderTransform as CompositeTransform;
+            //if (ImgUhdTransform == null) {
+            //    ImgUhd.RenderTransform = ImgUhdTransform = new CompositeTransform();
+            //}
+
+            //double deltaScroll = e.GetCurrentPoint(ImgUhd).Properties.MouseWheelDelta > 0 ? 1.2 : 0.8;
+            //double pointerX = e.GetCurrentPoint(ImgUhd).Position.X;
+            //double pointerY = e.GetCurrentPoint(ImgUhd).Position.Y;
+            //double imgW = ImgUhd.ActualWidth;
+            //double imgH = ImgUhd.ActualHeight;
+
+            //double scaleX = ImgUhdTransform.ScaleX * deltaScroll;
+            //double scaleY = ImgUhdTransform.ScaleY * deltaScroll;
+            //double translateX = deltaScroll > 1 ? (ImgUhdTransform.TranslateX - (pointerX * 0.2 * ImgUhdTransform.ScaleX))
+            //    : (ImgUhdTransform.TranslateX - (pointerX * -0.2 * ImgUhdTransform.ScaleX));
+            //double translateY = deltaScroll > 1 ? (ImgUhdTransform.TranslateY - (pointerY * 0.2 * ImgUhdTransform.ScaleY))
+            //    : (ImgUhdTransform.TranslateY - (pointerY * -0.2 * ImgUhdTransform.ScaleY));
+            //if (scaleX <= 1 | scaleY <= 1) {
+            //    scaleX = 1;
+            //    scaleY = 1;
+            //    translateX = 0;
+            //    translateY = 0;
+            //}
+
+            //ImgUhdTransform.ScaleX = scaleX;
+            //ImgUhdTransform.ScaleY = scaleY;
+            //ImgUhdTransform.TranslateX = translateX;
+            //ImgUhdTransform.TranslateY = translateY;
         }
 
         private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
@@ -341,11 +379,11 @@ namespace TimelineWallpaper {
             BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProvider3G.IsChecked = BtnProvider3G.Tag.Equals(ini.Provider);
             Btn3GOrder.Visibility = BtnProvider3G.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderDaihan.IsChecked = BtnProviderDaihan.Tag.Equals(ini.Provider);
             BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
             BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
             BtnInfinityOrder.Visibility = BtnProviderInfinity.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnProviderDaihan.IsChecked = BtnProviderDaihan.Tag.Equals(ini.Provider);
 
             BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(ini.Bing.Lang);
             BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(ini.Bing.Lang);
@@ -404,12 +442,12 @@ namespace TimelineWallpaper {
                 StatusError();
                 return;
             }
-            ImgUhd.Source = meta.CacheVideo != null ? MediaSource.CreateFromStorageFile(meta.CacheVideo) : null;
+            MpeUhd.Source = meta.CacheVideo != null ? MediaSource.CreateFromStorageFile(meta.CacheVideo) : null;
             if (meta.CacheUhd != null) {
                 float winW = Window.Current.Content.ActualSize.X;
                 float winH = Window.Current.Content.ActualSize.Y;
                 BitmapImage biUhd = new BitmapImage();
-                ImgUhd.PosterSource = biUhd;
+                ImgUhd.Source = biUhd;
                 biUhd.DecodePixelType = DecodePixelType.Logical;
                 if (meta.Dimen.Width / meta.Dimen.Height > winW / winH) {
                     biUhd.DecodePixelWidth = (int)Math.Round(winH * meta.Dimen.Width / meta.Dimen.Height);
@@ -420,7 +458,7 @@ namespace TimelineWallpaper {
                 }
                 biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
             } else {
-                ImgUhd.PosterSource = null;
+                ImgUhd.Source = null;
             }
 
             StorageFile file = meta.CacheUhd ?? meta.CacheVideo ?? meta.CacheAudio;
@@ -429,9 +467,9 @@ namespace TimelineWallpaper {
                 resLoader.GetString("Provider_" + provider.Id), meta.Dimen.Width, meta.Dimen.Height, fileSize);
             BtnSetDesktop.IsEnabled = meta.CacheUhd != null;
             BtnSetLock.IsEnabled = meta.CacheUhd != null;
-            BtnVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && ImgUhd.MediaPlayer.Volume == 0
+            BtnVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume == 0
                 ? Visibility.Visible : Visibility.Collapsed;
-            BtnVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && ImgUhd.MediaPlayer.Volume > 0
+            BtnVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
                 ? Visibility.Visible : Visibility.Collapsed;
             BtnSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
@@ -439,12 +477,13 @@ namespace TimelineWallpaper {
         }
 
         private void ReDecodeImg() {
-            if (ImgUhd.PosterSource == null) {
+            if (ImgUhd.Source == null) {
                 return;
             }
+            Debug.WriteLine("ReDecodeImg " + DateTime.Now);
             float winW = Window.Current.Content.ActualSize.X;
             float winH = Window.Current.Content.ActualSize.Y;
-            BitmapImage bi = ImgUhd.PosterSource as BitmapImage;
+            BitmapImage bi = ImgUhd.Source as BitmapImage;
             bi.DecodePixelType = DecodePixelType.Logical;
             if (bi.PixelWidth / bi.PixelHeight > winW / winH) {
                 bi.DecodePixelWidth = (int)Math.Round(winH * bi.PixelWidth / bi.PixelHeight);
@@ -458,6 +497,8 @@ namespace TimelineWallpaper {
         private void StatusEnjoy() {
             ImgUhd.Opacity = 1;
             ImgUhd.Scale = new Vector3(1, 1, 1);
+            MpeUhd.Opacity = 1;
+            MpeUhd.Scale = new Vector3(1, 1, 1);
             ProgressLoading.ShowPaused = true;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = TextDetailDate.Visibility;
@@ -466,6 +507,8 @@ namespace TimelineWallpaper {
         private void StatusLoading() {
             ImgUhd.Opacity = 0;
             ImgUhd.Scale = new Vector3(1.014f, 1.014f, 1.014f);
+            MpeUhd.Opacity = 0;
+            MpeUhd.Scale = new Vector3(1.014f, 1.014f, 1.014f);
             ProgressLoading.ShowPaused = false;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = Visibility.Visible;
@@ -474,7 +517,8 @@ namespace TimelineWallpaper {
 
         private void StatusError() {
             ImgUhd.Opacity = 0;
-            TextTitle.Text = resLoader.GetStringForUri(new Uri("ms-resource:///Resources/TextTItle/Text"));
+            MpeUhd.Opacity = 0;
+            TextTitle.Text = resLoader.GetStringForUri(new Uri("ms-resource:///Resources/TextTitle/Text"));
             TextDetailCaption.Text = "";
             TextDetailLocation.Text = "";
             TextDetailDesc.Text = "";
@@ -492,16 +536,6 @@ namespace TimelineWallpaper {
 
             ToggleInfo(!NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
                 : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
-        }
-
-        private async void DownloadAsync() {
-            bool res = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
-                resLoader.GetString("Provider_" + provider.Id));
-            if (res) {
-                ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, true);
-            } else {
-                ToggleInfo(resLoader.GetString("MsgSave0"));
-            }
         }
 
         private async void SetWallpaperAsync(Meta meta, bool setDesktopOrLock) {
@@ -526,6 +560,16 @@ namespace TimelineWallpaper {
                 ToggleInfo(resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop1" : "MsgSetLock1"), InfoBarSeverity.Success);
             } else {
                 ToggleInfo(resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop0" : "MsgSetLock0"));
+            }
+        }
+
+        private async void DownloadAsync() {
+            bool res = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
+                resLoader.GetString("Provider_" + provider.Id));
+            if (res) {
+                ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, true);
+            } else {
+                ToggleInfo(resLoader.GetString("MsgSave0"));
             }
         }
 

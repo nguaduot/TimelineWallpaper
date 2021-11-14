@@ -24,7 +24,7 @@ namespace TimelineWallpaper.Utils {
             if (iniFile == null) {
                 iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
-                    "; 拾光 v2.0.211112",
+                    "; 拾光 v2.0.211114",
                     "; nguaduot@163.com",
                     "",
                     "[timelinewallpaper]",
@@ -39,6 +39,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=pixivel   图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
                     "; provider=ymyouli   图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity  图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
+                    "; provider=paul      图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
                     "push=",
                     "; push=         推送：关闭推送（默认）",
@@ -117,7 +118,10 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "order=",
                     "; order=      排序：随机（默认）",
-                    "; order=rate  排序：热度"
+                    "; order=rate  排序：热度",
+                    "",
+                    "[paul]",
+                    ""
                 });
                 //StorageFile defFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/timelinewallpaper.ini"));
                 //iniFile = await defFile.CopyAsync(ApplicationData.Current.LocalFolder,

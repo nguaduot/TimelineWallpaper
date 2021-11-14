@@ -5,7 +5,8 @@ namespace TimelineWallpaper.Utils {
     public class Ini {
         public static HashSet<string> PROVIDER = new HashSet<string>() {
             "bing", "nasa", "oneplus",
-            "lofter", "3g", "daihan", "pixivel", "ymyouli", "infinity"
+            "lofter", "3g", "pixivel", "ymyouli", "infinity",
+            "daihan", "paul"
         };
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
 
@@ -37,13 +38,15 @@ namespace TimelineWallpaper.Utils {
 
         public Provider3G G3 { set; get; } = new Provider3G();
 
-        public ProviderDaihan Daihan { set; get; } = new ProviderDaihan();
-
         public ProviderPixivel Pixivel { set; get; } = new ProviderPixivel();
 
         public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
 
         public ProviderInfinity Infinity { set; get; } = new ProviderInfinity();
+
+        public ProviderDaihan Daihan { set; get; } = new ProviderDaihan();
+
+        public ProviderPaul Paul { set; get; } = new ProviderPaul();
 
         public BaseProvider GenerateProvider() {
             switch (Provider) {
@@ -58,14 +61,16 @@ namespace TimelineWallpaper.Utils {
                     return new LofterProvider();
                 case "3g":
                     return new G3Provider();
-                case "daihan":
-                    return new DaihanProvider();
                 case "pixivel":
                     return new PixivelProvider();
                 case "ymyouli":
                     return new YmyouliProvider();
                 case "infinity":
                     return new InfinityProvider();
+                case "daihan":
+                    return new DaihanProvider();
+                case "paul":
+                    return new PaulProvider();
                 case "bing":
                 default:
                     return new BingProvider();
@@ -115,8 +120,6 @@ namespace TimelineWallpaper.Utils {
         }
     }
 
-    public class ProviderDaihan { }
-
     public class ProviderPixivel {
         private int sanity = 5;
         public int Sanity {
@@ -142,4 +145,8 @@ namespace TimelineWallpaper.Utils {
             get => order;
         }
     }
+
+    public class ProviderDaihan { }
+
+    public class ProviderPaul { }
 }

@@ -134,6 +134,7 @@
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
+    <Compile Include="Providers\PaulProvider.cs" />
     <Compile Include="Providers\InfinityProvider.cs" />
     <Compile Include="Providers\YmyouliProvider.cs" />
     <Compile Include="Providers\PixivelProvider.cs" />

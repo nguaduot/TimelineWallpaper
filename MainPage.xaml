@@ -128,11 +128,6 @@
                                           Click="BtnProvider_Click"
                                           Tag="3g"
                                           GroupName="Provider" />
-                <muxc:RadioMenuFlyoutItem Name="BtnProviderDaihan"
-                                          x:Uid="BtnProviderDaihan"
-                                          Click="BtnProvider_Click"
-                                          Tag="daihan"
-                                          GroupName="Provider" />
                 <muxc:RadioMenuFlyoutItem Name="BtnProviderYmyouli"
                                           x:Uid="BtnProviderYmyouli"
                                           Click="BtnProvider_Click"
@@ -142,6 +137,11 @@
                                           x:Uid="BtnProviderInfinity"
                                           Click="BtnProvider_Click"
                                           Tag="infinity"
+                                          GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderDaihan"
+                                          x:Uid="BtnProviderDaihan"
+                                          Click="BtnProvider_Click"
+                                          Tag="daihan"
                                           GroupName="Provider" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnBingLang"
@@ -354,7 +354,7 @@
 
     </Page.Resources>
 
-    <RelativePanel>
+    <RelativePanel KeyboardAcceleratorPlacementMode="Hidden">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -372,42 +372,25 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <!--<Image Name="ImgUhd"
-               Opacity="0"
-               Source="Assets/StoreLogo.scale-100.png"
-               Scale="1.014,1.014,1.014"
-               KeyboardAcceleratorPlacementMode="Hidden"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               ContextFlyout="{x:Bind FlyoutMenu}"
-               DoubleTapped="ImgUhd_DoubleTapped"
-               Stretch="UniformToFill">
-            <Image.OpacityTransition>
-                <ScalarTransition />
-            </Image.OpacityTransition>
-            <Image.ScaleTransition>
-                <Vector3Transition />
-            </Image.ScaleTransition>
-            <Image.KeyboardAccelerators>
-                <KeyboardAccelerator Key="Right" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Up" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Down" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
-            </Image.KeyboardAccelerators>
-        </Image>-->
+        <RelativePanel.KeyboardAccelerators>
+            <KeyboardAccelerator Key="Right" Modifiers="None" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="Up" Modifiers="None" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="Down" Modifiers="None" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
+        </RelativePanel.KeyboardAccelerators>
 
-        <MediaPlayerElement Name="ImgUhd"
+        <MediaPlayerElement Name="MpeUhd"
                             Opacity="0"
-                            PosterSource="Assets/StoreLogo.png"
                             Scale="1.014,1.014,1.014"
-                            KeyboardAcceleratorPlacementMode="Hidden"
-                            ContextFlyout="{x:Bind FlyoutMenu}"
-                            AreTransportControlsEnabled="False"
                             AutoPlay="True"
+                            AreTransportControlsEnabled="False"
                             Stretch="UniformToFill"
+                            ContextFlyout="{x:Bind FlyoutMenu}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             RelativePanel.AlignHorizontalCenterWithPanel="True"
                             RelativePanel.AlignVerticalCenterWithPanel="True"
                             DoubleTapped="ImgUhd_DoubleTapped"
@@ -418,16 +401,29 @@
             <MediaPlayerElement.ScaleTransition>
                 <Vector3Transition />
             </MediaPlayerElement.ScaleTransition>
-            <MediaPlayerElement.KeyboardAccelerators>
-                <KeyboardAccelerator Key="Right" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Up" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Down" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
-                <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
-            </MediaPlayerElement.KeyboardAccelerators>
         </MediaPlayerElement>
+
+        <Image Name="ImgUhd"
+               Opacity="0"
+               Scale="1.014,1.014,1.014"
+               Stretch="UniformToFill"
+               ContextFlyout="{x:Bind FlyoutMenu}"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               RelativePanel.AlignHorizontalCenterWithPanel="True"
+               RelativePanel.AlignVerticalCenterWithPanel="True"
+               DoubleTapped="ImgUhd_DoubleTapped"
+               PointerWheelChanged="ImgUhd_PointerWheelChanged">
+            <Image.OpacityTransition>
+                <ScalarTransition />
+            </Image.OpacityTransition>
+            <Image.ScaleTransition>
+                <Vector3Transition />
+            </Image.ScaleTransition>
+            <!--<Image.RenderTransform>
+                <CompositeTransform x:Name="ImgUhdTransform" />
+            </Image.RenderTransform>-->
+        </Image>
 
         <StackPanel Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                     Name="ViewBar"
