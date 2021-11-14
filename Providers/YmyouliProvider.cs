@@ -41,7 +41,8 @@ namespace TimelineWallpaper.Providers {
             { "230", new string[]{ "763" } }, // 8K图片 - 冰雪之境
             { "231", new string[]{ "766" } }, // 8K图片 - 油画
             { "232", new string[]{ "775" } }, // 8K图片 - 国漫壁纸
-            { "233", new string[]{ "778" } } // 8K图片 - 美食蔬果
+            { "233", new string[]{ "778" } }, // 8K图片 - 美食蔬果
+            { "241", new string[]{ "830" } } // 8K图片 - 樱落
         };
 
         private const string URL_UHD = "https://27146103.s21i.faiusr.com/2/{0}";

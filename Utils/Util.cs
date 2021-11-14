@@ -113,6 +113,7 @@ namespace TimelineWallpaper.Utils {
                     "; col=231  类别：8K图片 - 油画",
                     "; col=232  类别：8K图片 - 国漫壁纸",
                     "; col=233  类别：8K图片 - 美食蔬果",
+                    "; col=241  类别：8K图片 - 樱落",
                     "",
                     "[infinity]",
                     "",
