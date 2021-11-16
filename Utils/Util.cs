@@ -24,7 +24,7 @@ namespace TimelineWallpaper.Utils {
             if (iniFile == null) {
                 iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
-                    "; 拾光 v2.0.211114",
+                    "; 拾光 v2.0.211116",
                     "; nguaduot@163.com",
                     "",
                     "[timelinewallpaper]",

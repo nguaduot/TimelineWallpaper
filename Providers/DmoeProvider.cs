@@ -22,6 +22,8 @@ namespace TimelineWallpaper.Providers {
             if (bean?.ImgUrl == null) {
                 return meta;
             }
+            // 若直接使用字符串需反转义 Regex.Unescape()
+            // https:\/\/tva1.sinaimg.cn\/large\/0072Vf1pgy1foxk7r8ic6j31hc0u0k7b.jpg
             Uri uri = new Uri(bean.ImgUrl);
             string[] name = uri.Segments[uri.Segments.Length - 1].Split(".");
             meta.Id = name[0];
