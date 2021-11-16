@@ -20,12 +20,16 @@
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
 + [OnePlus](https://photos.oneplus.com) - Shot on OnePlus
-+ [Lofter](https://www.lofter.com) - 看见每一种兴趣
-+ [3G壁纸](https://desk.3gbizhi.com) - 电脑壁纸专家
-+ [Pixivel](https://pixivel.moe) - Pixel 图片缓存/代理
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
++ [3G壁纸](https://desk.3gbizhi.com) - 电脑壁纸专家
++ [Pixivel](https://pixivel.moe) - Pixel 图片缓存/代理
++ [Lofter](https://www.lofter.com) - 看见每一种兴趣
 + [呆憨API](https://api.daihan.top/html/acg.html) - 随机二次元ACG图片
++ [樱花API](https://www.dmoe.cc) - 随机二次元图片
++ [晓晴API](https://acg.toubiec.cn) - 随机二次元图片
++ [墨天逸API](https://api.mtyqx.cn) - 随机图片
++ [夏沫博客API](https://cdn.seovx.com) - 在线古风美图二次元
 + [保罗API](https://api.paugram.com/help/wallpaper) - 随机动漫壁纸
 
 *特别注明：所有图源均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。*
