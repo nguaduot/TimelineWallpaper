@@ -12,13 +12,16 @@
 
     <Page.Resources>
 
+        <!-- for Windows 10 -->
+        <FontFamily x:Key="FluentIcons">Assets/Icons/Segoe-Fluent-Icons.ttf#Segoe Fluent Icons</FontFamily>
+
         <MenuFlyout x:Name="FlyoutMenu">
             <MenuFlyoutItem Name="BtnSetDesktop"
                             x:Uid="BtnSetDesktop"
                             IsEnabled="False"
                             Click="BtnSetDesktop_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE7F7;" />
                 </MenuFlyoutItem.Icon>
                 <MenuFlyoutItem.KeyboardAccelerators>
@@ -30,7 +33,7 @@
                             IsEnabled="False"
                             Click="BtnSetLock_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xEE3F;" />
                 </MenuFlyoutItem.Icon>
                 <MenuFlyoutItem.KeyboardAccelerators>
@@ -42,7 +45,7 @@
                             Visibility="Collapsed"
                             Click="BtnVolumn_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE767;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
@@ -51,7 +54,7 @@
                             Visibility="Collapsed"
                             Click="BtnVolumn_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE74F;" />
                 </MenuFlyoutItem.Icon>
             </MenuFlyoutItem>
@@ -61,7 +64,7 @@
                             IsEnabled="False"
                             Click="BtnSave_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE896;" />
                 </MenuFlyoutItem.Icon>
                 <MenuFlyoutItem.KeyboardAccelerators>
@@ -72,7 +75,7 @@
                             x:Uid="BtnNext"
                             Click="BtnNext_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xEB9E;" />
                 </MenuFlyoutItem.Icon>
                 <MenuFlyoutItem.KeyboardAccelerators>
@@ -83,7 +86,7 @@
             <MenuFlyoutSubItem Name="BtnPush"
                                x:Uid="BtnPush">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xECC5;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnPushNone"
@@ -105,7 +108,7 @@
             <MenuFlyoutSubItem Name="BtnProvider"
                                x:Uid="BtnProvider">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE81E;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnProviderBing"
@@ -138,7 +141,7 @@
                                x:Uid="BtnBingLang"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE774;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnBingLangDef"
@@ -176,7 +179,7 @@
                                x:Uid="BtnNasaMirror"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE774;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnNasaMirrorDef"
@@ -194,7 +197,7 @@
                                x:Uid="BtnOneplusOrder"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE8CB;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnOneplusOrder1"
@@ -217,7 +220,7 @@
                                x:Uid="BtnYmyouliCol"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE8F1;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnYmyouliColDef"
@@ -260,7 +263,7 @@
                                x:Uid="BtnInfinityOrder"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE8CB;" />
                 </MenuFlyoutSubItem.Icon>
                 <muxc:RadioMenuFlyoutItem Name="BtnInfinityOrder0"
@@ -279,7 +282,7 @@
                             KeyboardAcceleratorTextOverride=""
                             Click="BtnIni_Click">
                 <MenuFlyoutItem.Icon>
-                    <FontIcon FontFamily="Segoe Fluent Icons"
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE713;" />
                 </MenuFlyoutItem.Icon>
                 <MenuFlyoutItem.KeyboardAccelerators>
