@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace TimelineWallpaper.Providers {
     public class ToubiecProvider : BaseProvider {
@@ -21,14 +22,14 @@ namespace TimelineWallpaper.Providers {
         private Meta ParseBean(ToubiecApiItem bean) {
             Meta meta = new Meta {
                 Id = bean?.Id.ToString(),
+                Date = DateTime.Now
             };
             if (bean?.ImgUrl == null) {
                 return meta;
             }
             Uri uri = new Uri(bean.ImgUrl);
-            meta.Uhd = uri.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/original/");
-            meta.Thumb = uri.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/middle/");
-            meta.Date = DateTime.Now;
+            meta.Uhd = Regex.Replace(uri.AbsoluteUri, @"(?<=\.sinaimg\.cn/)[^/]+", "large");
+            meta.Thumb = Regex.Replace(uri.AbsoluteUri, @"(?<=\.sinaimg\.cn/)[^/]+", "middle");
             string[] name = uri.Segments[uri.Segments.Length - 1].Split(".");
             meta.Format = "." + name[1];
             return meta;

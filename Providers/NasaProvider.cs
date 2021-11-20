@@ -29,25 +29,25 @@ namespace TimelineWallpaper.Providers {
             Id = "nasa";
         }
 
-        private Meta ParseBean(NasaApiItem item) {
+        private Meta ParseBean(NasaApiItem bean) {
             Meta meta = new Meta {
-                Title = item.Title,
-                Story = item.Explanation
+                Title = bean.Title,
+                Story = bean.Explanation
             };
-            if ("image".Equals(item.MediaType)) {
-                meta.Uhd = item.HdUrl;
-                meta.Thumb = item.Url;
-                meta.Format = item.HdUrl.Substring(item.HdUrl.LastIndexOf("."));
+            if ("image".Equals(bean.MediaType)) {
+                meta.Uhd = bean.HdUrl;
+                meta.Thumb = bean.Url;
+                meta.Format = bean.HdUrl.Substring(bean.HdUrl.LastIndexOf("."));
             }/* else if ("video".Equals(item.MediaType)) { // 放弃，被墙的URL加载不出来
                 meta.Video = item.Url;
                 meta.Thumb = item.ThumbnailUrl;
             }*/
-            if (!string.IsNullOrEmpty(item.Date)) {
-                meta.Date = DateTime.ParseExact(item.Date, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"));
-                meta.Id = item.MediaType + meta.Date?.ToString("yyyyMMdd");
+            if (!string.IsNullOrEmpty(bean.Date)) {
+                meta.Date = DateTime.ParseExact(bean.Date, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"));
+                meta.Id = bean.MediaType + meta.Date?.ToString("yyyyMMdd");
             }
-            if (!string.IsNullOrEmpty(item.Copyright)) {
-                meta.Copyright = "© " + item.Copyright.Replace("\n", "").Replace(" Music:", "");
+            if (!string.IsNullOrEmpty(bean.Copyright)) {
+                meta.Copyright = "© " + bean.Copyright.Replace("\n", "").Replace(" Music:", "");
             }
 
             return meta;

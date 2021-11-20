@@ -130,6 +130,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Beans\CoolapkApi.cs" />
+    <Compile Include="Beans\MxgApi.cs" />
     <Compile Include="Beans\MtyApiItem.cs" />
     <Compile Include="Beans\ToubiecApiItem.cs" />
     <Compile Include="Beans\DmoeApiItem.cs" />
@@ -137,6 +139,8 @@
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
+    <Compile Include="Providers\MxgProvider.cs" />
+    <Compile Include="Providers\CoolapkProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />
     <Compile Include="Providers\MtyProvider.cs" />
     <Compile Include="Providers\ToubiecProvider.cs" />

@@ -162,6 +162,15 @@
   <data name="BtnContact.Text" xml:space="preserve">
     <value>nguaduot@163.com</value>
   </data>
+  <data name="BtnCoolapkOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="BtnCoolapkOrder1.Text" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="BtnCoolapkOrder2.Text" xml:space="preserve">
+    <value>随机</value>
+  </data>
   <data name="BtnInfinityOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
@@ -206,6 +215,9 @@
   </data>
   <data name="BtnProviderBing.Text" xml:space="preserve">
     <value>Microsoft Bing - 每天发现一个新地方</value>
+  </data>
+  <data name="BtnProviderCoolapk.Text" xml:space="preserve">
+    <value>酷安 - 发现科技新生活</value>
   </data>
   <data name="BtnProviderInfinity.Text" xml:space="preserve">
     <value>Infinity - 365天精选壁纸</value>
@@ -309,6 +321,9 @@
   <data name="Provider_bing" xml:space="preserve">
     <value>Microsoft Bing</value>
   </data>
+  <data name="Provider_coolapk" xml:space="preserve">
+    <value>酷安</value>
+  </data>
   <data name="Provider_daihan" xml:space="preserve">
     <value>呆憨API</value>
   </data>
@@ -323,6 +338,15 @@
   </data>
   <data name="Provider_mty" xml:space="preserve">
     <value>墨天逸API</value>
+  </data>
+  <data name="Provider_muxiaoguo" xml:space="preserve">
+    <value>木小果API</value>
+  </data>
+  <data name="Provider_muxiaoguo2" xml:space="preserve">
+    <value>木小果API</value>
+  </data>
+  <data name="Provider_muxiaoguo3" xml:space="preserve">
+    <value>木小果API</value>
   </data>
   <data name="Provider_nasa" xml:space="preserve">
     <value>NASA</value>
@@ -351,6 +375,9 @@
   <data name="Slogan_bing" xml:space="preserve">
     <value>每天发现一个新地方</value>
   </data>
+  <data name="Slogan_coolapk" xml:space="preserve">
+    <value>发现科技新生活</value>
+  </data>
   <data name="Slogan_daihan" xml:space="preserve">
     <value>随机二次元ACG图片</value>
   </data>
@@ -365,6 +392,15 @@
   </data>
   <data name="Slogan_mty" xml:space="preserve">
     <value>随机图片</value>
+  </data>
+  <data name="Slogan_muxiaoguo" xml:space="preserve">
+    <value>随机壁纸</value>
+  </data>
+  <data name="Slogan_muxiaoguo2" xml:space="preserve">
+    <value>动漫图片</value>
+  </data>
+  <data name="Slogan_muxiaoguo3" xml:space="preserve">
+    <value>快来看，这里有美女！</value>
   </data>
   <data name="Slogan_nasa" xml:space="preserve">
     <value>每日天文一图</value>

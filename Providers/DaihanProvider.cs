@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
+using System.Text.RegularExpressions;
 
 namespace TimelineWallpaper.Providers {
     public class DaihanProvider : BaseProvider {
@@ -24,8 +25,8 @@ namespace TimelineWallpaper.Providers {
             string[] name = uriImg.Segments[uriImg.Segments.Length - 1].Split(".");
             meta.Id = name[0];
             meta.Format = "." + name[1];
-            meta.Uhd = uriImg.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/original/");
-            meta.Thumb = uriImg.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/middle/");
+            meta.Uhd = Regex.Replace(uriImg.AbsoluteUri, @"(?<=\.sinaimg\.cn/)[^/]+", "large");
+            meta.Thumb = Regex.Replace(uriImg.AbsoluteUri, @"(?<=\.sinaimg\.cn/)[^/]+", "middle");
             meta.Date = DateTime.Now;
             return meta;
         }

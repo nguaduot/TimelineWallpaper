@@ -9,7 +9,7 @@ using Windows.Storage;
 
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
-        private const string FILE_INI = "timelinewallpaper-2.0.ini";
+        private const string FILE_INI = "timelinewallpaper-2.1.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -30,20 +30,22 @@ namespace TimelineWallpaper.Utils {
                     "[timelinewallpaper]",
                     "",
                     "provider=bing",
-                    "; provider=bing      图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
-                    "; provider=nasa      图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
-                    "; provider=oneplus   图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
-                    "; provider=ymyouli   图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
-                    "; provider=infinity  图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
-                    "; provider=3g        图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
-                    "; provider=pixivel   图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
-                    "; provider=lofter    图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
-                    "; provider=daihan    图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
-                    "; provider=dmoe      图源：樱花API - 随机二次元图片 https://www.dmoe.cc",
-                    "; provider=toubiec   图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
-                    "; provider=mty       图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
-                    "; provider=seovx     图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
-                    "; provider=paul      图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
+                    "; provider=bing       图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
+                    "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
+                    "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
+                    "; provider=coolapk    图源：酷安 - 发现科技新生活 https://www.coolapk.com",
+                    "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
+                    "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
+                    "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
+                    "; provider=pixivel    图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
+                    "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
+                    "; provider=daihan     图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
+                    "; provider=dmoe       图源：樱花API - 随机二次元图片 https://www.dmoe.cc",
+                    "; provider=toubiec    图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
+                    "; provider=mty        图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
+                    "; provider=seovx      图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
+                    "; provider=muxiaoguo  图源：木小果API - 随机壁纸 https://api.muxiaoguo.cn",
+                    "; provider=paul       图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
                     "push=",
                     "; push=         推送：关闭推送（默认）",
@@ -75,6 +77,12 @@ namespace TimelineWallpaper.Utils {
                     "; order=date  排序：最新添加（默认）",
                     "; order=rate  排序：点赞最多",
                     "; order=view  排序：浏览最多",
+                    "",
+                    "[coolapk]",
+                    "",
+                    "order=date",
+                    "; order=date    排序：日期（默认）",
+                    "; order=random  排序：随机",
                     "",
                     "[ymyouli]",
                     "",
@@ -136,6 +144,13 @@ namespace TimelineWallpaper.Utils {
                     "; cate=d   类别：二次元（默认）",
                     "; cate=ha  类别：古风",
                     "",
+                    "[muxiaoguo]",
+                    "",
+                    "cate=sjbz",
+                    "; cate=sjbz     类别：随机壁纸（默认）",
+                    "; cate=acg      类别：动漫图片",
+                    "; cate=meinvtu  类别：美女图片",
+                    "",
                     "[paul]",
                     ""
                 });
@@ -175,6 +190,11 @@ namespace TimelineWallpaper.Utils {
         public static async void SaveOneplusOrder(string order) {
             StorageFile iniFile = await GenerateIni();
             _ = WritePrivateProfileString("oneplus", "order", order, iniFile.Path);
+        }
+
+        public static async void SaveCoolapkOrder(string order) {
+            StorageFile iniFile = await GenerateIni();
+            _ = WritePrivateProfileString("coolapk", "order", order, iniFile.Path);
         }
 
         public static async void SaveYmyouliCol(string col) {
@@ -223,6 +243,8 @@ namespace TimelineWallpaper.Utils {
             ini.Nasa.Mirror = sb.ToString();
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile.Path);
             ini.OnePlus.Order = sb.ToString();
+            _ = GetPrivateProfileString("coolapk", "order", "date", sb, 1024, iniFile.Path);
+            ini.Coolapk.Order = sb.ToString();
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
             ini.Ymyouli.Col = sb.ToString();
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);
@@ -234,6 +256,8 @@ namespace TimelineWallpaper.Utils {
             ini.Pixivel.Sanity = sanity;
             _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile.Path);
             ini.Seovx.Cate = sb.ToString();
+            _ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile.Path);
+            ini.Mxg.Cate = sb.ToString();
             return ini;
         }
     }

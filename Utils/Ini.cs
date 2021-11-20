@@ -4,9 +4,9 @@ using TimelineWallpaper.Providers;
 namespace TimelineWallpaper.Utils {
     public class Ini {
         public static HashSet<string> PROVIDER = new HashSet<string>() {
-            "bing", "nasa", "oneplus",
+            "bing", "nasa", "oneplus", "coolapk",
             "ymyouli", "infinity", "3g", "pixivel", "lofter",
-            "daihan", "dmoe", "toubiec", "mty", "seovx", "paul"
+            "daihan", "dmoe", "toubiec", "mty", "seovx", "muxiaoguo", "paul"
         };
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
 
@@ -34,6 +34,8 @@ namespace TimelineWallpaper.Utils {
 
         public ProviderOnePlus OnePlus { set; get; } = new ProviderOnePlus();
 
+        public ProviderCoolapk Coolapk { set; get; } = new ProviderCoolapk();
+
         public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
 
         public ProviderInfinity Infinity { set; get; } = new ProviderInfinity();
@@ -54,6 +56,8 @@ namespace TimelineWallpaper.Utils {
 
         public ProviderSeovx Seovx { set; get; } = new ProviderSeovx();
 
+        public ProviderMxg Mxg { set; get; } = new ProviderMxg();
+
         public ProviderPaul Paul { set; get; } = new ProviderPaul();
 
         public BaseProvider GenerateProvider() {
@@ -65,6 +69,8 @@ namespace TimelineWallpaper.Utils {
                     return new NasaProvider();
                 case "oneplus":
                     return new OneplusProvider();
+                case "coolapk":
+                    return new CoolapkProvider();
                 case "ymyouli":
                     return new YmyouliProvider();
                 case "infinity":
@@ -85,6 +91,13 @@ namespace TimelineWallpaper.Utils {
                     return new MtyProvider();
                 case "seovx":
                     return new SeovxProvider();
+                case "muxiaoguo":
+                    if ("acg".Equals(Mxg.Cate)) {
+                        return new MxgAcgProvider();
+                    } else if ("meinvtu".Equals(Mxg.Cate)) {
+                        return new MxgMvProvider();
+                    }
+                    return new MxgProvider();
                 case "paul":
                     return new PaulProvider();
                 case "bing":
@@ -116,6 +129,16 @@ namespace TimelineWallpaper.Utils {
 
     public class ProviderOnePlus {
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
+
+        private string order = "date";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "date";
+            get => order;
+        }
+    }
+
+    public class ProviderCoolapk {
+        public static HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
 
         private string order = "date";
         public string Order {
@@ -176,6 +199,16 @@ namespace TimelineWallpaper.Utils {
         private string cate = "d";
         public string Cate {
             set => cate = CATE.Contains(value) ? value : "d";
+            get => cate;
+        }
+    }
+
+    public class ProviderMxg {
+        public static HashSet<string> CATE = new HashSet<string>() { "sjbz", "acg", "meinvtu" };
+
+        private string cate = "sjbz";
+        public string Cate {
+            set => cate = CATE.Contains(value) ? value : "dsjbz";
             get => cate;
         }
     }

@@ -126,6 +126,11 @@
                                           Click="BtnProvider_Click"
                                           Tag="oneplus"
                                           GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderCoolapk"
+                                          x:Uid="BtnProviderCoolapk"
+                                          Click="BtnProvider_Click"
+                                          Tag="coolapk"
+                                          GroupName="Provider" />
                 <muxc:RadioMenuFlyoutItem Name="BtnProviderYmyouli"
                                           x:Uid="BtnProviderYmyouli"
                                           Click="BtnProvider_Click"
@@ -215,6 +220,24 @@
                                           Tag="view"
                                           Click="BtnOneplusOrder_Click"
                                           GroupName="OneplusOrder" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnCoolapkOrder"
+                               x:Uid="BtnCoolapkOrder"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xE8CB;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkOrder1"
+                                          x:Uid="BtnCoolapkOrder1"
+                                          Tag="date"
+                                          Click="BtnCoolapkOrder_Click"
+                                          GroupName="CoolapkOrder" />
+                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkOrder2"
+                                          x:Uid="BtnCoolapkOrder2"
+                                          Tag="random"
+                                          Click="BtnCoolapkOrder_Click"
+                                          GroupName="CoolapkOrder" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnYmyouliCol"
                                x:Uid="BtnYmyouliCol"

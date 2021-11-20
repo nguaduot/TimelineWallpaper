@@ -137,8 +137,8 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
-        private void Btn3GOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.Save3GOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
+        private void BtnCoolapkOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveCoolapkOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
             provider = null;
             StatusLoading();
@@ -377,6 +377,8 @@ namespace TimelineWallpaper {
             BtnNasaMirror.Visibility = BtnProviderNasa.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderOneplus.IsChecked = BtnProviderOneplus.Tag.Equals(ini.Provider);
             BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnProviderCoolapk.IsChecked = BtnProviderCoolapk.Tag.Equals(ini.Provider);
+            BtnCoolapkOrder.Visibility = BtnProviderCoolapk.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
             BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
@@ -393,6 +395,8 @@ namespace TimelineWallpaper {
             BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(ini.OnePlus.Order);
             BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(ini.OnePlus.Order);
             BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(ini.OnePlus.Order);
+            BtnCoolapkOrder1.IsChecked = BtnCoolapkOrder1.Tag.Equals(ini.Coolapk.Order);
+            BtnCoolapkOrder2.IsChecked = BtnCoolapkOrder2.Tag.Equals(ini.Coolapk.Order);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);

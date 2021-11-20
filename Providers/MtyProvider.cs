@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace TimelineWallpaper.Providers {
     public class MtyProvider : BaseProvider {
@@ -28,8 +29,8 @@ namespace TimelineWallpaper.Providers {
             string[] name = uri.Segments[uri.Segments.Length - 1].Split(".");
             meta.Id = name[0];
             meta.Format = "." + name[1];
-            meta.Uhd = uri.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/original/");
-            meta.Thumb = uri.AbsoluteUri.Replace(".sinaimg.cn/large/", ".sinaimg.cn/middle/");
+            meta.Uhd = Regex.Replace(uri.AbsoluteUri, @"(?<=\.sinaimg\.cn/)[^/]+", "large");
+            meta.Thumb = Regex.Replace(uri.AbsoluteUri, @"(?<=\.sinaimg\.cn/)[^/]+", "middle");
             meta.Date = DateTime.Now;
             return meta;
         }
