@@ -22,6 +22,7 @@
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
 + [OnePlus](https://photos.oneplus.com) - Shot on OnePlus
++ [酷安](https://www.coolapk.com) - 发现科技新生活
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
 + [3G壁纸](https://desk.3gbizhi.com) - 电脑壁纸专家
@@ -32,6 +33,7 @@
 + [晓晴API](https://acg.toubiec.cn) - 随机二次元图片
 + [墨天逸API](https://api.mtyqx.cn) - 随机图片
 + [夏沫博客API](https://cdn.seovx.com) - 在线古风美图二次元
++ [木小果API](https://api.muxiaoguo.cn) - 随机壁纸
 + [保罗API](https://api.paugram.com/help/wallpaper) - 随机动漫壁纸
 
 *特别注明：所有图源均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
