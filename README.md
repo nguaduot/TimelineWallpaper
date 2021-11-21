@@ -1,7 +1,7 @@
 # 拾光 for Windows 11
 
-[![img](https://img.shields.io/github/release/nguaduot/TimelineWallpaper)](https://github.com/nguaduot/TimelineWallpaper/releases)
-[![GitHub All Releases](https://img.shields.io/github/downloads/nguaduot/TimelineWallpaper/total)](https://www.microsoft.com/store/apps/9N7VHQ989BB7)
+[![v2.1](https://img.shields.io/github/v/release/nguaduot/TimelineWallpaper)](https://github.com/nguaduot/TimelineWallpaper/releases)
+[![GitHub all releases](https://img.shields.io/github/downloads/nguaduot/TimelineWallpaper/total)](https://github.com/nguaduot/TimelineWallpaper/releases)
 
 > 拾光如歌，岁月如诗。拾光，每日一景
 
@@ -11,9 +11,13 @@
 
 如果想安装拾光，
 
-+ 方式1：请打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。在应用压缩包下载完成后，解压压缩包，找到 `install.ps1` 脚本，右键 **使用 PowerShell 运行**，根据提示进行安装。
++ 方式1（最新版）：
+  
+  请打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。在应用压缩包下载完成后，解压压缩包，找到 `install.ps1` 脚本，右键 **使用 PowerShell 运行**，根据提示进行安装。
 
-+ 方式2：前往应用商店下载安装 [Microsoft Store - 拾光 for Windows 11](https://www.microsoft.com/store/apps/9N7VHQ989BB7)
++ 方式2（仅限稳定版）：
+  
+  前往应用商店下载安装 [Microsoft Store - 拾光 for Windows 11](https://www.microsoft.com/store/apps/9N7VHQ989BB7)
 
 **Watch** 项目，以获取应用的更新动态。
 
@@ -38,6 +42,6 @@
 
 *特别注明：所有图源均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
 
-# 截图
+## 截图
 
-![截图](./screenshot.jpg)
+![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
