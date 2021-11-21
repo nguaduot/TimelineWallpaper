@@ -137,16 +137,16 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
-        private void BtnCoolapkOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveCoolapkOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
+        private void BtnTimelineOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveTimelineOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
             provider = null;
             StatusLoading();
             LoadFocusAsync();
         }
 
-        private void BtnCoolapkCate_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveCoolapkCate(((RadioMenuFlyoutItem)sender).Tag.ToString());
+        private void BtnTimelineCate_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveTimelineCate(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
             provider = null;
             StatusLoading();
@@ -385,9 +385,9 @@ namespace TimelineWallpaper {
             BtnNasaMirror.Visibility = BtnProviderNasa.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderOneplus.IsChecked = BtnProviderOneplus.Tag.Equals(ini.Provider);
             BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderCoolapk.IsChecked = BtnProviderCoolapk.Tag.Equals(ini.Provider);
-            BtnCoolapkOrder.Visibility = BtnProviderCoolapk.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnCoolapkCate.Visibility = BtnProviderCoolapk.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnProviderTimeline.IsChecked = BtnProviderTimeline.Tag.Equals(ini.Provider);
+            BtnTimelineOrder.Visibility = BtnProviderTimeline.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnTimelineCate.Visibility = BtnProviderTimeline.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
             BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
@@ -404,12 +404,12 @@ namespace TimelineWallpaper {
             BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(ini.OnePlus.Order);
             BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(ini.OnePlus.Order);
             BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(ini.OnePlus.Order);
-            BtnCoolapkOrder1.IsChecked = BtnCoolapkOrder1.Tag.Equals(ini.Coolapk.Order);
-            BtnCoolapkOrder2.IsChecked = BtnCoolapkOrder2.Tag.Equals(ini.Coolapk.Order);
-            BtnCoolapkCate1.IsChecked = BtnCoolapkCate1.Tag.Equals(ini.Coolapk.Cate);
-            BtnCoolapkCate2.IsChecked = BtnCoolapkCate2.Tag.Equals(ini.Coolapk.Cate);
-            BtnCoolapkCate3.IsChecked = BtnCoolapkCate3.Tag.Equals(ini.Coolapk.Cate);
-            BtnCoolapkCate4.IsChecked = BtnCoolapkCate4.Tag.Equals(ini.Coolapk.Cate);
+            BtnTimelineOrder1.IsChecked = BtnTimelineOrder1.Tag.Equals(ini.Timeline.Order);
+            BtnTimelineOrder2.IsChecked = BtnTimelineOrder2.Tag.Equals(ini.Timeline.Order);
+            BtnTimelineCate1.IsChecked = BtnTimelineCate1.Tag.Equals(ini.Timeline.Cate);
+            BtnTimelineCate2.IsChecked = BtnTimelineCate2.Tag.Equals(ini.Timeline.Cate);
+            BtnTimelineCate3.IsChecked = BtnTimelineCate3.Tag.Equals(ini.Timeline.Cate);
+            BtnTimelineCate4.IsChecked = BtnTimelineCate4.Tag.Equals(ini.Timeline.Cate);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);

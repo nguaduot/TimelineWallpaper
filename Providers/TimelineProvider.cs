@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
 
 namespace TimelineWallpaper.Providers {
-    public class CoolapkProvider : BaseProvider {
+    public class TimelineProvider : BaseProvider {
         // 下一页数据索引（从0开始）（用于按需加载）
         private int nextPage = 0;
 
-        private const string URL_API = "http://180.76.116.163/timeline?platform=酷安&cate={0}&enddate={1}&order={2}";
+        // 自建图源
+        // https://github.com/nguaduot/TimelineApi
+        private const string URL_API = "http://180.76.116.163/timeline?cate={0}&enddate={1}&order={2}";
 
-        public CoolapkProvider() {
-            Id = "coolapk";
+        public TimelineProvider() {
+            Id = "timeline";
         }
 
-        private Meta ParseBean(CoolapkApiData bean) {
+        private Meta ParseBean(TimelineApiData bean) {
             Meta meta = new Meta {
                 Id = bean?.Id.ToString(),
                 Uhd = bean.ImgUrl,
@@ -49,14 +51,15 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string urlApi = string.Format(URL_API, ini.Coolapk.Cate, DateTime.Now.ToString("yyyyMMdd"), ini.Coolapk.Order);
+            string urlApi = string.Format(URL_API, ini.Timeline.Cate,
+                DateTime.Now.ToString("yyyyMMdd"), ini.Timeline.Order);
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData);
-                CoolapkApi coolapkApi = JsonConvert.DeserializeObject<CoolapkApi>(jsonData);
-                foreach (CoolapkApiData item in coolapkApi.Data) {
+                TimelineApi timelinekApi = JsonConvert.DeserializeObject<TimelineApi>(jsonData);
+                foreach (TimelineApiData item in timelinekApi.Data) {
                     Meta meta = ParseBean(item);
                     if (!meta.IsValid()) {
                         continue;

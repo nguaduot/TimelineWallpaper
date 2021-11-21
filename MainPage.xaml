@@ -126,10 +126,10 @@
                                           Click="BtnProvider_Click"
                                           Tag="oneplus"
                                           GroupName="Provider" />
-                <muxc:RadioMenuFlyoutItem Name="BtnProviderCoolapk"
-                                          x:Uid="BtnProviderCoolapk"
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderTimeline"
+                                          x:Uid="BtnProviderTimeline"
                                           Click="BtnProvider_Click"
-                                          Tag="coolapk"
+                                          Tag="timeline"
                                           GroupName="Provider" />
                 <muxc:RadioMenuFlyoutItem Name="BtnProviderYmyouli"
                                           x:Uid="BtnProviderYmyouli"
@@ -221,51 +221,51 @@
                                           Click="BtnOneplusOrder_Click"
                                           GroupName="OneplusOrder" />
             </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Name="BtnCoolapkOrder"
-                               x:Uid="BtnCoolapkOrder"
-                               Visibility="Collapsed">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                              Glyph="&#xE8CB;" />
-                </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkOrder1"
-                                          x:Uid="BtnCoolapkOrder1"
-                                          Tag="date"
-                                          Click="BtnCoolapkOrder_Click"
-                                          GroupName="CoolapkOrder" />
-                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkOrder2"
-                                          x:Uid="BtnCoolapkOrder2"
-                                          Tag="random"
-                                          Click="BtnCoolapkOrder_Click"
-                                          GroupName="CoolapkOrder" />
-            </MenuFlyoutSubItem>
-            <MenuFlyoutSubItem Name="BtnCoolapkCate"
-                               x:Uid="BtnCoolapkCate"
+            <MenuFlyoutSubItem Name="BtnTimelineCate"
+                               x:Uid="BtnTimelineCate"
                                Visibility="Collapsed">
                 <MenuFlyoutSubItem.Icon>
                     <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE8F1;" />
                 </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate1"
-                                          x:Uid="BtnCoolapkCate1"
+                <muxc:RadioMenuFlyoutItem Name="BtnTimelineCate1"
+                                          x:Uid="BtnTimelineCate1"
                                           Tag=""
-                                          Click="BtnCoolapkCate_Click"
-                                          GroupName="CoolapkCate" />
-                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate2"
-                                          x:Uid="BtnCoolapkCate2"
+                                          Click="BtnTimelineCate_Click"
+                                          GroupName="TimelineCate" />
+                <muxc:RadioMenuFlyoutItem Name="BtnTimelineCate2"
+                                          x:Uid="BtnTimelineCate2"
                                           Tag="landscape"
-                                          Click="BtnCoolapkCate_Click"
-                                          GroupName="CoolapkCate" />
-                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate3"
-                                          x:Uid="BtnCoolapkCate3"
+                                          Click="BtnTimelineCate_Click"
+                                          GroupName="TimelineCate" />
+                <muxc:RadioMenuFlyoutItem Name="BtnTimelineCate3"
+                                          x:Uid="BtnTimelineCate3"
                                           Tag="portrait"
-                                          Click="BtnCoolapkCate_Click"
-                                          GroupName="CoolapkCate" />
-                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate4"
-                                          x:Uid="BtnCoolapkCate4"
+                                          Click="BtnTimelineCate_Click"
+                                          GroupName="TimelineCate" />
+                <muxc:RadioMenuFlyoutItem Name="BtnTimelineCate4"
+                                          x:Uid="BtnTimelineCate4"
                                           Tag="culture"
-                                          Click="BtnCoolapkCate_Click"
-                                          GroupName="CoolapkCate" />
+                                          Click="BtnTimelineCate_Click"
+                                          GroupName="TimelineCate" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnTimelineOrder"
+                               x:Uid="BtnTimelineOrder"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xE8CB;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnTimelineOrder1"
+                                          x:Uid="BtnTimelineOrder1"
+                                          Tag="date"
+                                          Click="BtnTimelineOrder_Click"
+                                          GroupName="TimelineOrder" />
+                <muxc:RadioMenuFlyoutItem Name="BtnTimelineOrder2"
+                                          x:Uid="BtnTimelineOrder2"
+                                          Tag="random"
+                                          Click="BtnTimelineOrder_Click"
+                                          GroupName="TimelineOrder" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnYmyouliCol"
                                x:Uid="BtnYmyouliCol"
@@ -416,8 +416,8 @@
                Scale="1.014,1.014,1.014"
                Stretch="UniformToFill"
                ContextFlyout="{x:Bind FlyoutMenu}"
-               HorizontalAlignment="Stretch"
-               VerticalAlignment="Stretch"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
                RelativePanel.AlignHorizontalCenterWithPanel="True"
                RelativePanel.AlignVerticalCenterWithPanel="True"
                DoubleTapped="ImgUhd_DoubleTapped"

@@ -24,7 +24,7 @@ namespace TimelineWallpaper.Utils {
             if (iniFile == null) {
                 iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
-                    "; 拾光 v2.0.211116",
+                    "; 拾光 v2.1.211121",
                     "; nguaduot@163.com",
                     "",
                     "[timelinewallpaper]",
@@ -33,7 +33,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=bing       图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
                     "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
-                    "; provider=coolapk    图源：酷安 - 发现科技新生活 https://www.coolapk.com",
+                    "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://github.com/nguaduot/TimelineApi",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
@@ -78,7 +78,7 @@ namespace TimelineWallpaper.Utils {
                     "; order=rate  排序：点赞最多",
                     "; order=view  排序：浏览最多",
                     "",
-                    "[coolapk]",
+                    "[timeline]",
                     "",
                     "order=date",
                     "; order=date    排序：日期（默认）",
@@ -198,14 +198,14 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("oneplus", "order", order, iniFile.Path);
         }
 
-        public static async void SaveCoolapkOrder(string order) {
+        public static async void SaveTimelineOrder(string order) {
             StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("coolapk", "order", order, iniFile.Path);
+            _ = WritePrivateProfileString("timeline", "order", order, iniFile.Path);
         }
 
-        public static async void SaveCoolapkCate(string order) {
+        public static async void SaveTimelineCate(string order) {
             StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("coolapk", "cate", order, iniFile.Path);
+            _ = WritePrivateProfileString("timeline", "cate", order, iniFile.Path);
         }
 
         public static async void SaveYmyouliCol(string col) {
@@ -254,10 +254,10 @@ namespace TimelineWallpaper.Utils {
             ini.Nasa.Mirror = sb.ToString();
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile.Path);
             ini.OnePlus.Order = sb.ToString();
-            _ = GetPrivateProfileString("coolapk", "order", "date", sb, 1024, iniFile.Path);
-            ini.Coolapk.Order = sb.ToString();
-            _ = GetPrivateProfileString("coolapk", "cate", "", sb, 1024, iniFile.Path);
-            ini.Coolapk.Cate = sb.ToString();
+            _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile.Path);
+            ini.Timeline.Order = sb.ToString();
+            _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile.Path);
+            ini.Timeline.Cate = sb.ToString();
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
             ini.Ymyouli.Col = sb.ToString();
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);

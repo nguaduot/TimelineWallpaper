@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 namespace TimelineWallpaper.Beans {
-    public class CoolapkApi {
+    public class TimelineApi {
         // 图片信息数组
         [JsonProperty(PropertyName = "data")]
-        public List<CoolapkApiData> Data { set; get; }
+        public List<TimelineApiData> Data { set; get; }
     }
 
-    public class CoolapkApiData {
+    public class TimelineApiData {
         // ID
         [JsonProperty(PropertyName = "id")]
         public int Id { set; get; }
@@ -25,7 +25,7 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "title")]
         public string Title { set; get; }
 
-        // 描述
+        // 图文故事
         [JsonProperty(PropertyName = "story")]
         public string Story { set; get; }
 

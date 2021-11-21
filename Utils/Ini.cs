@@ -4,7 +4,7 @@ using TimelineWallpaper.Providers;
 namespace TimelineWallpaper.Utils {
     public class Ini {
         public static HashSet<string> PROVIDER = new HashSet<string>() {
-            "bing", "nasa", "oneplus", "coolapk",
+            "bing", "nasa", "oneplus", "timeline",
             "ymyouli", "infinity", "3g", "pixivel", "lofter",
             "daihan", "dmoe", "toubiec", "mty", "seovx", "muxiaoguo", "paul"
         };
@@ -34,7 +34,7 @@ namespace TimelineWallpaper.Utils {
 
         public ProviderOnePlus OnePlus { set; get; } = new ProviderOnePlus();
 
-        public ProviderCoolapk Coolapk { set; get; } = new ProviderCoolapk();
+        public ProviderTimeline Timeline { set; get; } = new ProviderTimeline();
 
         public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
 
@@ -69,8 +69,8 @@ namespace TimelineWallpaper.Utils {
                     return new NasaProvider();
                 case "oneplus":
                     return new OneplusProvider();
-                case "coolapk":
-                    return new CoolapkProvider();
+                case "timeline":
+                    return new TimelineProvider();
                 case "ymyouli":
                     return new YmyouliProvider();
                 case "infinity":
@@ -137,7 +137,7 @@ namespace TimelineWallpaper.Utils {
         }
     }
 
-    public class ProviderCoolapk {
+    public class ProviderTimeline {
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
         public static HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
 
