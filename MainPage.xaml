@@ -239,6 +239,34 @@
                                           Click="BtnCoolapkOrder_Click"
                                           GroupName="CoolapkOrder" />
             </MenuFlyoutSubItem>
+            <MenuFlyoutSubItem Name="BtnCoolapkCate"
+                               x:Uid="BtnCoolapkCate"
+                               Visibility="Collapsed">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xE8F1;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate1"
+                                          x:Uid="BtnCoolapkCate1"
+                                          Tag=""
+                                          Click="BtnCoolapkCate_Click"
+                                          GroupName="CoolapkCate" />
+                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate2"
+                                          x:Uid="BtnCoolapkCate2"
+                                          Tag="landscape"
+                                          Click="BtnCoolapkCate_Click"
+                                          GroupName="CoolapkCate" />
+                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate3"
+                                          x:Uid="BtnCoolapkCate3"
+                                          Tag="portrait"
+                                          Click="BtnCoolapkCate_Click"
+                                          GroupName="CoolapkCate" />
+                <muxc:RadioMenuFlyoutItem Name="BtnCoolapkCate4"
+                                          x:Uid="BtnCoolapkCate4"
+                                          Tag="culture"
+                                          Click="BtnCoolapkCate_Click"
+                                          GroupName="CoolapkCate" />
+            </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnYmyouliCol"
                                x:Uid="BtnYmyouliCol"
                                Visibility="Collapsed">
@@ -438,6 +466,7 @@
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="NoWrap"
                        TextTrimming="CharacterEllipsis"
+                       Opacity="0.8"
                        Visibility="Collapsed"
                        Margin="0,8,0,0"
                        IsTextSelectionEnabled="True" />
@@ -445,10 +474,11 @@
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="NoWrap"
                        TextTrimming="CharacterEllipsis"
+                       Opacity="0.8"
                        Visibility="Collapsed"
                        Margin="0,8,0,0"
                        IsTextSelectionEnabled="True" />
-            <TextBlock Name="TextDetailDesc"
+            <TextBlock Name="TextDetailStory"
                        Style="{StaticResource BodyTextBlockStyle}"
                        TextWrapping="Wrap"
                        Margin="0,8,0,0"
@@ -466,6 +496,7 @@
                        TextWrapping="NoWrap"
                        Visibility="Collapsed"
                        TextTrimming="CharacterEllipsis"
+                       Opacity="0.8"
                        Margin="0,8,0,0" />
             <TextBlock Name="TextDetailProperties"
                        Style="{StaticResource CaptionTextBlockStyle}"

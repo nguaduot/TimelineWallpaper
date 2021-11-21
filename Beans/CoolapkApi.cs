@@ -33,6 +33,10 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "author")]
         public string Author { set; get; }
 
+        // 类别
+        [JsonProperty(PropertyName = "cate")]
+        public string Cate { set; get; }
+
         // 发布日期
         [JsonProperty(PropertyName = "srcdate")]
         public string SrcDate { set; get; }

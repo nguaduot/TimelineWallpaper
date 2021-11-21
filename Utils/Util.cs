@@ -84,6 +84,12 @@ namespace TimelineWallpaper.Utils {
                     "; order=date    排序：日期（默认）",
                     "; order=random  排序：随机",
                     "",
+                    "cate=",
+                    "; cate=           类别：随机（默认）",
+                    "; cate=landscape  类别：风光摄影",
+                    "; cate=portrait   类别：人像摄影",
+                    "; cate=culture    类别：人文摄影",
+                    "",
                     "[ymyouli]",
                     "",
                     "col=",
@@ -197,6 +203,11 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("coolapk", "order", order, iniFile.Path);
         }
 
+        public static async void SaveCoolapkCate(string order) {
+            StorageFile iniFile = await GenerateIni();
+            _ = WritePrivateProfileString("coolapk", "cate", order, iniFile.Path);
+        }
+
         public static async void SaveYmyouliCol(string col) {
             StorageFile iniFile = await GenerateIni();
             _ = WritePrivateProfileString("ymyouli", "col", col, iniFile.Path);
@@ -245,6 +256,8 @@ namespace TimelineWallpaper.Utils {
             ini.OnePlus.Order = sb.ToString();
             _ = GetPrivateProfileString("coolapk", "order", "date", sb, 1024, iniFile.Path);
             ini.Coolapk.Order = sb.ToString();
+            _ = GetPrivateProfileString("coolapk", "cate", "", sb, 1024, iniFile.Path);
+            ini.Coolapk.Cate = sb.ToString();
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
             ini.Ymyouli.Col = sb.ToString();
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);

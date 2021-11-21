@@ -12,7 +12,7 @@ namespace TimelineWallpaper.Providers {
         // 下一页数据索引（从0开始）（用于按需加载）
         private int nextPage = 0;
 
-        private const string URL_API = "http://180.76.116.163/timeline?group=酷安&enddate={0}&order={1}";
+        private const string URL_API = "http://180.76.116.163/timeline?platform=酷安&cate={0}&enddate={1}&order={2}";
 
         public CoolapkProvider() {
             Id = "coolapk";
@@ -24,8 +24,8 @@ namespace TimelineWallpaper.Providers {
                 Uhd = bean.ImgUrl,
                 Thumb = bean.ThumbUrl,
                 Title = bean.Title,
-                Story = bean.Story,
-                Copyright = "@" + bean.Author,
+                Story = bean.Story?.Trim(),
+                Copyright = "@" + bean.Author?.Trim(),
                 Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US")),
             };
             if (bean.ImgUrl != null) {
@@ -49,7 +49,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string urlApi = string.Format(URL_API, DateTime.Now.ToString("yyyyMMdd"), ini.Coolapk.Order);
+            string urlApi = string.Format(URL_API, ini.Coolapk.Cate, DateTime.Now.ToString("yyyyMMdd"), ini.Coolapk.Order);
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();

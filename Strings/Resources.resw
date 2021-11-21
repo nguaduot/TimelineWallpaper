@@ -162,6 +162,21 @@
   <data name="BtnContact.Text" xml:space="preserve">
     <value>nguaduot@163.com</value>
   </data>
+  <data name="BtnCoolapkCate.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="BtnCoolapkCate1.Text" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="BtnCoolapkCate2.Text" xml:space="preserve">
+    <value>风光摄影</value>
+  </data>
+  <data name="BtnCoolapkCate3.Text" xml:space="preserve">
+    <value>人像摄影</value>
+  </data>
+  <data name="BtnCoolapkCate4.Text" xml:space="preserve">
+    <value>人文摄影</value>
+  </data>
   <data name="BtnCoolapkOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>

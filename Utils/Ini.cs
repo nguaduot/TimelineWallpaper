@@ -139,11 +139,18 @@ namespace TimelineWallpaper.Utils {
 
     public class ProviderCoolapk {
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
+        public static HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
 
         private string order = "date";
         public string Order {
             set => order = ORDER.Contains(value) ? value : "date";
             get => order;
+        }
+
+        private string cate = "";
+        public string Cate {
+            set => cate = CATE.Contains(value) ? value : "";
+            get => cate;
         }
     }
 

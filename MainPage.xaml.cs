@@ -145,6 +145,14 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
+        private void BtnCoolapkCate_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveCoolapkCate(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
         private void BtnYmyouliCol_Click(object sender, RoutedEventArgs e) {
             IniUtil.SaveYmyouliCol(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
@@ -379,6 +387,7 @@ namespace TimelineWallpaper {
             BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderCoolapk.IsChecked = BtnProviderCoolapk.Tag.Equals(ini.Provider);
             BtnCoolapkOrder.Visibility = BtnProviderCoolapk.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnCoolapkCate.Visibility = BtnProviderCoolapk.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
             BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
@@ -397,6 +406,10 @@ namespace TimelineWallpaper {
             BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(ini.OnePlus.Order);
             BtnCoolapkOrder1.IsChecked = BtnCoolapkOrder1.Tag.Equals(ini.Coolapk.Order);
             BtnCoolapkOrder2.IsChecked = BtnCoolapkOrder2.Tag.Equals(ini.Coolapk.Order);
+            BtnCoolapkCate1.IsChecked = BtnCoolapkCate1.Tag.Equals(ini.Coolapk.Cate);
+            BtnCoolapkCate2.IsChecked = BtnCoolapkCate2.Tag.Equals(ini.Coolapk.Cate);
+            BtnCoolapkCate3.IsChecked = BtnCoolapkCate3.Tag.Equals(ini.Coolapk.Cate);
+            BtnCoolapkCate4.IsChecked = BtnCoolapkCate4.Tag.Equals(ini.Coolapk.Cate);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);
@@ -427,7 +440,7 @@ namespace TimelineWallpaper {
             // 位置
             TextDetailLocation.Text = meta.Location ?? "";
             // 图文故事
-            TextDetailDesc.Text = meta.Story ?? "";
+            TextDetailStory.Text = meta.Story ?? "";
             // 版权所有者
             TextDetailCopyright.Text = meta.Copyright ?? "";
             // 日期
@@ -520,7 +533,7 @@ namespace TimelineWallpaper {
             TextTitle.Text = resLoader.GetStringForUri(new Uri("ms-resource:///Resources/TextTitle/Text"));
             TextDetailCaption.Text = "";
             TextDetailLocation.Text = "";
-            TextDetailDesc.Text = "";
+            TextDetailStory.Text = "";
             TextDetailCopyright.Text = "";
             TextDetailDate.Text = "";
             TextDetailProperties.Text = "";
@@ -609,14 +622,14 @@ namespace TimelineWallpaper {
             if (on) {
                 TextDetailCaption.Visibility = TextDetailCaption.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
                 TextDetailLocation.Visibility = TextDetailLocation.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailDesc.Visibility = TextDetailDesc.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+                TextDetailStory.Visibility = TextDetailStory.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
                 TextDetailCopyright.Visibility = TextDetailCopyright.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
                 TextDetailDate.Visibility = TextDetailDate.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
                 TextDetailProperties.Visibility = TextDetailProperties.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
             } else {
                 TextDetailCaption.Visibility = Visibility.Collapsed;
                 TextDetailLocation.Visibility = Visibility.Collapsed;
-                TextDetailDesc.Visibility = Visibility.Collapsed;
+                TextDetailStory.Visibility = Visibility.Collapsed;
                 TextDetailCopyright.Visibility = Visibility.Collapsed;
                 TextDetailDate.Visibility = Visibility.Collapsed;
                 TextDetailProperties.Visibility = Visibility.Collapsed;
