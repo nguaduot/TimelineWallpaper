@@ -19,7 +19,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API_RANDOM = "https://infinity-api.infinitynewtab.com/random-wallpaper?_={0}";
 
         public InfinityProvider() {
-            Id = "infinity";
+            Id = ProviderInfinity.ID;
         }
 
         private Meta ParseBean(InfinityApiData bean) {

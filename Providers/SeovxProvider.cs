@@ -13,7 +13,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://cdn.seovx.com/{0}/?mom=302";
 
         public SeovxProvider() {
-            Id = "seovx";
+            Id = ProviderSeovx.ID;
         }
 
         private Meta ParseBean(Uri uriImg) {

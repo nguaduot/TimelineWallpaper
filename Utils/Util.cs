@@ -5,11 +5,14 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
+using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
+using Windows.System.Profile;
 
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
-        private const string FILE_INI = "timelinewallpaper-2.1.ini";
+        private const string FILE_INI = "timelinewallpaper-2.2.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -23,8 +26,10 @@ namespace TimelineWallpaper.Utils {
             StorageFile iniFile = await folder.TryGetItemAsync(FILE_INI) as StorageFile;
             if (iniFile == null) {
                 iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
+                string version = string.Format("拾光 v{0}.{1}",
+                    Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
-                    "; 拾光 v2.1.211121",
+                    version,
                     "; nguaduot@163.com",
                     "",
                     "[timelinewallpaper]",
@@ -33,7 +38,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=bing       图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
                     "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
-                    "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://github.com/nguaduot/TimelineApi",
+                    "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline/doc",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
@@ -330,6 +335,32 @@ namespace TimelineWallpaper.Utils {
                 return (size / 1024.0 / 1024.0).ToString("0.0MB");
             }
             return (size / 1024.0 / 1024.0 / 1024.0).ToString("0.00GB");
+        }
+    }
+
+    public class VerUtil {
+        public static string GetPkgVer(bool forShort) {
+            if (forShort) {
+                return string.Format("{0}.{1}",
+                    Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor);
+            }
+            return string.Format("{0}.{1}.{2}.{3}",
+                Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor,
+                Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
+        }
+
+        public static string GetOsVer() {
+            ulong version = ulong.Parse(AnalyticsInfo.VersionInfo.DeviceFamilyVersion);
+            ulong major = (version & 0xFFFF000000000000L) >> 48;
+            ulong minor = (version & 0x0000FFFF00000000L) >> 32;
+            ulong build = (version & 0x00000000FFFF0000L) >> 16;
+            ulong revision = (version & 0x000000000000FFFFL);
+            return $"{major}.{minor}.{build}.{revision}";
+        }
+
+        public static string GetDevice() {
+            var deviceInfo = new EasClientDeviceInformation();
+            return deviceInfo.SystemSku;
         }
     }
 }

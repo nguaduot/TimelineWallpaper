@@ -20,7 +20,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api.paugram.com/wallpaper/?source=gh";
 
         public PaulProvider() {
-            Id = "paul";
+            Id = ProviderPaul.ID;
         }
 
         private Meta ParseBean(Uri uriImg) {

@@ -14,7 +14,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api.daihan.top/api/acg/index.php";
 
         public DaihanProvider() {
-            Id = "daihan";
+            Id = ProviderDaihan.ID;
         }
 
         private Meta ParseBean(Uri uriImg) {

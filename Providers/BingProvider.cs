@@ -35,7 +35,7 @@ namespace TimelineWallpaper.Providers {
         };
 
         public BingProvider() {
-            Id = "bing";
+            Id = ProviderBing.ID;
         }
 
         private Meta ParseBean(BingApiImg bean) {

@@ -15,7 +15,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api.muxiaoguo.cn/api/sjbz?method=pc&type=sina";
 
         public MxgProvider() {
-            Id = "muxiaoguo";
+            Id = ProviderMxg.ID;
         }
 
         private Meta ParseBean(MxgApiData bean) {
@@ -75,7 +75,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api.muxiaoguo.cn/api/ACG?type=json&size=mw1024";
 
         public MxgAcgProvider() {
-            Id = "muxiaoguo2";
+            Id = ProviderMxg.ID;
         }
 
         private Meta ParseBean(MxgApiData bean) {
@@ -135,7 +135,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api.muxiaoguo.cn/api/meinvtu?num=30";
 
         public MxgMvProvider() {
-            Id = "muxiaoguo3";
+            Id = ProviderMxg.ID;
         }
 
         private Meta ParseBean(MxgApiData bean) {

@@ -15,7 +15,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://www.dmoe.cc/random.php?return=json";
 
         public DmoeProvider() {
-            Id = "dmoe";
+            Id = ProviderDmoe.ID;
         }
 
         private Meta ParseBean(DmoeApiItem bean) {

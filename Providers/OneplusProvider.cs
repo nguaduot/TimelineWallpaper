@@ -16,7 +16,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://photos.oneplus.com/cn/shot/photo/schedule";
 
         public OneplusProvider() {
-            Id = "oneplus";
+            Id = ProviderOnePlus.ID;
         }
 
         private Meta ParseBean(OneplusApiItem bean) {

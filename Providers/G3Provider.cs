@@ -19,7 +19,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API_SORT2 = "https://desk.3gbizhi.com";
 
         public G3Provider() {
-            Id = "3g";
+            Id = Provider3G.ID;
         }
 
         private List<Meta> ParseBeans(string htmlData, bool dataHot) {

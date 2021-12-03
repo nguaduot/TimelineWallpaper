@@ -3,19 +3,24 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Numerics;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using TimelineWallpaper.Beans;
 using TimelineWallpaper.Providers;
 using TimelineWallpaper.Utils;
 using TWPushService;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.System;
+using Windows.System.Profile;
 using Windows.System.UserProfile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -52,6 +57,8 @@ namespace TimelineWallpaper {
             MpeUhd.MediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
             MpeUhd.MediaPlayer.IsLoopingEnabled = true;
             MpeUhd.MediaPlayer.Volume = 0;
+
+            BtnAbout.Text = string.Format(BtnAbout.Text, VerUtil.GetPkgVer(true));
 
             // 前者会在应用启动时触发，后者不会
             //this.SizeChanged += Current_SizeChanged;
@@ -289,6 +296,7 @@ namespace TimelineWallpaper {
             if (!await provider.LoadData(ini)) {
                 Debug.WriteLine("failed to load data");
                 ShowText(null);
+                Stats(false);
                 return;
             }
 
@@ -298,6 +306,7 @@ namespace TimelineWallpaper {
             Meta metaCache = await BaseProvider.Cache(provider, meta);
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
+                Stats(true);
             }
 
             // 预加载
@@ -412,11 +421,27 @@ namespace TimelineWallpaper {
             BtnTimelineCate4.IsChecked = BtnTimelineCate4.Tag.Equals(ini.Timeline.Cate);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol127.IsChecked = BtnYmyouliCol127.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol128.IsChecked = BtnYmyouliCol128.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol134.IsChecked = BtnYmyouliCol134.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol183.IsChecked = BtnYmyouliCol183.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol215.IsChecked = BtnYmyouliCol215.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol184.IsChecked = BtnYmyouliCol184.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol185.IsChecked = BtnYmyouliCol184.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol185.IsChecked = BtnYmyouliCol185.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol186.IsChecked = BtnYmyouliCol186.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol187.IsChecked = BtnYmyouliCol187.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol215.IsChecked = BtnYmyouliCol215.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol224.IsChecked = BtnYmyouliCol224.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol225.IsChecked = BtnYmyouliCol225.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol226.IsChecked = BtnYmyouliCol226.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol227.IsChecked = BtnYmyouliCol227.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol228.IsChecked = BtnYmyouliCol228.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol229.IsChecked = BtnYmyouliCol229.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol230.IsChecked = BtnYmyouliCol230.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol231.IsChecked = BtnYmyouliCol231.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol232.IsChecked = BtnYmyouliCol232.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol233.IsChecked = BtnYmyouliCol233.Tag.Equals(ini.Ymyouli.Col);
+            BtnYmyouliCol241.IsChecked = BtnYmyouliCol241.Tag.Equals(ini.Ymyouli.Col);
             BtnInfinityOrder0.IsChecked = BtnInfinityOrder0.Tag.Equals(ini.Infinity.Order);
             BtnInfinityOrder1.IsChecked = BtnInfinityOrder1.Tag.Equals(ini.Infinity.Order);
             return true;
@@ -765,6 +790,33 @@ namespace TimelineWallpaper {
                 _ = builder.Register();
             }
             _ = await _AppTrigger.RequestAsync();
+        }
+
+        private async void Stats(bool status) {
+            if (!NetworkInterface.GetIsNetworkAvailable()) {
+                return;
+            }
+            //const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
+            const string URL_API_STATS = "http://150.158.49.144/appstats";
+            _ = await InitProvider();
+            string api = ini.ToString();
+            string app = Package.Current.DisplayName;
+            string pkg = Package.Current.Id.FamilyName;
+            string ver = VerUtil.GetPkgVer(false);
+            string os = AnalyticsInfo.VersionInfo.DeviceFamily;
+            string osVer = VerUtil.GetOsVer();
+            string device = VerUtil.GetDevice();
+            string urlApi = string.Format(URL_API_STATS + "?app={0}&pkg={1}&ver={2}&api={3}&status={4}&os={5}&osver={6}&device={7}",
+                HttpUtility.UrlEncode(app, Encoding.UTF8), HttpUtility.UrlEncode(pkg), HttpUtility.UrlEncode(ver),
+                HttpUtility.UrlEncode(api), status ? 1 : 0,
+                HttpUtility.UrlEncode(os), HttpUtility.UrlEncode(osVer), HttpUtility.UrlEncode(device));
+            try {
+                HttpClient client = new HttpClient();
+                string jsonData = await client.GetStringAsync(urlApi);
+                Debug.WriteLine("stats: " + jsonData);
+            } catch (Exception e) {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api.mtyqx.cn/api/random.php?return=json";
 
         public MtyProvider() {
-            Id = "mty";
+            Id = ProviderMty.ID;
         }
 
         private Meta ParseBean(DmoeApiItem bean) {

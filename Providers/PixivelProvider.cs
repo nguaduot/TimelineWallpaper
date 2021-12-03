@@ -21,7 +21,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://api-jp1.pixivel.moe/pixiv?type=illust_recommended";
 
         public PixivelProvider() {
-            Id = "pixivel";
+            Id = ProviderPixivel.ID;
         }
 
         private List<Meta> ParseBeans(PixivelApiIllust bean) {

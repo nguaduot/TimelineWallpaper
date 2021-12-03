@@ -18,7 +18,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://www.lofter.com/front/login";
 
         public LofterProvider() {
-            Id = "lofter";
+            Id = ProviderLofter.ID;
         }
 
         private string FindJson(string html) {

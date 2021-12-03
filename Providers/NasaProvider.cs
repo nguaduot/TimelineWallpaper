@@ -26,7 +26,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API_PAGE = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True&start_date={0}&end_date={1}";
 
         public NasaProvider() {
-            Id = "nasa";
+            Id = ProviderNasa.ID;
         }
 
         private Meta ParseBean(NasaApiItem bean) {
@@ -103,7 +103,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API_DAY = URL_API_HOST + "/mryt/list_{0}.shtml";
 
         public NasabjpProvider() {
-            Id = "nasa";
+            Id = ProviderNasa.ID;
         }
 
         private void ParsePages(string html) {
@@ -202,7 +202,7 @@ namespace TimelineWallpaper.Providers {
     //    private const string URL_API_DAY = URL_API_HOST + "ap{0}.html";
 
     //    public NasaProvider2() {
-    //        Id = "nasa";
+    //        Id = ProviderNasa.ID;
     //    }
 
     //    private Meta ParseBean(string htmlData) {

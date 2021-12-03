@@ -14,10 +14,11 @@ namespace TimelineWallpaper.Providers {
 
         // 自建图源
         // https://github.com/nguaduot/TimelineApi
-        private const string URL_API = "http://180.76.116.163/timeline?cate={0}&enddate={1}&order={2}";
+        //private const string URL_API = "https://api.nguaduot.cn/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}";
+        private const string URL_API = "http://150.158.49.144/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}";
 
         public TimelineProvider() {
-            Id = "timeline";
+            Id = ProviderTimeline.ID;
         }
 
         private Meta ParseBean(TimelineApiData bean) {

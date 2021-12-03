@@ -16,7 +16,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://acg.toubiec.cn/random.php?ret=json";
 
         public ToubiecProvider() {
-            Id = "toubiec";
+            Id = ProviderToubiec.ID;
         }
 
         private Meta ParseBean(ToubiecApiItem bean) {

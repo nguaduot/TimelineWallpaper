@@ -136,7 +136,7 @@
     <value>热门壁纸</value>
   </data>
   <data name="BtnAbout.Text" xml:space="preserve">
-    <value>拾光 v2.1</value>
+    <value>拾光 v{0}</value>
   </data>
   <data name="BtnBingLang.Text" xml:space="preserve">
     <value>地区</value>
@@ -440,5 +440,56 @@
   </data>
   <data name="TextTitle.Text" xml:space="preserve">
     <value>时光如歌，岁月如诗。拾光，每日一景</value>
+  </data>
+  <data name="BtnYmyouliCol127.Text" xml:space="preserve">
+    <value>4K图片 - 游戏动漫场景</value>
+  </data>
+  <data name="BtnYmyouliCol128.Text" xml:space="preserve">
+    <value>4K图片 - 古风人物</value>
+  </data>
+  <data name="BtnYmyouliCol134.Text" xml:space="preserve">
+    <value>4K图片 - 自然风景</value>
+  </data>
+  <data name="BtnYmyouliCol186.Text" xml:space="preserve">
+    <value>8K图片 - 美女女孩</value>
+  </data>
+  <data name="BtnYmyouliCol187.Text" xml:space="preserve">
+    <value>8K图片 - 机车</value>
+  </data>
+  <data name="BtnYmyouliCol214.Text" xml:space="preserve">
+    <value>8K图片 - 科幻</value>
+  </data>
+  <data name="BtnYmyouliCol224.Text" xml:space="preserve">
+    <value>8K图片 - 武器刀剑</value>
+  </data>
+  <data name="BtnYmyouliCol225.Text" xml:space="preserve">
+    <value>8K图片 - 动物</value>
+  </data>
+  <data name="BtnYmyouliCol226.Text" xml:space="preserve">
+    <value>8K图片 - 古风人物</value>
+  </data>
+  <data name="BtnYmyouliCol227.Text" xml:space="preserve">
+    <value>8K图片 - 日暮云天</value>
+  </data>
+  <data name="BtnYmyouliCol228.Text" xml:space="preserve">
+    <value>8K图片 - 夜空星河</value>
+  </data>
+  <data name="BtnYmyouliCol229.Text" xml:space="preserve">
+    <value>8K图片 - 战场战争</value>
+  </data>
+  <data name="BtnYmyouliCol230.Text" xml:space="preserve">
+    <value>8K图片 - 冰雪之境</value>
+  </data>
+  <data name="BtnYmyouliCol231.Text" xml:space="preserve">
+    <value>8K图片 - 油画</value>
+  </data>
+  <data name="BtnYmyouliCol232.Text" xml:space="preserve">
+    <value>8K图片 - 国漫壁纸</value>
+  </data>
+  <data name="BtnYmyouliCol233.Text" xml:space="preserve">
+    <value>8K图片 - 美食蔬果</value>
+  </data>
+  <data name="BtnYmyouliCol241.Text" xml:space="preserve">
+    <value>8K图片 - 樱落</value>
   </data>
 </root>

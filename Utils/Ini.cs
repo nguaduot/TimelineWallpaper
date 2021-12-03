@@ -4,15 +4,16 @@ using TimelineWallpaper.Providers;
 namespace TimelineWallpaper.Utils {
     public class Ini {
         public static HashSet<string> PROVIDER = new HashSet<string>() {
-            "bing", "nasa", "oneplus", "timeline",
-            "ymyouli", "infinity", "3g", "pixivel", "lofter",
-            "daihan", "dmoe", "toubiec", "mty", "seovx", "muxiaoguo", "paul"
+            ProviderBing.ID, ProviderNasa.ID, ProviderOnePlus.ID, ProviderTimeline.ID,
+            ProviderYmyouli.ID, ProviderInfinity.ID, Provider3G.ID, ProviderPixivel.ID, ProviderLofter.ID,
+            ProviderDaihan.ID, ProviderDmoe.ID, ProviderToubiec.ID, ProviderMty.ID, ProviderSeovx.ID,
+            ProviderMxg.ID, ProviderPaul.ID
         };
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
 
-        private string provider = "bing";
+        private string provider = ProviderBing.ID;
         public string Provider {
-            set => provider = PROVIDER.Contains(value) ? value : "bing";
+            set => provider = PROVIDER.Contains(value) ? value : ProviderBing.ID;
             get => provider;
         }
 
@@ -24,7 +25,7 @@ namespace TimelineWallpaper.Utils {
 
         private int period = 24;
         public int Period {
-            set => period = period <= 0 || period > 24 ? 24 : period;
+            set => period = value <= 0 || value > 24 ? 24 : value;
             get => period;
         }
 
@@ -62,52 +63,109 @@ namespace TimelineWallpaper.Utils {
 
         public BaseProvider GenerateProvider() {
             switch (Provider) {
-                case "nasa":
+                case ProviderNasa.ID:
                     if ("bjp".Equals(Nasa.Mirror)) {
                         return new NasabjpProvider();
                     }
                     return new NasaProvider();
-                case "oneplus":
+                case ProviderOnePlus.ID:
                     return new OneplusProvider();
-                case "timeline":
+                case ProviderTimeline.ID:
                     return new TimelineProvider();
-                case "ymyouli":
+                case ProviderYmyouli.ID:
                     return new YmyouliProvider();
-                case "infinity":
+                case ProviderInfinity.ID:
                     return new InfinityProvider();
-                case "3g":
+                case Provider3G.ID:
                     return new G3Provider();
-                case "pixivel":
+                case ProviderPixivel.ID:
                     return new PixivelProvider();
-                case "lofter":
+                case ProviderLofter.ID:
                     return new LofterProvider();
-                case "daihan":
+                case ProviderDaihan.ID:
                     return new DaihanProvider();
-                case "dmoe":
+                case ProviderDmoe.ID:
                     return new DmoeProvider();
-                case "toubiec":
+                case ProviderToubiec.ID:
                     return new ToubiecProvider();
-                case "mty":
+                case ProviderMty.ID:
                     return new MtyProvider();
-                case "seovx":
+                case ProviderSeovx.ID:
                     return new SeovxProvider();
-                case "muxiaoguo":
+                case ProviderMxg.ID:
                     if ("acg".Equals(Mxg.Cate)) {
                         return new MxgAcgProvider();
                     } else if ("meinvtu".Equals(Mxg.Cate)) {
                         return new MxgMvProvider();
                     }
                     return new MxgProvider();
-                case "paul":
+                case ProviderPaul.ID:
                     return new PaulProvider();
-                case "bing":
+                case ProviderBing.ID:
                 default:
                     return new BingProvider();
             }
         }
+
+        override public string ToString() {
+            string paras;
+            switch (Provider) {
+                case ProviderNasa.ID:
+                    paras = Nasa.ToString();
+                    break;
+                case ProviderOnePlus.ID:
+                    paras = OnePlus.ToString();
+                    break;
+                case ProviderTimeline.ID:
+                    paras = Timeline.ToString();
+                    break;
+                case ProviderYmyouli.ID:
+                    paras = Ymyouli.ToString();
+                    break;
+                case ProviderInfinity.ID:
+                    paras = Infinity.ToString();
+                    break;
+                case Provider3G.ID:
+                    paras = G3.ToString();
+                    break;
+                case ProviderPixivel.ID:
+                    paras = Pixivel.ToString();
+                    break;
+                case ProviderLofter.ID:
+                    paras = Lofter.ToString();
+                    break;
+                case ProviderDaihan.ID:
+                    paras = Daihan.ToString();
+                    break;
+                case ProviderDmoe.ID:
+                    paras = Dmoe.ToString();
+                    break;
+                case ProviderToubiec.ID:
+                    paras = Toubiec.ToString();
+                    break;
+                case ProviderMty.ID:
+                    paras = Mty.ToString();
+                    break;
+                case ProviderSeovx.ID:
+                    paras = Seovx.ToString();
+                    break;
+                case ProviderMxg.ID:
+                    paras = Mxg.ToString();
+                    break;
+                case ProviderPaul.ID:
+                    paras = Paul.ToString();
+                    break;
+                case ProviderBing.ID:
+                default:
+                    paras = Bing.ToString();
+                    break;
+            }
+            return $"/{provider}?push={push}&period={period}" + (paras.Length > 0 ? "&" : "") + Nasa;
+        }
     }
 
     public class ProviderBing {
+        public const string ID = "bing";
         public static HashSet<string> LANG = new HashSet<string>() { "", "zh-cn", "en-us", "ja-jp", "de-de", "fr-fr" };
 
         private string lang = "";
@@ -115,9 +173,12 @@ namespace TimelineWallpaper.Utils {
             set => lang = LANG.Contains(value) ? value : "";
             get => lang;
         }
+
+        override public string ToString() => $"lang={lang}";
     }
 
     public class ProviderNasa {
+        public const string ID = "nasa";
         public static HashSet<string> MIRROR = new HashSet<string>() { "", "bjp" };
 
         private string mirror = "";
@@ -125,9 +186,12 @@ namespace TimelineWallpaper.Utils {
             set => mirror = MIRROR.Contains(value) ? value : "";
             get => mirror;
         }
+
+        override public string ToString() => $"mirror={mirror}";
     }
 
     public class ProviderOnePlus {
+        public const string ID = "oneplus";
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
 
         private string order = "date";
@@ -135,9 +199,12 @@ namespace TimelineWallpaper.Utils {
             set => order = ORDER.Contains(value) ? value : "date";
             get => order;
         }
+
+        override public string ToString() => $"order={order}";
     }
 
     public class ProviderTimeline {
+        public const string ID = "timeline";
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
         public static HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
 
@@ -152,17 +219,24 @@ namespace TimelineWallpaper.Utils {
             set => cate = CATE.Contains(value) ? value : "";
             get => cate;
         }
+
+        override public string ToString() => $"order={order}&cate={cate}";
     }
 
     public class ProviderYmyouli {
+        public const string ID = "ymyouli";
+
         private string col = "";
         public string Col {
             set => col = YmyouliProvider.COL_MODULE_DIC.ContainsKey(value) ? value : "";
             get => col;
         }
+
+        override public string ToString() => $"col={col}";
     }
 
     public class ProviderInfinity {
+        public const string ID = "infinity";
         public static HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
 
         private string order = "";
@@ -170,9 +244,12 @@ namespace TimelineWallpaper.Utils {
             set => order = ORDER.Contains(value) ? value : "";
             get => order;
         }
+
+        override public string ToString() => $"order={order}";
     }
 
     public class Provider3G {
+        public const string ID = "3g";
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
 
         private string order = "date";
@@ -180,27 +257,54 @@ namespace TimelineWallpaper.Utils {
             set => order = ORDER.Contains(value) ? value : "date";
             get => order;
         }
+
+        override public string ToString() => $"order={order}";
     }
 
     public class ProviderPixivel {
+        public const string ID = "pixivel";
+
         private int sanity = 5;
         public int Sanity {
             set => sanity = value > 0 ? value : 1;
             get => sanity;
         }
+
+        override public string ToString() => $"sanity={sanity}";
     }
 
-    public class ProviderLofter { }
+    public class ProviderLofter {
+        public const string ID = "lofter";
 
-    public class ProviderDaihan { }
+        override public string ToString() => "";
+    }
 
-    public class ProviderDmoe { }
+    public class ProviderDaihan {
+        public const string ID = "daihan";
 
-    public class ProviderToubiec { }
+        override public string ToString() => "";
+    }
 
-    public class ProviderMty { }
+    public class ProviderDmoe {
+        public const string ID = "dmoe";
+
+        override public string ToString() => "";
+    }
+
+    public class ProviderToubiec {
+        public const string ID = "toubiec";
+
+        override public string ToString() => "";
+    }
+
+    public class ProviderMty {
+        public const string ID = "mty";
+
+        override public string ToString() => "";
+    }
 
     public class ProviderSeovx {
+        public const string ID = "seovx";
         public static HashSet<string> CATE = new HashSet<string>() { "", "d", "ha" };
 
         private string cate = "d";
@@ -208,9 +312,12 @@ namespace TimelineWallpaper.Utils {
             set => cate = CATE.Contains(value) ? value : "d";
             get => cate;
         }
+
+        override public string ToString() => $"cate={cate}";
     }
 
     public class ProviderMxg {
+        public const string ID = "muxiaoguo";
         public static HashSet<string> CATE = new HashSet<string>() { "sjbz", "acg", "meinvtu" };
 
         private string cate = "sjbz";
@@ -218,7 +325,13 @@ namespace TimelineWallpaper.Utils {
             set => cate = CATE.Contains(value) ? value : "dsjbz";
             get => cate;
         }
+
+        override public string ToString() => $"cate={cate}";
     }
 
-    public class ProviderPaul { }
+    public class ProviderPaul {
+        public const string ID = "paul";
+
+        override public string ToString() => "";
+    }
 }

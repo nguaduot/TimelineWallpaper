@@ -24,14 +24,17 @@ namespace TimelineWallpaper.Providers {
             { "127", new string[]{ "677" } }, // 4K图片 - 游戏动漫场景
             { "128", new string[]{ "682" } }, // 4K图片 - 古风人物
             { "134", new string[]{ "678" } }, // 4K图片 - 自然风景
-            { "182", new string[]{ "575", "610", "695", "743", "744", "768", "776", "786", "787", "792" } }, // 8K图片 - 游戏动漫人物
+            { "182", new string[]{
+                "575", "610", "695", "743", "744", "768",
+                "776", "786", "787", "792", "833", "834"
+            } }, // 8K图片 - 游戏动漫人物
             { "183", new string[]{ "673", "777" } }, // 8K图片 - 游戏动漫场景
             { "184", new string[]{ "675", "791" } }, // 8K图片 - 自然风景
             { "185", new string[]{ "578", "679", "680", "754" } }, // 8K图片 - 花草植物
             { "186", new string[]{ "753" } }, // 8K图片 - 美女女孩
             { "187", new string[]{ "670", "741", "790" } }, // 8K图片 - 机车
             { "214", new string[]{ "690", "691" } }, // 8K图片 - 科幻
-            { "215", new string[]{ "693", "694", "742" } }, // 8K图片 - 意境
+            { "215", new string[]{ "693", "694", "742", "836" } }, // 8K图片 - 意境
             { "224", new string[]{ "746" } }, // 8K图片 - 武器刀剑
             { "225", new string[]{ "748" } }, // 8K图片 - 动物
             { "226", new string[]{ "751" } }, // 8K图片 - 古风人物
@@ -53,7 +56,7 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://www.ymyouli.com/ajax/ajaxLoadModuleDom_h.jsp";
 
         public YmyouliProvider() {
-            Id = "ymyouli";
+            Id = ProviderYmyouli.ID;
         }
 
         private Meta ParseBean(string id, string name, long time) {
