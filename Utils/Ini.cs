@@ -160,7 +160,7 @@ namespace TimelineWallpaper.Utils {
                     paras = Bing.ToString();
                     break;
             }
-            return $"/{provider}?push={push}&period={period}" + (paras.Length > 0 ? "&" : "") + Nasa;
+            return $"/{provider}?push={push}&period={period}" + (paras.Length > 0 ? "&" : "") + paras;
         }
     }
 
