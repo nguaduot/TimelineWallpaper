@@ -23,10 +23,22 @@
 
 ## 图源
 
+自建图源：
+
++ [拾光](http://150.158.49.144/timeline/doc) - 时光如歌，岁月如诗
+
+  API 官网：[api.nguaduot.cn/timeline](http://150.158.49.144/timeline/doc)
+  
+  开源：[github.com/nguaduot/TimelineApi](https://github.com/nguaduot/TimelineApi)
+
+默认图源：
+
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
+
+其他图源：
+
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
 + [OnePlus](https://photos.oneplus.com) - Shot on OnePlus
-+ [拾光](https://github.com/nguaduot/TimelineApi) - 时光如歌，岁月如诗
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
 + [3G壁纸](https://desk.3gbizhi.com) - 电脑壁纸专家
