@@ -57,3 +57,5 @@
 ## 截图
 
 ![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
+
+[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
