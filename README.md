@@ -1,7 +1,7 @@
 # 拾光 for Windows 11
 
-[![v2.1](https://img.shields.io/github/v/release/nguaduot/TimelineWallpaper)](https://github.com/nguaduot/TimelineWallpaper/releases)
-[![GitHub all releases](https://img.shields.io/github/downloads/nguaduot/TimelineWallpaper/total)](https://github.com/nguaduot/TimelineWallpaper/releases)
+[![release](https://img.shields.io/github/v/release/nguaduot/TimelineWallpaper)](https://github.com/nguaduot/TimelineWallpaper/releases)
+[![downloads](https://img.shields.io/github/downloads/nguaduot/TimelineWallpaper/total)](https://github.com/nguaduot/TimelineWallpaper/releases)
 
 > 拾光如歌，岁月如诗。拾光，每日一景
 
@@ -34,13 +34,16 @@
 默认图源：
 
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
-
-其他图源：
-
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
 + [OnePlus](https://photos.oneplus.com) - Shot on OnePlus
 + [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
+
+  *若喜欢该图源，可前往官网赞助。*
+
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
+
+其他图源：
+
 + [3G壁纸](https://desk.3gbizhi.com) - 电脑壁纸专家
 + [Pixivel](https://pixivel.moe) - Pixel 图片缓存/代理
 + [Lofter](https://www.lofter.com) - 看见每一种兴趣
@@ -58,4 +61,4 @@
 
 ![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
 
-[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
+自取：[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
