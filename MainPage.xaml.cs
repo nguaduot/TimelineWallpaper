@@ -3,14 +3,12 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Numerics;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using TimelineWallpaper.Beans;
 using TimelineWallpaper.Providers;
+using TimelineWallpaper.Services;
 using TimelineWallpaper.Utils;
 using TWPushService;
 using Windows.ApplicationModel;
@@ -20,7 +18,6 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.System;
-using Windows.System.Profile;
 using Windows.System.UserProfile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -31,12 +28,18 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace TimelineWallpaper {
+    public delegate void BtnInfoLinkHandler();
+
     public sealed partial class MainPage : Page {
+        private event BtnInfoLinkHandler InfoLink;
+
         private readonly ResourceLoader resLoader;
 
         private Ini ini = null;
         private BaseProvider provider = null;
         private Meta meta = null;
+
+        private GithubApi release = null;
 
         private DispatcherTimer resizeTimer = null;
         private DispatcherTimer stretchTimer = null;
@@ -51,6 +54,7 @@ namespace TimelineWallpaper {
             resLoader = ResourceLoader.GetForCurrentView();
             Init();
             LoadFocusAsync();
+            CheckUpdateAsync();
         }
 
         private void Init() {
@@ -180,9 +184,10 @@ namespace TimelineWallpaper {
             LaunchIni();
         }
 
-        private void BtnLibPic_Click(object sender, RoutedEventArgs e) {
-            LaunchPicLib();
-            ToggleInfo(null);
+        private void BtnInfoLink_Click(object sender, RoutedEventArgs e) {
+            if (InfoLink != null) {
+                InfoLink();
+            }
         }
 
         private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
@@ -296,7 +301,7 @@ namespace TimelineWallpaper {
             if (!await provider.LoadData(ini)) {
                 Debug.WriteLine("failed to load data");
                 ShowText(null);
-                Stats(false);
+                ApiService.Stats(ini, false);
                 return;
             }
 
@@ -306,7 +311,7 @@ namespace TimelineWallpaper {
             Meta metaCache = await BaseProvider.Cache(provider, meta);
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
-                Stats(true);
+                ApiService.Stats(ini, true);
             }
 
             // 预加载
@@ -604,7 +609,10 @@ namespace TimelineWallpaper {
             bool res = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
                 resLoader.GetString("Provider_" + provider.Id));
             if (res) {
-                ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, true);
+                ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, () => {
+                    LaunchPicLib();
+                    ToggleInfo(null);
+                });
             } else {
                 ToggleInfo(resLoader.GetString("MsgSave0"));
             }
@@ -624,6 +632,14 @@ namespace TimelineWallpaper {
                 _ = await Launcher.LaunchFolderAsync(folder);
             } catch (Exception) {
                 Debug.WriteLine("launch folder failed");
+            }
+        }
+
+        private async void LaunchRelealse() {
+            try {
+                _ = await Launcher.LaunchUriAsync(new Uri(release?.Url));
+            } catch (Exception) {
+                Debug.WriteLine("launch url failed");
             }
         }
 
@@ -661,15 +677,35 @@ namespace TimelineWallpaper {
             }
         }
 
-        private void ToggleInfo(string msg, InfoBarSeverity severity = InfoBarSeverity.Error, bool linkLibPic = false) {
+        private void ToggleInfo(string msg, InfoBarSeverity severity = InfoBarSeverity.Error, BtnInfoLinkHandler handler = null) {
             if (string.IsNullOrEmpty(msg)) {
                 Info.IsOpen = false;
                 return;
             }
             Info.Severity = severity;
             Info.Message = msg;
-            BtnLibPic.Visibility = linkLibPic ? Visibility.Visible : Visibility.Collapsed;
+            InfoLink = handler;
+            BtnInfoLink.Visibility = handler != null ? Visibility.Visible : Visibility.Collapsed;
             Info.IsOpen = true;
+        }
+
+        private async void CheckUpdateAsync() {
+            release = await ApiService.CheckUpdate();
+            if (release == null) {
+                return;
+            }
+            int major = Package.Current.Id.Version.Major;
+            int minor = Package.Current.Id.Version.Minor;
+            string[] versions = release.TagName.Split(".");
+            _ = int.TryParse(versions[0], out int majorNew);
+            _ = int.TryParse(versions[1], out int minorNew);
+            if (versions.Length < 2 || majorNew < major || (majorNew == major && minorNew <= minor)) {
+                return;
+            }
+            ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
+                LaunchRelealse();
+                ToggleInfo(null);
+            });
         }
 
         //private void UpdateTile(Meta meta) {
@@ -790,33 +826,6 @@ namespace TimelineWallpaper {
                 _ = builder.Register();
             }
             _ = await _AppTrigger.RequestAsync();
-        }
-
-        private async void Stats(bool status) {
-            if (!NetworkInterface.GetIsNetworkAvailable()) {
-                return;
-            }
-            //const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
-            const string URL_API_STATS = "http://150.158.49.144/appstats";
-            _ = await InitProvider();
-            string api = ini.ToString();
-            string app = Package.Current.DisplayName;
-            string pkg = Package.Current.Id.FamilyName;
-            string ver = VerUtil.GetPkgVer(false);
-            string os = AnalyticsInfo.VersionInfo.DeviceFamily;
-            string osVer = VerUtil.GetOsVer();
-            string device = VerUtil.GetDevice();
-            string urlApi = string.Format(URL_API_STATS + "?app={0}&pkg={1}&ver={2}&api={3}&status={4}&os={5}&osver={6}&device={7}",
-                HttpUtility.UrlEncode(app, Encoding.UTF8), HttpUtility.UrlEncode(pkg), HttpUtility.UrlEncode(ver),
-                HttpUtility.UrlEncode(api), status ? 1 : 0,
-                HttpUtility.UrlEncode(os), HttpUtility.UrlEncode(osVer), HttpUtility.UrlEncode(device));
-            try {
-                HttpClient client = new HttpClient();
-                string jsonData = await client.GetStringAsync(urlApi);
-                Debug.WriteLine("stats: " + jsonData);
-            } catch (Exception e) {
-                Debug.WriteLine(e);
-            }
         }
     }
 }

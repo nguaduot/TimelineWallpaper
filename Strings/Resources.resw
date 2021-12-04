@@ -189,7 +189,7 @@
   <data name="BtnIni.Text" xml:space="preserve">
     <value>打开配置文件</value>
   </data>
-  <data name="BtnLibPic.Content" xml:space="preserve">
+  <data name="BtnInfoLink.Content" xml:space="preserve">
     <value>前往</value>
   </data>
   <data name="BtnNasaMirror.Text" xml:space="preserve">
@@ -491,5 +491,8 @@
   </data>
   <data name="BtnYmyouliCol241.Text" xml:space="preserve">
     <value>8K图片 - 樱落</value>
+  </data>
+  <data name="MsgUpdate" xml:space="preserve">
+    <value>「拾光」已发布新版本</value>
   </data>
 </root>

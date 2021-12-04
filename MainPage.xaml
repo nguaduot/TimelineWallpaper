@@ -598,10 +598,10 @@
                       Margin="12"
                       IsOpen="False">
             <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Name="BtnLibPic"
-                                 x:Uid="BtnLibPic"
+                <HyperlinkButton Name="BtnInfoLink"
+                                 x:Uid="BtnInfoLink"
                                  Visibility="Collapsed"
-                                 Click="BtnLibPic_Click" />
+                                 Click="BtnInfoLink_Click" />
             </muxc:InfoBar.ActionButton>
         </muxc:InfoBar>
 

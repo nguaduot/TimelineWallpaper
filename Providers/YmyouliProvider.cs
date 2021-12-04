@@ -99,7 +99,7 @@ namespace TimelineWallpaper.Providers {
             Debug.WriteLine("provider url: " + URL_API);
             try {
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", "2.0"));
+                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", VerUtil.GetPkgVer(true)));
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = await client.PostAsync(URL_API, new FormUrlEncodedContent(formData));
                 string jsonData = await response.Content.ReadAsStringAsync();

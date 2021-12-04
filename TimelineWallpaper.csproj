@@ -23,7 +23,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>D:\uwp\TimelineWallpaper\AppPackages</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
@@ -130,6 +130,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Beans\GithubApi.cs" />
+    <Compile Include="Beans\StatsApiReq.cs" />
     <Compile Include="Beans\TimelineApi.cs" />
     <Compile Include="Beans\MxgApi.cs" />
     <Compile Include="Beans\MtyApiItem.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Providers\DaihanProvider.cs" />
     <Compile Include="Providers\LofterProvider.cs" />
     <Compile Include="Providers\G3Provider.cs" />
+    <Compile Include="Services\ApiService.cs" />
     <Compile Include="Utils\Ini.cs" />
     <Compile Include="Beans\NasaApiItem.cs" />
     <Compile Include="Beans\BingApi.cs" />

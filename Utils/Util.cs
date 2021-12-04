@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.System.Profile;
 
 namespace TimelineWallpaper.Utils {
@@ -38,7 +39,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=bing       图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
                     "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
-                    "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline/doc",
+                    "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
@@ -361,6 +362,17 @@ namespace TimelineWallpaper.Utils {
         public static string GetDevice() {
             var deviceInfo = new EasClientDeviceInformation();
             return deviceInfo.SystemSku;
+        }
+
+        public static string GetDeviceId() {
+            SystemIdentificationInfo systemId = SystemIdentification.GetSystemIdForPublisher();
+            // Make sure this device can generate the IDs
+            if (systemId.Source != SystemIdentificationSource.None) {
+                // The Id property has a buffer with the unique ID
+                DataReader dataReader = DataReader.FromBuffer(systemId.Id);
+                return dataReader.ReadGuid().ToString();
+            }
+            return "";
         }
     }
 }
