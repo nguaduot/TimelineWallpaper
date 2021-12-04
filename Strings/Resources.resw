@@ -495,4 +495,7 @@
   <data name="MsgUpdate" xml:space="preserve">
     <value>「拾光」已发布新版本</value>
   </data>
+  <data name="Release" xml:space="preserve">
+    <value>发现新版本 v{0}</value>
+  </data>
 </root>

@@ -180,14 +180,17 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
+        private void BtnAbout_Click(object sender, RoutedEventArgs e) {
+            LaunchRelealse();
+            ToggleInfo(null);
+        }
+
         private void BtnIni_Click(object sender, RoutedEventArgs e) {
             LaunchIni();
         }
 
         private void BtnInfoLink_Click(object sender, RoutedEventArgs e) {
-            if (InfoLink != null) {
-                InfoLink();
-            }
+            InfoLink?.Invoke();
         }
 
         private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
@@ -705,6 +708,8 @@ namespace TimelineWallpaper {
             if (versions.Length < 2 || majorNew < major || (majorNew == major && minorNew <= minor)) {
                 return;
             }
+            BtnAbout.Text = string.Format(resLoader.GetString("release"), majorNew + "." + minorNew);
+            BtnAbout.IsEnabled = true;
             ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
                 LaunchRelealse();
                 ToggleInfo(null);

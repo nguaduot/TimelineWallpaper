@@ -428,7 +428,8 @@
             <MenuFlyoutSeparator />
             <MenuFlyoutItem Name="BtnAbout"
                             x:Uid="BtnAbout"
-                            IsEnabled="False" />
+                            IsEnabled="False"
+                            Click="BtnAbout_Click" />
             <MenuFlyoutItem x:Uid="BtnContact"
                             IsEnabled="False" />
         </MenuFlyout>
