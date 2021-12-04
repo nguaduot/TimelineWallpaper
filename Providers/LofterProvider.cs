@@ -64,7 +64,7 @@ namespace TimelineWallpaper.Providers {
             Debug.WriteLine("provider url: " + URL_API);
             try {
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", "2.0"));
+                client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", VerUtil.GetPkgVer(true)));
                 string htmlData = await client.GetStringAsync(URL_API);
                 Debug.WriteLine("provider data: " + htmlData);
                 LofterApi lofterApi = JsonConvert.DeserializeObject<LofterApi>(FindJson(htmlData));

@@ -62,6 +62,7 @@ namespace TimelineWallpaper {
             MpeUhd.MediaPlayer.IsLoopingEnabled = true;
             MpeUhd.MediaPlayer.Volume = 0;
 
+            TextTitle.Text = resLoader.GetString("AppDesc");
             BtnAbout.Text = string.Format(BtnAbout.Text, VerUtil.GetPkgVer(true));
 
             // 前者会在应用启动时触发，后者不会

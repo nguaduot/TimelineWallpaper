@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using TimelineWallpaper.Beans;
 using TimelineWallpaper.Utils;
 using Windows.ApplicationModel;

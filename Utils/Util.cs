@@ -27,7 +27,7 @@ namespace TimelineWallpaper.Utils {
             StorageFile iniFile = await folder.TryGetItemAsync(FILE_INI) as StorageFile;
             if (iniFile == null) {
                 iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
-                string version = string.Format("拾光 v{0}.{1}",
+                string version = string.Format("; 拾光 v{0}.{1}",
                     Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
                     version,
@@ -182,11 +182,6 @@ namespace TimelineWallpaper.Utils {
         public static async void SaveProvider(string provider) {
             StorageFile iniFile = await GenerateIni();
             _ = WritePrivateProfileString("timelinewallpaper", "provider", provider, iniFile.Path);
-        }
-
-        public static async void SaveMenu(string menu) {
-            StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("timelinewallpaper", "menu", menu, iniFile.Path);
         }
 
         public static async void SaveBingLang(string langCode) {

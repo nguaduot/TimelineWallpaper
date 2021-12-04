@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="6d47048f-fdc5-4720-8d9b-f7b7818e8700" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>拾光 for Windows 11</DisplayName>
+    <DisplayName>ms-resource:AppName</DisplayName>
     <PublisherDisplayName>By_syk</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -58,7 +58,6 @@
             <Task Type="timer"/>
           </BackgroundTasks>
         </Extension>
-        <uap:Extension Category="windows.accountPictureProvider"/>
       </Extensions>
     </Application>
   </Applications>
