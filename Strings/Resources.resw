@@ -136,7 +136,7 @@
     <value>热门壁纸</value>
   </data>
   <data name="BtnAbout.Text" xml:space="preserve">
-    <value>拾光 v{0}</value>
+    <value>拾光{0}</value>
   </data>
   <data name="BtnBingLang.Text" xml:space="preserve">
     <value>地区</value>
@@ -493,6 +493,6 @@
     <value>「拾光」已发布新版本</value>
   </data>
   <data name="Release" xml:space="preserve">
-    <value>发现新版本 v{0}</value>
+    <value>发现新版本{0}</value>
   </data>
 </root>

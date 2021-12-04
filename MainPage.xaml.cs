@@ -39,7 +39,7 @@ namespace TimelineWallpaper {
         private BaseProvider provider = null;
         private Meta meta = null;
 
-        private GithubApi release = null;
+        private ReleaseApi release = null;
 
         private DispatcherTimer resizeTimer = null;
         private DispatcherTimer stretchTimer = null;
@@ -63,7 +63,7 @@ namespace TimelineWallpaper {
             MpeUhd.MediaPlayer.Volume = 0;
 
             TextTitle.Text = resLoader.GetString("AppDesc");
-            BtnAbout.Text = string.Format(BtnAbout.Text, VerUtil.GetPkgVer(true));
+            BtnAbout.Text = string.Format(BtnAbout.Text, " v" + VerUtil.GetPkgVer(true));
 
             // 前者会在应用启动时触发，后者不会
             //this.SizeChanged += Current_SizeChanged;
@@ -701,15 +701,7 @@ namespace TimelineWallpaper {
             if (release == null) {
                 return;
             }
-            int major = Package.Current.Id.Version.Major;
-            int minor = Package.Current.Id.Version.Minor;
-            string[] versions = release.TagName.Split(".");
-            _ = int.TryParse(versions[0], out int majorNew);
-            _ = int.TryParse(versions[1], out int minorNew);
-            if (versions.Length < 2 || majorNew < major || (majorNew == major && minorNew <= minor)) {
-                return;
-            }
-            BtnAbout.Text = string.Format(resLoader.GetString("release"), majorNew + "." + minorNew);
+            BtnAbout.Text = string.Format(resLoader.GetString("release"), release.Version);
             BtnAbout.IsEnabled = true;
             ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
                 LaunchRelealse();

@@ -2,6 +2,12 @@
 using System;
 
 namespace TimelineWallpaper.Beans {
+    public class ReleaseApi {
+        public string Version { get; set; }
+
+        public string Url { get; set; }
+    }
+
     /// <summary>
     /// Github的发布响应结果.
     /// </summary>
