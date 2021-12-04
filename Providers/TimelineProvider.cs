@@ -10,7 +10,7 @@ using TimelineWallpaper.Utils;
 namespace TimelineWallpaper.Providers {
     public class TimelineProvider : BaseProvider {
         // 下一页数据索引（从0开始）（用于按需加载）
-        private int nextPage = 0;
+        private DateTime nextPage = DateTime.UtcNow.AddHours(8);
 
         // 自建图源
         // https://github.com/nguaduot/TimelineApi
@@ -44,7 +44,7 @@ namespace TimelineWallpaper.Providers {
 
         public override async Task<bool> LoadData(Ini ini) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count || nextPage++ > 0) {
+            if (indexFocus + 1 < metas.Count) {
                 return true;
             }
             // 无网络连接
@@ -53,7 +53,7 @@ namespace TimelineWallpaper.Providers {
             }
 
             string urlApi = string.Format(URL_API, ini.Timeline.Cate,
-                DateTime.Now.ToString("yyyyMMdd"), ini.Timeline.Order);
+                nextPage.ToString("yyyyMMdd"), ini.Timeline.Order);
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();
@@ -73,6 +73,8 @@ namespace TimelineWallpaper.Providers {
                         metas.Add(meta);
                     }
                 }
+                nextPage = "date".Equals(ini.Timeline.Order)
+                    ? nextPage.AddDays(-timelinekApi.Data.Count) : nextPage;
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

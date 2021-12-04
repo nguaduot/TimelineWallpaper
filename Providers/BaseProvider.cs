@@ -18,7 +18,7 @@ namespace TimelineWallpaper.Providers {
 
         protected readonly List<Meta> metas = new List<Meta>();
 
-        // 当前浏览索引（超限取余，循环浏览）
+        // 当前浏览索引
         protected int indexFocus = 0;
 
         protected void RandomMetas() {
@@ -36,30 +36,21 @@ namespace TimelineWallpaper.Providers {
             return false;
         }
 
-        public Meta GetFocus() {
-            if (metas.Count == 0) {
-                return null;
-            }
-            int index = indexFocus % metas.Count;
-            index = index >= 0 ? index : index + metas.Count;
-            return metas[index];
-        }
+        public Meta GetFocus() => metas.Count > 0 ? metas[indexFocus] : null;
 
         public Meta GetNext(bool move = true) {
-            ++indexFocus;
+            int indexOld = indexFocus;
+            indexFocus = indexOld >= metas.Count - 1 ? 0 : indexOld + 1;
             Meta meta = GetFocus();
-            if (!move) {
-                --indexFocus;
-            }
+            indexFocus = move ? indexFocus : indexOld;
             return meta;
         }
 
         public Meta GetLast(bool move = true) {
-            --indexFocus;
+            int indexOld = indexFocus;
+            indexFocus = indexOld == 0 ? metas.Count - 1 : indexOld - 1;
             Meta meta = GetFocus();
-            if (!move) {
-                ++indexFocus;
-            }
+            indexFocus = move ? indexFocus : indexOld;
             return meta;
         }
 

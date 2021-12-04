@@ -365,6 +365,9 @@ namespace TimelineWallpaper {
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
             }
+
+            // 预加载
+            PreLoadNextAsync();
         }
 
         private async void PreLoadNextAsync() {
