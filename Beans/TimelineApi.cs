@@ -29,6 +29,10 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "story")]
         public string Story { set; get; }
 
+        // 出处
+        [JsonProperty(PropertyName = "platform")]
+        public string Platform { set; get; }
+
         // 作者
         [JsonProperty(PropertyName = "author")]
         public string Author { set; get; }

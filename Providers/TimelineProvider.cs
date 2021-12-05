@@ -31,6 +31,9 @@ namespace TimelineWallpaper.Providers {
                 Copyright = "@" + bean.Author?.Trim(),
                 Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US")),
             };
+            if (!string.IsNullOrEmpty(bean.Platform)) {
+                meta.Copyright = bean.Platform + meta.Copyright;
+            }
             if (bean.ImgUrl != null) {
                 Uri uri = new Uri(bean.ImgUrl);
                 string[] name = uri.Segments[uri.Segments.Length - 1].Split(".");

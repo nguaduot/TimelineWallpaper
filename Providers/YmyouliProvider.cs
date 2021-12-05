@@ -48,6 +48,7 @@ namespace TimelineWallpaper.Providers {
             { "241", new string[]{ "830" } } // 8K图片 - 樱落
         };
 
+        // 原图下载：http://27146103.s21d-27.faiusrd.com/0/{0}.jpg?f={1}.jpg
         private const string URL_UHD = "https://27146103.s21i.faiusr.com/2/{0}";
         private const string URL_THUMB = "https://27146103.s21i.faiusr.com/2/{0}!1000x1000";
 
@@ -102,7 +103,8 @@ namespace TimelineWallpaper.Providers {
                 client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", VerUtil.GetPkgVer(true)));
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = await client.PostAsync(URL_API, new FormUrlEncodedContent(formData));
-                string jsonData = await response.Content.ReadAsStringAsync();
+                string jsonData = await response.Content.ReadAsStringAsync(); // 首末有多余换行符
+                jsonData = Regex.Replace(jsonData, @"^.*?(\{.+\}).*$", "$1", RegexOptions.Singleline); // 提取JSON
                 //Debug.WriteLine("provider data: " + jsonData);
                 YmyouliApi ymyouliApi = JsonConvert.DeserializeObject<YmyouliApi>(jsonData);
                 foreach (YmyouliApiProp5 prop in ymyouliApi.ModuleInfo.Props) {
