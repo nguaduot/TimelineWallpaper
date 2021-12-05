@@ -96,9 +96,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public static async Task<bool> Download(Meta meta, string appName, string provider) {
+        public static async Task<StorageFile> Download(Meta meta, string appName, string provider) {
             if (meta == null || !meta.IsCached()) {
-                return false;
+                return null;
             }
 
             try {
@@ -106,13 +106,11 @@ namespace TimelineWallpaper.Providers {
                     .CreateFolderAsync(appName, CreationCollisionOption.OpenIfExists);
                 string name = string.Format("{0}_{1}_{2}{3}", appName, provider, meta.Id, meta.Format);
                 name = FileUtil.MakeValidFileName(name, "");
-                _ = await meta.GetCacheOne().CopyAsync(folder, name, NameCollisionOption.ReplaceExisting);
-                return true;
+                return await meta.GetCacheOne().CopyAsync(folder, name, NameCollisionOption.ReplaceExisting);
             } catch (Exception) {
                 Debug.WriteLine("download error");
             }
-
-            return false;
+            return null;
         }
     }
 }

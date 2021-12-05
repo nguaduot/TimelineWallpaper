@@ -11,7 +11,6 @@ using TimelineWallpaper.Providers;
 using TimelineWallpaper.Services;
 using TimelineWallpaper.Utils;
 using TWPushService;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Media.Core;
@@ -609,11 +608,11 @@ namespace TimelineWallpaper {
         }
 
         private async void DownloadAsync() {
-            bool res = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
+            StorageFile file = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
                 resLoader.GetString("Provider_" + provider.Id));
-            if (res) {
+            if (file != null) {
                 ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, () => {
-                    LaunchPicLib();
+                    LaunchPicLib(file);
                     ToggleInfo(null);
                 });
             } else {
@@ -629,10 +628,14 @@ namespace TimelineWallpaper {
             }
         }
 
-        private async void LaunchPicLib() {
+        private async void LaunchPicLib(StorageFile fileSelected) {
             try {
                 var folder = await KnownFolders.PicturesLibrary.GetFolderAsync(resLoader.GetString("AppNameShort"));
-                _ = await Launcher.LaunchFolderAsync(folder);
+                FolderLauncherOptions options = new FolderLauncherOptions();
+                if (fileSelected != null) { // 打开文件夹同时选中目标文件
+                    options.ItemsToSelect.Add(fileSelected);
+                }
+                _ = await Launcher.LaunchFolderAsync(folder, options);
             } catch (Exception) {
                 Debug.WriteLine("launch folder failed");
             }

@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using TimelineWallpaper.Beans;
 using TimelineWallpaper.Utils;
 using Windows.ApplicationModel;
-using Windows.Foundation;
 using Windows.Services.Store;
 using Windows.System.Profile;
 
@@ -22,7 +21,6 @@ namespace TimelineWallpaper.Services {
             }
             //const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
             const string URL_API_STATS = "http://150.158.49.144/appstats";
-            var id = Package.Current.Id;
             StatsApiReq req = new StatsApiReq {
                 App = Package.Current.DisplayName,
                 Package = Package.Current.Id.FamilyName,
@@ -41,7 +39,7 @@ namespace TimelineWallpaper.Services {
                 HttpResponseMessage response = await client.PostAsync(URL_API_STATS, content);
                 _ = response.EnsureSuccessStatusCode();
                 string jsonData = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine("stats: " + jsonData);
+                Debug.WriteLine("stats: " + jsonData.Trim());
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }
