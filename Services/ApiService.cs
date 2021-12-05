@@ -34,8 +34,9 @@ namespace TimelineWallpaper.Services {
             };
             try {
                 HttpClient client = new HttpClient();
-                HttpContent content = new StringContent(JsonConvert.SerializeObject(req), Encoding.UTF8, "application/json");
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
+                    Encoding.UTF8, "application/json");
+                //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await client.PostAsync(URL_API_STATS, content);
                 _ = response.EnsureSuccessStatusCode();
                 string jsonData = await response.Content.ReadAsStringAsync();

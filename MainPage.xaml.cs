@@ -562,7 +562,7 @@ namespace TimelineWallpaper {
         private void StatusError() {
             ImgUhd.Opacity = 0;
             MpeUhd.Opacity = 0;
-            TextTitle.Text = resLoader.GetStringForUri(new Uri("ms-resource:///Resources/TextTitle/Text"));
+            TextTitle.Text = resLoader.GetString("AppDesc");
             TextDetailCaption.Text = "";
             TextDetailLocation.Text = "";
             TextDetailStory.Text = "";
