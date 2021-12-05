@@ -432,10 +432,6 @@ namespace TimelineWallpaper {
             BtnTimelineCate3.IsChecked = BtnTimelineCate3.Tag.Equals(ini.Timeline.Cate);
             BtnTimelineCate4.IsChecked = BtnTimelineCate4.Tag.Equals(ini.Timeline.Cate);
             BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol126.IsChecked = BtnYmyouliCol126.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol127.IsChecked = BtnYmyouliCol127.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol128.IsChecked = BtnYmyouliCol128.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol134.IsChecked = BtnYmyouliCol134.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol183.IsChecked = BtnYmyouliCol183.Tag.Equals(ini.Ymyouli.Col);
             BtnYmyouliCol184.IsChecked = BtnYmyouliCol184.Tag.Equals(ini.Ymyouli.Col);

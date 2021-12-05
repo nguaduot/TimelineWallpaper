@@ -276,23 +276,20 @@
   <data name="BtnYmyouliCol.Text" xml:space="preserve">
     <value>类别</value>
   </data>
-  <data name="BtnYmyouliCol126.Text" xml:space="preserve">
-    <value>4K图片 - 游戏动漫人物</value>
-  </data>
   <data name="BtnYmyouliCol182.Text" xml:space="preserve">
-    <value>8K图片 - 游戏动漫人物</value>
+    <value>游戏动漫人物</value>
   </data>
   <data name="BtnYmyouliCol183.Text" xml:space="preserve">
-    <value>8K图片 - 游戏动漫场景</value>
+    <value>游戏动漫场景</value>
   </data>
   <data name="BtnYmyouliCol184.Text" xml:space="preserve">
-    <value>8K图片 - 自然风景</value>
+    <value>自然风景</value>
   </data>
   <data name="BtnYmyouliCol185.Text" xml:space="preserve">
-    <value>8K图片 - 花草植物</value>
+    <value>花草植物</value>
   </data>
   <data name="BtnYmyouliCol215.Text" xml:space="preserve">
-    <value>8K图片 - 意境</value>
+    <value>意境</value>
   </data>
   <data name="BtnYmyouliColDef.Text" xml:space="preserve">
     <value>随机</value>
@@ -438,56 +435,47 @@
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>8K优质壁纸资源</value>
   </data>
-  <data name="BtnYmyouliCol127.Text" xml:space="preserve">
-    <value>4K图片 - 游戏动漫场景</value>
-  </data>
-  <data name="BtnYmyouliCol128.Text" xml:space="preserve">
-    <value>4K图片 - 古风人物</value>
-  </data>
-  <data name="BtnYmyouliCol134.Text" xml:space="preserve">
-    <value>4K图片 - 自然风景</value>
-  </data>
   <data name="BtnYmyouliCol186.Text" xml:space="preserve">
-    <value>8K图片 - 美女女孩</value>
+    <value>美女女孩</value>
   </data>
   <data name="BtnYmyouliCol187.Text" xml:space="preserve">
-    <value>8K图片 - 机车</value>
+    <value>机车</value>
   </data>
   <data name="BtnYmyouliCol214.Text" xml:space="preserve">
-    <value>8K图片 - 科幻</value>
+    <value>科幻</value>
   </data>
   <data name="BtnYmyouliCol224.Text" xml:space="preserve">
-    <value>8K图片 - 武器刀剑</value>
+    <value>武器刀剑</value>
   </data>
   <data name="BtnYmyouliCol225.Text" xml:space="preserve">
-    <value>8K图片 - 动物</value>
+    <value>动物</value>
   </data>
   <data name="BtnYmyouliCol226.Text" xml:space="preserve">
-    <value>8K图片 - 古风人物</value>
+    <value>古风人物</value>
   </data>
   <data name="BtnYmyouliCol227.Text" xml:space="preserve">
-    <value>8K图片 - 日暮云天</value>
+    <value>日暮云天</value>
   </data>
   <data name="BtnYmyouliCol228.Text" xml:space="preserve">
-    <value>8K图片 - 夜空星河</value>
+    <value>夜空星河</value>
   </data>
   <data name="BtnYmyouliCol229.Text" xml:space="preserve">
-    <value>8K图片 - 战场战争</value>
+    <value>战场战争</value>
   </data>
   <data name="BtnYmyouliCol230.Text" xml:space="preserve">
-    <value>8K图片 - 冰雪之境</value>
+    <value>冰雪之境</value>
   </data>
   <data name="BtnYmyouliCol231.Text" xml:space="preserve">
-    <value>8K图片 - 油画</value>
+    <value>油画</value>
   </data>
   <data name="BtnYmyouliCol232.Text" xml:space="preserve">
-    <value>8K图片 - 国漫壁纸</value>
+    <value>国漫壁纸</value>
   </data>
   <data name="BtnYmyouliCol233.Text" xml:space="preserve">
-    <value>8K图片 - 美食蔬果</value>
+    <value>美食蔬果</value>
   </data>
   <data name="BtnYmyouliCol241.Text" xml:space="preserve">
-    <value>8K图片 - 樱落</value>
+    <value>樱落</value>
   </data>
   <data name="MsgUpdate" xml:space="preserve">
     <value>「拾光」已发布新版本</value>

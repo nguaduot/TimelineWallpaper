@@ -225,10 +225,102 @@ namespace TimelineWallpaper.Utils {
 
     public class ProviderYmyouli {
         public const string ID = "ymyouli";
+        public static readonly Dictionary<string, Dictionary<string, string>> COL_MODULE_DIC = new Dictionary<string, Dictionary<string, string>> {
+            { "182", new Dictionary<string, string> {
+                { "577", "126" },
+                { "606", "126" },
+                { "607", "126" },
+                { "611", "126" },
+                { "681", "126" },
+                { "575", "182" },
+                { "610", "182" },
+                { "695", "182" },
+                { "743", "182" },
+                { "744", "182" },
+                { "768", "182" },
+                { "776", "182" },
+                { "786", "182" },
+                { "787", "182" },
+                { "792", "182" },
+                { "833", "182" },
+                { "834", "182" }
+            } }, // 游戏动漫人物（4K+8K）
+            { "183", new Dictionary<string, string> {
+                { "677", "127" },
+                { "673", "183" },
+                { "777", "183" }
+            } }, // 游戏动漫场景（4K+8K）
+            { "184", new Dictionary<string, string> {
+                { "678", "134" },
+                { "675", "184" },
+                { "791", "184" }
+            } }, // 自然风景（4K+8K）
+            { "185", new Dictionary<string, string> {
+                { "578", "185" },
+                { "679", "185" },
+                { "680", "185" },
+                { "754", "185" }
+            } }, // 花草植物
+            { "186", new Dictionary<string, string> {
+                { "753", "186" }
+            } }, // 美女女孩
+            { "187", new Dictionary<string, string> {
+                { "670", "187" },
+                { "741", "187" },
+                { "790", "187" }
+            } }, // 机车
+            { "214", new Dictionary<string, string> {
+                { "690", "214" },
+                { "691", "214" }
+            } }, // 科幻
+            { "215", new Dictionary<string, string> {
+                { "693", "215" },
+                { "694", "215" },
+                { "742", "215" },
+                { "836", "215" }
+            } }, // 意境
+            { "224", new Dictionary<string, string> {
+                { "746", "224" }
+            } }, // 武器刀剑
+            { "225", new Dictionary<string, string> {
+                { "748", "225" }
+            } }, // 动物
+            { "226", new Dictionary<string, string> {
+                { "682", "128" },
+                { "751", "226" }
+            } }, // 古风人物（4K+8K）
+            { "227", new Dictionary<string, string> {
+                { "756", "227" },
+                { "773", "227" }
+            } }, // 日暮云天
+            { "228", new Dictionary<string, string> {
+                { "758", "228" }
+            } }, // 夜空星河
+            { "229", new Dictionary<string, string> {
+                { "760", "229" },
+                { "761", "229" },
+                { "762", "229" }
+            } }, // 战场战争
+            { "230", new Dictionary<string, string> {
+                { "763", "230" }
+            } }, // 冰雪之境
+            { "231", new Dictionary<string, string> {
+                { "766", "231" }
+            } }, // 油画
+            { "232", new Dictionary<string, string> {
+                { "775", "232" }
+            } }, // 国漫壁纸
+            { "233", new Dictionary<string, string> {
+                { "778", "233" }
+            } }, // 美食蔬果
+            { "241", new Dictionary<string, string> {
+                { "830", "241" }
+            } } // 樱落
+        }; // { col: { module: col } }
 
         private string col = "";
         public string Col {
-            set => col = YmyouliProvider.COL_MODULE_DIC.ContainsKey(value) ? value : "";
+            set => col = COL_MODULE_DIC.ContainsKey(value) ? value : "";
             get => col;
         }
 
