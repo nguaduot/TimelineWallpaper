@@ -70,3 +70,5 @@
 + 酷安 [@南瓜多糖](http://www.coolapk.com/u/474144)
 + Telegram [@nguaduot](https://t.me/nguaduot)
 + TG群 [拾光 for Windows 11](https://t.me/timelinewallpaper)
+
+*Copyright © 2021 nguaduot. All rights reserved.*
