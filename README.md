@@ -62,3 +62,11 @@
 ![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
 
 自取：[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
+
+## 反馈
+
+你可以在以下渠道联系到我：
++ 邮件 [nguaduot@163.com](mailto:nguaduot@163.com)
++ 酷安 [@南瓜多糖](http://www.coolapk.com/u/474144)
++ Telegram [@nguaduot](https://t.me/nguaduot)
++ TG群 [拾光 for Windows 11](https://t.me/timelinewallpaper)
