@@ -24,6 +24,11 @@ namespace TimelineWallpaper.Providers {
         // 当前浏览索引
         protected int indexFocus = 0;
 
+        protected void SortMetas() {
+            // 按日期降序排列
+            metas.Sort((m1, m2) => m1.Date.Value > m2.Date.Value ? -1 : 1);
+        }
+
         protected void RandomMetas() {
             List<Meta> metasNew = new List<Meta>();
             Random random = new Random();

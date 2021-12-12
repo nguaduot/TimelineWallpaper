@@ -778,8 +778,9 @@ namespace TimelineWallpaper {
         }
 
         private async void ChecReviewAsync() {
-            int times = localSettings.Values.ContainsKey("launchTimes") ? (int)localSettings.Values["launchTimes"] : 0;
-            if (++times == 5) {
+            int.TryParse(localSettings.Values["launchTimes"]?.ToString(), out int times);
+            localSettings.Values["launchTimes"] = ++times;
+            if (times == 1) {
                 //StoreContext ctx = StoreContext.GetDefault();
                 //StoreRateAndReviewResult res = await ctx.RequestRateAndReviewAppAsync();
                 //Debug.WriteLine(res.ExtendedJsonData);
@@ -801,9 +802,9 @@ namespace TimelineWallpaper {
                 //}
                 if (await DlgReview.ShowAsync() == ContentDialogResult.Primary) {
                     _ = await Launcher.LaunchUriAsync(new Uri(ApiService.URI_STORE_REVIEW));
+                } else {
+                    localSettings.Values["launchTimes"] = -5;
                 }
-            } else {
-                localSettings.Values["launchTimes"] = times;
             }
         }
 

@@ -77,6 +77,7 @@ namespace TimelineWallpaper.Providers {
                         metas.Add(meta);
                     }
                 }
+                SortMetas();
                 nextPage = "date".Equals(ini.Timeline.Order)
                     ? nextPage.AddDays(-timelinekApi.Data.Count) : nextPage;
             } catch (Exception e) {
