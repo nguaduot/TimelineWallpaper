@@ -57,8 +57,39 @@
 
 *特别注明：除了自建图源，均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
 
+## 进阶
+
++ 使用快捷键
+  + `鼠标右键`：菜单
+  + `鼠标左键`（双击）：切换全屏/窗口模式
+  + `鼠标滚轮`：切换图片显示模式：填充/适应
+  + `左方向键` / `上方向键`：回顾前一天
+  + `右方向键` / `下方向键`：预览下一天
+  + `Ctrl` + `B`：用作桌面背景
+  + `Ctrl` + `L`：用作锁屏背景
+  + `Ctrl` + `S`：保存图片
+  + `Ctrl` + `R` / `F5`：刷新
+  + `Ctrl` + `F` / `Ctrl` + `G`：日期定位
+  + `回车`：切换全屏模式
+  + `Esc`：切换窗口模式
+
++ 如何以2小时/次的周期更换桌面小姐姐壁纸？
+  + 右键菜单“**图源**”选择“**拾光**”，“**类别**”选择“**人像摄影**”
+  + 右键菜单“**推送**”选择“**推送桌面壁纸**”开启推送。默认推送周期为1天/次，下一步调整为2小时/次
+  + 右键菜单“**打开配置文件**”，找到 `period=24` 这一行，将数值修改为 `2`，保存即可
+
+## 反馈
+
+你可以在以下渠道联系到我：
++ 邮件 [nguaduot@163.com](mailto:nguaduot@163.com)
++ 酷安 [@南瓜多糖](http://www.coolapk.com/u/474144)
++ Telegram [@nguaduot](https://t.me/nguaduot)
++ TG群 [拾光 for Windows 11](https://t.me/timelinewallpaper)
+
 ## 截图
 
 ![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
 
 自取：[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
+
+*Copyright © 2021 nguaduot. All rights reserved.*
