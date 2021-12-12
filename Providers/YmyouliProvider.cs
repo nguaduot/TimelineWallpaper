@@ -42,7 +42,7 @@ namespace TimelineWallpaper.Providers {
             };
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             string col = ini.Ymyouli.Col;
             if (string.IsNullOrEmpty(col)) {
                 List<string> cols = Enumerable.ToList(ProviderYmyouli.COL_MODULE_DIC.Keys);
@@ -54,7 +54,7 @@ namespace TimelineWallpaper.Providers {
                 RandomModules(modules);
             }
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count || nextPage >= modules.Count) {
+            if (indexFocus < metas.Count - 1 || nextPage >= modules.Count) {
                 return true;
             }
             // 无网络连接

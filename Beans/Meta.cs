@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using Windows.Storage;
-using Windows.UI.Xaml.Media;
 
 namespace TimelineWallpaper.Beans {
     public class Meta {
@@ -54,7 +53,7 @@ namespace TimelineWallpaper.Beans {
         public StorageFile CacheAudio { set; get; }
 
         // 主题色笔刷
-        public SolidColorBrush Dominant { set; get; }
+        //public SolidColorBrush Dominant { set; get; }
 
         public bool IsValid() {
             return !string.IsNullOrEmpty(Id) && Date != null;
@@ -88,23 +87,6 @@ namespace TimelineWallpaper.Beans {
 
         public bool IsCached() {
             return GetCacheOne() != null;
-        }
-
-        public override string ToString() {
-            return "{\"id\":\"" + Id
-                + "\",\"uhd\":\"" + Uhd
-                + "\",\"video\":\"" + Video
-                + "\",\"audio\":\"" + Audio
-                + "\",\"thumb\":\"" + Thumb
-                + "\",\"title\":\"" + Title
-                + "\",\"caption\":\"" + Caption
-                + "\",\"location\":\"" + Location
-                + "\",\"copyright\":\"" + Copyright
-                + "\",\"desc\":\"" + Story
-                + ",\"cacheuhd\":\"" + CacheUhd?.Path
-                + ",\"cachevideo\":\"" + CacheVideo?.Path
-                + ",\"cacheaudio\":\"" + CacheAudio?.Path
-                + "\",\"dominant\":\"" + Dominant?.Color + "\"}";
         }
     }
 }

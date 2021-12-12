@@ -10,8 +10,8 @@ using TimelineWallpaper.Utils;
 
 namespace TimelineWallpaper.Providers {
     public class G3Provider : BaseProvider {
-        // 下一页数据索引（从1开始）（用于按需加载）
-        private int nextPage = 1;
+        // 页数据索引（从1开始）（用于按需加载）
+        private int pageIndex = 0;
 
         // 最新壁纸
         private const string URL_API_SORT1 = "https://desk.3gbizhi.com/index_{0}.html";
@@ -56,10 +56,10 @@ namespace TimelineWallpaper.Providers {
             return metas;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             bool sortByHot = "view".Equals(ini.G3.Order);
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count || (sortByHot && nextPage > 1)) {
+            if (indexFocus < metas.Count - 1 || (sortByHot && pageIndex > 0)) {
                 return true;
             }
             // 无网络连接
@@ -67,8 +67,8 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string url = sortByHot ? URL_API_SORT2 : string.Format(URL_API_SORT1, nextPage);
-            nextPage++;
+            ++pageIndex;
+            string url = sortByHot ? URL_API_SORT2 : string.Format(URL_API_SORT1, pageIndex);
             Debug.WriteLine("provider url: " + url);
             try {
                 HttpClient client = new HttpClient();

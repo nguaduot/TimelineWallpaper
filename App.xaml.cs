@@ -2,6 +2,7 @@
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -57,6 +58,9 @@ namespace TimelineWallpaper {
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
 
+                // 首次启动设置最佳窗口比例：16:10
+                OptimizeSize();
+                // 将内容扩展到标题栏，并使标题栏半透明
                 TransTitleBar();
             }
         }
@@ -81,6 +85,15 @@ namespace TimelineWallpaper {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
+        }
+
+        private void OptimizeSize() {
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("optimizeSize")) {
+                ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(960, 600);
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                ApplicationData.Current.LocalSettings.Values["optimizeSize"] = true;
+            }
         }
 
         private void TransTitleBar() {

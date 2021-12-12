@@ -73,9 +73,10 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[nasa]",
                     "",
-                    "mirror=",
-                    "; mirror=     镜像：无（默认）",
-                    "; mirror=bjp  镜像：北京天文馆 http://www.bjp.org.cn/mryt",
+                    "mirror=bjp",
+
+                    "; mirror=     镜像：无",
+                    "; mirror=bjp  镜像：北京天文馆（默认） http://www.bjp.org.cn/mryt",
                     "",
                     "[oneplus]",
                     "",
@@ -91,7 +92,7 @@ namespace TimelineWallpaper.Utils {
                     "; order=random  排序：随机",
                     "",
                     "cate=",
-                    "; cate=           类别：随机（默认）",
+                    "; cate=           类别：全部（默认）",
                     "; cate=landscape  类别：风光摄影",
                     "; cate=portrait   类别：人像摄影",
                     "; cate=culture    类别：人文摄影",
@@ -352,7 +353,11 @@ namespace TimelineWallpaper.Utils {
 
         public static string GetDevice() {
             var deviceInfo = new EasClientDeviceInformation();
-            return deviceInfo.SystemSku;
+            if (deviceInfo.SystemSku.Length > 0) {
+                return deviceInfo.SystemSku;
+            }
+            return string.Format("{0}_{1}", deviceInfo.SystemManufacturer,
+                deviceInfo.SystemProductName);
         }
 
         public static string GetDeviceId() {

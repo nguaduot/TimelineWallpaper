@@ -15,6 +15,8 @@ namespace TimelineWallpaper.Providers {
         // 下一页数据索引（日期编号）（用于按需加载）
         private DateTime nextPage = DateTime.UtcNow.AddHours(-4);
 
+        private const int PAGE_SIZE = 14;
+
         // https://api.nasa.gov/
         // Query Parameters
         // date: The date of the APOD image to retrieve
@@ -53,9 +55,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1 && date == null) {
                 return true;
             }
             // 无网络连接
@@ -63,13 +65,14 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string urlApi = string.Format(URL_API_PAGE, nextPage.AddDays(-6).ToString("yyyy-MM-dd"), nextPage.ToString("yyyy-MM-dd"));
-            nextPage = nextPage.AddDays(-7);
+            nextPage = date ?? nextPage;
+            string urlApi = string.Format(URL_API_PAGE, nextPage.AddDays(-PAGE_SIZE + 1).ToString("yyyy-MM-dd"),
+                nextPage.ToString("yyyy-MM-dd"));
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(urlApi);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 List<NasaApiItem> items = JsonConvert.DeserializeObject<List<NasaApiItem>>(jsonData);
                 items.Sort((a, b) => b.Date.CompareTo(a.Date));
                 foreach (NasaApiItem item in items) {
@@ -85,6 +88,7 @@ namespace TimelineWallpaper.Providers {
                         metas.Add(meta);
                     }
                 }
+                nextPage = nextPage.AddDays(-PAGE_SIZE);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }
@@ -145,9 +149,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接
@@ -250,9 +254,9 @@ namespace TimelineWallpaper.Providers {
     //        return meta;
     //    }
 
-    //    public override async Task<bool> LoadData(Ini ini) {
+    //    public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
     //        // 现有数据未浏览完，无需加载更多，或已无更多数据
-    //        if (indexFocus + 1 < metas.Count) {
+    //        if (indexFocus < metas.Count - 1) {
     //            return true;
     //        }
     //        // 无网络连接
@@ -338,7 +342,7 @@ namespace TimelineWallpaper.Providers {
 
     //    public override async Task<bool> LoadData(Ini ini) {
     //        // 现有数据未浏览完，无需加载更多，或已无更多数据
-    //        if (indexFocus + 1 < metas.Count) {
+    //        if (indexFocus < metas.Count - 1) {
     //            return true;
     //        }
     //        // 无网络连接

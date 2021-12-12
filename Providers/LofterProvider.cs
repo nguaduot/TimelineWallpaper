@@ -11,9 +11,6 @@ using System.Net.Http.Headers;
 
 namespace TimelineWallpaper.Providers {
     public class LofterProvider : BaseProvider {
-        // 下一页数据索引（从1开始）（用于按需加载）
-        private int nextPage = 1;
-
         // Lofter 登录页图片
         private const string URL_API = "https://www.lofter.com/front/login";
 
@@ -51,9 +48,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count || nextPage++ > 1) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接
@@ -66,7 +63,7 @@ namespace TimelineWallpaper.Providers {
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", VerUtil.GetPkgVer(true)));
                 string htmlData = await client.GetStringAsync(URL_API);
-                Debug.WriteLine("provider data: " + htmlData);
+                //Debug.WriteLine("provider data: " + htmlData);
                 LofterApi lofterApi = JsonConvert.DeserializeObject<LofterApi>(FindJson(htmlData));
                 foreach (LofterApiBg bg in lofterApi.Background) {
                     Meta meta = ParseBean(bg, lofterApi.CurDate);

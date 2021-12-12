@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -15,6 +16,7 @@ using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.Services.Store;
 using Windows.Storage;
 using Windows.System;
 using Windows.System.UserProfile;
@@ -22,6 +24,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -33,6 +36,7 @@ namespace TimelineWallpaper {
         private event BtnInfoLinkHandler InfoLink;
 
         private readonly ResourceLoader resLoader;
+        private readonly ApplicationDataContainer localSettings;
 
         private Ini ini = null;
         private BaseProvider provider = null;
@@ -51,6 +55,7 @@ namespace TimelineWallpaper {
             this.InitializeComponent();
 
             resLoader = ResourceLoader.GetForCurrentView();
+            localSettings = ApplicationData.Current.LocalSettings;
             Init();
             LoadFocusAsync();
             CheckUpdateAsync();
@@ -64,7 +69,7 @@ namespace TimelineWallpaper {
             TextTitle.Text = resLoader.GetString("AppDesc");
             BtnAbout.Text = string.Format(BtnAbout.Text, " v" + VerUtil.GetPkgVer(true));
 
-            // 前者会在应用启动时触发，后者不会
+            // 前者会在应用启动时触发多次，后者仅一次
             //this.SizeChanged += Current_SizeChanged;
             Window.Current.SizeChanged += Current_SizeChanged;
         }
@@ -99,9 +104,9 @@ namespace TimelineWallpaper {
             DownloadAsync();
         }
 
-        private void BtnNext_Click(object sender, RoutedEventArgs e) {
+        private void BtnYesterday_Click(object sender, RoutedEventArgs e) {
             StatusLoading();
-            LoadNextAsync();
+            LoadYesterdayAsync();
         }
 
         private void BtnPush_Click(object sender, RoutedEventArgs e) {
@@ -264,11 +269,26 @@ namespace TimelineWallpaper {
             //ImgUhdTransform.TranslateY = translateY;
         }
 
+        private void CalendarGo_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args) {
+            if (sender.SelectedDates.Count == 0) {
+                return;
+            }
+            DateTime date = sender.SelectedDates.First().DateTime;
+            if (date.Date != meta?.Date?.Date) {
+                StatusLoading();
+                LoadTargetAsync(date);
+            }
+        }
+
+        private void FlyoutMenu_Opened(object sender, object e) {
+            localSettings.Values["MenuLearned"] = true;
+        }
+
         private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
             switch (sender.Key) {
                 case VirtualKey.Up:
                     StatusLoading();
-                    LoadNextAsync();
+                    LoadYesterdayAsync();
                     break;
                 case VirtualKey.Right:
                 case VirtualKey.Down:
@@ -295,6 +315,13 @@ namespace TimelineWallpaper {
                     StatusLoading();
                     LoadFocusAsync();
                     break;
+                case VirtualKey.F:
+                case VirtualKey.G:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        CalendarGo.Visibility = CalendarGo.Visibility == Visibility.Visible
+                            ? Visibility.Collapsed : Visibility.Visible;
+                    }
+                    break;
             }
             args.Handled = true;
         }
@@ -309,19 +336,21 @@ namespace TimelineWallpaper {
             }
 
             meta = provider.GetFocus();
-            Debug.WriteLine("meta: " + meta);
+            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await BaseProvider.Cache(provider, meta);
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
+                ShowTips();
                 ApiService.Stats(ini, true);
+                ChecReviewAsync();
             }
 
             // 预加载
-            PreLoadNextAsync();
+            PreLoadYesterdayAsync();
         }
 
-        private async void LoadNextAsync() {
+        private async void LoadYesterdayAsync() {
             long cost = DateTime.Now.Ticks;
             if (!await provider.LoadData(ini)) {
                 Debug.WriteLine("failed to load data");
@@ -332,8 +361,8 @@ namespace TimelineWallpaper {
                 return;
             }
 
-            meta = provider.GetNext();
-            Debug.WriteLine("meta: " + meta);
+            meta = provider.Yesterday();
+            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await BaseProvider.Cache(provider, meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
@@ -344,7 +373,7 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadNextAsync();
+            PreLoadYesterdayAsync();
         }
 
         private async void LoadLastAsync() {
@@ -358,8 +387,8 @@ namespace TimelineWallpaper {
                 return;
             }
 
-            meta = provider.GetLast();
-            Debug.WriteLine("meta: " + meta);
+            meta = provider.Tormorrow();
+            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await BaseProvider.Cache(provider, meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
@@ -370,12 +399,38 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadNextAsync();
+            PreLoadYesterdayAsync();
         }
 
-        private async void PreLoadNextAsync() {
+        private async void LoadTargetAsync(DateTime date) {
+            long cost = DateTime.Now.Ticks;
+            if (!await provider.LoadData(ini, date)) {
+                Debug.WriteLine("failed to load data");
+                if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
+                    await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
+                }
+                ShowText(null);
+                return;
+            }
+
+            meta = provider.Target(date);
+            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
+            ShowText(meta);
+            Meta metaCache = await BaseProvider.Cache(provider, meta);
+            if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
+                await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
+            }
+            if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
+                ShowImg(meta);
+            }
+
+            // 预加载
+            PreLoadYesterdayAsync();
+        }
+
+        private async void PreLoadYesterdayAsync() {
             if (await provider.LoadData(ini)) {
-                _ = BaseProvider.Cache(provider, provider.GetNext(false));
+                _ = BaseProvider.Cache(provider, provider.GetYesterday());
             }
         }
 
@@ -479,6 +534,10 @@ namespace TimelineWallpaper {
             TextDetailDate.Text = meta.Date?.ToLongDateString();
             // 文件属性
             TextDetailProperties.Text = "";
+
+            CalendarGo.SelectedDates.Clear();
+            CalendarGo.SelectedDates.Add(meta.Date.Value);
+            CalendarGo.SetDisplayDate(meta.Date.Value.AddDays(-7));
         }
 
         private void ShowImg(Meta meta) {
@@ -524,10 +583,13 @@ namespace TimelineWallpaper {
             if (ImgUhd.Source == null) {
                 return;
             }
-            Debug.WriteLine("ReDecodeImg " + DateTime.Now);
             float winW = Window.Current.Content.ActualSize.X;
             float winH = Window.Current.Content.ActualSize.Y;
             BitmapImage bi = ImgUhd.Source as BitmapImage;
+            if (bi.PixelHeight == 0) {
+                Debug.WriteLine("ReDecodeImg(): bi.PixelWidth 0");
+                return;
+            }
             bi.DecodePixelType = DecodePixelType.Logical;
             if (bi.PixelWidth / bi.PixelHeight > winW / winH) {
                 bi.DecodePixelWidth = (int)Math.Round(winH * bi.PixelWidth / bi.PixelHeight);
@@ -580,6 +642,13 @@ namespace TimelineWallpaper {
 
             ToggleInfo(!NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
                 : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
+        }
+
+        private void ShowTips() {
+            if (localSettings.Values.ContainsKey("MenuLearned")) {
+                return;
+            }
+            TipMenu.IsOpen = true;
         }
 
         private async void SetWallpaperAsync(Meta meta, bool setDesktopOrLock) {
@@ -700,12 +769,42 @@ namespace TimelineWallpaper {
             if (release == null) {
                 return;
             }
-            BtnAbout.Text = string.Format(resLoader.GetString("release"), release.Version);
+            BtnAbout.Text = string.Format(resLoader.GetString("Release"), release.Version);
             BtnAbout.IsEnabled = true;
             ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
                 LaunchRelealse();
                 ToggleInfo(null);
             });
+        }
+
+        private async void ChecReviewAsync() {
+            int times = localSettings.Values.ContainsKey("launchTimes") ? (int)localSettings.Values["launchTimes"] : 0;
+            if (++times == 5) {
+                //StoreContext ctx = StoreContext.GetDefault();
+                //StoreRateAndReviewResult res = await ctx.RequestRateAndReviewAppAsync();
+                //Debug.WriteLine(res.ExtendedJsonData);
+                //switch (res.Status) {
+                //    case StoreRateAndReviewStatus.Succeeded:
+                //        if (res.WasUpdated) {
+
+                //        } else {
+
+                //        }
+                //        localSettings.Values["times"] = times;
+                //        break;
+                //    case StoreRateAndReviewStatus.CanceledByUser:
+                //        localSettings.Values["times"] = times;
+                //        break;
+                //    default:
+                //        Debug.WriteLine(res.ExtendedError);
+                //        break;
+                //}
+                if (await DlgReview.ShowAsync() == ContentDialogResult.Primary) {
+                    _ = await Launcher.LaunchUriAsync(new Uri(ApiService.URI_STORE_REVIEW));
+                }
+            } else {
+                localSettings.Values["launchTimes"] = times;
+            }
         }
 
         //private void UpdateTile(Meta meta) {

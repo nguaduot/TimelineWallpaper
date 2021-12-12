@@ -201,7 +201,7 @@
   <data name="BtnNasaMirrorDef.Text" xml:space="preserve">
     <value>无</value>
   </data>
-  <data name="BtnNext.Text" xml:space="preserve">
+  <data name="BtnYesterday.Text" xml:space="preserve">
     <value>回顾</value>
   </data>
   <data name="BtnOneplusOrder.Text" xml:space="preserve">
@@ -235,7 +235,7 @@
     <value>拾光 - 时光如歌，岁月如诗</value>
   </data>
   <data name="BtnProviderYmyouli.Text" xml:space="preserve">
-    <value>一梦幽黎 - 本站资源准备历时数年</value>
+    <value>一梦幽黎 - 8K优质壁纸资源</value>
   </data>
   <data name="BtnPush.Text" xml:space="preserve">
     <value>推送</value>
@@ -262,7 +262,7 @@
     <value>类别</value>
   </data>
   <data name="BtnTimelineCate1.Text" xml:space="preserve">
-    <value>随机</value>
+    <value>全部</value>
   </data>
   <data name="BtnTimelineCate2.Text" xml:space="preserve">
     <value>风光摄影</value>
@@ -298,7 +298,7 @@
     <value>{0} / {1}x{2}, {3}</value>
   </data>
   <data name="MsgLostProvider" xml:space="preserve">
-    <value>无法连接图源：{0}</value>
+    <value>无数据或无法连接图源：{0}</value>
   </data>
   <data name="MsgNoInternet" xml:space="preserve">
     <value>无网络连接</value>
@@ -482,5 +482,24 @@
   </data>
   <data name="Release" xml:space="preserve">
     <value>发现新版本{0}</value>
+  </data>
+  <data name="TipMenu.Subtitle" xml:space="preserve">
+    <value>您可以使用鼠标右键弹出菜单，更换桌面背景、保存图片、开启推送等。</value>
+  </data>
+  <data name="TipMenu.Title" xml:space="preserve">
+    <value>操作提示</value>
+  </data>
+  <data name="DlgReview.CloseButtonText" xml:space="preserve">
+    <value>下次一定</value>
+  </data>
+  <data name="DlgReview.Content" xml:space="preserve">
+    <value>维护不易，如果您喜欢「拾光」分享的美图，
+给它一个评分或评价吧，谢谢。(●'◡'●)</value>
+  </data>
+  <data name="DlgReview.PrimaryButtonText" xml:space="preserve">
+    <value>前往商店评分</value>
+  </data>
+  <data name="DlgReview.Title" xml:space="preserve">
+    <value>给「拾光」一个评分</value>
   </data>
 </root>

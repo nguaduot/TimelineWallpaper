@@ -37,9 +37,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接

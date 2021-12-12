@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class InfinityProvider : BaseProvider {
-        // 下一页数据索引（从1开始）（用于按需加载）
-        private int nextPage = 0;
+        // 页数据索引（从0开始）（用于按需加载）
+        private int pageIndex = -1;
 
         // Infinity新标签页 - 壁纸库
         // http://cn.infinitynewtab.com/
@@ -36,14 +36,14 @@ namespace TimelineWallpaper.Providers {
             if (!string.IsNullOrEmpty(bean.Src?.RawSrc)) {
                 Uri uri = new Uri(bean.Src.RawSrc);
                 string[] nameSuffix = uri.Segments[uri.Segments.Length - 1].Split(".");
-                meta.Format = nameSuffix.Length > 1 ? "." + nameSuffix[1] : ".jpg";
+                meta.Format = nameSuffix.Length > 1 ? "." + nameSuffix[nameSuffix.Length - 1] : ".jpg";
             }
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接
@@ -51,13 +51,13 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string urlApi = "rate".Equals(ini.Infinity.Order) ? String.Format(URL_API, nextPage++)
+            string urlApi = "rate".Equals(ini.Infinity.Order) ? String.Format(URL_API, ++pageIndex)
                 : string.Format(URL_API_RANDOM, DateUtil.CurrentTimeMillis());
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(urlApi);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 InfinityApi infinityApi = JsonConvert.DeserializeObject<InfinityApi>(jsonData);
                 foreach (InfinityApiData item in infinityApi.Data) {
                     Meta meta = ParseBean(item);

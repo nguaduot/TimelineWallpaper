@@ -33,9 +33,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接
@@ -48,7 +48,7 @@ namespace TimelineWallpaper.Providers {
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(URL_API);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 MxgApi mxgApi = JsonConvert.DeserializeObject<MxgApi>(jsonData);
                 Meta meta = ParseBean(mxgApi.Data);
                 if (!meta.IsValid()) {
@@ -93,9 +93,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接
@@ -108,7 +108,7 @@ namespace TimelineWallpaper.Providers {
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(URL_API);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 MxgApi mxgApi = JsonConvert.DeserializeObject<MxgApi>(jsonData);
                 Meta meta = ParseBean(mxgApi.Data);
                 if (!meta.IsValid()) {
@@ -152,9 +152,9 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
+            if (indexFocus < metas.Count - 1) {
                 return true;
             }
             // 无网络连接
@@ -167,7 +167,7 @@ namespace TimelineWallpaper.Providers {
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(URL_API);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 MxgMvApi mxgApi = JsonConvert.DeserializeObject<MxgMvApi>(jsonData);
                 foreach (MxgApiData item in mxgApi.Data) {
                     Meta meta = ParseBean(item);

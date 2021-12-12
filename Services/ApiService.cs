@@ -15,6 +15,9 @@ using Windows.System.Profile;
 
 namespace TimelineWallpaper.Services {
     public class ApiService {
+        public const string URI_STORE = "ms-windows-store://pdp/?productid=9N7VHQ989BB7";
+        public const string URI_STORE_REVIEW = "ms-windows-store://review/?ProductId=9N7VHQ989BB7";
+
         public static async void Stats(Ini ini, bool status) {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
@@ -59,7 +62,7 @@ namespace TimelineWallpaper.Services {
             if (updates.Count > 0) {
                 return new ReleaseApi {
                     Version = "",
-                    Url = "ms-windows-store://pdp/?productid=9N7VHQ989BB7"
+                    Url = URI_STORE
                 };
             }
             return null;
@@ -71,7 +74,7 @@ namespace TimelineWallpaper.Services {
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", VerUtil.GetPkgVer(true)));
                 string jsonData = await client.GetStringAsync(URL_RELEASE);
-                Debug.WriteLine("release: " + jsonData);
+                Debug.WriteLine("release: " + jsonData.Trim());
                 GithubApi api = JsonConvert.DeserializeObject<GithubApi>(jsonData);
                 string[] versions = api.TagName.Split(".");
                 if (versions.Length < 2) {

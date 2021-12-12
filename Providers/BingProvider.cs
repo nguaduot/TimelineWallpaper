@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace TimelineWallpaper.Providers {
     public class BingProvider : BaseProvider {
-        // 下一页数据索引（从0开始）（用于按需加载）
-        private int nextPage = 0;
+        // 页数据索引（从0开始）（用于按需加载）
+        private int pageIndex = 0;
+
+        private const int PAGE_SIZE = 8;
 
         // http://s.cn.bing.net
         // https://cn.bing.com
@@ -30,8 +32,8 @@ namespace TimelineWallpaper.Providers {
         // API 第三方文档：http://www.lib4dev.in/info/facefruit/daily-bing-wallpaper/209719167
         // 语言代码表：http://www.lingoes.net/zh/translator/langcode.htm
         private readonly string[] URL_API_PAGES = new string[] {
-            URL_API_HOST + "/HPImageArchive.aspx?pid=hp&format=js&uhd=1&idx=0&n=8",
-            URL_API_HOST + "/HPImageArchive.aspx?pid=hp&format=js&uhd=1&idx=7&n=8",
+            URL_API_HOST + "/HPImageArchive.aspx?pid=hp&format=js&uhd=1&idx=0&n=" + PAGE_SIZE,
+            URL_API_HOST + "/HPImageArchive.aspx?pid=hp&format=js&uhd=1&idx=7&n=" + PAGE_SIZE
         };
 
         public BingProvider() {
@@ -80,17 +82,23 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
-            // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count || nextPage >= URL_API_PAGES.Length) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+            // 已无更多数据
+            if (pageIndex >= URL_API_PAGES.Length - 1) {
                 return true;
+            }
+            // 现有数据未浏览完，无需加载更多
+            if (date == null || GetFarthest() == null || date.Value.Date >= GetFarthest().Date.Value.Date) {
+                if (indexFocus < metas.Count - 1) {
+                    return true;
+                }
             }
             // 无网络连接
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
 
-            string urlApi = URL_API_PAGES[nextPage++];
+            string urlApi = URL_API_PAGES[++pageIndex];
             if (ini.Bing.Lang.Length > 0) {
                 urlApi += "&setmkt=" + ini.Bing.Lang;
             }
@@ -98,7 +106,7 @@ namespace TimelineWallpaper.Providers {
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(urlApi);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 BingApi bingApi = JsonConvert.DeserializeObject<BingApi>(jsonData);
                 foreach (BingApiImg img in bingApi.Images) {
                     Meta meta = ParseBean(img);

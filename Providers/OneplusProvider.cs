@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace TimelineWallpaper.Providers {
     public class OneplusProvider : BaseProvider {
-        // 下一页数据索引（从1开始）（用于按需加载）
-        private int nextPage = 1;
+        // 页数据索引（从1开始）（用于按需加载）
+        private int pageIndex = 0;
+
+        private const int PAGE_SIZE = 99;
 
         private const string URL_API = "https://photos.oneplus.com/cn/shot/photo/schedule";
 
@@ -39,10 +41,12 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
-            // 现有数据未浏览完，无需加载更多，或已无更多数据
-            if (indexFocus + 1 < metas.Count) {
-                return true;
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+            // 现有数据未浏览完，无需加载更多
+            if (date == null || GetFarthest() == null || date.Value.Date >= GetFarthest().Date.Value.Date) {
+                if (indexFocus < metas.Count - 1) {
+                    return true;
+                }
             }
             // 无网络连接
             if (!NetworkInterface.GetIsNetworkAvailable()) {
@@ -52,8 +56,8 @@ namespace TimelineWallpaper.Providers {
             // "1"：最新添加，"2"：点赞最多，"3"：浏览最多
             string sort = "rate".Equals(ini.OnePlus.Order) ? "2" : ("view".Equals(ini.OnePlus.Order) ? "3" : "1");
             OneplusRequest request = new OneplusRequest {
-                PageSize = 14, // 不限
-                CurrentPage = nextPage++,
+                PageSize = PAGE_SIZE, // 不限
+                CurrentPage = ++pageIndex,
                 SortMethod = sort
             };
             string requestStr = JsonConvert.SerializeObject(request);
@@ -65,9 +69,10 @@ namespace TimelineWallpaper.Providers {
                 HttpResponseMessage response = await client.PostAsync(URL_API, content);
                 _ = response.EnsureSuccessStatusCode();
                 string jsonData = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 OneplusApi oneplusApi = JsonConvert.DeserializeObject<OneplusApi>(jsonData);
                 foreach (OneplusApiItem item in oneplusApi.Items) {
+                    Debug.WriteLine(item.ScheduleTime);
                     Meta meta = ParseBean(item);
                     if (!meta.IsValid()) {
                         continue;

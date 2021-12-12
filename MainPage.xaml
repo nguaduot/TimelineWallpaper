@@ -15,7 +15,8 @@
         <!-- for Windows 10 -->
         <FontFamily x:Key="FluentIcons">Assets/Icons/Segoe-Fluent-Icons.ttf#Segoe Fluent Icons</FontFamily>
 
-        <MenuFlyout x:Name="FlyoutMenu">
+        <MenuFlyout x:Name="FlyoutMenu"
+                    Opened="FlyoutMenu_Opened">
             <MenuFlyoutItem Name="BtnSetDesktop"
                             x:Uid="BtnSetDesktop"
                             IsEnabled="False"
@@ -71,9 +72,9 @@
                     <KeyboardAccelerator Key="S" Modifiers="Control" />
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
-            <MenuFlyoutItem Name="BtnNext"
-                            x:Uid="BtnNext"
-                            Click="BtnNext_Click">
+            <MenuFlyoutItem Name="BtnYesterday"
+                            x:Uid="BtnYesterday"
+                            Click="BtnYesterday_Click">
                 <MenuFlyoutItem.Icon>
                     <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xEB9E;" />
@@ -414,18 +415,22 @@
                             IsEnabled="False" />
         </MenuFlyout>
 
-        <!--<muxc:TeachingTip x:Name="TipPreview"
-                          Target="{x:Bind ViewBar}"
+        <muxc:TeachingTip x:Name="TipMenu"
+                          x:Uid="TipMenu"
                           Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                          IsLightDismissEnabled="False"
-                          PreferredPlacement="Auto"
-                          HeroContentPlacement="Auto">
+                          IsLightDismissEnabled="True"
+                          PreferredPlacement="Right"
+                          HeroContentPlacement="Top">
             <muxc:TeachingTip.HeroContent>
-                <Image Name="ImgPreview"
-                       Stretch="Uniform"
-                       MaxHeight="456" />
+                <Image Source="Assets/MouseClick.jpg"
+                       Opacity="0.7" />
             </muxc:TeachingTip.HeroContent>
-        </muxc:TeachingTip>-->
+            <muxc:TeachingTip.IconSource>
+                <muxc:FontIconSource FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                     FontSize="20"
+                                     Glyph="&#xE961;" />
+            </muxc:TeachingTip.IconSource>
+        </muxc:TeachingTip>
 
     </Page.Resources>
 
@@ -441,7 +446,7 @@
                         <Setter Target="ViewBar.Margin" Value="24" />
                         <Setter Target="ViewBar.Padding" Value="16,12" />
                         <Setter Target="ViewBar.CornerRadius" Value="14" />
-                        <Setter Target="Info.Margin" Value="24" />
+                        <Setter Target="ViewNotify.Margin" Value="24" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -455,6 +460,8 @@
             <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
             <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
             <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="F" Modifiers="Control" Invoked="KeyInvoked" />
+            <KeyboardAccelerator Key="G" Modifiers="Control" Invoked="KeyInvoked" />
         </RelativePanel.KeyboardAccelerators>
 
         <MediaPlayerElement Name="MpeUhd"
@@ -574,16 +581,47 @@
 
         </StackPanel>
 
-        <muxc:InfoBar Name="Info"
-                      Margin="12"
-                      IsOpen="False">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Name="BtnInfoLink"
-                                 x:Uid="BtnInfoLink"
-                                 Visibility="Collapsed"
-                                 Click="BtnInfoLink_Click" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
+        <Grid Name="ViewNotify"
+              Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <muxc:InfoBar Name="Info"
+                          IsOpen="False"
+                          Grid.Row="0">
+                <muxc:InfoBar.ActionButton>
+                    <HyperlinkButton Name="BtnInfoLink"
+                                     x:Uid="BtnInfoLink"
+                                     Visibility="Collapsed"
+                                     Click="BtnInfoLink_Click" />
+                </muxc:InfoBar.ActionButton>
+            </muxc:InfoBar>
+
+            <CalendarView Name="CalendarGo"
+                          DisplayMode="Month"
+                          SelectionMode="Single"
+                          NumberOfWeeksInView="2"
+                          FirstDayOfWeek="Monday"
+                          CalendarIdentifier="GregorianCalendar"
+                          IsGroupLabelVisible="False"
+                          IsOutOfScopeEnabled="True"
+                          IsTodayHighlighted="False"
+                          Visibility="Collapsed"
+                          RelativePanel.Below="Info"
+                          SelectedDatesChanged="CalendarGo_SelectedDatesChanged"
+                          Grid.Row="1" />
+        </Grid>
+
+        <ContentDialog Name="DlgReview"
+                       x:Uid="DlgReview"
+                       PrimaryButtonText=""
+                       Title=""
+                       Content=""
+                       CloseButtonText=""
+                       Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                       DefaultButton="Primary" />
 
     </RelativePanel>
     

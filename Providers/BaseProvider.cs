@@ -11,11 +11,14 @@ using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using Windows.Media.Editing;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace TimelineWallpaper.Providers {
     public class BaseProvider {
         public string Id { set; get; }
 
+        // 索引顺序为「回顾」顺序
+        // 注：并非都按时间降序排列，因图源配置而异
         protected readonly List<Meta> metas = new List<Meta>();
 
         // 当前浏览索引
@@ -31,27 +34,86 @@ namespace TimelineWallpaper.Providers {
             metas.AddRange(metasNew);
         }
 
-        public virtual async Task<bool> LoadData(Ini ini) {
+        public virtual async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             await Task.Delay(1000);
             return false;
         }
 
         public Meta GetFocus() => metas.Count > 0 ? metas[indexFocus] : null;
 
-        public Meta GetNext(bool move = true) {
-            int indexOld = indexFocus;
-            indexFocus = indexOld >= metas.Count - 1 ? 0 : indexOld + 1;
-            Meta meta = GetFocus();
-            indexFocus = move ? indexFocus : indexOld;
-            return meta;
+        public Meta Yesterday() {
+            indexFocus = indexFocus < metas.Count - 1 ? indexFocus + 1 : metas.Count - 1;
+            return metas.Count > 0 ? metas[indexFocus] : null;
         }
 
-        public Meta GetLast(bool move = true) {
-            int indexOld = indexFocus;
-            indexFocus = indexOld == 0 ? metas.Count - 1 : indexOld - 1;
-            Meta meta = GetFocus();
-            indexFocus = move ? indexFocus : indexOld;
-            return meta;
+        public Meta GetYesterday() {
+            int index = indexFocus < metas.Count - 1 ? indexFocus + 1 : metas.Count - 1;
+            return metas.Count > 0 ? metas[index] : null;
+        }
+
+        public Meta Tormorrow() {
+            indexFocus = indexFocus > 0 ? indexFocus - 1 : 0;
+            return metas.Count > 0 ? metas[indexFocus] : null;
+        }
+
+        public Meta GetTormorrow() {
+            int index = indexFocus > 0 ? indexFocus - 1 : 0;
+            return metas.Count > 0 ? metas[index] : null;
+        }
+
+        public Meta Latest() {
+            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
+            for (int i = 0; i < metas.Count; i++) {
+                if (metas[i].Date >= metaFarthest.Date) {
+                    indexFocus = i;
+                    metaFarthest = metas[i];
+                }
+            }
+            return metaFarthest;
+        }
+
+        public Meta GetLatest() {
+            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
+            for (int i = 0; i < metas.Count; i++) {
+                if (metas[i].Date >= metaFarthest.Date) {
+                    metaFarthest = metas[i];
+                }
+            }
+            return metaFarthest;
+        }
+
+        public Meta Farthest() {
+            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
+            for (int i = 0; i < metas.Count; i++) {
+                if (metas[i].Date <= metaFarthest.Date) {
+                    indexFocus = i;
+                    metaFarthest = metas[i];
+                }
+            }
+            return metaFarthest;
+        }
+
+        public Meta GetFarthest() {
+            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
+            for (int i = 0; i < metas.Count; i++) {
+                if (metas[i].Date <= metaFarthest.Date) {
+                    metaFarthest = metas[i];
+                }
+            }
+            return metaFarthest;
+        }
+
+        public Meta Target(DateTime date) {
+            if (date == null) {
+                return null;
+            }
+            for (int i = 0; i < metas.Count; i++) {
+                if (date.ToString("yyyyMMdd").Equals(metas[i].Date?.ToString("yyyyMMdd"))) {
+                    indexFocus = i;
+                    return metas[i];
+                }
+            }
+            return null;
         }
 
         public static async Task<Meta> Cache(BaseProvider provider, Meta meta) {
@@ -64,15 +126,21 @@ namespace TimelineWallpaper.Providers {
             BasicProperties fileProperties = await cacheFile.GetBasicPropertiesAsync();
             if (fileProperties.Size > 0) { // 已缓存过
                 meta.SetCacheOne(cacheFile);
-                Debug.WriteLine("cached from disk: " + meta);
+                Debug.WriteLine("cached from disk: " + JsonConvert.SerializeObject(meta).Trim());
             } else if (meta.IsUrled()) {
                 try {
                     BackgroundDownloader downloader = new BackgroundDownloader();
                     DownloadOperation operation = downloader.CreateDownload(new Uri(meta.GetUrlOne()), cacheFile);
-                    DownloadOperation resOperation = await operation.StartAsync().AsTask();
+                    Progress<DownloadOperation> progress = new Progress<DownloadOperation>((op) => {
+                        if (op.Progress.TotalBytesToReceive > 0 && op.Progress.BytesReceived > 0) {
+                            ulong value = op.Progress.BytesReceived * 100 / op.Progress.TotalBytesToReceive;
+                            Debug.WriteLine("progress: " + value + "%");
+                        }
+                    });
+                    DownloadOperation resOperation = await operation.StartAsync().AsTask(progress);
                     if (resOperation.Progress.Status == BackgroundTransferStatus.Completed) {
                         meta.SetCacheOne(cacheFile);
-                        Debug.WriteLine("cached from network: " + meta);
+                        Debug.WriteLine("cached from network: " + JsonConvert.SerializeObject(meta).Trim());
                     }
                 } catch (Exception) {
                     Debug.WriteLine("cache error");

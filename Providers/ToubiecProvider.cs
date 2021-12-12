@@ -35,7 +35,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini) {
+        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus + 1 < metas.Count) {
                 return true;
@@ -49,7 +49,7 @@ namespace TimelineWallpaper.Providers {
             try {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(URL_API);
-                Debug.WriteLine("provider data: " + jsonData);
+                Debug.WriteLine("provider data: " + jsonData.Trim());
                 List<ToubiecApiItem> toubbiecApi = JsonConvert.DeserializeObject<List<ToubiecApiItem>>(jsonData);
                 foreach (ToubiecApiItem item in toubbiecApi) {
                     Meta meta = ParseBean(item);
