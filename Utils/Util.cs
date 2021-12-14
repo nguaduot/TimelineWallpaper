@@ -50,7 +50,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=toubiec    图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
                     "; provider=mty        图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
                     "; provider=seovx      图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
-                    "; provider=muxiaoguo  图源：木小果API - 随机壁纸 https://api.muxiaoguo.cn",
+                    //"; provider=muxiaoguo  图源：木小果API - 随机壁纸 https://api.muxiaoguo.cn",
                     "; provider=paul       图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
                     "push=",
@@ -153,13 +153,13 @@ namespace TimelineWallpaper.Utils {
                     "; cate=d   类别：二次元（默认）",
                     "; cate=ha  类别：古风",
                     "",
-                    "[muxiaoguo]",
-                    "",
-                    "cate=sjbz",
-                    "; cate=sjbz     类别：随机壁纸（默认）",
-                    "; cate=acg      类别：动漫图片",
-                    "; cate=meinvtu  类别：美女图片",
-                    "",
+                    //"[muxiaoguo]",
+                    //"",
+                    //"cate=sjbz",
+                    //"; cate=sjbz     类别：随机壁纸（默认）",
+                    //"; cate=acg      类别：动漫图片",
+                    //"; cate=meinvtu  类别：美女图片",
+                    //"",
                     "[paul]",
                     ""
                 });
@@ -216,21 +216,6 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("infinity", "order", order, iniFile.Path);
         }
 
-        public static async void Save3GOrder(string order) {
-            StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("3g", "order", order, iniFile.Path);
-        }
-
-        public static async void SavePixivelSanity(string sanity) {
-            StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("pixivel", "sanity", sanity, iniFile.Path);
-        }
-
-        public static async void SaveSeovxCate(string cate) {
-            StorageFile iniFile = await GenerateIni();
-            _ = WritePrivateProfileString("seovx", "cate", cate, iniFile.Path);
-        }
-
         public static async Task<StorageFile> GetIniPath() {
             return await GenerateIni();
         }
@@ -247,28 +232,49 @@ namespace TimelineWallpaper.Utils {
             _ = int.TryParse(sb.ToString(), out int period);
             ini.Period = period;
             _ = GetPrivateProfileString("bing", "lang", "", sb, 1024, iniFile.Path);
-            ini.Bing.Lang = sb.ToString();
+            ini.Inis["bing"] = new BingIni {
+                Lang = sb.ToString()
+            };
             _ = GetPrivateProfileString("nasa", "mirror", "", sb, 1024, iniFile.Path);
-            ini.Nasa.Mirror = sb.ToString();
+            ini.Inis["nasa"] = new NasaIni {
+                Mirror = sb.ToString()
+            };
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile.Path);
-            ini.OnePlus.Order = sb.ToString();
+            ini.Inis["oneplus"] = new OneplusIni {
+                Order = sb.ToString()
+            };
             _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile.Path);
-            ini.Timeline.Order = sb.ToString();
+            TimelineIni timelineIni = new TimelineIni {
+                Order = sb.ToString()
+            };
             _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile.Path);
-            ini.Timeline.Cate = sb.ToString();
+            timelineIni.Cate = sb.ToString();
+            ini.Inis["timeline"] = timelineIni;
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
-            ini.Ymyouli.Col = sb.ToString();
+            ini.Inis["ymyouli"] = new YmyouliIni {
+                Col = sb.ToString()
+            };
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);
-            ini.Infinity.Order = sb.ToString();
+            ini.Inis["infinity"] = new InfinityIni {
+                Order = sb.ToString()
+            };
             _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile.Path);
-            ini.G3.Order = sb.ToString();
+            ini.Inis["3g"] = new G3Ini {
+                Order = sb.ToString()
+            };
             _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile.Path);
             _ = int.TryParse(sb.ToString(), out int sanity);
-            ini.Pixivel.Sanity = sanity;
+            ini.Inis["pixivel"] = new PixivelIni {
+                Sanity = sanity
+            };
             _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile.Path);
-            ini.Seovx.Cate = sb.ToString();
-            _ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile.Path);
-            ini.Mxg.Cate = sb.ToString();
+            ini.Inis["seovx"] = new SeovxIni {
+                Cate = sb.ToString()
+            };
+            //_ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile.Path);
+            //ini.Inis["muxiaoguo"] = new MxgIni {
+            //    Cate = sb.ToString()
+            //};
             return ini;
         }
     }

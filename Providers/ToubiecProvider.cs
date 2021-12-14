@@ -15,10 +15,6 @@ namespace TimelineWallpaper.Providers {
         // https://acg.toubiec.cn/
         private const string URL_API = "https://acg.toubiec.cn/random.php?ret=json";
 
-        public ToubiecProvider() {
-            Id = ProviderToubiec.ID;
-        }
-
         private Meta ParseBean(ToubiecApiItem bean) {
             Meta meta = new Meta {
                 Id = bean?.Id.ToString(),
@@ -35,7 +31,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus + 1 < metas.Count) {
                 return true;

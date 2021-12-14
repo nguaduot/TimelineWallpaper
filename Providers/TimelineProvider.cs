@@ -17,10 +17,6 @@ namespace TimelineWallpaper.Providers {
         //private const string URL_API = "https://api.nguaduot.cn/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}";
         private const string URL_API = "http://150.158.49.144/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}";
 
-        public TimelineProvider() {
-            Id = ProviderTimeline.ID;
-        }
-
         private Meta ParseBean(TimelineApiData bean) {
             Meta meta = new Meta {
                 Id = bean?.Id.ToString(),
@@ -45,7 +41,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1 && date == null) {
                 return true;
@@ -56,8 +52,8 @@ namespace TimelineWallpaper.Providers {
             }
 
             nextPage = date ?? nextPage;
-            string urlApi = string.Format(URL_API, ini.Timeline.Cate,
-                nextPage.ToString("yyyyMMdd"), ini.Timeline.Order);
+            string urlApi = string.Format(URL_API, ((TimelineIni)ini).Cate,
+                nextPage.ToString("yyyyMMdd"), ((TimelineIni)ini).Order);
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();
@@ -77,8 +73,10 @@ namespace TimelineWallpaper.Providers {
                         metas.Add(meta);
                     }
                 }
-                SortMetas();
-                nextPage = "date".Equals(ini.Timeline.Order)
+                if ("date".Equals(((TimelineIni)ini).Order)) { // 按时序倒序排列
+                    SortMetas();
+                }
+                nextPage = "date".Equals(((TimelineIni)ini).Order)
                     ? nextPage.AddDays(-timelinekApi.Data.Count) : nextPage;
             } catch (Exception e) {
                 Debug.WriteLine(e);

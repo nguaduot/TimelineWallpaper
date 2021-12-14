@@ -13,10 +13,6 @@ namespace TimelineWallpaper.Providers {
         // https://api.daihan.top/html/acg.html
         private const string URL_API = "https://api.daihan.top/api/acg/index.php";
 
-        public DaihanProvider() {
-            Id = ProviderDaihan.ID;
-        }
-
         private Meta ParseBean(Uri uriImg) {
             Meta meta = new Meta();
             if (uriImg == null) {
@@ -31,7 +27,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;

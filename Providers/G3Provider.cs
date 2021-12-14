@@ -18,10 +18,6 @@ namespace TimelineWallpaper.Providers {
         // 热门壁纸
         private const string URL_API_SORT2 = "https://desk.3gbizhi.com";
 
-        public G3Provider() {
-            Id = Provider3G.ID;
-        }
-
         private List<Meta> ParseBeans(string htmlData, bool dataHot) {
             List<Meta> metas = new List<Meta>();
             if (dataHot) {
@@ -56,8 +52,8 @@ namespace TimelineWallpaper.Providers {
             return metas;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
-            bool sortByHot = "view".Equals(ini.G3.Order);
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
+            bool sortByHot = "view".Equals(((G3Ini)ini).Order);
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1 || (sortByHot && pageIndex > 0)) {
                 return true;

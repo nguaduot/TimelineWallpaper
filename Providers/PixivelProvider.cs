@@ -17,10 +17,6 @@ namespace TimelineWallpaper.Providers {
         // https://pixivel.moe/
         private const string URL_API = "https://api-jp1.pixivel.moe/pixiv?type=illust_recommended";
 
-        public PixivelProvider() {
-            Id = ProviderPixivel.ID;
-        }
-
         private List<Meta> ParseBeans(PixivelApiIllust bean) {
             List<Meta> metas = new List<Meta>();
             if (bean.MetaPages != null && bean.MetaPages.Count > 0) {
@@ -62,7 +58,7 @@ namespace TimelineWallpaper.Providers {
             return metas;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -72,7 +68,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            int sanityLevel = ini.Pixivel.Sanity;
+            int sanityLevel = ((PixivelIni)ini).Sanity;
             Debug.WriteLine("provider url: " + URL_API);
             try {
                 HttpClient client = new HttpClient();

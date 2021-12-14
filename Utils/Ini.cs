@@ -3,17 +3,30 @@ using TimelineWallpaper.Providers;
 
 namespace TimelineWallpaper.Utils {
     public class Ini {
-        public static HashSet<string> PROVIDER = new HashSet<string>() {
-            ProviderBing.ID, ProviderNasa.ID, ProviderOnePlus.ID, ProviderTimeline.ID,
-            ProviderYmyouli.ID, ProviderInfinity.ID, Provider3G.ID, ProviderPixivel.ID, ProviderLofter.ID,
-            ProviderDaihan.ID, ProviderDmoe.ID, ProviderToubiec.ID, ProviderMty.ID, ProviderSeovx.ID,
-            ProviderMxg.ID, ProviderPaul.ID
+        public readonly Dictionary<string, BaseIni> Inis = new Dictionary<string, BaseIni>() {
+            { BingIni.ID, new BingIni() },
+            { NasaIni.ID, new NasaIni() },
+            { OneplusIni.ID, new OneplusIni() },
+            { TimelineIni.ID, new TimelineIni() },
+            { YmyouliIni.ID, new YmyouliIni() },
+            { InfinityIni.ID, new InfinityIni() },
+            { G3Ini.ID, new G3Ini() },
+            { PixivelIni.ID, new PixivelIni() },
+            { LofterIni.ID, new LofterIni() },
+            { DaihanIni.ID, new DaihanIni() },
+            { DmoeIni.ID, new DmoeIni() },
+            { ToubiecIni.ID, new ToubiecIni() },
+            { MtyIni.ID, new MtyIni() },
+            { SeovxIni.ID, new SeovxIni() },
+            //{ MxgIni.ID, new MxgIni() },
+            { PaulIni.ID, new PaulIni() }
         };
+
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
 
-        private string provider = ProviderBing.ID;
+        private string provider = BingIni.ID;
         public string Provider {
-            set => provider = PROVIDER.Contains(value) ? value : ProviderBing.ID;
+            set => provider = Inis.ContainsKey(value) ? value : BingIni.ID;
             get => provider;
         }
 
@@ -29,142 +42,32 @@ namespace TimelineWallpaper.Utils {
             get => period;
         }
 
-        public ProviderBing Bing { set; get; } = new ProviderBing();
+        public BaseIni GetIni(string provider = null) {
+            return provider != null && Inis.ContainsKey(provider)
+                ? Inis[provider] : Inis[this.provider];
+        }
 
-        public ProviderNasa Nasa { set; get; } = new ProviderNasa();
-
-        public ProviderOnePlus OnePlus { set; get; } = new ProviderOnePlus();
-
-        public ProviderTimeline Timeline { set; get; } = new ProviderTimeline();
-
-        public ProviderYmyouli Ymyouli { set; get; } = new ProviderYmyouli();
-
-        public ProviderInfinity Infinity { set; get; } = new ProviderInfinity();
-
-        public Provider3G G3 { set; get; } = new Provider3G();
-
-        public ProviderPixivel Pixivel { set; get; } = new ProviderPixivel();
-
-        public ProviderLofter Lofter { set; get; } = new ProviderLofter();
-
-        public ProviderDaihan Daihan { set; get; } = new ProviderDaihan();
-
-        public ProviderDmoe Dmoe { set; get; } = new ProviderDmoe();
-
-        public ProviderToubiec Toubiec { set; get; } = new ProviderToubiec();
-
-        public ProviderMty Mty { set; get; } = new ProviderMty();
-
-        public ProviderSeovx Seovx { set; get; } = new ProviderSeovx();
-
-        public ProviderMxg Mxg { set; get; } = new ProviderMxg();
-
-        public ProviderPaul Paul { set; get; } = new ProviderPaul();
-
-        public BaseProvider GenerateProvider() {
-            switch (Provider) {
-                case ProviderNasa.ID:
-                    if ("bjp".Equals(Nasa.Mirror)) {
-                        return new NasabjpProvider();
-                    }
-                    return new NasaProvider();
-                case ProviderOnePlus.ID:
-                    return new OneplusProvider();
-                case ProviderTimeline.ID:
-                    return new TimelineProvider();
-                case ProviderYmyouli.ID:
-                    return new YmyouliProvider();
-                case ProviderInfinity.ID:
-                    return new InfinityProvider();
-                case Provider3G.ID:
-                    return new G3Provider();
-                case ProviderPixivel.ID:
-                    return new PixivelProvider();
-                case ProviderLofter.ID:
-                    return new LofterProvider();
-                case ProviderDaihan.ID:
-                    return new DaihanProvider();
-                case ProviderDmoe.ID:
-                    return new DmoeProvider();
-                case ProviderToubiec.ID:
-                    return new ToubiecProvider();
-                case ProviderMty.ID:
-                    return new MtyProvider();
-                case ProviderSeovx.ID:
-                    return new SeovxProvider();
-                case ProviderMxg.ID:
-                    if ("acg".Equals(Mxg.Cate)) {
-                        return new MxgAcgProvider();
-                    } else if ("meinvtu".Equals(Mxg.Cate)) {
-                        return new MxgMvProvider();
-                    }
-                    return new MxgProvider();
-                case ProviderPaul.ID:
-                    return new PaulProvider();
-                case ProviderBing.ID:
-                default:
-                    return new BingProvider();
-            }
+        public BaseProvider GenerateProvider(string provider = null) {
+            return provider != null && Inis.ContainsKey(provider)
+                ? Inis[provider].GenerateProvider() : Inis[this.provider].GenerateProvider();
         }
 
         override public string ToString() {
-            string paras;
-            switch (Provider) {
-                case ProviderNasa.ID:
-                    paras = Nasa.ToString();
-                    break;
-                case ProviderOnePlus.ID:
-                    paras = OnePlus.ToString();
-                    break;
-                case ProviderTimeline.ID:
-                    paras = Timeline.ToString();
-                    break;
-                case ProviderYmyouli.ID:
-                    paras = Ymyouli.ToString();
-                    break;
-                case ProviderInfinity.ID:
-                    paras = Infinity.ToString();
-                    break;
-                case Provider3G.ID:
-                    paras = G3.ToString();
-                    break;
-                case ProviderPixivel.ID:
-                    paras = Pixivel.ToString();
-                    break;
-                case ProviderLofter.ID:
-                    paras = Lofter.ToString();
-                    break;
-                case ProviderDaihan.ID:
-                    paras = Daihan.ToString();
-                    break;
-                case ProviderDmoe.ID:
-                    paras = Dmoe.ToString();
-                    break;
-                case ProviderToubiec.ID:
-                    paras = Toubiec.ToString();
-                    break;
-                case ProviderMty.ID:
-                    paras = Mty.ToString();
-                    break;
-                case ProviderSeovx.ID:
-                    paras = Seovx.ToString();
-                    break;
-                case ProviderMxg.ID:
-                    paras = Mxg.ToString();
-                    break;
-                case ProviderPaul.ID:
-                    paras = Paul.ToString();
-                    break;
-                case ProviderBing.ID:
-                default:
-                    paras = Bing.ToString();
-                    break;
-            }
+            string paras = Inis[provider].ToString();
             return $"/{provider}?push={push}&period={period}" + (paras.Length > 0 ? "&" : "") + paras;
         }
     }
 
-    public class ProviderBing {
+    public class BaseIni {
+        public string Id { set; get; }
+
+        // 时序图源
+        public virtual bool IsSequential() => true;
+
+        public virtual BaseProvider GenerateProvider() => new BingProvider();
+    }
+
+    public class BingIni : BaseIni {
         public const string ID = "bing";
         public static HashSet<string> LANG = new HashSet<string>() { "", "zh-cn", "en-us", "ja-jp", "de-de", "fr-fr" };
 
@@ -174,10 +77,14 @@ namespace TimelineWallpaper.Utils {
             get => lang;
         }
 
+        public BingIni() => Id = ID;
+
+        public override BaseProvider GenerateProvider() => new BingProvider() { Id = ID };
+
         override public string ToString() => $"lang={lang}";
     }
 
-    public class ProviderNasa {
+    public class NasaIni : BaseIni {
         public const string ID = "nasa";
         public static HashSet<string> MIRROR = new HashSet<string>() { "", "bjp" };
 
@@ -187,10 +94,21 @@ namespace TimelineWallpaper.Utils {
             get => mirror;
         }
 
+        public NasaIni() => Id = ID;
+
+        public override BaseProvider GenerateProvider() {
+            switch (mirror) {
+                case "bjp":
+                    return new NasabjpProvider() { Id = ID };
+                default:
+                    return new NasaProvider() { Id = ID };
+            }
+        }
+
         override public string ToString() => $"mirror={mirror}";
     }
 
-    public class ProviderOnePlus {
+    public class OneplusIni : BaseIni {
         public const string ID = "oneplus";
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
 
@@ -200,10 +118,16 @@ namespace TimelineWallpaper.Utils {
             get => order;
         }
 
+        public OneplusIni() => Id = ID;
+
+        public override bool IsSequential() => "date".Equals(order);
+
+        public override BaseProvider GenerateProvider() => new OneplusProvider() { Id = ID };
+
         override public string ToString() => $"order={order}";
     }
 
-    public class ProviderTimeline {
+    public class TimelineIni : BaseIni {
         public const string ID = "timeline";
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
         public static HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
@@ -220,10 +144,16 @@ namespace TimelineWallpaper.Utils {
             get => cate;
         }
 
+        public TimelineIni() => Id = ID;
+
+        public override bool IsSequential() => "date".Equals(order);
+
+        public override BaseProvider GenerateProvider() => new TimelineProvider() { Id = ID };
+
         override public string ToString() => $"order={order}&cate={cate}";
     }
 
-    public class ProviderYmyouli {
+    public class YmyouliIni : BaseIni {
         public const string ID = "ymyouli";
         public static readonly Dictionary<string, Dictionary<string, string>> COL_MODULE_DIC = new Dictionary<string, Dictionary<string, string>> {
             { "182", new Dictionary<string, string> {
@@ -324,10 +254,16 @@ namespace TimelineWallpaper.Utils {
             get => col;
         }
 
+        public YmyouliIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new YmyouliProvider() { Id = ID };
+
         override public string ToString() => $"col={col}";
     }
 
-    public class ProviderInfinity {
+    public class InfinityIni : BaseIni {
         public const string ID = "infinity";
         public static HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
 
@@ -337,10 +273,16 @@ namespace TimelineWallpaper.Utils {
             get => order;
         }
 
+        public InfinityIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new InfinityProvider() { Id = ID };
+
         override public string ToString() => $"order={order}";
     }
 
-    public class Provider3G {
+    public class G3Ini : BaseIni {
         public const string ID = "3g";
         public static HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
 
@@ -350,10 +292,16 @@ namespace TimelineWallpaper.Utils {
             get => order;
         }
 
+        public G3Ini() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new G3Provider() { Id = ID };
+
         override public string ToString() => $"order={order}";
     }
 
-    public class ProviderPixivel {
+    public class PixivelIni : BaseIni {
         public const string ID = "pixivel";
 
         private int sanity = 5;
@@ -362,40 +310,76 @@ namespace TimelineWallpaper.Utils {
             get => sanity;
         }
 
+        public PixivelIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new PixivelProvider() { Id = ID };
+
         override public string ToString() => $"sanity={sanity}";
     }
 
-    public class ProviderLofter {
+    public class LofterIni : BaseIni {
         public const string ID = "lofter";
 
+        public LofterIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new LofterProvider() { Id = ID };
+
         override public string ToString() => "";
     }
 
-    public class ProviderDaihan {
+    public class DaihanIni : BaseIni {
         public const string ID = "daihan";
 
+        public DaihanIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new DaihanProvider() { Id = ID };
+
         override public string ToString() => "";
     }
 
-    public class ProviderDmoe {
+    public class DmoeIni : BaseIni {
         public const string ID = "dmoe";
 
+        public DmoeIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new DmoeProvider() { Id = ID };
+
         override public string ToString() => "";
     }
 
-    public class ProviderToubiec {
+    public class ToubiecIni : BaseIni {
         public const string ID = "toubiec";
 
+        public ToubiecIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new ToubiecProvider() { Id = ID };
+
         override public string ToString() => "";
     }
 
-    public class ProviderMty {
+    public class MtyIni : BaseIni {
         public const string ID = "mty";
 
+        public MtyIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new MtyProvider() { Id = ID };
+
         override public string ToString() => "";
     }
 
-    public class ProviderSeovx {
+    public class SeovxIni : BaseIni {
         public const string ID = "seovx";
         public static HashSet<string> CATE = new HashSet<string>() { "", "d", "ha" };
 
@@ -405,10 +389,17 @@ namespace TimelineWallpaper.Utils {
             get => cate;
         }
 
+        public SeovxIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new SeovxProvider() { Id = ID };
+
         override public string ToString() => $"cate={cate}";
     }
 
-    public class ProviderMxg {
+    // deprecated: 开始收费
+    public class MxgIni : BaseIni {
         public const string ID = "muxiaoguo";
         public static HashSet<string> CATE = new HashSet<string>() { "sjbz", "acg", "meinvtu" };
 
@@ -418,11 +409,32 @@ namespace TimelineWallpaper.Utils {
             get => cate;
         }
 
+        public MxgIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() {
+            switch (cate) {
+                case "acg":
+                    return new MxgAcgProvider() { Id = ID };
+                case "meinvtu":
+                    return new MxgMvProvider() { Id = ID };
+                default:
+                    return new MxgProvider() { Id = ID };
+            }
+        }
+
         override public string ToString() => $"cate={cate}";
     }
 
-    public class ProviderPaul {
+    public class PaulIni : BaseIni {
         public const string ID = "paul";
+
+        public PaulIni() => Id = ID;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new PaulProvider() { Id = ID };
 
         override public string ToString() => "";
     }

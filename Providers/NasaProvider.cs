@@ -27,10 +27,6 @@ namespace TimelineWallpaper.Providers {
         // api_key: api.nasa.gov key for expanded usage
         private const string URL_API_PAGE = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True&start_date={0}&end_date={1}";
 
-        public NasaProvider() {
-            Id = ProviderNasa.ID;
-        }
-
         private Meta ParseBean(NasaApiItem bean) {
             Meta meta = new Meta {
                 Title = bean.Title,
@@ -55,7 +51,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1 && date == null) {
                 return true;
@@ -74,7 +70,6 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 List<NasaApiItem> items = JsonConvert.DeserializeObject<List<NasaApiItem>>(jsonData);
-                items.Sort((a, b) => b.Date.CompareTo(a.Date));
                 foreach (NasaApiItem item in items) {
                     Meta meta = ParseBean(item);
                     if (!meta.IsValid()) {
@@ -88,6 +83,7 @@ namespace TimelineWallpaper.Providers {
                         metas.Add(meta);
                     }
                 }
+                SortMetas(); // 按时序倒序排列
                 nextPage = nextPage.AddDays(-PAGE_SIZE);
             } catch (Exception e) {
                 Debug.WriteLine(e);
@@ -105,10 +101,6 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API_HOST = "http://www.bjp.org.cn";
         private const string URL_API_TODAY = URL_API_HOST + "/mryt/list.shtml";
         private const string URL_API_DAY = URL_API_HOST + "/mryt/list_{0}.shtml";
-
-        public NasabjpProvider() {
-            Id = ProviderNasa.ID;
-        }
 
         private void ParsePages(string html) {
             foreach (Match match in Regex.Matches(html, @">([\d-]+)：<.+?href=""(.+?)""")) {
@@ -149,7 +141,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -204,10 +196,6 @@ namespace TimelineWallpaper.Providers {
     //    private const string URL_API_TODAY = URL_API_HOST + "astropix.html";
     //    // 注意时差导致404
     //    private const string URL_API_DAY = URL_API_HOST + "ap{0}.html";
-
-    //    public NasaProvider2() {
-    //        Id = ProviderNasa.ID;
-    //    }
 
     //    private Meta ParseBean(string htmlData) {
     //        Meta meta = new Meta();
@@ -297,10 +285,6 @@ namespace TimelineWallpaper.Providers {
     //    private int nextPage = 1;
 
     //    private const string URL_API = "https://www.nasachina.cn/apod/page/{0}";
-
-    //    public NasachinaProvider() {
-    //        Id = "nasachina";
-    //    }
 
     //    private List<Meta> ParseBeans(string htmlData) {
     //        List<Meta> metas = new List<Meta>();

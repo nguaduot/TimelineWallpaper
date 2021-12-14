@@ -14,10 +14,6 @@ namespace TimelineWallpaper.Providers {
         // Lofter 登录页图片
         private const string URL_API = "https://www.lofter.com/front/login";
 
-        public LofterProvider() {
-            Id = ProviderLofter.ID;
-        }
-
         private string FindJson(string html) {
             if (string.IsNullOrEmpty(html)) {
                 return "{}";
@@ -48,7 +44,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;

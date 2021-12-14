@@ -16,7 +16,6 @@ using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Media.Core;
 using Windows.Media.Playback;
-using Windows.Services.Store;
 using Windows.Storage;
 using Windows.System;
 using Windows.System.UserProfile;
@@ -24,7 +23,6 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -88,10 +86,12 @@ namespace TimelineWallpaper {
 
         private void BtnSetDesktop_Click(object sender, RoutedEventArgs e) {
             SetWallpaperAsync(meta, true);
+            ChecReviewAsync();
         }
 
         private void BtnSetLock_Click(object sender, RoutedEventArgs e) {
             SetWallpaperAsync(meta, false);
+            ChecReviewAsync();
         }
 
         private void BtnVolumn_Click(object sender, RoutedEventArgs e) {
@@ -102,6 +102,7 @@ namespace TimelineWallpaper {
 
         private void BtnSave_Click(object sender, RoutedEventArgs e) {
             DownloadAsync();
+            ChecReviewAsync();
         }
 
         private void BtnYesterday_Click(object sender, RoutedEventArgs e) {
@@ -318,8 +319,8 @@ namespace TimelineWallpaper {
                 case VirtualKey.F:
                 case VirtualKey.G:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        CalendarGo.Visibility = CalendarGo.Visibility == Visibility.Visible
-                            ? Visibility.Collapsed : Visibility.Visible;
+                        CalendarGo.Visibility = CalendarGo.Visibility == Visibility.Collapsed && ini.GetIni().IsSequential()
+                            ? Visibility.Visible : Visibility.Collapsed;
                     }
                     break;
             }
@@ -328,7 +329,7 @@ namespace TimelineWallpaper {
 
         private async void LoadFocusAsync() {
             _ = await InitProvider();
-            if (!await provider.LoadData(ini)) {
+            if (!await provider.LoadData(ini.GetIni())) {
                 Debug.WriteLine("failed to load data");
                 ShowText(null);
                 ApiService.Stats(ini, false);
@@ -342,8 +343,8 @@ namespace TimelineWallpaper {
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
                 ShowTips();
-                ApiService.Stats(ini, true);
                 ChecReviewAsync();
+                ApiService.Stats(ini, true);
             }
 
             // 预加载
@@ -352,7 +353,7 @@ namespace TimelineWallpaper {
 
         private async void LoadYesterdayAsync() {
             long cost = DateTime.Now.Ticks;
-            if (!await provider.LoadData(ini)) {
+            if (!await provider.LoadData(ini.GetIni())) {
                 Debug.WriteLine("failed to load data");
                 if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                     await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
@@ -370,6 +371,7 @@ namespace TimelineWallpaper {
             }
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
+                ChecReviewAsync();
             }
 
             // 预加载
@@ -378,7 +380,7 @@ namespace TimelineWallpaper {
 
         private async void LoadLastAsync() {
             long cost = DateTime.Now.Ticks;
-            if (!await provider.LoadData(ini)) {
+            if (!await provider.LoadData(ini.GetIni())) {
                 Debug.WriteLine("failed to load data");
                 if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                     await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
@@ -404,7 +406,7 @@ namespace TimelineWallpaper {
 
         private async void LoadTargetAsync(DateTime date) {
             long cost = DateTime.Now.Ticks;
-            if (!await provider.LoadData(ini, date)) {
+            if (!await provider.LoadData(ini.GetIni(), date)) {
                 Debug.WriteLine("failed to load data");
                 if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                     await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
@@ -429,7 +431,7 @@ namespace TimelineWallpaper {
         }
 
         private async void PreLoadYesterdayAsync() {
-            if (await provider.LoadData(ini)) {
+            if (await provider.LoadData(ini.GetIni())) {
                 _ = BaseProvider.Cache(provider, provider.GetYesterday());
             }
         }
@@ -468,44 +470,44 @@ namespace TimelineWallpaper {
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
             BtnInfinityOrder.Visibility = BtnProviderInfinity.IsChecked ? Visibility.Visible : Visibility.Collapsed;
 
-            BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(ini.Bing.Lang);
-            BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(ini.Bing.Lang);
-            BtnBingLangJp.IsChecked = BtnBingLangJp.Tag.Equals(ini.Bing.Lang);
-            BtnBingLangJp.IsChecked = BtnBingLangJp.Tag.Equals(ini.Bing.Lang);
-            BtnBingLangDe.IsChecked = BtnBingLangDe.Tag.Equals(ini.Bing.Lang);
-            BtnBingLangFr.IsChecked = BtnBingLangFr.Tag.Equals(ini.Bing.Lang);
-            BtnNasaMirrorDef.IsChecked = BtnNasaMirrorDef.Tag.Equals(ini.Nasa.Mirror);
-            BtnNasaMirrorBjp.IsChecked = BtnNasaMirrorBjp.Tag.Equals(ini.Nasa.Mirror);
-            BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(ini.OnePlus.Order);
-            BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(ini.OnePlus.Order);
-            BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(ini.OnePlus.Order);
-            BtnTimelineOrder1.IsChecked = BtnTimelineOrder1.Tag.Equals(ini.Timeline.Order);
-            BtnTimelineOrder2.IsChecked = BtnTimelineOrder2.Tag.Equals(ini.Timeline.Order);
-            BtnTimelineCate1.IsChecked = BtnTimelineCate1.Tag.Equals(ini.Timeline.Cate);
-            BtnTimelineCate2.IsChecked = BtnTimelineCate2.Tag.Equals(ini.Timeline.Cate);
-            BtnTimelineCate3.IsChecked = BtnTimelineCate3.Tag.Equals(ini.Timeline.Cate);
-            BtnTimelineCate4.IsChecked = BtnTimelineCate4.Tag.Equals(ini.Timeline.Cate);
-            BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol183.IsChecked = BtnYmyouliCol183.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol184.IsChecked = BtnYmyouliCol184.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol185.IsChecked = BtnYmyouliCol185.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol186.IsChecked = BtnYmyouliCol186.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol187.IsChecked = BtnYmyouliCol187.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol215.IsChecked = BtnYmyouliCol215.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol224.IsChecked = BtnYmyouliCol224.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol225.IsChecked = BtnYmyouliCol225.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol226.IsChecked = BtnYmyouliCol226.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol227.IsChecked = BtnYmyouliCol227.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol228.IsChecked = BtnYmyouliCol228.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol229.IsChecked = BtnYmyouliCol229.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol230.IsChecked = BtnYmyouliCol230.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol231.IsChecked = BtnYmyouliCol231.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol232.IsChecked = BtnYmyouliCol232.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol233.IsChecked = BtnYmyouliCol233.Tag.Equals(ini.Ymyouli.Col);
-            BtnYmyouliCol241.IsChecked = BtnYmyouliCol241.Tag.Equals(ini.Ymyouli.Col);
-            BtnInfinityOrder0.IsChecked = BtnInfinityOrder0.Tag.Equals(ini.Infinity.Order);
-            BtnInfinityOrder1.IsChecked = BtnInfinityOrder1.Tag.Equals(ini.Infinity.Order);
+            BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
+            BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
+            BtnBingLangJp.IsChecked = BtnBingLangJp.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
+            BtnBingLangJp.IsChecked = BtnBingLangJp.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
+            BtnBingLangDe.IsChecked = BtnBingLangDe.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
+            BtnBingLangFr.IsChecked = BtnBingLangFr.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
+            BtnNasaMirrorDef.IsChecked = BtnNasaMirrorDef.Tag.Equals(((NasaIni)ini.GetIni(BtnProviderNasa.Tag.ToString())).Mirror);
+            BtnNasaMirrorBjp.IsChecked = BtnNasaMirrorBjp.Tag.Equals(((NasaIni)ini.GetIni(BtnProviderNasa.Tag.ToString())).Mirror);
+            BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(((OneplusIni)ini.GetIni(BtnProviderOneplus.Tag.ToString())).Order);
+            BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(((OneplusIni)ini.GetIni(BtnProviderOneplus.Tag.ToString())).Order);
+            BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(((OneplusIni)ini.GetIni(BtnProviderOneplus.Tag.ToString())).Order);
+            BtnTimelineOrder1.IsChecked = BtnTimelineOrder1.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Order);
+            BtnTimelineOrder2.IsChecked = BtnTimelineOrder2.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Order);
+            BtnTimelineCate1.IsChecked = BtnTimelineCate1.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
+            BtnTimelineCate2.IsChecked = BtnTimelineCate2.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
+            BtnTimelineCate3.IsChecked = BtnTimelineCate3.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
+            BtnTimelineCate4.IsChecked = BtnTimelineCate4.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
+            BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol183.IsChecked = BtnYmyouliCol183.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol184.IsChecked = BtnYmyouliCol184.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol185.IsChecked = BtnYmyouliCol185.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol186.IsChecked = BtnYmyouliCol186.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol187.IsChecked = BtnYmyouliCol187.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol215.IsChecked = BtnYmyouliCol215.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol224.IsChecked = BtnYmyouliCol224.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol225.IsChecked = BtnYmyouliCol225.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol226.IsChecked = BtnYmyouliCol226.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol227.IsChecked = BtnYmyouliCol227.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol228.IsChecked = BtnYmyouliCol228.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol229.IsChecked = BtnYmyouliCol229.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol230.IsChecked = BtnYmyouliCol230.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol231.IsChecked = BtnYmyouliCol231.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol232.IsChecked = BtnYmyouliCol232.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol233.IsChecked = BtnYmyouliCol233.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnYmyouliCol241.IsChecked = BtnYmyouliCol241.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
+            BtnInfinityOrder0.IsChecked = BtnInfinityOrder0.Tag.Equals(((InfinityIni)ini.GetIni(BtnProviderInfinity.Tag.ToString())).Order);
+            BtnInfinityOrder1.IsChecked = BtnInfinityOrder1.Tag.Equals(((InfinityIni)ini.GetIni(BtnProviderInfinity.Tag.ToString())).Order);
             return true;
         }
 
@@ -535,9 +537,13 @@ namespace TimelineWallpaper {
             // 文件属性
             TextDetailProperties.Text = "";
 
-            CalendarGo.SelectedDates.Clear();
-            CalendarGo.SelectedDates.Add(meta.Date.Value);
-            CalendarGo.SetDisplayDate(meta.Date.Value.AddDays(-7));
+            if (ini.GetIni().IsSequential()) {
+                CalendarGo.SelectedDates.Clear();
+                CalendarGo.SelectedDates.Add(meta.Date.Value);
+                CalendarGo.SetDisplayDate(meta.Date.Value.AddDays(-7));
+            } else {
+                CalendarGo.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void ShowImg(Meta meta) {
@@ -780,90 +786,16 @@ namespace TimelineWallpaper {
         private async void ChecReviewAsync() {
             int.TryParse(localSettings.Values["launchTimes"]?.ToString(), out int times);
             localSettings.Values["launchTimes"] = ++times;
-            if (times == 1) {
-                //StoreContext ctx = StoreContext.GetDefault();
-                //StoreRateAndReviewResult res = await ctx.RequestRateAndReviewAppAsync();
-                //Debug.WriteLine(res.ExtendedJsonData);
-                //switch (res.Status) {
-                //    case StoreRateAndReviewStatus.Succeeded:
-                //        if (res.WasUpdated) {
-
-                //        } else {
-
-                //        }
-                //        localSettings.Values["times"] = times;
-                //        break;
-                //    case StoreRateAndReviewStatus.CanceledByUser:
-                //        localSettings.Values["times"] = times;
-                //        break;
-                //    default:
-                //        Debug.WriteLine(res.ExtendedError);
-                //        break;
-                //}
-                if (await DlgReview.ShowAsync() == ContentDialogResult.Primary) {
-                    _ = await Launcher.LaunchUriAsync(new Uri(ApiService.URI_STORE_REVIEW));
-                } else {
-                    localSettings.Values["launchTimes"] = -5;
-                }
+            if (times != 10) {
+                return;
+            }
+            await Task.Delay(1000);
+            if (await DlgReview.ShowAsync() == ContentDialogResult.Primary) {
+                _ = await Launcher.LaunchUriAsync(new Uri(ApiService.URI_STORE_REVIEW));
+            } else {
+                localSettings.Values.Remove("launchTimes");
             }
         }
-
-        //private void UpdateTile(Meta meta) {
-        //    if (meta?.Thumb == null) {
-        //        return;
-        //    }
-        //    string title;
-        //    string subtitle;
-        //    if (!string.IsNullOrEmpty(meta.Title)) {
-        //        title = meta.Title;
-        //        subtitle = meta.Caption ?? "";
-        //    } else {
-        //        title = meta.Caption;
-        //        subtitle = meta.Location ?? "";
-        //    }
-        //    string content = $@"<tile><visual>
-        //        <binding template='TileMedium'>
-        //            <text>{title}</text>
-        //        </binding>
-        //        <binding template='TileWide'>
-        //            <text hint-style='subtitle'>{title}</text>
-        //            <text hint-style='captionSubtle'>{subtitle}</text>
-        //        </binding>
-        //        <binding template='TileLarge'>
-        //            <text>{meta.Copyright}</text>
-        //            <text hint-style='subtitle'>{title}</text>
-        //            <text hint-style='captionSubtle'>{subtitle}</text>
-        //        </binding>
-        //    </visual></tile>";
-        //    XmlDocument doc = new XmlDocument();
-        //    doc.LoadXml(content);
-        //    var notification = new TileNotification(doc);
-        //    TileUpdateManager.CreateTileUpdaterForApplication().Update(notification);
-        //    Debug.WriteLine("push");
-        //}
-
-        //private void UpdateBadgeGlyph() {
-        //    string badgeGlyphValue = "activity";
-
-        //    // Get the blank badge XML payload for a badge glyph
-        //    XmlDocument badgeXml =
-        //        BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeGlyph);
-
-        //    // Set the value of the badge in the XML to our glyph value
-        //    XmlElement badgeElement =
-        //        badgeXml.SelectSingleNode("/badge") as XmlElement;
-        //    badgeElement.SetAttribute("value", badgeGlyphValue);
-
-        //    // Create the badge notification
-        //    BadgeNotification badge = new BadgeNotification(badgeXml);
-
-        //    // Create the badge updater for the application
-        //    BadgeUpdater badgeUpdater =
-        //        BadgeUpdateManager.CreateBadgeUpdaterForApplication();
-
-        //    // And update the badge
-        //    badgeUpdater.Update(badge);
-        //}
 
         private async Task<bool> RegService() {
             BackgroundAccessStatus reqStatus = await BackgroundExecutionManager.RequestAccessAsync();

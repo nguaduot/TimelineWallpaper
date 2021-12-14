@@ -611,7 +611,13 @@
                           Visibility="Collapsed"
                           RelativePanel.Below="Info"
                           SelectedDatesChanged="CalendarGo_SelectedDatesChanged"
-                          Grid.Row="1" />
+                          Grid.Row="1">
+                <CalendarView.Transitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </CalendarView.Transitions>
+            </CalendarView>
         </Grid>
 
         <ContentDialog Name="DlgReview"

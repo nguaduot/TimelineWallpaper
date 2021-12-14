@@ -18,10 +18,6 @@ namespace TimelineWallpaper.Providers {
         private const string URL_API = "https://infinity-api.infinitynewtab.com/get-wallpaper?source=&tag=&order=1&page={0}";
         private const string URL_API_RANDOM = "https://infinity-api.infinitynewtab.com/random-wallpaper?_={0}";
 
-        public InfinityProvider() {
-            Id = ProviderInfinity.ID;
-        }
-
         private Meta ParseBean(InfinityApiData bean) {
             Meta meta = new Meta {
                 Id = bean.Id,
@@ -41,7 +37,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -51,7 +47,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string urlApi = "rate".Equals(ini.Infinity.Order) ? String.Format(URL_API, ++pageIndex)
+            string urlApi = "rate".Equals(((InfinityIni)ini).Order) ? String.Format(URL_API, ++pageIndex)
                 : string.Format(URL_API_RANDOM, DateUtil.CurrentTimeMillis());
             Debug.WriteLine("provider url: " + urlApi);
             try {

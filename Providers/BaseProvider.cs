@@ -39,7 +39,7 @@ namespace TimelineWallpaper.Providers {
             metas.AddRange(metasNew);
         }
 
-        public virtual async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public virtual async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             await Task.Delay(1000);
             return false;
         }

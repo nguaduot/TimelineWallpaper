@@ -19,10 +19,6 @@ namespace TimelineWallpaper.Providers {
         // gh: （可用）存放在 GitHub 上的图片资源，基于 JSDelivr 托管，速度非常理想
         private const string URL_API = "https://api.paugram.com/wallpaper/?source=gh";
 
-        public PaulProvider() {
-            Id = ProviderPaul.ID;
-        }
-
         private Meta ParseBean(Uri uriImg) {
             Meta meta = new Meta();
             if (uriImg == null) {
@@ -37,7 +33,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;

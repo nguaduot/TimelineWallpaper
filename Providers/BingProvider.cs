@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace TimelineWallpaper.Providers {
     public class BingProvider : BaseProvider {
         // 页数据索引（从0开始）（用于按需加载）
-        private int pageIndex = 0;
+        private int pageIndex = -1;
 
         private const int PAGE_SIZE = 8;
 
@@ -35,10 +35,6 @@ namespace TimelineWallpaper.Providers {
             URL_API_HOST + "/HPImageArchive.aspx?pid=hp&format=js&uhd=1&idx=0&n=" + PAGE_SIZE,
             URL_API_HOST + "/HPImageArchive.aspx?pid=hp&format=js&uhd=1&idx=7&n=" + PAGE_SIZE
         };
-
-        public BingProvider() {
-            Id = ProviderBing.ID;
-        }
 
         private Meta ParseBean(BingApiImg bean) {
             Meta meta = new Meta {
@@ -82,7 +78,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 已无更多数据
             if (pageIndex >= URL_API_PAGES.Length - 1) {
                 return true;
@@ -99,8 +95,8 @@ namespace TimelineWallpaper.Providers {
             }
 
             string urlApi = URL_API_PAGES[++pageIndex];
-            if (ini.Bing.Lang.Length > 0) {
-                urlApi += "&setmkt=" + ini.Bing.Lang;
+            if (((BingIni)ini).Lang.Length > 0) {
+                urlApi += "&setmkt=" + ((BingIni)ini).Lang;
             }
             Debug.WriteLine("provider url: " + urlApi);
             try {
@@ -121,6 +117,7 @@ namespace TimelineWallpaper.Providers {
                         metas.Add(meta);
                     }
                 }
+                SortMetas(); // 按时序倒序排列
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

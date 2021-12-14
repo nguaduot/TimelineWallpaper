@@ -27,10 +27,6 @@ namespace TimelineWallpaper.Providers {
         // https://www.ymyouli.com/
         private const string URL_API = "https://www.ymyouli.com/ajax/ajaxLoadModuleDom_h.jsp";
 
-        public YmyouliProvider() {
-            Id = ProviderYmyouli.ID;
-        }
-
         private Meta ParseBean(string id, string name, long time) {
             return new Meta {
                 Id = id,
@@ -42,15 +38,15 @@ namespace TimelineWallpaper.Providers {
             };
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
-            string col = ini.Ymyouli.Col;
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
+            string col = ((YmyouliIni)ini).Col;
             if (string.IsNullOrEmpty(col)) {
-                List<string> cols = Enumerable.ToList(ProviderYmyouli.COL_MODULE_DIC.Keys);
+                List<string> cols = Enumerable.ToList(YmyouliIni.COL_MODULE_DIC.Keys);
                 col = cols[new Random().Next(cols.Count)];
                 modules = null;
             }
             if (modules == null) {
-                modules = Enumerable.ToList(ProviderYmyouli.COL_MODULE_DIC[col].Keys);
+                modules = Enumerable.ToList(YmyouliIni.COL_MODULE_DIC[col].Keys);
                 RandomModules(modules);
             }
             // 现有数据未浏览完，无需加载更多，或已无更多数据
@@ -63,7 +59,7 @@ namespace TimelineWallpaper.Providers {
             }
 
             string module = modules[nextPage++];
-            col = ProviderYmyouli.COL_MODULE_DIC[col][module];
+            col = YmyouliIni.COL_MODULE_DIC[col][module];
             Dictionary<string, string> formData = new Dictionary<string, string>() {
                 { "cmd", "getWafNotCk_getAjaxPageModuleInfo" },
                 { "href", string.Format("/col.jsp?id={0}&m{1}pageno=1", col, module) },

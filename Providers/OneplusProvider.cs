@@ -17,10 +17,6 @@ namespace TimelineWallpaper.Providers {
 
         private const string URL_API = "https://photos.oneplus.com/cn/shot/photo/schedule";
 
-        public OneplusProvider() {
-            Id = ProviderOnePlus.ID;
-        }
-
         private Meta ParseBean(OneplusApiItem bean) {
             Meta meta = new Meta {
                 Id = bean.PhotoCode,
@@ -41,7 +37,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多
             if (date == null || GetFarthest() == null || date.Value.Date >= GetFarthest().Date.Value.Date) {
                 if (indexFocus < metas.Count - 1) {
@@ -54,7 +50,7 @@ namespace TimelineWallpaper.Providers {
             }
 
             // "1"：最新添加，"2"：点赞最多，"3"：浏览最多
-            string sort = "rate".Equals(ini.OnePlus.Order) ? "2" : ("view".Equals(ini.OnePlus.Order) ? "3" : "1");
+            string sort = "rate".Equals(((OneplusIni)ini).Order) ? "2" : ("view".Equals(((OneplusIni)ini).Order) ? "3" : "1");
             OneplusRequest request = new OneplusRequest {
                 PageSize = PAGE_SIZE, // 不限
                 CurrentPage = ++pageIndex,
@@ -84,6 +80,9 @@ namespace TimelineWallpaper.Providers {
                     if (!exists) {
                         metas.Add(ParseBean(item));
                     }
+                }
+                if ("1".Equals(((OneplusIni)ini).Order)) { // 按时序倒序排列
+                    SortMetas();
                 }
             } catch (Exception e) {
                 Debug.WriteLine(e);

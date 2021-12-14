@@ -12,10 +12,6 @@ namespace TimelineWallpaper.Providers {
         // https://cdn.seovx.com/
         private const string URL_API = "https://cdn.seovx.com/{0}/?mom=302";
 
-        public SeovxProvider() {
-            Id = ProviderSeovx.ID;
-        }
-
         private Meta ParseBean(Uri uriImg) {
             Meta meta = new Meta();
             if (uriImg == null) {
@@ -33,7 +29,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -43,7 +39,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string uriApi = string.Format(URL_API, ini.Seovx.Cate);
+            string uriApi = string.Format(URL_API, ((SeovxIni)ini).Cate);
             Debug.WriteLine("provider url: " + uriApi);
             try {
                 HttpClient client = new HttpClient(new HttpClientHandler {

@@ -14,10 +14,6 @@ namespace TimelineWallpaper.Providers {
         // https://api.muxiaoguo.cn/doc/sjbz.html
         private const string URL_API = "https://api.muxiaoguo.cn/api/sjbz?method=pc&type=sina";
 
-        public MxgProvider() {
-            Id = ProviderMxg.ID;
-        }
-
         private Meta ParseBean(MxgApiData bean) {
             Meta meta = new Meta {
                 Date = DateTime.Now
@@ -33,7 +29,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -43,7 +39,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string uriApi = string.Format(URL_API, ini.Seovx.Cate);
+            string uriApi = string.Format(URL_API, ((MxgIni)ini).Cate);
             Debug.WriteLine("provider url: " + uriApi);
             try {
                 HttpClient client = new HttpClient();
@@ -74,10 +70,6 @@ namespace TimelineWallpaper.Providers {
         // https://api.muxiaoguo.cn/doc/ACG.html
         private const string URL_API = "https://api.muxiaoguo.cn/api/ACG?type=json&size=mw1024";
 
-        public MxgAcgProvider() {
-            Id = ProviderMxg.ID;
-        }
-
         private Meta ParseBean(MxgApiData bean) {
             Meta meta = new Meta {
                 Thumb = bean.ImgUrl,
@@ -93,7 +85,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -103,7 +95,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string uriApi = string.Format(URL_API, ini.Seovx.Cate);
+            string uriApi = string.Format(URL_API, ((SeovxIni)ini).Cate);
             Debug.WriteLine("provider url: " + uriApi);
             try {
                 HttpClient client = new HttpClient();
@@ -134,10 +126,6 @@ namespace TimelineWallpaper.Providers {
         // https://api.muxiaoguo.cn/doc/meinvtu.html
         private const string URL_API = "https://api.muxiaoguo.cn/api/meinvtu?num=30";
 
-        public MxgMvProvider() {
-            Id = ProviderMxg.ID;
-        }
-
         private Meta ParseBean(MxgApiData bean) {
             Meta meta = new Meta { 
                 Uhd = bean.ImgUrl,
@@ -152,7 +140,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -162,7 +150,7 @@ namespace TimelineWallpaper.Providers {
                 return false;
             }
 
-            string uriApi = string.Format(URL_API, ini.Seovx.Cate);
+            string uriApi = string.Format(URL_API, ((MxgIni)ini).Cate);
             Debug.WriteLine("provider url: " + uriApi);
             try {
                 HttpClient client = new HttpClient();

@@ -14,10 +14,6 @@ namespace TimelineWallpaper.Providers {
         // https://api.mtyqx.cn/
         private const string URL_API = "https://api.mtyqx.cn/api/random.php?return=json";
 
-        public MtyProvider() {
-            Id = ProviderMty.ID;
-        }
-
         private Meta ParseBean(DmoeApiItem bean) {
             Meta meta = new Meta();
             if (bean?.ImgUrl == null) {
@@ -35,7 +31,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public override async Task<bool> LoadData(Ini ini, DateTime? date = null) {
+        public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
             // 现有数据未浏览完，无需加载更多，或已无更多数据
             if (indexFocus < metas.Count - 1) {
                 return true;
