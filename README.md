@@ -52,7 +52,6 @@
 + [晓晴API](https://acg.toubiec.cn) - 随机二次元图片
 + [墨天逸API](https://api.mtyqx.cn) - 随机图片
 + [夏沫博客API](https://cdn.seovx.com) - 在线古风美图二次元
-+ [木小果API](https://api.muxiaoguo.cn) - 随机壁纸
 + [保罗API](https://api.paugram.com/help/wallpaper) - 随机动漫壁纸
 
 *特别注明：除了自建图源，均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
