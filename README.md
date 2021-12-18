@@ -29,7 +29,7 @@
 
   API 官网：[api.nguaduot.cn/timeline](http://150.158.49.144/timeline/doc)
   
-  开源：[github.com/nguaduot/TimelineApi](https://github.com/nguaduot/timeline-api)
+  开源：[github.com/nguaduot/timeline-api](https://github.com/nguaduot/timeline-api)
 
 默认图源：
 
