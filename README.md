@@ -43,6 +43,7 @@
   *维护不易，若喜欢该图源，可前往其官网赞助。*
 
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
++ [向日葵8号](https://himawari8.nict.go.jp/) - 实时地球
 
 其他图源：
 
