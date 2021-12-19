@@ -622,13 +622,9 @@
 
         <ContentDialog Name="DlgReview"
                        x:Uid="DlgReview"
-                       PrimaryButtonText=""
-                       Title=""
-                       Content=""
-                       CloseButtonText=""
                        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                        DefaultButton="Primary" />
-
+        
     </RelativePanel>
     
 </Page>

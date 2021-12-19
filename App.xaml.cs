@@ -1,4 +1,5 @@
 ﻿using System;
+using TimelineWallpaper.Utils;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -19,6 +20,8 @@ namespace TimelineWallpaper {
         /// 已执行，逻辑上等同于 main() 或 WinMain()。
         /// </summary>
         public App() {
+            ChangeTheme();
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -85,6 +88,17 @@ namespace TimelineWallpaper {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
+        }
+
+        private void ChangeTheme() {
+            switch (IniUtil.GetIni().Theme) {
+                case "light":
+                    this.RequestedTheme = ApplicationTheme.Light;
+                    break;
+                case "dark":
+                    this.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+            }
         }
 
         private void OptimizeSize() {

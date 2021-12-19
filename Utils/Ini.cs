@@ -23,6 +23,7 @@ namespace TimelineWallpaper.Utils {
         };
 
         public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
+        public static HashSet<string> THEME = new HashSet<string>() { "", "light", "dark" };
 
         private string provider = BingIni.ID;
         public string Provider {
@@ -40,6 +41,12 @@ namespace TimelineWallpaper.Utils {
         public int Period {
             set => period = value <= 0 || value > 24 ? 24 : value;
             get => period;
+        }
+
+        private string theme = "";
+        public string Theme {
+            set => theme = THEME.Contains(value) ? value : "";
+            get => theme;
         }
 
         public BaseIni GetIni(string provider = null) {

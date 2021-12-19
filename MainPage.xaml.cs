@@ -438,7 +438,7 @@ namespace TimelineWallpaper {
 
         private async Task<bool> InitProvider() {
             if (ini == null) {
-                ini = await IniUtil.GetIni();
+                ini = await IniUtil.GetIniAsync();
             }
             if (provider != null && provider.Id.Equals(ini.Provider)) {
                 return true;

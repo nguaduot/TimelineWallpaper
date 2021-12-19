@@ -13,7 +13,8 @@ using Windows.System.Profile;
 
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
-        private const string FILE_INI = "timelinewallpaper-2.2.ini";
+        // TODO: 参数有变动时需调整配置名
+        private const string FILE_INI = "timelinewallpaper-2.4.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -22,7 +23,7 @@ namespace TimelineWallpaper.Utils {
         [DllImport("kernel32")]
         private static extern int WritePrivateProfileString(string section, string key, string value, string filePath);
 
-        private static async Task<StorageFile> GenerateIni() {
+        private static async Task<StorageFile> GenerateIniFileAsync() {
             StorageFolder folder = ApplicationData.Current.LocalFolder;
             StorageFile iniFile = await folder.TryGetItemAsync(FILE_INI) as StorageFile;
             if (iniFile == null) {
@@ -59,7 +60,12 @@ namespace TimelineWallpaper.Utils {
                     "; push=lock     推送：推送锁屏背景",
                     "",
                     "period=24",
-                    "; period={n}  # 推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "theme=",
+                    "; theme=       主题：跟随系统（默认）",
+                    "; theme=light  主题：亮色",
+                    "; theme=dark   主题：暗色",
                     "",
                     "[bing]",
                     "",
@@ -166,116 +172,133 @@ namespace TimelineWallpaper.Utils {
                 //StorageFile defFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/timelinewallpaper.ini"));
                 //iniFile = await defFile.CopyAsync(ApplicationData.Current.LocalFolder,
                 //    iniFileName, NameCollisionOption.ReplaceExisting);
+                Debug.WriteLine("generate ini: " + iniFile.Path);
             }
-            Debug.WriteLine("ini: " + iniFile.Path);
             return iniFile;
         }
 
+        private static string GetIniFile() {
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            string iniFile = Path.Combine(folder.Path, FILE_INI);
+            return File.Exists(iniFile) ? iniFile : null;
+        }
+
         public static async void SavePush(string push) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("timelinewallpaper", "push", push, iniFile.Path);
         }
 
         public static async void SaveProvider(string provider) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("timelinewallpaper", "provider", provider, iniFile.Path);
         }
 
         public static async void SaveBingLang(string langCode) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("bing", "lang", langCode, iniFile.Path);
         }
 
         public static async void SaveNasaMirror(string mirror) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("nasa", "mirror", mirror, iniFile.Path);
         }
 
         public static async void SaveOneplusOrder(string order) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("oneplus", "order", order, iniFile.Path);
         }
 
         public static async void SaveTimelineOrder(string order) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("timeline", "order", order, iniFile.Path);
         }
 
         public static async void SaveTimelineCate(string order) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("timeline", "cate", order, iniFile.Path);
         }
 
         public static async void SaveYmyouliCol(string col) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("ymyouli", "col", col, iniFile.Path);
         }
 
         public static async void SaveInfinityOrder(string order) {
-            StorageFile iniFile = await GenerateIni();
+            StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("infinity", "order", order, iniFile.Path);
         }
 
         public static async Task<StorageFile> GetIniPath() {
-            return await GenerateIni();
+            return await GenerateIniFileAsync();
         }
 
-        public static async Task<Ini> GetIni() {
-            StorageFile iniFile = await GenerateIni();
+        public static Ini GetIni() {
+            string iniFile = GetIniFile();
+            Debug.WriteLine("ini: " + FILE_INI);
             Ini ini = new Ini();
+            if (iniFile == null) { // 尚未初始化
+                return ini;
+            }
             StringBuilder sb = new StringBuilder(1024);
-            _ = GetPrivateProfileString("timelinewallpaper", "provider", "bing", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("timelinewallpaper", "provider", "bing", sb, 1024, iniFile);
             ini.Provider = sb.ToString();
-            _ = GetPrivateProfileString("timelinewallpaper", "push", "", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("timelinewallpaper", "push", "", sb, 1024, iniFile);
             ini.Push = sb.ToString();
-            _ = GetPrivateProfileString("timelinewallpaper", "period", "24", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("timelinewallpaper", "period", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out int period);
             ini.Period = period;
-            _ = GetPrivateProfileString("bing", "lang", "", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("timelinewallpaper", "theme", "", sb, 1024, iniFile);
+            ini.Theme = sb.ToString();
+            _ = GetPrivateProfileString("bing", "lang", "", sb, 1024, iniFile);
             ini.Inis["bing"] = new BingIni {
                 Lang = sb.ToString()
             };
-            _ = GetPrivateProfileString("nasa", "mirror", "", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("nasa", "mirror", "", sb, 1024, iniFile);
             ini.Inis["nasa"] = new NasaIni {
                 Mirror = sb.ToString()
             };
-            _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile);
             ini.Inis["oneplus"] = new OneplusIni {
                 Order = sb.ToString()
             };
-            _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile);
             TimelineIni timelineIni = new TimelineIni {
                 Order = sb.ToString()
             };
-            _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile);
             timelineIni.Cate = sb.ToString();
             ini.Inis["timeline"] = timelineIni;
-            _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile);
             ini.Inis["ymyouli"] = new YmyouliIni {
                 Col = sb.ToString()
             };
-            _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile);
             ini.Inis["infinity"] = new InfinityIni {
                 Order = sb.ToString()
             };
-            _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile);
             ini.Inis["3g"] = new G3Ini {
                 Order = sb.ToString()
             };
-            _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out int sanity);
             ini.Inis["pixivel"] = new PixivelIni {
                 Sanity = sanity
             };
-            _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile.Path);
+            _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile);
             ini.Inis["seovx"] = new SeovxIni {
                 Cate = sb.ToString()
             };
-            //_ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile.Path);
+            //_ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile);
             //ini.Inis["muxiaoguo"] = new MxgIni {
             //    Cate = sb.ToString()
             //};
             return ini;
+        }
+
+        public static async Task<Ini> GetIniAsync() {
+            _ = await GenerateIniFileAsync();
+            return GetIni();
         }
     }
 
