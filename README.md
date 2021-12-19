@@ -38,7 +38,7 @@
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
 + [OnePlus](https://photos.oneplus.com) - Shot on OnePlus
-+ [一梦幽黎](https://www.ymyouli.com) - 本站资源准备历时数年
++ [一梦幽黎](https://www.ymyouli.com) - 8K优质壁纸资源
 
   *维护不易，若喜欢该图源，可前往其官网赞助。*
 
