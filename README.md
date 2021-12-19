@@ -1,3 +1,5 @@
+![icon](./Assets/StoreLogo.scale-200.png)
+
 # 拾光 for Windows 11
 
 [![release](https://img.shields.io/github/v/release/nguaduot/TimelineWallpaper)](https://github.com/nguaduot/TimelineWallpaper/releases)
