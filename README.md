@@ -1,4 +1,4 @@
-![icon](./Assets/StoreLogo.scale-200.png)
+![icon](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/Assets/StoreLogo.scale-200.png)
 
 # 拾光 for Windows 11
 
