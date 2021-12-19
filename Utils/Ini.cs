@@ -10,6 +10,7 @@ namespace TimelineWallpaper.Utils {
             { TimelineIni.ID, new TimelineIni() },
             { YmyouliIni.ID, new YmyouliIni() },
             { InfinityIni.ID, new InfinityIni() },
+            { Himawari8Ini.ID, new Himawari8Ini() },
             { G3Ini.ID, new G3Ini() },
             { PixivelIni.ID, new PixivelIni() },
             { LofterIni.ID, new LofterIni() },
@@ -67,6 +68,12 @@ namespace TimelineWallpaper.Utils {
 
     public class BaseIni {
         public string Id { set; get; }
+
+        private int period = 24;
+        public int Period {
+            set => period = value <= 0 || value > 24 ? 24 : value;
+            get => period;
+        }
 
         // 时序图源
         public virtual bool IsSequential() => true;
@@ -287,6 +294,21 @@ namespace TimelineWallpaper.Utils {
         public override BaseProvider GenerateProvider() => new InfinityProvider() { Id = ID };
 
         override public string ToString() => $"order={order}";
+    }
+
+    public class Himawari8Ini : BaseIni {
+        public const string ID = "himawari8";
+
+        public Himawari8Ini() {
+            Id = ID;
+            Period = 1;
+        }
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new Himawari8Provider() { Id = ID };
+
+        override public string ToString() => "";
     }
 
     public class G3Ini : BaseIni {

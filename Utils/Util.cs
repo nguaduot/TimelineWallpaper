@@ -14,7 +14,7 @@ using Windows.System.Profile;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-2.4.ini";
+        private const string FILE_INI = "timelinewallpaper-2.5.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -32,6 +32,7 @@ namespace TimelineWallpaper.Utils {
                     Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
                     version,
+                    "; https://github.com/nguaduot/TimelineWallpaper",
                     "; nguaduot@163.com",
                     "",
                     "[timelinewallpaper]",
@@ -43,6 +44,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
+                    "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=pixivel    图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
                     "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
@@ -69,6 +71,9 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[bing]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "lang=",
                     "; lang=       语言代码：自动识别（默认）",
                     "; lang=zh-cn  语言代码：中文",
@@ -79,12 +84,17 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[nasa]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "mirror=bjp",
-
                     "; mirror=     镜像：无",
                     "; mirror=bjp  镜像：北京天文馆（默认） http://www.bjp.org.cn/mryt",
                     "",
                     "[oneplus]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date  排序：最新添加（默认）",
@@ -92,6 +102,9 @@ namespace TimelineWallpaper.Utils {
                     "; order=view  排序：浏览最多",
                     "",
                     "[timeline]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date    排序：日期（默认）",
@@ -104,6 +117,9 @@ namespace TimelineWallpaper.Utils {
                     "; cate=culture    类别：人文摄影",
                     "",
                     "[ymyouli]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     "",
                     "col=",
                     "; col=     类别：随机（默认）",
@@ -129,11 +145,22 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[infinity]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "order=",
                     "; order=      排序：随机（默认）",
                     "; order=rate  排序：热度",
                     "",
+                    "[himawari8]",
+                    "",
+                    "period=1",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "[3g]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date  排序：最新壁纸（默认）",
@@ -141,18 +168,36 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[pixivel]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "sanity=5",
                     "; sanity={n}   敏感度：1-10（默认为5）",
                     "",
                     "[lofter]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "[daihan]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     "",
                     "[dmoe]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "[toubiec]",
                     "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "",
                     "[seovx]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     "",
                     "cate=d",
                     "; cate=    类别：美图",
@@ -161,12 +206,18 @@ namespace TimelineWallpaper.Utils {
                     "",
                     //"[muxiaoguo]",
                     //"",
+                    //"period=24",
+                    //"; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    //"",
                     //"cate=sjbz",
                     //"; cate=sjbz     类别：随机壁纸（默认）",
                     //"; cate=acg      类别：动漫图片",
                     //"; cate=meinvtu  类别：美女图片",
                     //"",
                     "[paul]",
+                    "",
+                    "period=24",
+                    "; period={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
                     ""
                 });
                 //StorageFile defFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/timelinewallpaper.ini"));
@@ -249,50 +300,110 @@ namespace TimelineWallpaper.Utils {
             ini.Period = period;
             _ = GetPrivateProfileString("timelinewallpaper", "theme", "", sb, 1024, iniFile);
             ini.Theme = sb.ToString();
+            _ = GetPrivateProfileString("bing", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("bing", "lang", "", sb, 1024, iniFile);
             ini.Inis["bing"] = new BingIni {
+                Period = period,
                 Lang = sb.ToString()
             };
+            _ = GetPrivateProfileString("nasa", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("nasa", "mirror", "", sb, 1024, iniFile);
             ini.Inis["nasa"] = new NasaIni {
+                Period = period,
                 Mirror = sb.ToString()
             };
+            _ = GetPrivateProfileString("oneplus", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile);
             ini.Inis["oneplus"] = new OneplusIni {
+                Period = period,
                 Order = sb.ToString()
             };
+            _ = GetPrivateProfileString("timeline", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile);
             TimelineIni timelineIni = new TimelineIni {
+                Period = period,
                 Order = sb.ToString()
             };
             _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile);
             timelineIni.Cate = sb.ToString();
             ini.Inis["timeline"] = timelineIni;
+            _ = GetPrivateProfileString("ymyouli", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile);
             ini.Inis["ymyouli"] = new YmyouliIni {
+                Period = period,
                 Col = sb.ToString()
             };
+            _ = GetPrivateProfileString("infinity", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile);
             ini.Inis["infinity"] = new InfinityIni {
+                Period = period,
                 Order = sb.ToString()
             };
+            _ = GetPrivateProfileString("himawari8", "period", "1", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.Inis["himawari8"] = new Himawari8Ini {
+                Period = period
+            };
+            _ = GetPrivateProfileString("3g", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile);
             ini.Inis["3g"] = new G3Ini {
+                Period = period,
                 Order = sb.ToString()
             };
+            _ = GetPrivateProfileString("pixivel", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out int sanity);
             ini.Inis["pixivel"] = new PixivelIni {
+                Period = period,
                 Sanity = sanity
             };
+            _ = GetPrivateProfileString("lofter", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.Inis["lofter"] = new LofterIni {
+                Period = period
+            };
+            _ = GetPrivateProfileString("daihan", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.Inis["daihan"] = new DaihanIni {
+                Period = period
+            };
+            _ = GetPrivateProfileString("dmoe", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.Inis["dmoe"] = new DmoeIni {
+                Period = period
+            };
+            _ = GetPrivateProfileString("toubiec", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.Inis["toubiec"] = new ToubiecIni {
+                Period = period
+            };
+            _ = GetPrivateProfileString("seovx", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile);
             ini.Inis["seovx"] = new SeovxIni {
+                Period = period,
                 Cate = sb.ToString()
             };
+            //_ = GetPrivateProfileString("muxiaoguo", "period", "24", sb, 1024, iniFile);
+            //_ = int.TryParse(sb.ToString(), out period);
             //_ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile);
             //ini.Inis["muxiaoguo"] = new MxgIni {
+            //    Period = period,
             //    Cate = sb.ToString()
             //};
+            _ = GetPrivateProfileString("paul", "period", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.Inis["paul"] = new PaulIni {
+                Period = period
+            };
             return ini;
         }
 

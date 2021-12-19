@@ -502,4 +502,13 @@
   <data name="DlgReview.Title" xml:space="preserve">
     <value>给「拾光」一个评分</value>
   </data>
+  <data name="BtnProviderHimawari8.Text" xml:space="preserve">
+    <value>向日葵8号 - 实时地球</value>
+  </data>
+  <data name="Provider_himawari8" xml:space="preserve">
+    <value>向日葵8号</value>
+  </data>
+  <data name="Slogan_himawari8" xml:space="preserve">
+    <value>实时地球</value>
+  </data>
 </root>

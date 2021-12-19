@@ -142,6 +142,7 @@
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
     <Compile Include="Providers\MxgProvider.cs" />
+    <Compile Include="Providers\Himawari8Provider.cs" />
     <Compile Include="Providers\TimelineProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />
     <Compile Include="Providers\MtyProvider.cs" />
@@ -256,6 +257,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

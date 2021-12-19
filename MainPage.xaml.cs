@@ -339,7 +339,7 @@ namespace TimelineWallpaper {
             meta = provider.GetFocus();
             Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
-            Meta metaCache = await BaseProvider.Cache(provider, meta);
+            Meta metaCache = await provider.Cache(meta);
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
                 ShowTips();
@@ -365,7 +365,7 @@ namespace TimelineWallpaper {
             meta = provider.Yesterday();
             Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
-            Meta metaCache = await BaseProvider.Cache(provider, meta);
+            Meta metaCache = await provider.Cache(meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                 await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
             }
@@ -392,7 +392,7 @@ namespace TimelineWallpaper {
             meta = provider.Tormorrow();
             Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
-            Meta metaCache = await BaseProvider.Cache(provider, meta);
+            Meta metaCache = await provider.Cache(meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                 await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
             }
@@ -418,7 +418,7 @@ namespace TimelineWallpaper {
             meta = provider.Target(date);
             Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
-            Meta metaCache = await BaseProvider.Cache(provider, meta);
+            Meta metaCache = await provider.Cache(meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                 await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
             }
@@ -432,7 +432,7 @@ namespace TimelineWallpaper {
 
         private async void PreLoadYesterdayAsync() {
             if (await provider.LoadData(ini.GetIni())) {
-                _ = BaseProvider.Cache(provider, provider.GetYesterday());
+                _ = provider.Cache(provider.GetYesterday());
             }
         }
 
@@ -469,6 +469,7 @@ namespace TimelineWallpaper {
             BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
             BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
             BtnInfinityOrder.Visibility = BtnProviderInfinity.IsChecked ? Visibility.Visible : Visibility.Collapsed;
+            BtnProviderHimawari8.IsChecked = BtnProviderHimawari8.Tag.Equals(ini.Provider);
 
             BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
             BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
@@ -650,10 +651,11 @@ namespace TimelineWallpaper {
                 : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
         }
 
-        private void ShowTips() {
+        private async void ShowTips() {
             if (localSettings.Values.ContainsKey("MenuLearned")) {
                 return;
             }
+            await Task.Delay(3000);
             TipMenu.IsOpen = true;
         }
 
@@ -683,7 +685,7 @@ namespace TimelineWallpaper {
         }
 
         private async void DownloadAsync() {
-            StorageFile file = await BaseProvider.Download(meta, resLoader.GetString("AppNameShort"),
+            StorageFile file = await provider.Download(meta, resLoader.GetString("AppNameShort"),
                 resLoader.GetString("Provider_" + provider.Id));
             if (file != null) {
                 ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, () => {
@@ -775,6 +777,7 @@ namespace TimelineWallpaper {
             if (release == null) {
                 return;
             }
+            await Task.Delay(2000);
             BtnAbout.Text = string.Format(resLoader.GetString("Release"), release.Version);
             BtnAbout.IsEnabled = true;
             ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {

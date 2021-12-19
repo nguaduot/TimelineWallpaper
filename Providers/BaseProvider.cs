@@ -25,8 +25,24 @@ namespace TimelineWallpaper.Providers {
         protected int indexFocus = 0;
 
         protected void SortMetas() {
+            string idFocus = GetFocus()?.Id;
             // 按日期降序排列
-            metas.Sort((m1, m2) => m1.Date.Value > m2.Date.Value ? -1 : 1);
+            metas.Sort((m1, m2) => {
+                if (m1.Date.Value > m2.Date.Value) {
+                    return -1;
+                }
+                if (m1.Date.Value < m2.Date.Value) {
+                    return 1;
+                }
+                return m1.Id.CompareTo(m2);
+            });
+            // 恢复当前索引
+            for (int i = 0; i < metas.Count; i++) {
+                if (metas[i].Id == idFocus) {
+                    indexFocus = i;
+                    break;
+                }
+            }
         }
 
         protected void RandomMetas() {
@@ -121,13 +137,13 @@ namespace TimelineWallpaper.Providers {
             return null;
         }
 
-        public static async Task<Meta> Cache(BaseProvider provider, Meta meta) {
+        public virtual async Task<Meta> Cache(Meta meta) {
             if (meta == null || meta.IsCached()) {
                 return meta;
             }
             // 缓存到临时文件夹（允许随时被清理）
             StorageFile cacheFile = await ApplicationData.Current.TemporaryFolder
-                .CreateFileAsync(provider.Id + "-" + meta.Id + meta.Format, CreationCollisionOption.OpenIfExists);
+                .CreateFileAsync(Id + "-" + meta.Id + meta.Format, CreationCollisionOption.OpenIfExists);
             BasicProperties fileProperties = await cacheFile.GetBasicPropertiesAsync();
             if (fileProperties.Size > 0) { // 已缓存过
                 meta.SetCacheOne(cacheFile);
@@ -136,13 +152,14 @@ namespace TimelineWallpaper.Providers {
                 try {
                     BackgroundDownloader downloader = new BackgroundDownloader();
                     DownloadOperation operation = downloader.CreateDownload(new Uri(meta.GetUrlOne()), cacheFile);
-                    Progress<DownloadOperation> progress = new Progress<DownloadOperation>((op) => {
-                        if (op.Progress.TotalBytesToReceive > 0 && op.Progress.BytesReceived > 0) {
-                            ulong value = op.Progress.BytesReceived * 100 / op.Progress.TotalBytesToReceive;
-                            Debug.WriteLine("progress: " + value + "%");
-                        }
-                    });
-                    DownloadOperation resOperation = await operation.StartAsync().AsTask(progress);
+                    //Progress<DownloadOperation> progress = new Progress<DownloadOperation>((op) => {
+                    //    if (op.Progress.TotalBytesToReceive > 0 && op.Progress.BytesReceived > 0) {
+                    //        ulong value = op.Progress.BytesReceived * 100 / op.Progress.TotalBytesToReceive;
+                    //        Debug.WriteLine("progress: " + value + "%");
+                    //    }
+                    //});
+                    //DownloadOperation resOperation = await operation.StartAsync().AsTask(progress);
+                    DownloadOperation resOperation = await operation.StartAsync();
                     if (resOperation.Progress.Status == BackgroundTransferStatus.Completed) {
                         meta.SetCacheOne(cacheFile);
                         Debug.WriteLine("cached from network: " + JsonConvert.SerializeObject(meta).Trim());
@@ -152,7 +169,7 @@ namespace TimelineWallpaper.Providers {
                 }
             }
             if (meta.CacheUhd != null) {
-                using(IRandomAccessStream stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
+                using(var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
                     var decoder = await BitmapDecoder.CreateAsync(stream);
                     meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
                 }
@@ -169,7 +186,7 @@ namespace TimelineWallpaper.Providers {
             return meta;
         }
 
-        public static async Task<StorageFile> Download(Meta meta, string appName, string provider) {
+        public async Task<StorageFile> Download(Meta meta, string appName, string provider) {
             if (meta == null || !meta.IsCached()) {
                 return null;
             }

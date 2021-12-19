@@ -142,6 +142,11 @@
                                           Click="BtnProvider_Click"
                                           Tag="infinity"
                                           GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderHimawari8"
+                                          x:Uid="BtnProviderHimawari8"
+                                          Click="BtnProvider_Click"
+                                          Tag="himawari8"
+                                          GroupName="Provider" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnBingLang"
                                x:Uid="BtnBingLang"
