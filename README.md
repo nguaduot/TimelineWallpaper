@@ -90,8 +90,10 @@
 
 ## 截图
 
-![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
+![截图1](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
 
-自取：[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
+![截图2](https://s3.bmp.ovh/imgs/2021/12/001241e0a14ef263.gif)
+
+自取：[截图1壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
 
 *Copyright © 2021 nguaduot. All rights reserved.*
