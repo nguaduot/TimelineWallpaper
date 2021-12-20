@@ -7,7 +7,6 @@ using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using TimelineWallpaper.Utils;
-using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using Windows.Media.Editing;
 using System.Drawing;

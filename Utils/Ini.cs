@@ -38,10 +38,16 @@ namespace TimelineWallpaper.Utils {
             get => push;
         }
 
-        private int period = 24;
-        public int Period {
-            set => period = value <= 0 || value > 24 ? 24 : value;
-            get => period;
+        private string pushProvider = BingIni.ID;
+        public string PushProvider {
+            set => pushProvider = Inis.ContainsKey(value) ? value : BingIni.ID;
+            get => pushProvider;
+        }
+
+        private int pushPeriod = 24;
+        public int PushPeriod {
+            set => pushPeriod = value <= 0 || value > 24 ? 24 : value;
+            get => pushPeriod;
         }
 
         private string theme = "";
@@ -62,17 +68,17 @@ namespace TimelineWallpaper.Utils {
 
         override public string ToString() {
             string paras = Inis[provider].ToString();
-            return $"/{provider}?push={push}&period={period}" + (paras.Length > 0 ? "&" : "") + paras;
+            return $"/{Provider}?push={Push}&pushprovider={PushProvider}&pushperiod={PushPeriod}" + (paras.Length > 0 ? "&" : "") + paras;
         }
     }
 
     public class BaseIni {
         public string Id { set; get; }
 
-        private int period = 24;
-        public int Period {
-            set => period = value <= 0 || value > 24 ? 24 : value;
-            get => period;
+        private int pushPeriod = 24;
+        public int PushPeriod {
+            set => pushPeriod = value <= 0 || value > 24 ? 24 : value;
+            get => pushPeriod;
         }
 
         // 时序图源
@@ -95,7 +101,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new BingProvider() { Id = ID };
 
-        override public string ToString() => $"lang={lang}";
+        override public string ToString() => $"pushperiod={PushPeriod}&lang={Lang}";
     }
 
     public class NasaIni : BaseIni {
@@ -119,7 +125,7 @@ namespace TimelineWallpaper.Utils {
             }
         }
 
-        override public string ToString() => $"mirror={mirror}";
+        override public string ToString() => $"pushperiod={PushPeriod}&mirror={Mirror}";
     }
 
     public class OneplusIni : BaseIni {
@@ -138,7 +144,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new OneplusProvider() { Id = ID };
 
-        override public string ToString() => $"order={order}";
+        override public string ToString() => $"pushperiod={PushPeriod}&order={Order}";
     }
 
     public class TimelineIni : BaseIni {
@@ -164,7 +170,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new TimelineProvider() { Id = ID };
 
-        override public string ToString() => $"order={order}&cate={cate}";
+        override public string ToString() => $"pushperiod={PushPeriod}&order={Order}&cate={Cate}";
     }
 
     public class YmyouliIni : BaseIni {
@@ -274,7 +280,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new YmyouliProvider() { Id = ID };
 
-        override public string ToString() => $"col={col}";
+        override public string ToString() => $"pushperiod={PushPeriod}&col={Col}";
     }
 
     public class InfinityIni : BaseIni {
@@ -293,7 +299,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new InfinityProvider() { Id = ID };
 
-        override public string ToString() => $"order={order}";
+        override public string ToString() => $"pushperiod={PushPeriod}&order={Order}";
     }
 
     public class Himawari8Ini : BaseIni {
@@ -301,14 +307,14 @@ namespace TimelineWallpaper.Utils {
 
         public Himawari8Ini() {
             Id = ID;
-            Period = 1;
+            PushPeriod = 1;
         }
 
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new Himawari8Provider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class G3Ini : BaseIni {
@@ -327,7 +333,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new G3Provider() { Id = ID };
 
-        override public string ToString() => $"order={order}";
+        override public string ToString() => $"pushperiod={PushPeriod}&order={Order}";
     }
 
     public class PixivelIni : BaseIni {
@@ -345,7 +351,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new PixivelProvider() { Id = ID };
 
-        override public string ToString() => $"sanity={sanity}";
+        override public string ToString() => $"pushperiod={PushPeriod}&sanity={Sanity}";
     }
 
     public class LofterIni : BaseIni {
@@ -357,7 +363,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new LofterProvider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class DaihanIni : BaseIni {
@@ -369,7 +375,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new DaihanProvider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class DmoeIni : BaseIni {
@@ -381,7 +387,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new DmoeProvider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class ToubiecIni : BaseIni {
@@ -393,7 +399,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new ToubiecProvider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class MtyIni : BaseIni {
@@ -405,7 +411,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new MtyProvider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class SeovxIni : BaseIni {
@@ -424,7 +430,7 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new SeovxProvider() { Id = ID };
 
-        override public string ToString() => $"cate={cate}";
+        override public string ToString() => $"pushperiod={PushPeriod}&cate={Cate}";
     }
 
     // deprecated: 开始收费
@@ -453,7 +459,7 @@ namespace TimelineWallpaper.Utils {
             }
         }
 
-        override public string ToString() => $"cate={cate}";
+        override public string ToString() => $"pushperiod={PushPeriod}&cate={Cate}";
     }
 
     public class PaulIni : BaseIni {
@@ -465,6 +471,6 @@ namespace TimelineWallpaper.Utils {
 
         public override BaseProvider GenerateProvider() => new PaulProvider() { Id = ID };
 
-        override public string ToString() => "";
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 }

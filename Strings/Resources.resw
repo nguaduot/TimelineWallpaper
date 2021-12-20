@@ -240,11 +240,11 @@
   <data name="BtnPush.Text" xml:space="preserve">
     <value>推送</value>
   </data>
-  <data name="BtnPushDesktop.Text" xml:space="preserve">
-    <value>推送桌面背景</value>
+  <data name="PushDesktop" xml:space="preserve">
+    <value>推送桌面背景：{0}</value>
   </data>
-  <data name="BtnPushLock.Text" xml:space="preserve">
-    <value>推送锁屏背景</value>
+  <data name="PushLock" xml:space="preserve">
+    <value>推送锁屏背景：{0}</value>
   </data>
   <data name="BtnPushNone.Text" xml:space="preserve">
     <value>关闭推送</value>

@@ -113,12 +113,15 @@ namespace TimelineWallpaper {
         private void BtnPush_Click(object sender, RoutedEventArgs e) {
             string push = ((RadioMenuFlyoutItem)sender).Tag.ToString();
             IniUtil.SavePush(push);
+            IniUtil.SavePushProvider(provider.Id);
             ini.Push = push;
+            ini.PushProvider = provider.Id;
+            BtnPushCur.Visibility = Visibility.Collapsed; // 该项禁选，因此无论选择其他任何项，该项都不再显示
             if (BtnPushNone.IsChecked) {
                 UnregService();
             } else {
                 _ = RegService();
-                RunServiceNow();
+                RunServiceNow(); // 用户明确开启推送，立即推送一次
             }
         }
 
@@ -443,17 +446,39 @@ namespace TimelineWallpaper {
             if (provider != null && provider.Id.Equals(ini.Provider)) {
                 return true;
             }
-
             provider = ini.GenerateProvider();
 
-            BtnPushNone.IsChecked = BtnPushNone.Tag.Equals(ini.Push);
-            BtnPushDesktop.IsChecked = BtnPushDesktop.Tag.Equals(ini.Push);
-            BtnPushLock.IsChecked = BtnPushLock.Tag.Equals(ini.Push);
+            BtnPushDesktop.Text = string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + provider.Id));
+            BtnPushLock.Text = string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + provider.Id));
+            if (BtnPushNone.Tag.Equals(ini.Push)) {
+                BtnPushNone.IsChecked = true;
+                BtnPushCur.Visibility = Visibility.Collapsed;
+                BtnPushDesktop.IsChecked = false;
+                BtnPushLock.IsChecked = false;
+            } else {
+                BtnPushNone.IsChecked = false;
+                BtnPushCur.Text = BtnPushDesktop.Tag.Equals(ini.Push)
+                    ? string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + ini.PushProvider))
+                    : string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + ini.PushProvider));
+                if (provider.Id.Equals(ini.PushProvider)) {
+                    BtnPushCur.Visibility = Visibility.Collapsed;
+                    BtnPushDesktop.IsChecked = BtnPushDesktop.Tag.Equals(ini.Push);
+                    BtnPushLock.IsChecked = BtnPushLock.Tag.Equals(ini.Push);
+                } else {
+                    BtnPushCur.Visibility = Visibility.Visible;
+                    BtnPushCur.Tag = ini.Push;
+                    BtnPushCur.IsChecked = true;
+                    BtnPushDesktop.IsChecked = false;
+                    BtnPushLock.IsChecked = false;
+                }
+            }
             if (BtnPushNone.IsChecked) {
                 UnregService();
             } else {
-                _ = await RegService();
-                RunServiceNow();
+                _ = RegService();
+                if (provider.Id.Equals(ini.PushProvider)) {
+                    RunServiceNow(); // 用户浏览图源与推送图源一致，立即推送一次
+                }
             }
 
             BtnProviderBing.IsChecked = BtnProviderBing.Tag.Equals(ini.Provider);
