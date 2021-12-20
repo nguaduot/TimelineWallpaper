@@ -27,9 +27,9 @@
 
 自建图源：
 
-+ [拾光](http://150.158.49.144/timeline/doc) - 时光如歌，岁月如诗
++ [拾光](https://api.nguaduot.cn/timeline) - 时光如歌，岁月如诗
 
-  API 官网：[api.nguaduot.cn/timeline](http://150.158.49.144/timeline/doc)
+  API 官网：[api.nguaduot.cn/timeline](https://api.nguaduot.cn/timeline)
   
   开源：[github.com/nguaduot/timeline-api](https://github.com/nguaduot/timeline-api)
 
