@@ -1,4 +1,4 @@
-![icon](./Assets/StoreLogo.scale-200.png)
+![icon](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/Assets/StoreLogo.scale-200.png)
 
 # 拾光 for Windows 11
 
@@ -27,9 +27,9 @@
 
 自建图源：
 
-+ [拾光](http://150.158.49.144/timeline/doc) - 时光如歌，岁月如诗
++ [拾光](https://api.nguaduot.cn/timeline/doc) - 时光如歌，岁月如诗
 
-  API 官网：[api.nguaduot.cn/timeline](http://150.158.49.144/timeline/doc)
+  API 官网：[api.nguaduot.cn/timeline](https://api.nguaduot.cn/timeline/doc)
   
   开源：[github.com/nguaduot/timeline-api](https://github.com/nguaduot/timeline-api)
 
@@ -43,6 +43,7 @@
   *维护不易，若喜欢该图源，可前往其官网赞助。*
 
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
++ [向日葵8号](https://himawari8.nict.go.jp/) - 实时地球
 
 其他图源：
 
@@ -89,8 +90,10 @@
 
 ## 截图
 
-![截图](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
+![截图1](https://cdn.jsdelivr.net/gh/nguaduot/TimelineWallpaper/screenshot.jpg)
 
-自取：[截图壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
+![截图2](https://s3.bmp.ovh/imgs/2021/12/001241e0a14ef263.gif)
+
+自取：[截图1壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
 
 *Copyright © 2021 nguaduot. All rights reserved.*
