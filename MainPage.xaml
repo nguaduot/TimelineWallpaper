@@ -84,32 +84,6 @@
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
             <MenuFlyoutSeparator />
-            <MenuFlyoutSubItem Name="BtnPush"
-                               x:Uid="BtnPush">
-                <MenuFlyoutSubItem.Icon>
-                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                              Glyph="&#xECC5;" />
-                </MenuFlyoutSubItem.Icon>
-                <muxc:RadioMenuFlyoutItem Name="BtnPushNone"
-                                          x:Uid="BtnPushNone"
-                                          Click="BtnPush_Click"
-                                          Tag=""
-                                          GroupName="Push" />
-                <muxc:RadioMenuFlyoutItem Name="BtnPushCur"
-                                          Click="BtnPush_Click"
-                                          Visibility="Collapsed"
-                                          IsEnabled="False"
-                                          Tag=""
-                                          GroupName="Push" />
-                <muxc:RadioMenuFlyoutItem Name="BtnPushDesktop"
-                                          Click="BtnPush_Click"
-                                          Tag="desktop"
-                                          GroupName="Push" />
-                <muxc:RadioMenuFlyoutItem Name="BtnPushLock"
-                                          Click="BtnPush_Click"
-                                          Tag="lock"
-                                          GroupName="Push" />
-            </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnProvider"
                                x:Uid="BtnProvider">
                 <MenuFlyoutSubItem.Icon>
@@ -402,6 +376,33 @@
                                           Tag="rate"
                                           Click="BtnInfinityOrder_Click"
                                           GroupName="InfinityOrder" />
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSeparator />
+            <MenuFlyoutSubItem Name="BtnPush"
+                               x:Uid="BtnPush">
+                <MenuFlyoutSubItem.Icon>
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xECC5;" />
+                </MenuFlyoutSubItem.Icon>
+                <muxc:RadioMenuFlyoutItem Name="BtnPushNone"
+                                          x:Uid="BtnPushNone"
+                                          Click="BtnPush_Click"
+                                          Tag=""
+                                          GroupName="Push" />
+                <muxc:RadioMenuFlyoutItem Name="BtnPushCur"
+                                          Click="BtnPush_Click"
+                                          Visibility="Collapsed"
+                                          IsEnabled="False"
+                                          Tag=""
+                                          GroupName="Push" />
+                <muxc:RadioMenuFlyoutItem Name="BtnPushDesktop"
+                                          Click="BtnPush_Click"
+                                          Tag="desktop"
+                                          GroupName="Push" />
+                <muxc:RadioMenuFlyoutItem Name="BtnPushLock"
+                                          Click="BtnPush_Click"
+                                          Tag="lock"
+                                          GroupName="Push" />
             </MenuFlyoutSubItem>
             <MenuFlyoutItem Name="BtnIni"
                             x:Uid="BtnIni"

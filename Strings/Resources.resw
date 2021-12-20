@@ -511,4 +511,7 @@
   <data name="Slogan_himawari8" xml:space="preserve">
     <value>实时地球</value>
   </data>
+  <data name="Pushing" xml:space="preserve">
+    <value>推送中：{0}</value>
+  </data>
 </root>

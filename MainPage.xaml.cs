@@ -448,6 +448,7 @@ namespace TimelineWallpaper {
             }
             provider = ini.GenerateProvider();
 
+            BtnPushCur.Text = string.Format(resLoader.GetString("Pushing"), resLoader.GetString("Provider_" + ini.PushProvider));
             BtnPushDesktop.Text = string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + provider.Id));
             BtnPushLock.Text = string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + provider.Id));
             if (BtnPushNone.Tag.Equals(ini.Push)) {
@@ -457,9 +458,6 @@ namespace TimelineWallpaper {
                 BtnPushLock.IsChecked = false;
             } else {
                 BtnPushNone.IsChecked = false;
-                BtnPushCur.Text = BtnPushDesktop.Tag.Equals(ini.Push)
-                    ? string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + ini.PushProvider))
-                    : string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + ini.PushProvider));
                 if (provider.Id.Equals(ini.PushProvider)) {
                     BtnPushCur.Visibility = Visibility.Collapsed;
                     BtnPushDesktop.IsChecked = BtnPushDesktop.Tag.Equals(ini.Push);
