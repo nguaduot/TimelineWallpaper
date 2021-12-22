@@ -65,7 +65,7 @@ namespace TimelineWallpaper {
             MpeUhd.MediaPlayer.Volume = 0;
 
             TextTitle.Text = resLoader.GetString("AppDesc");
-            BtnAbout.Text = string.Format(BtnAbout.Text, " v" + VerUtil.GetPkgVer(true));
+            DlgAbout.Title = string.Format(DlgAbout.Title.ToString(), " v" + VerUtil.GetPkgVer(true));
 
             // 前者会在应用启动时触发多次，后者仅一次
             //this.SizeChanged += Current_SizeChanged;
@@ -190,8 +190,8 @@ namespace TimelineWallpaper {
         }
 
         private void BtnAbout_Click(object sender, RoutedEventArgs e) {
-            LaunchRelealse();
             ToggleInfo(null);
+            _ = DlgAbout.ShowAsync();
         }
 
         private void BtnIni_Click(object sender, RoutedEventArgs e) {
@@ -286,6 +286,11 @@ namespace TimelineWallpaper {
 
         private void FlyoutMenu_Opened(object sender, object e) {
             localSettings.Values["MenuLearned"] = true;
+        }
+
+        private void LinkDonate_Click(object sender, RoutedEventArgs e) {
+            DlgAbout.Hide();
+            Donate();
         }
 
         private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
@@ -801,7 +806,6 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(2000);
-            BtnAbout.Text = string.Format(resLoader.GetString("Release"), release.Version);
             BtnAbout.IsEnabled = true;
             ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
                 LaunchRelealse();
@@ -816,10 +820,17 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(1000);
-            if (await DlgReview.ShowAsync() == ContentDialogResult.Primary) {
-                _ = await Launcher.LaunchUriAsync(new Uri(ApiService.URI_STORE_REVIEW));
-            } else {
-                localSettings.Values.Remove("launchTimes");
+            localSettings.Values.Remove("launchTimes");
+            _ = DlgAbout.ShowAsync();
+        }
+
+        private async void Donate(bool viaAlipay = false) {
+            ImgDonate.Source = new BitmapImage(new Uri(viaAlipay ? "ms-appx:///Assets/Images/donate_alipay.png" : "ms-appx:///Assets/Images/donate_wechat.png"));
+            var action = await DlgDonate.ShowAsync();
+            if (action == ContentDialogResult.Primary) {
+                Donate();
+            } else if (action == ContentDialogResult.Secondary) {
+                Donate(true);
             }
         }
 

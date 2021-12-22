@@ -136,7 +136,7 @@
     <value>热门壁纸</value>
   </data>
   <data name="BtnAbout.Text" xml:space="preserve">
-    <value>拾光{0}</value>
+    <value>关于拾光</value>
   </data>
   <data name="BtnBingLang.Text" xml:space="preserve">
     <value>地区</value>
@@ -158,9 +158,6 @@
   </data>
   <data name="BtnBingLangUs.Text" xml:space="preserve">
     <value>美国</value>
-  </data>
-  <data name="BtnContact.Text" xml:space="preserve">
-    <value>nguaduot@163.com</value>
   </data>
   <data name="BtnTimelineCate3.Text" xml:space="preserve">
     <value>人像摄影</value>
@@ -480,27 +477,20 @@
   <data name="MsgUpdate" xml:space="preserve">
     <value>「拾光」已发布新版本</value>
   </data>
-  <data name="Release" xml:space="preserve">
-    <value>发现新版本{0}</value>
-  </data>
   <data name="TipMenu.Subtitle" xml:space="preserve">
     <value>您可以使用鼠标右键弹出菜单，更换桌面背景、保存图片、开启推送等。</value>
   </data>
   <data name="TipMenu.Title" xml:space="preserve">
     <value>操作提示</value>
   </data>
-  <data name="DlgReview.CloseButtonText" xml:space="preserve">
+  <data name="DlgAbout.CloseButtonText" xml:space="preserve">
     <value>下次一定</value>
   </data>
-  <data name="DlgReview.Content" xml:space="preserve">
-    <value>维护不易，如果您喜欢「拾光」分享的美图，
-给它一个评分或评价吧，谢谢。(●'◡'●)</value>
+  <data name="TextReview0.Text" xml:space="preserve">
+    <value>维护不易，随缘更新。如果您喜欢「拾光」分享的图源，前往 </value>
   </data>
-  <data name="DlgReview.PrimaryButtonText" xml:space="preserve">
-    <value>前往商店评分</value>
-  </data>
-  <data name="DlgReview.Title" xml:space="preserve">
-    <value>给「拾光」一个评分</value>
+  <data name="DlgAbout.Title" xml:space="preserve">
+    <value>拾光{0}</value>
   </data>
   <data name="BtnProviderHimawari8.Text" xml:space="preserve">
     <value>向日葵8号 - 实时地球</value>
@@ -513,5 +503,62 @@
   </data>
   <data name="Pushing" xml:space="preserve">
     <value>推送中：{0}</value>
+  </data>
+  <data name="LinkEmail.NavigateUri" xml:space="preserve">
+    <value>mailto:nguaduot@163.com</value>
+  </data>
+  <data name="LinkGithub.NavigateUri" xml:space="preserve">
+    <value>https://github.com/nguaduot/TimelineWallpaper</value>
+  </data>
+  <data name="LinkReview.NavigateUri" xml:space="preserve">
+    <value>ms-windows-store://review/?ProductId=9N7VHQ989BB7</value>
+  </data>
+  <data name="TextContatc0.Text" xml:space="preserve">
+    <value>任何疑问或想法，可发 </value>
+  </data>
+  <data name="TextContatc1.Text" xml:space="preserve">
+    <value>邮件</value>
+  </data>
+  <data name="TextContatc2.Text" xml:space="preserve">
+    <value> 联系我，或在 </value>
+  </data>
+  <data name="TextContatc3.Text" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="TextContatc4.Text" xml:space="preserve">
+    <value> 上查看该项目。</value>
+  </data>
+  <data name="TextCopyright.Text" xml:space="preserve">
+    <value>© 2021 nguaduot。保留所有权利。</value>
+  </data>
+  <data name="TextReview1.Text" xml:space="preserve">
+    <value>商店</value>
+  </data>
+  <data name="TextReview2.Text" xml:space="preserve">
+    <value> 给它一个评分或评价吧，或者 </value>
+  </data>
+  <data name="DlgDonate.CloseButtonText" xml:space="preserve">
+    <value>下次一定</value>
+  </data>
+  <data name="DlgDonate.PrimaryButtonText" xml:space="preserve">
+    <value>微信码</value>
+  </data>
+  <data name="DlgDonate.SecondaryButtonText" xml:space="preserve">
+    <value>支付宝码</value>
+  </data>
+  <data name="DlgDonate.Title" xml:space="preserve">
+    <value>赞助拾光</value>
+  </data>
+  <data name="LinkEmail.ToolTipService.ToolTip" xml:space="preserve">
+    <value>nguaduot@163.com</value>
+  </data>
+  <data name="LinkGithub.ToolTipService.ToolTip" xml:space="preserve">
+    <value>https://github.com/nguaduot/TimelineWallpaper</value>
+  </data>
+  <data name="TextReview3.Text" xml:space="preserve">
+    <value>扫码赞助</value>
+  </data>
+  <data name="TextReview4.Text" xml:space="preserve">
+    <value>  (●'◡'●)</value>
   </data>
 </root>

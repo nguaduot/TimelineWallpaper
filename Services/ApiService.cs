@@ -16,7 +16,6 @@ using Windows.System.Profile;
 namespace TimelineWallpaper.Services {
     public class ApiService {
         public const string URI_STORE = "ms-windows-store://pdp/?productid=9N7VHQ989BB7";
-        public const string URI_STORE_REVIEW = "ms-windows-store://review/?ProductId=9N7VHQ989BB7";
 
         public static async void Stats(Ini ini, bool status) {
             if (!NetworkInterface.GetIsNetworkAvailable()) {

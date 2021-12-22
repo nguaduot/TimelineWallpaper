@@ -416,13 +416,9 @@
                     <KeyboardAccelerator Key="O" Modifiers="Control" />
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
-            <MenuFlyoutSeparator />
             <MenuFlyoutItem Name="BtnAbout"
                             x:Uid="BtnAbout"
-                            IsEnabled="False"
                             Click="BtnAbout_Click" />
-            <MenuFlyoutItem x:Uid="BtnContact"
-                            IsEnabled="False" />
         </MenuFlyout>
 
         <muxc:TeachingTip x:Name="TipMenu"
@@ -432,7 +428,7 @@
                           PreferredPlacement="Right"
                           HeroContentPlacement="Top">
             <muxc:TeachingTip.HeroContent>
-                <Image Source="Assets/MouseClick.jpg"
+                <Image Source="Assets/Images/tip_menu.jpg"
                        Opacity="0.7" />
             </muxc:TeachingTip.HeroContent>
             <muxc:TeachingTip.IconSource>
@@ -630,11 +626,37 @@
             </CalendarView>
         </Grid>
 
-        <ContentDialog Name="DlgReview"
-                       x:Uid="DlgReview"
-                       Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                       DefaultButton="Primary" />
-        
+        <ContentDialog Name="DlgAbout"
+                       x:Uid="DlgAbout"
+                       Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+            <StackPanel MaxWidth="360">
+                <!--
+                    Note: don't put Hyperlink element start to the next line
+                    otherwise unexpected whitespace will be add.
+                -->
+                <TextBlock TextWrapping="Wrap">
+                    <Span><Run x:Uid="TextReview0" /><Hyperlink x:Uid="LinkReview" UnderlineStyle="None"><Run x:Uid="TextReview1" /></Hyperlink><Run x:Uid="TextReview2" /><Hyperlink x:Uid="LinkDonate" UnderlineStyle="None" Click="LinkDonate_Click"><Run x:Uid="TextReview3" /></Hyperlink><Run x:Uid="TextReview4" /></Span>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           Margin="0,12,0,0">
+                    <Span><Run x:Uid="TextContatc0" /><Hyperlink x:Uid="LinkEmail" UnderlineStyle="None"><Run x:Uid="TextContatc1" /></Hyperlink><Run x:Uid="TextContatc2" /><Hyperlink x:Uid="LinkGithub" UnderlineStyle="None"><Run x:Uid="TextContatc3" /></Hyperlink><Run x:Uid="TextContatc4" /></Span>
+                </TextBlock>
+                <TextBlock x:Uid="TextCopyright"
+                           TextWrapping="Wrap"
+                           Margin="0,12,0,0" />
+            </StackPanel>
+        </ContentDialog>
+
+        <ContentDialog Name="DlgDonate"
+                       x:Uid="DlgDonate"
+                       DefaultButton="Close"
+                       Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+            <StackPanel MaxWidth="300">
+                <Image Name="ImgDonate"
+                       Stretch="Uniform" />
+            </StackPanel>
+        </ContentDialog>
+
     </RelativePanel>
     
 </Page>
