@@ -64,9 +64,6 @@ namespace TimelineWallpaper.Utils {
                     "pushprovider=bing",
                     "; pushprovider={provider}  推送图源：参数参考 provider",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
-                    "",
                     "theme=",
                     "; theme=       主题：跟随系统（默认）",
                     "; theme=light  主题：亮色",
@@ -305,32 +302,29 @@ namespace TimelineWallpaper.Utils {
             ini.Push = sb.ToString();
             _ = GetPrivateProfileString("timelinewallpaper", "pushprovider", "bing", sb, 1024, iniFile);
             ini.PushProvider = sb.ToString();
-            _ = GetPrivateProfileString("timelinewallpaper", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out int period);
-            ini.PushPeriod = period;
             _ = GetPrivateProfileString("timelinewallpaper", "theme", "", sb, 1024, iniFile);
             ini.Theme = sb.ToString();
             _ = GetPrivateProfileString("bing", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = int.TryParse(sb.ToString(), out int period);
             _ = GetPrivateProfileString("bing", "lang", "", sb, 1024, iniFile);
-            ini.Inis["bing"] = new BingIni {
+            ini.SetIni("bing", new BingIni {
                 PushPeriod = period,
                 Lang = sb.ToString()
-            };
+            });
             _ = GetPrivateProfileString("nasa", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("nasa", "mirror", "", sb, 1024, iniFile);
-            ini.Inis["nasa"] = new NasaIni {
+            ini.SetIni("nasa", new NasaIni {
                 PushPeriod = period,
                 Mirror = sb.ToString()
-            };
+            });
             _ = GetPrivateProfileString("oneplus", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile);
-            ini.Inis["oneplus"] = new OneplusIni {
+            ini.SetIni("oneplus", new OneplusIni {
                 PushPeriod = period,
                 Order = sb.ToString()
-            };
+            });
             _ = GetPrivateProfileString("timeline", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile);
@@ -340,80 +334,80 @@ namespace TimelineWallpaper.Utils {
             };
             _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile);
             timelineIni.Cate = sb.ToString();
-            ini.Inis["timeline"] = timelineIni;
+            ini.SetIni("timeline", timelineIni);
             _ = GetPrivateProfileString("ymyouli", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile);
-            ini.Inis["ymyouli"] = new YmyouliIni {
+            ini.SetIni("ymyouli", new YmyouliIni {
                 PushPeriod = period,
                 Col = sb.ToString()
-            };
+            });
             _ = GetPrivateProfileString("infinity", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile);
-            ini.Inis["infinity"] = new InfinityIni {
+            ini.SetIni("infinity", new InfinityIni {
                 PushPeriod = period,
                 Order = sb.ToString()
-            };
+            });
             _ = GetPrivateProfileString("himawari8", "pushperiod", "1", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
-            ini.Inis["himawari8"] = new Himawari8Ini {
+            ini.SetIni("himawari8", new Himawari8Ini {
                 PushPeriod = period
-            };
+            });
             _ = GetPrivateProfileString("3g", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile);
-            ini.Inis["3g"] = new G3Ini {
+            ini.SetIni("3g", new G3Ini {
                 PushPeriod = period,
                 Order = sb.ToString()
-            };
+            });
             _ = GetPrivateProfileString("pixivel", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out int sanity);
-            ini.Inis["pixivel"] = new PixivelIni {
+            ini.SetIni("pixivel", new PixivelIni {
                 PushPeriod = period,
                 Sanity = sanity
-            };
+            });
             _ = GetPrivateProfileString("lofter", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
-            ini.Inis["lofter"] = new LofterIni {
+            ini.SetIni("lofter", new LofterIni {
                 PushPeriod = period
-            };
+            });
             _ = GetPrivateProfileString("daihan", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
-            ini.Inis["daihan"] = new DaihanIni {
+            ini.SetIni("daihan", new DaihanIni {
                 PushPeriod = period
-            };
+            });
             _ = GetPrivateProfileString("dmoe", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
-            ini.Inis["dmoe"] = new DmoeIni {
+            ini.SetIni("dmoe", new DmoeIni {
                 PushPeriod = period
-            };
+            });
             _ = GetPrivateProfileString("toubiec", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
-            ini.Inis["toubiec"] = new ToubiecIni {
+            ini.SetIni("toubiec", new ToubiecIni {
                 PushPeriod = period
-            };
+            });
             _ = GetPrivateProfileString("seovx", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile);
-            ini.Inis["seovx"] = new SeovxIni {
+            ini.SetIni("seovx", new SeovxIni {
                 PushPeriod = period,
                 Cate = sb.ToString()
-            };
+            });
             //_ = GetPrivateProfileString("muxiaoguo", "pushperiod", "24", sb, 1024, iniFile);
             //_ = int.TryParse(sb.ToString(), out period);
             //_ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile);
-            //ini.Inis["muxiaoguo"] = new MxgIni {
+            //ini.SetIni("seovx", new MxgIni {
             //    PushPeriod = period,
             //    Cate = sb.ToString()
-            //};
+            //});
             _ = GetPrivateProfileString("paul", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
-            ini.Inis["paul"] = new PaulIni {
+            ini.SetIni("paul", new PaulIni {
                 PushPeriod = period
-            };
+            });
             return ini;
         }
 

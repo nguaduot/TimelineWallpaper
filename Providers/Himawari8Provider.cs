@@ -54,9 +54,8 @@ namespace TimelineWallpaper.Providers {
                     HttpWebRequest req = (HttpWebRequest)WebRequest.CreateDefault(new Uri(urlApi));
                     req.Method = HttpMethod.Head.Method;
                     var res = (HttpWebResponse)await req.GetResponseAsync();
-                    Debug.WriteLine(res.ContentLength);
                     if (res.StatusCode == HttpStatusCode.OK && res.ContentLength > 10 * 1024) {
-                        Meta meta = ParseBean(nextPage);
+                        Meta meta = ParseBean(nextPage.AddMinutes(-10 * i));
                         bool exists = false;
                         foreach (Meta m in metas) {
                             exists |= meta.Id.Equals(m.Id);

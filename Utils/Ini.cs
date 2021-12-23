@@ -3,7 +3,7 @@ using TimelineWallpaper.Providers;
 
 namespace TimelineWallpaper.Utils {
     public class Ini {
-        public readonly Dictionary<string, BaseIni> Inis = new Dictionary<string, BaseIni>() {
+        private readonly Dictionary<string, BaseIni> Inis = new Dictionary<string, BaseIni>() {
             { BingIni.ID, new BingIni() },
             { NasaIni.ID, new NasaIni() },
             { OneplusIni.ID, new OneplusIni() },
@@ -23,8 +23,8 @@ namespace TimelineWallpaper.Utils {
             { PaulIni.ID, new PaulIni() }
         };
 
-        public static HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
-        public static HashSet<string> THEME = new HashSet<string>() { "", "light", "dark" };
+        private readonly HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
+        private readonly HashSet<string> THEME = new HashSet<string>() { "", "light", "dark" };
 
         private string provider = BingIni.ID;
         public string Provider {
@@ -44,16 +44,18 @@ namespace TimelineWallpaper.Utils {
             get => pushProvider;
         }
 
-        private int pushPeriod = 24;
-        public int PushPeriod {
-            set => pushPeriod = value <= 0 || value > 24 ? 24 : value;
-            get => pushPeriod;
-        }
-
         private string theme = "";
         public string Theme {
             set => theme = THEME.Contains(value) ? value : "";
             get => theme;
+        }
+
+        public bool SetIni(string provider, BaseIni ini) {
+            if (Inis.ContainsKey(provider) && ini != null) {
+                Inis[provider] = ini;
+                return true;
+            }
+            return false;
         }
 
         public BaseIni GetIni(string provider = null) {
@@ -68,12 +70,12 @@ namespace TimelineWallpaper.Utils {
 
         override public string ToString() {
             string paras = Inis[provider].ToString();
-            return $"/{Provider}?push={Push}&pushprovider={PushProvider}&pushperiod={PushPeriod}" + (paras.Length > 0 ? "&" : "") + paras;
+            return $"/{Provider}?push={Push}&pushprovider={PushProvider}" + (paras.Length > 0 ? "&" : "") + paras;
         }
     }
 
     public class BaseIni {
-        public string Id { set; get; }
+        //protected string Id { set; get; }
 
         private int pushPeriod = 24;
         public int PushPeriod {
@@ -89,15 +91,13 @@ namespace TimelineWallpaper.Utils {
 
     public class BingIni : BaseIni {
         public const string ID = "bing";
-        public static HashSet<string> LANG = new HashSet<string>() { "", "zh-cn", "en-us", "ja-jp", "de-de", "fr-fr" };
+        private readonly HashSet<string> LANG = new HashSet<string>() { "", "zh-cn", "en-us", "ja-jp", "de-de", "fr-fr" };
 
         private string lang = "";
         public string Lang {
             set => lang = LANG.Contains(value) ? value : "";
             get => lang;
         }
-
-        public BingIni() => Id = ID;
 
         public override BaseProvider GenerateProvider() => new BingProvider() { Id = ID };
 
@@ -106,15 +106,13 @@ namespace TimelineWallpaper.Utils {
 
     public class NasaIni : BaseIni {
         public const string ID = "nasa";
-        public static HashSet<string> MIRROR = new HashSet<string>() { "", "bjp" };
+        private readonly HashSet<string> MIRROR = new HashSet<string>() { "", "bjp" };
 
         private string mirror = "";
         public string Mirror {
             set => mirror = MIRROR.Contains(value) ? value : "";
             get => mirror;
         }
-
-        public NasaIni() => Id = ID;
 
         public override BaseProvider GenerateProvider() {
             switch (mirror) {
@@ -130,15 +128,13 @@ namespace TimelineWallpaper.Utils {
 
     public class OneplusIni : BaseIni {
         public const string ID = "oneplus";
-        public static HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
+        private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
 
         private string order = "date";
         public string Order {
             set => order = ORDER.Contains(value) ? value : "date";
             get => order;
         }
-
-        public OneplusIni() => Id = ID;
 
         public override bool IsSequential() => "date".Equals(order);
 
@@ -149,8 +145,8 @@ namespace TimelineWallpaper.Utils {
 
     public class TimelineIni : BaseIni {
         public const string ID = "timeline";
-        public static HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
-        public static HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
+        private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
+        private readonly HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
 
         private string order = "date";
         public string Order {
@@ -163,8 +159,6 @@ namespace TimelineWallpaper.Utils {
             set => cate = CATE.Contains(value) ? value : "";
             get => cate;
         }
-
-        public TimelineIni() => Id = ID;
 
         public override bool IsSequential() => "date".Equals(order);
 
@@ -274,8 +268,6 @@ namespace TimelineWallpaper.Utils {
             get => col;
         }
 
-        public YmyouliIni() => Id = ID;
-
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new YmyouliProvider() { Id = ID };
@@ -285,15 +277,13 @@ namespace TimelineWallpaper.Utils {
 
     public class InfinityIni : BaseIni {
         public const string ID = "infinity";
-        public static HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
+        private readonly HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
 
         private string order = "";
         public string Order {
             set => order = ORDER.Contains(value) ? value : "";
             get => order;
         }
-
-        public InfinityIni() => Id = ID;
 
         public override bool IsSequential() => false;
 
@@ -306,7 +296,6 @@ namespace TimelineWallpaper.Utils {
         public const string ID = "himawari8";
 
         public Himawari8Ini() {
-            Id = ID;
             PushPeriod = 1;
         }
 
@@ -319,15 +308,13 @@ namespace TimelineWallpaper.Utils {
 
     public class G3Ini : BaseIni {
         public const string ID = "3g";
-        public static HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
+        private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
 
         private string order = "date";
         public string Order {
             set => order = ORDER.Contains(value) ? value : "date";
             get => order;
         }
-
-        public G3Ini() => Id = ID;
 
         public override bool IsSequential() => false;
 
@@ -345,8 +332,6 @@ namespace TimelineWallpaper.Utils {
             get => sanity;
         }
 
-        public PixivelIni() => Id = ID;
-
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new PixivelProvider() { Id = ID };
@@ -356,8 +341,6 @@ namespace TimelineWallpaper.Utils {
 
     public class LofterIni : BaseIni {
         public const string ID = "lofter";
-
-        public LofterIni() => Id = ID;
 
         public override bool IsSequential() => false;
 
@@ -369,8 +352,6 @@ namespace TimelineWallpaper.Utils {
     public class DaihanIni : BaseIni {
         public const string ID = "daihan";
 
-        public DaihanIni() => Id = ID;
-
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new DaihanProvider() { Id = ID };
@@ -380,8 +361,6 @@ namespace TimelineWallpaper.Utils {
 
     public class DmoeIni : BaseIni {
         public const string ID = "dmoe";
-
-        public DmoeIni() => Id = ID;
 
         public override bool IsSequential() => false;
 
@@ -393,8 +372,6 @@ namespace TimelineWallpaper.Utils {
     public class ToubiecIni : BaseIni {
         public const string ID = "toubiec";
 
-        public ToubiecIni() => Id = ID;
-
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new ToubiecProvider() { Id = ID };
@@ -405,8 +382,6 @@ namespace TimelineWallpaper.Utils {
     public class MtyIni : BaseIni {
         public const string ID = "mty";
 
-        public MtyIni() => Id = ID;
-
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new MtyProvider() { Id = ID };
@@ -416,15 +391,13 @@ namespace TimelineWallpaper.Utils {
 
     public class SeovxIni : BaseIni {
         public const string ID = "seovx";
-        public static HashSet<string> CATE = new HashSet<string>() { "", "d", "ha" };
+        private readonly HashSet<string> CATE = new HashSet<string>() { "", "d", "ha" };
 
         private string cate = "d";
         public string Cate {
             set => cate = CATE.Contains(value) ? value : "d";
             get => cate;
         }
-
-        public SeovxIni() => Id = ID;
 
         public override bool IsSequential() => false;
 
@@ -436,15 +409,13 @@ namespace TimelineWallpaper.Utils {
     // deprecated: 开始收费
     public class MxgIni : BaseIni {
         public const string ID = "muxiaoguo";
-        public static HashSet<string> CATE = new HashSet<string>() { "sjbz", "acg", "meinvtu" };
+        private readonly HashSet<string> CATE = new HashSet<string>() { "sjbz", "acg", "meinvtu" };
 
         private string cate = "sjbz";
         public string Cate {
             set => cate = CATE.Contains(value) ? value : "dsjbz";
             get => cate;
         }
-
-        public MxgIni() => Id = ID;
 
         public override bool IsSequential() => false;
 
@@ -464,8 +435,6 @@ namespace TimelineWallpaper.Utils {
 
     public class PaulIni : BaseIni {
         public const string ID = "paul";
-
-        public PaulIni() => Id = ID;
 
         public override bool IsSequential() => false;
 

@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppDesc" xml:space="preserve">
+    <value>One photo one story</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="AppNameShort" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Btn3GOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Btn3GOrder1.Text" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="Btn3GOrder2.Text" xml:space="preserve">
+    <value>Recently popular</value>
+  </data>
+  <data name="BtnAbout.Text" xml:space="preserve">
+    <value>About Timeline</value>
+  </data>
+  <data name="BtnBingLang.Text" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="BtnBingLangCn.Text" xml:space="preserve">
+    <value>China</value>
+  </data>
+  <data name="BtnBingLangDe.Text" xml:space="preserve">
+    <value>Germany</value>
+  </data>
+  <data name="BtnBingLangDef.Text" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="BtnBingLangFr.Text" xml:space="preserve">
+    <value>France</value>
+  </data>
+  <data name="BtnBingLangJp.Text" xml:space="preserve">
+    <value>Japan</value>
+  </data>
+  <data name="BtnBingLangUs.Text" xml:space="preserve">
+    <value>United States</value>
+  </data>
+  <data name="BtnTimelineCate3.Text" xml:space="preserve">
+    <value>Portrait</value>
+  </data>
+  <data name="BtnTimelineCate4.Text" xml:space="preserve">
+    <value>Culture</value>
+  </data>
+  <data name="BtnTimelineOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="BtnTimelineOrder1.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="BtnTimelineOrder2.Text" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="BtnInfinityOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="BtnInfinityOrder0.Text" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="BtnInfinityOrder1.Text" xml:space="preserve">
+    <value>Highest rated</value>
+  </data>
+  <data name="BtnIni.Text" xml:space="preserve">
+    <value>Open configuration</value>
+  </data>
+  <data name="BtnInfoLink.Content" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="BtnNasaMirror.Text" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="BtnNasaMirrorBjp.Text" xml:space="preserve">
+    <value>Beijing Planetarium</value>
+  </data>
+  <data name="BtnNasaMirrorDef.Text" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="BtnYesterday.Text" xml:space="preserve">
+    <value>Look back</value>
+  </data>
+  <data name="BtnOneplusOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="BtnOneplusOrder1.Text" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="BtnOneplusOrder2.Text" xml:space="preserve">
+    <value>Highest rated</value>
+  </data>
+  <data name="BtnOneplusOrder3.Text" xml:space="preserve">
+    <value>Recently popular</value>
+  </data>
+  <data name="BtnProvider.Text" xml:space="preserve">
+    <value>Provider</value>
+  </data>
+  <data name="BtnProviderBing.Text" xml:space="preserve">
+    <value>Microsoft Bing - Explorer the world one photo at a time</value>
+  </data>
+  <data name="BtnProviderInfinity.Text" xml:space="preserve">
+    <value>Infinity - 365天精选壁纸</value>
+  </data>
+  <data name="BtnProviderNasa.Text" xml:space="preserve">
+    <value>NASA - Astronomy picture of the day</value>
+  </data>
+  <data name="BtnProviderOneplus.Text" xml:space="preserve">
+    <value>OnePlus - Shot on OnePlus</value>
+  </data>
+  <data name="BtnProviderTimeline.Text" xml:space="preserve">
+    <value>Timeline - One photo one story</value>
+  </data>
+  <data name="BtnProviderYmyouli.Text" xml:space="preserve">
+    <value>Ymyouli - 8K优质壁纸资源</value>
+  </data>
+  <data name="BtnPush.Text" xml:space="preserve">
+    <value>Push daily</value>
+  </data>
+  <data name="PushDesktop" xml:space="preserve">
+    <value>Push desktop: {0}</value>
+  </data>
+  <data name="PushLock" xml:space="preserve">
+    <value>Push lock screen: {0}</value>
+  </data>
+  <data name="BtnPushNone.Text" xml:space="preserve">
+    <value>Push off</value>
+  </data>
+  <data name="BtnSave.Text" xml:space="preserve">
+    <value>Save image</value>
+  </data>
+  <data name="BtnSetDesktop.Text" xml:space="preserve">
+    <value>Set as desktop background</value>
+  </data>
+  <data name="BtnSetLock.Text" xml:space="preserve">
+    <value>Set as lock screen background</value>
+  </data>
+  <data name="BtnTimelineCate.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="BtnTimelineCate1.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="BtnTimelineCate2.Text" xml:space="preserve">
+    <value>Landscape</value>
+  </data>
+  <data name="BtnVolumnOff.Text" xml:space="preserve">
+    <value>Volumn off</value>
+  </data>
+  <data name="BtnVolumnOn.Text" xml:space="preserve">
+    <value>Volumn on</value>
+  </data>
+  <data name="BtnYmyouliCol.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="BtnYmyouliCol182.Text" xml:space="preserve">
+    <value>ACG character</value>
+  </data>
+  <data name="BtnYmyouliCol183.Text" xml:space="preserve">
+    <value>ACG scene</value>
+  </data>
+  <data name="BtnYmyouliCol184.Text" xml:space="preserve">
+    <value>Nature</value>
+  </data>
+  <data name="BtnYmyouliCol185.Text" xml:space="preserve">
+    <value>Plant</value>
+  </data>
+  <data name="BtnYmyouliCol215.Text" xml:space="preserve">
+    <value>Artistry</value>
+  </data>
+  <data name="BtnYmyouliColDef.Text" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="DetailSize" xml:space="preserve">
+    <value>{0} / {1}x{2}, {3}</value>
+  </data>
+  <data name="MsgLostProvider" xml:space="preserve">
+    <value>Connection failed: {0}</value>
+  </data>
+  <data name="MsgNoInternet" xml:space="preserve">
+    <value>No internet</value>
+  </data>
+  <data name="MsgNoPermission" xml:space="preserve">
+    <value>No permission</value>
+  </data>
+  <data name="MsgSave0" xml:space="preserve">
+    <value>Save failed</value>
+  </data>
+  <data name="MsgSave1" xml:space="preserve">
+    <value>Saved to Picture library.</value>
+  </data>
+  <data name="MsgSetDesktop0" xml:space="preserve">
+    <value>Failed to set as desktop background.</value>
+  </data>
+  <data name="MsgSetDesktop1" xml:space="preserve">
+    <value>Desktop background changed.</value>
+  </data>
+  <data name="MsgSetLock0" xml:space="preserve">
+    <value>Failed to set as lock screen background.</value>
+  </data>
+  <data name="MsgSetLock1" xml:space="preserve">
+    <value>Lock screen background changed.</value>
+  </data>
+  <data name="MsgWallpaper0" xml:space="preserve">
+    <value>It's not allowed to change desktop / lock screen background.</value>
+  </data>
+  <data name="Provider_3g" xml:space="preserve">
+    <value>3G壁纸</value>
+  </data>
+  <data name="Provider_bing" xml:space="preserve">
+    <value>Microsoft Bing</value>
+  </data>
+  <data name="Provider_timeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Provider_daihan" xml:space="preserve">
+    <value>呆憨API</value>
+  </data>
+  <data name="Provider_dmoe" xml:space="preserve">
+    <value>樱花API</value>
+  </data>
+  <data name="Provider_infinity" xml:space="preserve">
+    <value>Infinity</value>
+  </data>
+  <data name="Provider_lofter" xml:space="preserve">
+    <value>Lofter</value>
+  </data>
+  <data name="Provider_mty" xml:space="preserve">
+    <value>墨天逸API</value>
+  </data>
+  <data name="Provider_muxiaoguo" xml:space="preserve">
+    <value>木小果API</value>
+  </data>
+  <data name="Provider_muxiaoguo2" xml:space="preserve">
+    <value>木小果API</value>
+  </data>
+  <data name="Provider_muxiaoguo3" xml:space="preserve">
+    <value>木小果API</value>
+  </data>
+  <data name="Provider_nasa" xml:space="preserve">
+    <value>NASA</value>
+  </data>
+  <data name="Provider_oneplus" xml:space="preserve">
+    <value>OnePlus</value>
+  </data>
+  <data name="Provider_paul" xml:space="preserve">
+    <value>保罗API</value>
+  </data>
+  <data name="Provider_pixivel" xml:space="preserve">
+    <value>Pixivel</value>
+  </data>
+  <data name="Provider_seovx" xml:space="preserve">
+    <value>夏末博客API</value>
+  </data>
+  <data name="Provider_toubiec" xml:space="preserve">
+    <value>晓晴API</value>
+  </data>
+  <data name="Provider_ymyouli" xml:space="preserve">
+    <value>Ymyouli</value>
+  </data>
+  <data name="Slogan_3g" xml:space="preserve">
+    <value>电脑壁纸专家</value>
+  </data>
+  <data name="Slogan_bing" xml:space="preserve">
+    <value>Explorer the world one photo at a time</value>
+  </data>
+  <data name="Slogan_timeline" xml:space="preserve">
+    <value>One photo one story</value>
+  </data>
+  <data name="Slogan_daihan" xml:space="preserve">
+    <value>随机二次元ACG图片</value>
+  </data>
+  <data name="Slogan_dmoe" xml:space="preserve">
+    <value>随机二次元图片</value>
+  </data>
+  <data name="Slogan_infinity" xml:space="preserve">
+    <value>365天精选壁纸</value>
+  </data>
+  <data name="Slogan_lofter" xml:space="preserve">
+    <value>看见每一种兴趣</value>
+  </data>
+  <data name="Slogan_mty" xml:space="preserve">
+    <value>随机图片</value>
+  </data>
+  <data name="Slogan_muxiaoguo" xml:space="preserve">
+    <value>随机壁纸</value>
+  </data>
+  <data name="Slogan_muxiaoguo2" xml:space="preserve">
+    <value>动漫图片</value>
+  </data>
+  <data name="Slogan_muxiaoguo3" xml:space="preserve">
+    <value>快来看，这里有美女！</value>
+  </data>
+  <data name="Slogan_nasa" xml:space="preserve">
+    <value>Astronomy picture of the day</value>
+  </data>
+  <data name="Slogan_oneplus" xml:space="preserve">
+    <value>Shot on OnePlus</value>
+  </data>
+  <data name="Slogan_paul" xml:space="preserve">
+    <value>随机动漫壁纸</value>
+  </data>
+  <data name="Slogan_pixivel" xml:space="preserve">
+    <value>Pixel 图片缓存/代理</value>
+  </data>
+  <data name="Slogan_seovx" xml:space="preserve">
+    <value>在线古风美图二次元</value>
+  </data>
+  <data name="Slogan_toubiec" xml:space="preserve">
+    <value>随机二次元图片</value>
+  </data>
+  <data name="Slogan_ymyouli" xml:space="preserve">
+    <value>8K优质壁纸资源</value>
+  </data>
+  <data name="BtnYmyouliCol186.Text" xml:space="preserve">
+    <value>Girl</value>
+  </data>
+  <data name="BtnYmyouliCol187.Text" xml:space="preserve">
+    <value>Car</value>
+  </data>
+  <data name="BtnYmyouliCol214.Text" xml:space="preserve">
+    <value>Science fictrion</value>
+  </data>
+  <data name="BtnYmyouliCol224.Text" xml:space="preserve">
+    <value>Weapon</value>
+  </data>
+  <data name="BtnYmyouliCol225.Text" xml:space="preserve">
+    <value>Animal</value>
+  </data>
+  <data name="BtnYmyouliCol226.Text" xml:space="preserve">
+    <value>Costume</value>
+  </data>
+  <data name="BtnYmyouliCol227.Text" xml:space="preserve">
+    <value>Sunset</value>
+  </data>
+  <data name="BtnYmyouliCol228.Text" xml:space="preserve">
+    <value>Night sky</value>
+  </data>
+  <data name="BtnYmyouliCol229.Text" xml:space="preserve">
+    <value>War</value>
+  </data>
+  <data name="BtnYmyouliCol230.Text" xml:space="preserve">
+    <value>Ice and snow</value>
+  </data>
+  <data name="BtnYmyouliCol231.Text" xml:space="preserve">
+    <value>Painting</value>
+  </data>
+  <data name="BtnYmyouliCol232.Text" xml:space="preserve">
+    <value>Chinese animation</value>
+  </data>
+  <data name="BtnYmyouliCol233.Text" xml:space="preserve">
+    <value>Delicacy</value>
+  </data>
+  <data name="BtnYmyouliCol241.Text" xml:space="preserve">
+    <value>Cherry</value>
+  </data>
+  <data name="MsgUpdate" xml:space="preserve">
+    <value>New version is released.</value>
+  </data>
+  <data name="TipMenu.Subtitle" xml:space="preserve">
+    <value>您可以使用鼠标右键弹出菜单，更换桌面背景、保存图片、开启推送等。</value>
+  </data>
+  <data name="TipMenu.Title" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="DlgAbout.CloseButtonText" xml:space="preserve">
+    <value>Maybe next</value>
+  </data>
+  <data name="TextReview0.Text" xml:space="preserve">
+    <value>If you like Timeline, rate it on </value>
+  </data>
+  <data name="DlgAbout.Title" xml:space="preserve">
+    <value>Timeline{0}</value>
+  </data>
+  <data name="BtnProviderHimawari8.Text" xml:space="preserve">
+    <value>Himawari-8 - Real-time earth</value>
+  </data>
+  <data name="Provider_himawari8" xml:space="preserve">
+    <value>Himawari-8</value>
+  </data>
+  <data name="Slogan_himawari8" xml:space="preserve">
+    <value>Real-time Earth </value>
+  </data>
+  <data name="Pushing" xml:space="preserve">
+    <value>Pushing: {0}</value>
+  </data>
+  <data name="LinkEmail.NavigateUri" xml:space="preserve">
+    <value>mailto:nguaduot@163.com</value>
+  </data>
+  <data name="LinkGithub.NavigateUri" xml:space="preserve">
+    <value>https://github.com/nguaduot/TimelineWallpaper</value>
+  </data>
+  <data name="LinkReview.NavigateUri" xml:space="preserve">
+    <value>ms-windows-store://review/?ProductId=9N7VHQ989BB7</value>
+  </data>
+  <data name="TextContatc0.Text" xml:space="preserve">
+    <value>Any questions, please </value>
+  </data>
+  <data name="TextContatc1.Text" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="TextContatc2.Text" xml:space="preserve">
+    <value> me, or check out the project on </value>
+  </data>
+  <data name="TextContatc3.Text" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="TextContatc4.Text" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="TextCopyright.Text" xml:space="preserve">
+    <value>© 2021 nguaduot. All rights reserved.</value>
+  </data>
+  <data name="TextReview1.Text" xml:space="preserve">
+    <value>Microsoft Store</value>
+  </data>
+  <data name="TextReview2.Text" xml:space="preserve">
+    <value>, or </value>
+  </data>
+  <data name="DlgDonate.CloseButtonText" xml:space="preserve">
+    <value>Maybe next</value>
+  </data>
+  <data name="DlgDonate.PrimaryButtonText" xml:space="preserve">
+    <value>WeChat code</value>
+  </data>
+  <data name="DlgDonate.SecondaryButtonText" xml:space="preserve">
+    <value>Alipay code</value>
+  </data>
+  <data name="DlgDonate.Title" xml:space="preserve">
+    <value>Buy me a coffee</value>
+  </data>
+  <data name="LinkEmail.ToolTipService.ToolTip" xml:space="preserve">
+    <value>nguaduot@163.com</value>
+  </data>
+  <data name="LinkGithub.ToolTipService.ToolTip" xml:space="preserve">
+    <value>https://github.com/nguaduot/TimelineWallpaper</value>
+  </data>
+  <data name="TextReview3.Text" xml:space="preserve">
+    <value>buy me a coffee</value>
+  </data>
+  <data name="TextReview4.Text" xml:space="preserve">
+    <value>. (●'◡'●)</value>
+  </data>
+</root>

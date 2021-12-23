@@ -21,8 +21,7 @@ namespace TimelineWallpaper.Services {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
-            //const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
-            const string URL_API_STATS = "http://150.158.49.144/appstats";
+            const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
             StatsApiReq req = new StatsApiReq {
                 App = Package.Current.DisplayName,
                 Package = Package.Current.Id.FamilyName,

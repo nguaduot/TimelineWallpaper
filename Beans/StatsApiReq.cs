@@ -2,7 +2,6 @@
 
 namespace TimelineWallpaper.Beans {
     public class StatsApiReq {
-        // "?app={0}&pkg={1}&ver={2}&api={3}&status={4}&os={5}&osver={6}&device={7}&deviceid={8}"
         [JsonProperty(PropertyName = "app")]
         public string App { set; get; }
 

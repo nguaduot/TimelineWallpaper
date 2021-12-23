@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("拾光")]
+[assembly: AssemblyTitle("拾光 for Windows 11")]
 [assembly: AssemblyDescription("时光如歌，岁月如诗。拾光，每日一景")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("拾光")]
+[assembly: AssemblyProduct("拾光 for Windows 11")]
 [assembly: AssemblyCopyright("Copyright © nguaduot 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
