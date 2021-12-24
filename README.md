@@ -19,7 +19,7 @@
 
 + 方式2（仅限稳定版）：
   
-  前往应用商店下载安装 [Microsoft Store - 拾光 for Windows 11](https://www.microsoft.com/store/apps/9N7VHQ989BB7)
+  前往 [Microsoft Store](https://www.microsoft.com/store/apps/9N7VHQ989BB7) 安装 `拾光`。
 
 **Watch** 项目，以获取应用的更新动态。
 
