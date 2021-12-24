@@ -820,7 +820,7 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(1000);
-            localSettings.Values.Remove("launchTimes");
+            //localSettings.Values.Remove("launchTimes");
             _ = DlgAbout.ShowAsync();
         }
 

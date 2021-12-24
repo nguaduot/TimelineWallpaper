@@ -36,10 +36,12 @@ namespace TimelineWallpaper.Providers {
                 return m1.Id.CompareTo(m2);
             });
             // 恢复当前索引
-            for (int i = 0; i < metas.Count; i++) {
-                if (metas[i].Id == idFocus) {
-                    indexFocus = i;
-                    break;
+            if (indexFocus > 0) {
+                for (int i = 0; i < metas.Count; i++) {
+                    if (metas[i].Id == idFocus) {
+                        indexFocus = i;
+                        break;
+                    }
                 }
             }
         }
@@ -174,13 +176,17 @@ namespace TimelineWallpaper.Providers {
                 }
             }
             if (meta.CacheVideo != null) {
-                MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
-                MediaComposition mediaComposition = new MediaComposition();
-                mediaComposition.Clips.Add(mediaClip);
-                var stream = await mediaComposition.GetThumbnailAsync(TimeSpan.FromMilliseconds(5000), 0, 0,
-                    VideoFramePrecision.NearestFrame);
-                var decoder = await BitmapDecoder.CreateAsync(stream);
-                meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                try {
+                    MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
+                    MediaComposition mediaComposition = new MediaComposition();
+                    mediaComposition.Clips.Add(mediaClip);
+                    var stream = await mediaComposition.GetThumbnailAsync(TimeSpan.FromMilliseconds(5000), 0, 0,
+                        VideoFramePrecision.NearestFrame);
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                } catch (Exception) {
+                    Debug.WriteLine("dimen error");
+                }
             }
             return meta;
         }

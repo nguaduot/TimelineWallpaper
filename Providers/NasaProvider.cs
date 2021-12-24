@@ -36,9 +36,9 @@ namespace TimelineWallpaper.Providers {
                 meta.Uhd = bean.HdUrl;
                 meta.Thumb = bean.Url;
                 meta.Format = bean.HdUrl.Substring(bean.HdUrl.LastIndexOf("."));
-            }/* else if ("video".Equals(item.MediaType)) { // 放弃，被墙的URL加载不出来
-                meta.Video = item.Url;
-                meta.Thumb = item.ThumbnailUrl;
+            }/* else if ("video".Equals(bean.MediaType)) { // 放弃，非直链视频地址
+                meta.Video = bean.Url;
+                meta.Thumb = bean.ThumbnailUrl;
             }*/
             if (!string.IsNullOrEmpty(bean.Date)) {
                 meta.Date = DateTime.ParseExact(bean.Date, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"));

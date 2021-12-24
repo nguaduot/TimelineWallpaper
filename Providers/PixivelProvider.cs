@@ -11,11 +11,11 @@ using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class PixivelProvider : BaseProvider {
-        private const string URL_HOST_PROXY = "https://proxy.pixivel.moe";
+        private const string URL_HOST_PROXY = "https://i.pixiv.re";
 
         // Pixivel 首页推荐
         // https://pixivel.moe/
-        private const string URL_API = "https://api-jp1.pixivel.moe/pixiv?type=illust_recommended";
+        private const string URL_API = "https://api.pixivel.moe/pixiv?type=illust_recommended";
 
         private List<Meta> ParseBeans(PixivelApiIllust bean) {
             List<Meta> metas = new List<Meta>();
