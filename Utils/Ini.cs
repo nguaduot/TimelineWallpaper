@@ -8,9 +8,9 @@ namespace TimelineWallpaper.Utils {
             { NasaIni.ID, new NasaIni() },
             { OneplusIni.ID, new OneplusIni() },
             { TimelineIni.ID, new TimelineIni() },
+            { Himawari8Ini.ID, new Himawari8Ini() },
             { YmyouliIni.ID, new YmyouliIni() },
             { InfinityIni.ID, new InfinityIni() },
-            { Himawari8Ini.ID, new Himawari8Ini() },
             { G3Ini.ID, new G3Ini() },
             { PixivelIni.ID, new PixivelIni() },
             { LofterIni.ID, new LofterIni() },
@@ -19,7 +19,6 @@ namespace TimelineWallpaper.Utils {
             { ToubiecIni.ID, new ToubiecIni() },
             { MtyIni.ID, new MtyIni() },
             { SeovxIni.ID, new SeovxIni() },
-            //{ MxgIni.ID, new MxgIni() },
             { PaulIni.ID, new PaulIni() }
         };
 
@@ -75,8 +74,6 @@ namespace TimelineWallpaper.Utils {
     }
 
     public class BaseIni {
-        //protected string Id { set; get; }
-
         private int pushPeriod = 24;
         public int PushPeriod {
             set => pushPeriod = value <= 0 || value > 24 ? 24 : value;
@@ -165,6 +162,26 @@ namespace TimelineWallpaper.Utils {
         public override BaseProvider GenerateProvider() => new TimelineProvider() { Id = ID };
 
         override public string ToString() => $"pushperiod={PushPeriod}&order={Order}&cate={Cate}";
+    }
+
+    public class Himawari8Ini : BaseIni {
+        public const string ID = "himawari8";
+        
+        private float offset = 0;
+        public float Offset {
+            set => offset = value < -1 ? -1 : (value > 1 ? 1 : value);
+            get => offset;
+        }
+
+        public Himawari8Ini() {
+            PushPeriod = 1;
+        }
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new Himawari8Provider() { Id = ID };
+
+        override public string ToString() => $"pushperiod={PushPeriod}";
     }
 
     public class YmyouliIni : BaseIni {
@@ -292,20 +309,6 @@ namespace TimelineWallpaper.Utils {
         override public string ToString() => $"pushperiod={PushPeriod}&order={Order}";
     }
 
-    public class Himawari8Ini : BaseIni {
-        public const string ID = "himawari8";
-
-        public Himawari8Ini() {
-            PushPeriod = 1;
-        }
-
-        public override bool IsSequential() => false;
-
-        public override BaseProvider GenerateProvider() => new Himawari8Provider() { Id = ID };
-
-        override public string ToString() => $"pushperiod={PushPeriod}";
-    }
-
     public class G3Ini : BaseIni {
         public const string ID = "3g";
         private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
@@ -402,33 +405,6 @@ namespace TimelineWallpaper.Utils {
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new SeovxProvider() { Id = ID };
-
-        override public string ToString() => $"pushperiod={PushPeriod}&cate={Cate}";
-    }
-
-    // deprecated: 开始收费
-    public class MxgIni : BaseIni {
-        public const string ID = "muxiaoguo";
-        private readonly HashSet<string> CATE = new HashSet<string>() { "sjbz", "acg", "meinvtu" };
-
-        private string cate = "sjbz";
-        public string Cate {
-            set => cate = CATE.Contains(value) ? value : "dsjbz";
-            get => cate;
-        }
-
-        public override bool IsSequential() => false;
-
-        public override BaseProvider GenerateProvider() {
-            switch (cate) {
-                case "acg":
-                    return new MxgAcgProvider() { Id = ID };
-                case "meinvtu":
-                    return new MxgMvProvider() { Id = ID };
-                default:
-                    return new MxgProvider() { Id = ID };
-            }
-        }
 
         override public string ToString() => $"pushperiod={PushPeriod}&cate={Cate}";
     }

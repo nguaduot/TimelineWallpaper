@@ -12,6 +12,7 @@ using TimelineWallpaper.Utils;
 using Windows.ApplicationModel;
 using Windows.Services.Store;
 using Windows.System.Profile;
+using Windows.System.UserProfile;
 
 namespace TimelineWallpaper.Services {
     public class ApiService {
@@ -31,7 +32,8 @@ namespace TimelineWallpaper.Services {
                 Os = AnalyticsInfo.VersionInfo.DeviceFamily,
                 OsVersion = VerUtil.GetOsVer(),
                 Device = VerUtil.GetDevice(),
-                DeviceId = VerUtil.GetDeviceId()
+                DeviceId = VerUtil.GetDeviceId(),
+                Region = GlobalizationPreferences.HomeGeographicRegion
             };
             try {
                 HttpClient client = new HttpClient();

@@ -110,6 +110,11 @@
                                           Click="BtnProvider_Click"
                                           Tag="timeline"
                                           GroupName="Provider" />
+                <muxc:RadioMenuFlyoutItem Name="BtnProviderHimawari8"
+                                          x:Uid="BtnProviderHimawari8"
+                                          Click="BtnProvider_Click"
+                                          Tag="himawari8"
+                                          GroupName="Provider" />
                 <muxc:RadioMenuFlyoutItem Name="BtnProviderYmyouli"
                                           x:Uid="BtnProviderYmyouli"
                                           Click="BtnProvider_Click"
@@ -119,11 +124,6 @@
                                           x:Uid="BtnProviderInfinity"
                                           Click="BtnProvider_Click"
                                           Tag="infinity"
-                                          GroupName="Provider" />
-                <muxc:RadioMenuFlyoutItem Name="BtnProviderHimawari8"
-                                          x:Uid="BtnProviderHimawari8"
-                                          Click="BtnProvider_Click"
-                                          Tag="himawari8"
                                           GroupName="Provider" />
             </MenuFlyoutSubItem>
             <MenuFlyoutSubItem Name="BtnBingLang"

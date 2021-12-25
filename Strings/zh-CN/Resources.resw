@@ -348,15 +348,6 @@
   <data name="Provider_mty" xml:space="preserve">
     <value>墨天逸API</value>
   </data>
-  <data name="Provider_muxiaoguo" xml:space="preserve">
-    <value>木小果API</value>
-  </data>
-  <data name="Provider_muxiaoguo2" xml:space="preserve">
-    <value>木小果API</value>
-  </data>
-  <data name="Provider_muxiaoguo3" xml:space="preserve">
-    <value>木小果API</value>
-  </data>
   <data name="Provider_nasa" xml:space="preserve">
     <value>NASA</value>
   </data>

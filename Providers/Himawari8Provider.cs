@@ -16,7 +16,10 @@ namespace TimelineWallpaper.Providers {
     public class Himawari8Provider : BaseProvider {
         // 下一页索引（从0开始）（用于按需加载）
         private DateTime nextPage = DateTime.UtcNow.AddMinutes(-15).AddMinutes(-DateTime.UtcNow.AddMinutes(-15).Minute % 10);
-        
+
+        // 地球偏移位置（0 为居中，-1~0 偏左，0~1 偏右）
+        private float offsetEarth = 0;
+
         // 向日葵-8号即時網頁 - NICT
         // https://himawari8.nict.go.jp/zh/himawari8-image.htm
         private const string URL_API = "https://himawari8.nict.go.jp/img/D531106/1d/550/{0}/{1}_0_0.png";
@@ -35,6 +38,7 @@ namespace TimelineWallpaper.Providers {
         }
 
         public override async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
+            offsetEarth = ((Himawari8Ini)ini).Offset;
             // 无需加载更多
             if (indexFocus < metas.Count - 1) {
                 return true;
@@ -90,11 +94,12 @@ namespace TimelineWallpaper.Providers {
                 return meta;
             }
             meta.Dimen = new Size(1920, 1080);
+            float offsetWidthPixels = (meta.Dimen.Width + bitmap.SizeInPixels.Width) / 2.0f * offsetEarth;
             CanvasRenderTarget target = new CanvasRenderTarget(device, meta.Dimen.Width, meta.Dimen.Height, 96);
             using (var session = target.CreateDrawingSession()) {
                 session.Clear(Colors.Black);
-                session.DrawImage(bitmap, (meta.Dimen.Width - bitmap.SizeInPixels.Width) / 2,
-                    (meta.Dimen.Height - bitmap.SizeInPixels.Height) / 2);
+                session.DrawImage(bitmap, (meta.Dimen.Width - bitmap.SizeInPixels.Width) / 2.0f + offsetWidthPixels,
+                    (meta.Dimen.Height - bitmap.SizeInPixels.Height) / 2.0f);
             }
 
             meta.CacheUhd = await ApplicationData.Current.TemporaryFolder

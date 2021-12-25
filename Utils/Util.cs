@@ -14,7 +14,7 @@ using Windows.System.Profile;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-2.6.ini";
+        private const string FILE_INI = "timelinewallpaper-2.8.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -42,9 +42,9 @@ namespace TimelineWallpaper.Utils {
                     "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
                     "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline",
+                    "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
-                    "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=pixivel    图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
                     "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
@@ -53,7 +53,6 @@ namespace TimelineWallpaper.Utils {
                     "; provider=toubiec    图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
                     "; provider=mty        图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
                     "; provider=seovx      图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
-                    //"; provider=muxiaoguo  图源：木小果API - 随机壁纸 https://api.muxiaoguo.cn",
                     "; provider=paul       图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
                     "push=",
@@ -72,7 +71,7 @@ namespace TimelineWallpaper.Utils {
                     "[bing]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "lang=",
                     "; lang=       语言代码：自动识别（默认）",
@@ -85,7 +84,7 @@ namespace TimelineWallpaper.Utils {
                     "[nasa]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "mirror=bjp",
                     "; mirror=     镜像：无",
@@ -94,7 +93,7 @@ namespace TimelineWallpaper.Utils {
                     "[oneplus]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date  排序：最新添加（默认）",
@@ -104,7 +103,7 @@ namespace TimelineWallpaper.Utils {
                     "[timeline]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date    排序：日期（默认）",
@@ -116,10 +115,18 @@ namespace TimelineWallpaper.Utils {
                     "; cate=portrait   类别：人像摄影",
                     "; cate=culture    类别：人文摄影",
                     "",
+                    "[himawari8]",
+                    "",
+                    "pushperiod=1",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "offset=0",
+                    "; offset={n}  地球位置：-1.0~1.0（默认为0，居中，-1.0~0偏左，0~1.0偏右）",
+                    "",
                     "[ymyouli]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "col=",
                     "; col=     类别：随机（默认）",
@@ -146,21 +153,16 @@ namespace TimelineWallpaper.Utils {
                     "[infinity]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=",
                     "; order=      排序：随机（默认）",
                     "; order=rate  排序：热度",
                     "",
-                    "[himawari8]",
-                    "",
-                    "pushperiod=1",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
-                    "",
                     "[3g]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date  排序：最新壁纸（默认）",
@@ -169,55 +171,45 @@ namespace TimelineWallpaper.Utils {
                     "[pixivel]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "sanity=5",
-                    "; sanity={n}   敏感度：1-10（默认为5）",
+                    "; sanity={n}   敏感度：1~10（默认为5）",
                     "",
                     "[lofter]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[daihan]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[dmoe]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[toubiec]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[seovx]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "cate=d",
                     "; cate=    类别：美图",
                     "; cate=d   类别：二次元（默认）",
                     "; cate=ha  类别：古风",
                     "",
-                    //"[muxiaoguo]",
-                    //"",
-                    //"pushperiod=24",
-                    //"; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
-                    //"",
-                    //"cate=sjbz",
-                    //"; cate=sjbz     类别：随机壁纸（默认）",
-                    //"; cate=acg      类别：动漫图片",
-                    //"; cate=meinvtu  类别：美女图片",
-                    //"",
                     "[paul]",
                     "",
                     "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1-24（默认为24h/次，开启推送后生效）",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     ""
                 });
                 //StorageFile defFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/timelinewallpaper.ini"));
@@ -342,17 +334,20 @@ namespace TimelineWallpaper.Utils {
                 PushPeriod = period,
                 Col = sb.ToString()
             });
+            _ = GetPrivateProfileString("himawari8", "pushperiod", "1", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("himawari8", "offset", "0", sb, 1024, iniFile);
+            _ = float.TryParse(sb.ToString(), out float offset);
+            ini.SetIni("himawari8", new Himawari8Ini {
+                PushPeriod = period,
+                Offset = offset
+            });
             _ = GetPrivateProfileString("infinity", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile);
             ini.SetIni("infinity", new InfinityIni {
                 PushPeriod = period,
                 Order = sb.ToString()
-            });
-            _ = GetPrivateProfileString("himawari8", "pushperiod", "1", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
-            ini.SetIni("himawari8", new Himawari8Ini {
-                PushPeriod = period
             });
             _ = GetPrivateProfileString("3g", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
@@ -396,13 +391,6 @@ namespace TimelineWallpaper.Utils {
                 PushPeriod = period,
                 Cate = sb.ToString()
             });
-            //_ = GetPrivateProfileString("muxiaoguo", "pushperiod", "24", sb, 1024, iniFile);
-            //_ = int.TryParse(sb.ToString(), out period);
-            //_ = GetPrivateProfileString("muxiaoguo", "cate", "sjbz", sb, 1024, iniFile);
-            //ini.SetIni("seovx", new MxgIni {
-            //    PushPeriod = period,
-            //    Cate = sb.ToString()
-            //});
             _ = GetPrivateProfileString("paul", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             ini.SetIni("paul", new PaulIni {

@@ -28,5 +28,8 @@ namespace TimelineWallpaper.Beans {
 
         [JsonProperty(PropertyName = "deviceid")]
         public string DeviceId { set; get; }
+
+        [JsonProperty(PropertyName = "region")]
+        public string Region { set; get; }
     }
 }
