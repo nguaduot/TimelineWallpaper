@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Controls;
 
 namespace TimelineWallpaper {
     public sealed partial class SettingsView : UserControl {
+        public event EventHandler<SettingsEventArgs> SettingsChanged;
+
         private Ini ini = new Ini();
 
         private readonly ResourceLoader resLoader;
@@ -60,6 +62,10 @@ namespace TimelineWallpaper {
                     Name = resLoader.GetString("TimelineOrder_" + item)
                 });
             }
+            listYmyouliCol.Add(new Paras {
+                Id = "",
+                Name = resLoader.GetString("YmyouliCol_")
+            });
             foreach (string item in YmyouliIni.COL_MODULE_DIC.Keys) {
                 listYmyouliCol.Add(new Paras {
                     Id = item,
@@ -110,10 +116,7 @@ namespace TimelineWallpaper {
             }
         }
 
-        public async void PaneOpenedOrClosed(Ini ini, bool opened) {
-            if (!opened) {
-                return;
-            }
+        public async void PaneOpened(Ini ini) {
             this.ini = ini;
 
             ExpanderBing.IsExpanded = BingIni.ID.Equals(ini.Provider);
@@ -124,14 +127,14 @@ namespace TimelineWallpaper {
             ExpanderYmyouli.IsExpanded = YmyouliIni.ID.Equals(ini.Provider);
             ExpanderInfinity.IsExpanded = InfinityIni.ID.Equals(ini.Provider);
 
-            BoxBingLang.SelectedIndex = BingIni.LANG.IndexOf(((BingIni)ini.GetIni(BingIni.ID)).Lang);
+            BoxBingLang.SelectedIndex = listBingLang.Select(t => t.Id).ToList().IndexOf(((BingIni)ini.GetIni(BingIni.ID)).Lang);
             ToggleNasaMirror.IsOn = "bjp".Equals(((NasaIni)ini.GetIni(NasaIni.ID)).Mirror);
-            BoxOneplusOrder.SelectedIndex = OneplusIni.ORDER.IndexOf(((OneplusIni)ini.GetIni(OneplusIni.ID)).Order);
-            BoxTimelineCate.SelectedIndex = TimelineIni.CATE.IndexOf(((TimelineIni)ini.GetIni(TimelineIni.ID)).Cate);
-            BoxTimelineOrder.SelectedIndex = TimelineIni.ORDER.IndexOf(((TimelineIni)ini.GetIni(TimelineIni.ID)).Order);
+            BoxOneplusOrder.SelectedIndex = listOneplusOrder.Select(t => t.Id).ToList().IndexOf(((OneplusIni)ini.GetIni(OneplusIni.ID)).Order);
+            BoxTimelineCate.SelectedIndex = listTimelineCate.Select(t => t.Id).ToList().IndexOf(((TimelineIni)ini.GetIni(TimelineIni.ID)).Cate);
+            BoxTimelineOrder.SelectedIndex = listTimelineOrder.Select(t => t.Id).ToList().IndexOf(((TimelineIni)ini.GetIni(TimelineIni.ID)).Order);
             BoxHimawari8Offset.Value = ((Himawari8Ini)ini.GetIni(Himawari8Ini.ID)).Offset;
-            BoxInfinityOrder.SelectedIndex = InfinityIni.ORDER.IndexOf(((InfinityIni)ini.GetIni(InfinityIni.ID)).Order);
-            BoxYmyouliCol.SelectedIndex = Enumerable.ToList(YmyouliIni.COL_MODULE_DIC.Keys).IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Col);
+            BoxYmyouliCol.SelectedIndex = listYmyouliCol.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Col);
+            BoxInfinityOrder.SelectedIndex = listInfinityOrder.Select(t => t.Id).ToList().IndexOf(((InfinityIni)ini.GetIni(InfinityIni.ID)).Order);
 
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
@@ -144,20 +147,26 @@ namespace TimelineWallpaper {
         private void RbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (e.AddedItems.Count > 0 && e.AddedItems[0] is RadioButton selectItem) {
                 TextThemeCur.Text = selectItem.Content.ToString();
-                ini.Theme = selectItem.Tag?.ToString();
-                IniUtil.SaveTheme(ini.Theme);
-                if (Window.Current.Content is FrameworkElement rootElement) {
-                    switch (ini.Theme) {
-                        case "light":
-                            rootElement.RequestedTheme = ElementTheme.Light;
-                            break;
-                        case "dark":
-                            rootElement.RequestedTheme = ElementTheme.Dark;
-                            break;
-                        default: // TODO：bug
-                            rootElement.RequestedTheme = ElementTheme.Default;
-                            break;
+                string theme = selectItem.Tag?.ToString();
+                if (!ini.Theme.Equals(theme)) {
+                    if (Window.Current.Content is FrameworkElement rootElement) {
+                        switch (theme) {
+                            case "light":
+                                rootElement.RequestedTheme = ElementTheme.Light;
+                                break;
+                            case "dark":
+                                rootElement.RequestedTheme = ElementTheme.Dark;
+                                break;
+                            default: // TODO：bug
+                                rootElement.RequestedTheme = ElementTheme.Default;
+                                break;
+                        }
                     }
+                    ini.Theme = theme;
+                    IniUtil.SaveTheme(theme);
+                    SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                        Ini = ini
+                    });
                 }
             }
         }
@@ -185,49 +194,98 @@ namespace TimelineWallpaper {
 
         private void BoxBingLang_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
-            ((BingIni)ini.GetIni(BingIni.ID)).Lang = paras.Id;
-            IniUtil.SaveBingLang(paras.Id);
+            BingIni bi = (BingIni)ini.GetIni(BingIni.ID);
+            if (!bi.Lang.Equals(paras.Id)) {
+                bi.Lang = paras.Id;
+                IniUtil.SaveBingLang(paras.Id);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
 
         private void ToggleNasaMirror_Toggled(object sender, RoutedEventArgs e) {
             string mirror = ((ToggleSwitch)sender).IsOn ? "bjp" : "";
-            ((NasaIni)ini.GetIni(NasaIni.ID)).Mirror = mirror;
-            IniUtil.SaveNasaMirror(mirror);
+            NasaIni bi = (NasaIni)ini.GetIni(NasaIni.ID);
+            if (!bi.Mirror.Equals(mirror)) {
+                bi.Mirror = mirror;
+                IniUtil.SaveNasaMirror(mirror);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
 
         private void BoxOneplusOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
-            ((OneplusIni)ini.GetIni(OneplusIni.ID)).Order = paras.Id;
-            IniUtil.SaveOneplusOrder(paras.Id);
+            OneplusIni bi = (OneplusIni)ini.GetIni(OneplusIni.ID);
+            if (!bi.Order.Equals(paras.Id)) {
+                bi.Order = paras.Id;
+                IniUtil.SaveOneplusOrder(paras.Id);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
 
         private void BoxTimelineCate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
-            ((TimelineIni)ini.GetIni(TimelineIni.ID)).Cate = paras.Id;
-            IniUtil.SaveTimelineCate(paras.Id);
+            TimelineIni bi = (TimelineIni)ini.GetIni(TimelineIni.ID);
+            if (!bi.Cate.Equals(paras.Id)) {
+                bi.Cate = paras.Id;
+                IniUtil.SaveTimelineCate(paras.Id);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
 
         private void BoxTimelineOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
-            ((TimelineIni)ini.GetIni(TimelineIni.ID)).Order = paras.Id;
-            IniUtil.SaveTimelineOrder(paras.Id);
+            TimelineIni bi = (TimelineIni)ini.GetIni(TimelineIni.ID);
+            if (!bi.Order.Equals(paras.Id)) {
+                bi.Order = paras.Id;
+                IniUtil.SaveTimelineOrder(paras.Id);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
 
         private void BoxHimawari8Offset_ValueChanged(Microsoft.UI.Xaml.Controls.NumberBox sender, Microsoft.UI.Xaml.Controls.NumberBoxValueChangedEventArgs args) {
-            ((Himawari8Ini)ini.GetIni(Himawari8Ini.ID)).Offset = (float)args.NewValue;
-            IniUtil.SaveHimawari8Offset((float)args.NewValue);
-        }
-
-        private void BoxInfinityOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            Paras paras = e.AddedItems[0] as Paras;
-            ((InfinityIni)ini.GetIni(InfinityIni.ID)).Order = paras.Id;
-            IniUtil.SaveInfinityOrder(paras.Id);
+            float offset = (float)args.NewValue;
+            Himawari8Ini bi = (Himawari8Ini)ini.GetIni(Himawari8Ini.ID);
+            if (bi.Offset - offset >= 0.01) {
+                bi.Offset = offset;
+                IniUtil.SaveHimawari8Offset(offset);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
 
         private void BoxYmyouliCol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
-            ((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Col = paras.Id;
-            IniUtil.SaveYmyouliCol(paras.Id);
+            YmyouliIni bi = (YmyouliIni)ini.GetIni(YmyouliIni.ID);
+            if (!bi.Col.Equals(paras.Id)) {
+                bi.Col = paras.Id;
+                IniUtil.SaveYmyouliCol(paras.Id);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
+        }
+
+        private void BoxInfinityOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            Paras paras = e.AddedItems[0] as Paras;
+            InfinityIni bi = (InfinityIni)ini.GetIni(InfinityIni.ID);
+            if (!bi.Order.Equals(paras.Id)) {
+                bi.Order = paras.Id;
+                IniUtil.SaveInfinityOrder(paras.Id);
+                SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                    Ini = ini
+                });
+            }
         }
     }
 
@@ -237,5 +295,9 @@ namespace TimelineWallpaper {
         public string Name { get; set; }
 
         override public string ToString() => Name;
+    }
+
+    public class SettingsEventArgs : EventArgs {
+        public Ini Ini { get; set; }
     }
 }

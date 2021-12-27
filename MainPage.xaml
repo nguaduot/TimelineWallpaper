@@ -16,50 +16,47 @@
 
         <Storyboard x:Name="AnimeYesterday1"
                     Completed="AnimeYesterday1_Completed">
-            <DoubleAnimation Duration="0:0:0.2"
+            <DoubleAnimation Duration="0:0:0.3"
                              From="0"
                              To="-16"
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.X)"
-                             Storyboard.TargetName="IconYesterday" />
-            <DoubleAnimation Duration="0:0:0.2"
+                             Storyboard.TargetName="IconYesterday">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3"
                              From="1"
                              To="0"
                              Storyboard.TargetProperty="Opacity"
                              Storyboard.TargetName="IconYesterday" />
         </Storyboard>
         <Storyboard x:Name="AnimeYesterday2">
-            <DoubleAnimation Duration="0:0:0.2"
+            <DoubleAnimation Duration="0:0:0.3"
                              From="16"
                              To="0"
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.X)"
-                             Storyboard.TargetName="IconYesterday" />
-            <DoubleAnimation Duration="0:0:0.2"
+                             Storyboard.TargetName="IconYesterday">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3"
                              From="0"
                              To="1"
                              Storyboard.TargetProperty="Opacity"
                              Storyboard.TargetName="IconYesterday" />
         </Storyboard>
         <Storyboard x:Name="AnimeSettings">
-            <DoubleAnimation Duration="0:0:0.4"
-                             From="0"
-                             To="180"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-                             Storyboard.TargetName="IconSettings" />
-        </Storyboard>
-        <Storyboard x:Name="AnimePush">
             <DoubleAnimation Duration="0:0:0.6"
                              From="0"
                              To="360"
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-                             Storyboard.TargetName="IconPush" />
-        </Storyboard>
-        <Storyboard x:Name="AnimeProvider"
-                    AutoReverse="True">
-            <DoubleAnimation Duration="0:0:0.2"
-                             From="0"
-                             To="-4"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Y)"
-                             Storyboard.TargetName="IconProvider" />
+                             Storyboard.TargetName="IconSettings">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
         </Storyboard>
 
         <muxc:CommandBarFlyout x:Name="FlyoutMenu"
@@ -153,8 +150,7 @@
                         </FontIcon>
                     </AppBarButton.Icon>
                     <AppBarButton.Flyout>
-                        <MenuFlyout x:Name="SubmenuProvider"
-                                    Opened="SubmenuProvider_Opened">
+                        <MenuFlyout x:Name="SubmenuProvider">
                             <muxc:RadioMenuFlyoutItem Name="MenuProviderBing"
                                                       x:Uid="MenuProviderBing"
                                                       Tag="bing"
@@ -206,7 +202,7 @@
                         </FontIcon>
                     </AppBarButton.Icon>
                     <AppBarButton.Flyout>
-                        <MenuFlyout Opened="SubmenuPush_Opened">
+                        <MenuFlyout>
                             <ToggleMenuFlyoutItem Name="MenuPushNone"
                                                   x:Uid="MenuPushNone"
                                                   Click="MenuPush_Click"
@@ -277,8 +273,7 @@
     <SplitView Name="ViewSplit"
                IsPaneOpen="False"
                DisplayMode="Overlay"
-               PaneOpened="ViewSplit_PaneOpenedOrClosed"
-               PaneClosed="ViewSplit_PaneOpenedOrClosed"
+               PaneOpened="ViewSplit_PaneOpened"
                PaneBackground="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                OpenPaneLength="340">
 
@@ -313,7 +308,8 @@
         </VisualStateManager.VisualStateGroups>
 
         <SplitView.Pane>
-            <local:SettingsView x:Name="ViewSettings" />
+            <local:SettingsView x:Name="ViewSettings"
+                                SettingsChanged="ViewSettings_SettingsChanged" />
         </SplitView.Pane>
 
     <RelativePanel KeyboardAcceleratorPlacementMode="Hidden">

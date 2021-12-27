@@ -823,24 +823,23 @@ namespace TimelineWallpaper {
             AnimeYesterday2.Begin();
         }
 
-        private void SubmenuPush_Opened(object sender, object e) {
-            AnimePush.Begin();
-        }
-
-        private void SubmenuProvider_Opened(object sender, object e) {
-            AnimeProvider.Begin();
-        }
-
         private void ImgUhd_Tapped(object sender, TappedRoutedEventArgs e) {
             ViewSplit.IsPaneOpen = false;
         }
 
-        private void ViewSplit_PaneOpenedOrClosed(SplitView sender, object args) {
-            ViewSettings.PaneOpenedOrClosed(ini, ViewSplit.IsPaneOpen);
-        }
-
         private void MenuSettings_PointerEntered(object sender, PointerRoutedEventArgs e) {
             AnimeSettings.Begin();
+        }
+
+        private void ViewSplit_PaneOpened(SplitView sender, object args) {
+            ViewSettings.PaneOpened(ini);
+        }
+
+        private void ViewSettings_SettingsChanged(object sender, SettingsEventArgs e) {
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
         }
     }
 }

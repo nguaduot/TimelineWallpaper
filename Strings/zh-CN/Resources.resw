@@ -642,4 +642,7 @@
   <data name="TimelineOrder_random" xml:space="preserve">
     <value>随机</value>
   </data>
+  <data name="YmyouliCol_" xml:space="preserve">
+    <value>随机一类</value>
+  </data>
 </root>
