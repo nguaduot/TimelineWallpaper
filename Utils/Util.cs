@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Security.ExchangeActiveSyncProvisioning;
@@ -14,7 +15,7 @@ using Windows.System.Profile;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-2.8.ini";
+        private const string FILE_INI = "timelinewallpaper-3.0.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -44,7 +45,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline",
                     "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
-                    "; provider=infinity   图源：Infinity - 365天精选壁纸 http://cn.infinitynewtab.com",
+                    "; provider=infinity   图源：Infinity - 精选壁纸 http://cn.infinitynewtab.com",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=pixivel    图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
                     "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
@@ -87,7 +88,7 @@ namespace TimelineWallpaper.Utils {
                     "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "mirror=bjp",
-                    "; mirror=     镜像：无",
+                    "; mirror=     镜像：官方",
                     "; mirror=bjp  镜像：北京天文馆（默认） http://www.bjp.org.cn/mryt",
                     "",
                     "[oneplus]",
@@ -241,6 +242,11 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("timelinewallpaper", "pushprovider", provider, iniFile.Path);
         }
 
+        public static async void SaveTheme(string theme) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("timelinewallpaper", "theme", theme, iniFile.Path);
+        }
+
         public static async void SaveBingLang(string langCode) {
             StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("bing", "lang", langCode, iniFile.Path);
@@ -264,6 +270,12 @@ namespace TimelineWallpaper.Utils {
         public static async void SaveTimelineCate(string order) {
             StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("timeline", "cate", order, iniFile.Path);
+        }
+
+        public static async void SaveHimawari8Offset(float offset) {
+            offset = offset < -1 ? -1 : (offset > 1 ? 1 : offset);
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("himawari8", "offset", offset.ToString("0.00"), iniFile.Path);
         }
 
         public static async void SaveYmyouliCol(string col) {
@@ -431,6 +443,36 @@ namespace TimelineWallpaper.Utils {
                     || date.Year % 400 == 0 ? 29 : 28;
             }
             return 30;
+        }
+
+        public static DateTime ParseDate(string text) {
+            DateTime date = DateTime.Now;
+            if (string.IsNullOrEmpty(text)) {
+                return date;
+            }
+            if (Regex.Match(text, @"\d").Success) {
+                if (text.Length == 8) {
+                    text = text.Substring(0, 4) + "-" + text.Substring(4, 6) + "-" + text.Substring(6);
+                } else if (text.Length == 6) {
+                    text = text.Substring(0, 2) + "-" + text.Substring(2, 4) + "-" + text.Substring(4);
+                } else if (text.Length == 5) {
+                    text = text.Substring(0, 2) + "-" + text.Substring(2, 3) + "-" + text.Substring(3);
+                } else if (text.Length == 4) {
+                    text = text.Substring(0, 2) + "-" + text.Substring(2);
+                } else if (text.Length == 3) {
+                    text = text.Substring(0, 1) + "-" + text.Substring(1);
+                } else if (text.Length == 2) {
+                    if (int.Parse(text) > DateTime.DaysInMonth(date.Year, date.Month)) {
+                        text = text = text.Substring(0, 1) + "-" + text.Substring(1);
+                    } else {
+                        text = date.Month + "-" + text;
+                    }
+                } else if (text.Length == 1) {
+                    text = date.Month + "-" + text;
+                }
+            }
+            DateTime.TryParse(text, out date);
+            return date;
         }
     }
 

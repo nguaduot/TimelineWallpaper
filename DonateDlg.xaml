@@ -1,0 +1,22 @@
+﻿<ContentDialog x:Class="TimelineWallpaper.DonateDlg"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:TimelineWallpaper"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+               mc:Ignorable="d"
+               x:Uid="DlgDonate"
+               DefaultButton="Close"
+               Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+               Closing="Donate_Closing"
+               CloseButtonClick="Donate_CloseButtonClick"
+               PrimaryButtonClick="Donate_PrimaryButtonClick"
+               SecondaryButtonClick="Donate_SecondaryButtonClick">
+
+    <StackPanel MaxWidth="300">
+        <Image Name="ImgDonate"
+               Stretch="Uniform" />
+    </StackPanel>
+    
+</ContentDialog>

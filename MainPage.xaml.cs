@@ -11,7 +11,7 @@ using TimelineWallpaper.Beans;
 using TimelineWallpaper.Providers;
 using TimelineWallpaper.Services;
 using TimelineWallpaper.Utils;
-using TWPushService;
+using TimelineWallpaperService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Media.Core;
@@ -23,6 +23,7 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -60,279 +61,18 @@ namespace TimelineWallpaper {
         }
 
         private void Init() {
+            // 启动时页面获得焦点，使快捷键一开始即可用
+            this.IsTabStop = true;
+
             MpeUhd.MediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
             MpeUhd.MediaPlayer.IsLoopingEnabled = true;
             MpeUhd.MediaPlayer.Volume = 0;
 
             TextTitle.Text = resLoader.GetString("AppDesc");
-            DlgAbout.Title = string.Format(DlgAbout.Title.ToString(), " v" + VerUtil.GetPkgVer(true));
-
+            
             // 前者会在应用启动时触发多次，后者仅一次
             //this.SizeChanged += Current_SizeChanged;
             Window.Current.SizeChanged += Current_SizeChanged;
-        }
-
-        private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e) {
-            if (resizeTimer == null) {
-                resizeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1500) };
-                resizeTimer.Tick += (sender2, e2) => {
-                    resizeTimer.Stop();
-                    ReDecodeImg();
-                };
-            }
-            resizeTimer.Stop();
-            resizeTimer.Start();
-        }
-
-        private void BtnSetDesktop_Click(object sender, RoutedEventArgs e) {
-            SetWallpaperAsync(meta, true);
-            ChecReviewAsync();
-        }
-
-        private void BtnSetLock_Click(object sender, RoutedEventArgs e) {
-            SetWallpaperAsync(meta, false);
-            ChecReviewAsync();
-        }
-
-        private void BtnVolumn_Click(object sender, RoutedEventArgs e) {
-            MpeUhd.MediaPlayer.Volume = MpeUhd.MediaPlayer.Volume > 0 ? 0 : 0.5;
-            BtnVolumnOn.Visibility = MpeUhd.MediaPlayer.Volume == 0 ? Visibility.Visible : Visibility.Collapsed;
-            BtnVolumnOff.Visibility = MpeUhd.MediaPlayer.Volume > 0 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private void BtnSave_Click(object sender, RoutedEventArgs e) {
-            DownloadAsync();
-            ChecReviewAsync();
-        }
-
-        private void BtnYesterday_Click(object sender, RoutedEventArgs e) {
-            StatusLoading();
-            LoadYesterdayAsync();
-        }
-
-        private void BtnPush_Click(object sender, RoutedEventArgs e) {
-            string push = ((RadioMenuFlyoutItem)sender).Tag.ToString();
-            IniUtil.SavePush(push);
-            IniUtil.SavePushProvider(provider.Id);
-            ini.Push = push;
-            ini.PushProvider = provider.Id;
-            BtnPushCur.Visibility = Visibility.Collapsed; // 该项禁选，因此无论选择其他任何项，该项都不再显示
-            if (BtnPushNone.IsChecked) {
-                UnregService();
-            } else {
-                _ = RegService();
-                RunServiceNow(); // 用户明确开启推送，立即推送一次
-            }
-        }
-
-        private void BtnProvider_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveProvider(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnBingLang_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveBingLang(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnNasaMirror_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveNasaMirror(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnOneplusOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveOneplusOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnTimelineOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveTimelineOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnTimelineCate_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveTimelineCate(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnYmyouliCol_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveYmyouliCol(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnInfinityOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveInfinityOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void BtnAbout_Click(object sender, RoutedEventArgs e) {
-            ToggleInfo(null);
-            _ = DlgAbout.ShowAsync();
-        }
-
-        private void BtnIni_Click(object sender, RoutedEventArgs e) {
-            LaunchIni();
-        }
-
-        private void BtnInfoLink_Click(object sender, RoutedEventArgs e) {
-            InfoLink?.Invoke();
-        }
-
-        private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
-            ProgressLoading.Visibility = Visibility.Visible;
-            ToggleStory(true);
-            ToggleInfo(null);
-        }
-
-        private void ViewBar_PointerExited(object sender, PointerRoutedEventArgs e) {
-            if (ProgressLoading.ShowPaused && !ProgressLoading.ShowError) {
-                ProgressLoading.Visibility = Visibility.Collapsed;
-            }
-            ToggleStory(false);
-            ToggleInfo(null);
-        }
-
-        private void ImgUhd_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
-            ToggleFullscreenMode();
-        }
-
-        //private void ImgUhd_DragStarting(UIElement sender, DragStartingEventArgs args) {
-        //    // Xmal:
-        //    // CanDrag = "True"
-        //    // DragStarting = "ImgUhd_DragStarting"
-        //    args.DragUI.SetContentFromDataPackage();
-        //    //args.DragUI.SetContentFromBitmapImage(new BitmapImage(new Uri("ms-appx://Assets/StoreLogo.png")),
-        //    //    new Windows.Foundation.Point(0, 0));
-        //    args.Data.RequestedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
-        //    args.Data.SetStorageItems(new[] { meta.CacheUhd });
-        //}
-
-        private void ImgUhd_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
-            if (stretchTimer == null) {
-                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
-                stretchTimer.Tick += (sender2, e2) => {
-                    stretchTimer.Stop();
-                    ImgUhd.Stretch = ImgUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
-                    MpeUhd.Stretch = MpeUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
-                };
-            }
-            stretchTimer.Stop();
-            stretchTimer.Start();
-
-            //CompositeTransform ImgUhdTransform = ImgUhd.RenderTransform as CompositeTransform;
-            //if (ImgUhdTransform == null) {
-            //    ImgUhd.RenderTransform = ImgUhdTransform = new CompositeTransform();
-            //}
-
-            //double deltaScroll = e.GetCurrentPoint(ImgUhd).Properties.MouseWheelDelta > 0 ? 1.2 : 0.8;
-            //double pointerX = e.GetCurrentPoint(ImgUhd).Position.X;
-            //double pointerY = e.GetCurrentPoint(ImgUhd).Position.Y;
-            //double imgW = ImgUhd.ActualWidth;
-            //double imgH = ImgUhd.ActualHeight;
-
-            //double scaleX = ImgUhdTransform.ScaleX * deltaScroll;
-            //double scaleY = ImgUhdTransform.ScaleY * deltaScroll;
-            //double translateX = deltaScroll > 1 ? (ImgUhdTransform.TranslateX - (pointerX * 0.2 * ImgUhdTransform.ScaleX))
-            //    : (ImgUhdTransform.TranslateX - (pointerX * -0.2 * ImgUhdTransform.ScaleX));
-            //double translateY = deltaScroll > 1 ? (ImgUhdTransform.TranslateY - (pointerY * 0.2 * ImgUhdTransform.ScaleY))
-            //    : (ImgUhdTransform.TranslateY - (pointerY * -0.2 * ImgUhdTransform.ScaleY));
-            //if (scaleX <= 1 | scaleY <= 1) {
-            //    scaleX = 1;
-            //    scaleY = 1;
-            //    translateX = 0;
-            //    translateY = 0;
-            //}
-
-            //ImgUhdTransform.ScaleX = scaleX;
-            //ImgUhdTransform.ScaleY = scaleY;
-            //ImgUhdTransform.TranslateX = translateX;
-            //ImgUhdTransform.TranslateY = translateY;
-        }
-
-        private void CalendarGo_SelectedDatesChanged(CalendarView sender, CalendarViewSelectedDatesChangedEventArgs args) {
-            if (sender.SelectedDates.Count == 0) {
-                return;
-            }
-            DateTime date = sender.SelectedDates.First().DateTime;
-            if (date.Date != meta?.Date?.Date) {
-                StatusLoading();
-                LoadTargetAsync(date);
-            }
-        }
-
-        private void FlyoutMenu_Opened(object sender, object e) {
-            localSettings.Values["MenuLearned"] = true;
-        }
-
-        private void LinkDonate_Click(object sender, RoutedEventArgs e) {
-            DlgAbout.Hide();
-            Donate();
-        }
-
-        private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
-            switch (sender.Key) {
-                case VirtualKey.Up:
-                    StatusLoading();
-                    LoadYesterdayAsync();
-                    break;
-                case VirtualKey.Right:
-                case VirtualKey.Down:
-                    StatusLoading();
-                    LoadLastAsync();
-                    break;
-                case VirtualKey.Enter:
-                    ToggleFullscreenMode(true);
-                    break;
-                case VirtualKey.Escape:
-                    ToggleFullscreenMode(false);
-                    break;
-                case VirtualKey.R:
-                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        ini = null;
-                        provider = null;
-                        StatusLoading();
-                        LoadFocusAsync();
-                    }
-                    break;
-                case VirtualKey.F5:
-                    ini = null;
-                    provider = null;
-                    StatusLoading();
-                    LoadFocusAsync();
-                    break;
-                case VirtualKey.F:
-                case VirtualKey.G:
-                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        CalendarGo.Visibility = CalendarGo.Visibility == Visibility.Collapsed && ini.GetIni().IsSequential()
-                            ? Visibility.Visible : Visibility.Collapsed;
-                    }
-                    break;
-            }
-            args.Handled = true;
         }
 
         private async void LoadFocusAsync() {
@@ -453,29 +193,29 @@ namespace TimelineWallpaper {
             }
             provider = ini.GenerateProvider();
 
-            BtnPushCur.Text = string.Format(resLoader.GetString("Pushing"), resLoader.GetString("Provider_" + ini.PushProvider));
-            BtnPushDesktop.Text = string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + provider.Id));
-            BtnPushLock.Text = string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + provider.Id));
-            if (BtnPushNone.Tag.Equals(ini.Push)) {
-                BtnPushNone.IsChecked = true;
-                BtnPushCur.Visibility = Visibility.Collapsed;
-                BtnPushDesktop.IsChecked = false;
-                BtnPushLock.IsChecked = false;
+            MenuPushCur.Text = string.Format(resLoader.GetString("Pushing"), resLoader.GetString("Provider_" + ini.PushProvider));
+            MenuPushDesktop.Text = string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + provider.Id));
+            MenuPushLock.Text = string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + provider.Id));
+            if (MenuPushNone.Tag.Equals(ini.Push)) {
+                MenuPushNone.IsChecked = true;
+                MenuPushCur.Visibility = Visibility.Collapsed;
+                MenuPushDesktop.IsChecked = false;
+                MenuPushLock.IsChecked = false;
             } else {
-                BtnPushNone.IsChecked = false;
+                MenuPushNone.IsChecked = false;
                 if (provider.Id.Equals(ini.PushProvider)) {
-                    BtnPushCur.Visibility = Visibility.Collapsed;
-                    BtnPushDesktop.IsChecked = BtnPushDesktop.Tag.Equals(ini.Push);
-                    BtnPushLock.IsChecked = BtnPushLock.Tag.Equals(ini.Push);
+                    MenuPushCur.Visibility = Visibility.Collapsed;
+                    MenuPushDesktop.IsChecked = MenuPushDesktop.Tag.Equals(ini.Push);
+                    MenuPushLock.IsChecked = MenuPushLock.Tag.Equals(ini.Push);
                 } else {
-                    BtnPushCur.Visibility = Visibility.Visible;
-                    BtnPushCur.Tag = ini.Push;
-                    BtnPushCur.IsChecked = true;
-                    BtnPushDesktop.IsChecked = false;
-                    BtnPushLock.IsChecked = false;
+                    MenuPushCur.Visibility = Visibility.Visible;
+                    MenuPushCur.Tag = ini.Push;
+                    MenuPushCur.IsChecked = true;
+                    MenuPushDesktop.IsChecked = false;
+                    MenuPushLock.IsChecked = false;
                 }
             }
-            if (BtnPushNone.IsChecked) {
+            if (MenuPushNone.IsChecked) {
                 UnregService();
             } else {
                 _ = RegService();
@@ -484,59 +224,11 @@ namespace TimelineWallpaper {
                 }
             }
 
-            BtnProviderBing.IsChecked = BtnProviderBing.Tag.Equals(ini.Provider);
-            BtnBingLang.Visibility = BtnProviderBing.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderNasa.IsChecked = BtnProviderNasa.Tag.Equals(ini.Provider);
-            BtnNasaMirror.Visibility = BtnProviderNasa.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderOneplus.IsChecked = BtnProviderOneplus.Tag.Equals(ini.Provider);
-            BtnOneplusOrder.Visibility = BtnProviderOneplus.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderTimeline.IsChecked = BtnProviderTimeline.Tag.Equals(ini.Provider);
-            BtnTimelineOrder.Visibility = BtnProviderTimeline.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnTimelineCate.Visibility = BtnProviderTimeline.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderYmyouli.IsChecked = BtnProviderYmyouli.Tag.Equals(ini.Provider);
-            BtnYmyouliCol.Visibility = BtnProviderYmyouli.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderInfinity.IsChecked = BtnProviderInfinity.Tag.Equals(ini.Provider);
-            BtnInfinityOrder.Visibility = BtnProviderInfinity.IsChecked ? Visibility.Visible : Visibility.Collapsed;
-            BtnProviderHimawari8.IsChecked = BtnProviderHimawari8.Tag.Equals(ini.Provider);
-
-            BtnBingLangDef.IsChecked = BtnBingLangDef.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
-            BtnBingLangCn.IsChecked = BtnBingLangCn.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
-            BtnBingLangJp.IsChecked = BtnBingLangJp.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
-            BtnBingLangJp.IsChecked = BtnBingLangJp.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
-            BtnBingLangDe.IsChecked = BtnBingLangDe.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
-            BtnBingLangFr.IsChecked = BtnBingLangFr.Tag.Equals(((BingIni)ini.GetIni(BtnProviderBing.Tag.ToString())).Lang);
-            BtnNasaMirrorDef.IsChecked = BtnNasaMirrorDef.Tag.Equals(((NasaIni)ini.GetIni(BtnProviderNasa.Tag.ToString())).Mirror);
-            BtnNasaMirrorBjp.IsChecked = BtnNasaMirrorBjp.Tag.Equals(((NasaIni)ini.GetIni(BtnProviderNasa.Tag.ToString())).Mirror);
-            BtnOneplusOrder1.IsChecked = BtnOneplusOrder1.Tag.Equals(((OneplusIni)ini.GetIni(BtnProviderOneplus.Tag.ToString())).Order);
-            BtnOneplusOrder2.IsChecked = BtnOneplusOrder2.Tag.Equals(((OneplusIni)ini.GetIni(BtnProviderOneplus.Tag.ToString())).Order);
-            BtnOneplusOrder3.IsChecked = BtnOneplusOrder3.Tag.Equals(((OneplusIni)ini.GetIni(BtnProviderOneplus.Tag.ToString())).Order);
-            BtnTimelineOrder1.IsChecked = BtnTimelineOrder1.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Order);
-            BtnTimelineOrder2.IsChecked = BtnTimelineOrder2.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Order);
-            BtnTimelineCate1.IsChecked = BtnTimelineCate1.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
-            BtnTimelineCate2.IsChecked = BtnTimelineCate2.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
-            BtnTimelineCate3.IsChecked = BtnTimelineCate3.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
-            BtnTimelineCate4.IsChecked = BtnTimelineCate4.Tag.Equals(((TimelineIni)ini.GetIni(BtnProviderTimeline.Tag.ToString())).Cate);
-            BtnYmyouliColDef.IsChecked = BtnYmyouliColDef.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol182.IsChecked = BtnYmyouliCol182.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol183.IsChecked = BtnYmyouliCol183.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol184.IsChecked = BtnYmyouliCol184.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol185.IsChecked = BtnYmyouliCol185.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol186.IsChecked = BtnYmyouliCol186.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol187.IsChecked = BtnYmyouliCol187.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol215.IsChecked = BtnYmyouliCol215.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol224.IsChecked = BtnYmyouliCol224.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol225.IsChecked = BtnYmyouliCol225.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol226.IsChecked = BtnYmyouliCol226.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol227.IsChecked = BtnYmyouliCol227.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol228.IsChecked = BtnYmyouliCol228.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol229.IsChecked = BtnYmyouliCol229.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol230.IsChecked = BtnYmyouliCol230.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol231.IsChecked = BtnYmyouliCol231.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol232.IsChecked = BtnYmyouliCol232.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol233.IsChecked = BtnYmyouliCol233.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnYmyouliCol241.IsChecked = BtnYmyouliCol241.Tag.Equals(((YmyouliIni)ini.GetIni(BtnProviderYmyouli.Tag.ToString())).Col);
-            BtnInfinityOrder0.IsChecked = BtnInfinityOrder0.Tag.Equals(((InfinityIni)ini.GetIni(BtnProviderInfinity.Tag.ToString())).Order);
-            BtnInfinityOrder1.IsChecked = BtnInfinityOrder1.Tag.Equals(((InfinityIni)ini.GetIni(BtnProviderInfinity.Tag.ToString())).Order);
+            RadioMenuFlyoutItem item = SubmenuProvider.Items.Cast<RadioMenuFlyoutItem>().FirstOrDefault(c => ini.Provider.Equals(c?.Tag?.ToString()));
+            if (item != null) {
+                item.IsChecked = true;
+            }
+            
             return true;
         }
 
@@ -566,13 +258,13 @@ namespace TimelineWallpaper {
             // 文件属性
             TextDetailProperties.Text = "";
 
-            if (ini.GetIni().IsSequential()) {
-                CalendarGo.SelectedDates.Clear();
-                CalendarGo.SelectedDates.Add(meta.Date.Value);
-                CalendarGo.SetDisplayDate(meta.Date.Value.AddDays(-7));
-            } else {
-                CalendarGo.Visibility = Visibility.Collapsed;
-            }
+            //if (ini.GetIni().IsSequential()) {
+            //    CalendarGo.SelectedDates.Clear();
+            //    CalendarGo.SelectedDates.Add(meta.Date.Value);
+            //    CalendarGo.SetDisplayDate(meta.Date.Value.AddDays(-7));
+            //} else {
+            //    CalendarGo.Visibility = Visibility.Collapsed;
+            //}
         }
 
         private void ShowImg(Meta meta) {
@@ -603,13 +295,13 @@ namespace TimelineWallpaper {
             string fileSize = FileUtil.ConvertFileSize(file != null ? new FileInfo(file.Path).Length : 0);
             TextDetailProperties.Text = string.Format(resLoader.GetString("DetailSize"),
                 resLoader.GetString("Provider_" + provider.Id), meta.Dimen.Width, meta.Dimen.Height, fileSize);
-            BtnSetDesktop.IsEnabled = meta.CacheUhd != null;
-            BtnSetLock.IsEnabled = meta.CacheUhd != null;
-            BtnVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume == 0
+            MenuSetDesktop.IsEnabled = meta.CacheUhd != null;
+            MenuSetLock.IsEnabled = meta.CacheUhd != null;
+            MenuVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume == 0
                 ? Visibility.Visible : Visibility.Collapsed;
-            BtnVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
+            MenuVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
                 ? Visibility.Visible : Visibility.Collapsed;
-            BtnSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
+            MenuSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
             StatusEnjoy();
         }
@@ -669,11 +361,11 @@ namespace TimelineWallpaper {
             ProgressLoading.ShowError = true;
             ProgressLoading.Visibility = Visibility.Visible;
 
-            BtnSetDesktop.IsEnabled = false;
-            BtnSetLock.IsEnabled = false;
-            BtnVolumnOn.Visibility = Visibility.Collapsed;
-            BtnVolumnOff.Visibility = Visibility.Collapsed;
-            BtnSave.IsEnabled = false;
+            MenuSetDesktop.IsEnabled = false;
+            MenuSetLock.IsEnabled = false;
+            MenuVolumnOn.Visibility = Visibility.Collapsed;
+            MenuVolumnOff.Visibility = Visibility.Collapsed;
+            MenuSave.IsEnabled = false;
 
             ToggleInfo(!NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
                 : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
@@ -722,14 +414,6 @@ namespace TimelineWallpaper {
                 });
             } else {
                 ToggleInfo(resLoader.GetString("MsgSave0"));
-            }
-        }
-
-        private async void LaunchIni() {
-            try {
-                _ = await Launcher.LaunchFileAsync(await IniUtil.GetIniPath());
-            } catch (Exception) {
-                Debug.WriteLine("launch file failed");
             }
         }
 
@@ -806,7 +490,6 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(2000);
-            BtnAbout.IsEnabled = true;
             ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
                 LaunchRelealse();
                 ToggleInfo(null);
@@ -821,17 +504,7 @@ namespace TimelineWallpaper {
             }
             await Task.Delay(1000);
             //localSettings.Values.Remove("launchTimes");
-            _ = DlgAbout.ShowAsync();
-        }
-
-        private async void Donate(bool viaAlipay = false) {
-            ImgDonate.Source = new BitmapImage(new Uri(viaAlipay ? "ms-appx:///Assets/Images/donate_alipay.png" : "ms-appx:///Assets/Images/donate_wechat.png"));
-            var action = await DlgDonate.ShowAsync();
-            if (action == ContentDialogResult.Primary) {
-                Donate();
-            } else if (action == ContentDialogResult.Secondary) {
-                Donate(true);
-            }
+            _ = new ReviewDlg().ShowAsync();
         }
 
         private async Task<bool> RegService() {
@@ -895,6 +568,279 @@ namespace TimelineWallpaper {
                 _ = builder.Register();
             }
             _ = await _AppTrigger.RequestAsync();
+        }
+
+        private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e) {
+            if (resizeTimer == null) {
+                resizeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 1500) };
+                resizeTimer.Tick += (sender2, e2) => {
+                    resizeTimer.Stop();
+                    ReDecodeImg();
+                };
+            }
+            resizeTimer.Stop();
+            resizeTimer.Start();
+        }
+
+        private void MenuYesterday_Click(object sender, RoutedEventArgs e) {
+            AnimeYesterday1.Begin();
+            StatusLoading();
+            LoadYesterdayAsync();
+        }
+
+        private void MenuSetDesktop_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+            SetWallpaperAsync(meta, true);
+            ChecReviewAsync();
+        }
+
+        private void MenuSetLock_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+            SetWallpaperAsync(meta, false);
+            ChecReviewAsync();
+        }
+
+        private void MenuVolumn_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+            MpeUhd.MediaPlayer.Volume = MpeUhd.MediaPlayer.Volume > 0 ? 0 : 0.5;
+            MenuVolumnOn.Visibility = MpeUhd.MediaPlayer.Volume == 0 ? Visibility.Visible : Visibility.Collapsed;
+            MenuVolumnOff.Visibility = MpeUhd.MediaPlayer.Volume > 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void MenuSave_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+            DownloadAsync();
+            ChecReviewAsync();
+        }
+
+        private void MenuPush_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+
+            string push = ((ToggleMenuFlyoutItem)sender).Tag.ToString();
+            MenuPushNone.IsChecked = MenuPushNone.Tag.Equals(push);
+            MenuPushDesktop.IsChecked = MenuPushDesktop.Tag.Equals(push);
+            MenuPushLock.IsChecked = MenuPushLock.Tag.Equals(push);
+            MenuPushCur.Visibility = Visibility.Collapsed; // 该项禁选，因此无论选择其他任何项，该项都不再显示
+
+            IniUtil.SavePush(push);
+            IniUtil.SavePushProvider(provider.Id);
+            ini.Push = push;
+            ini.PushProvider = provider.Id;
+            if (MenuPushNone.IsChecked) {
+                UnregService();
+            } else {
+                _ = RegService();
+                RunServiceNow(); // 用户明确开启推送，立即推送一次
+            }
+        }
+
+        private void MenuProvider_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+
+            IniUtil.SaveProvider(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuBingLang_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveBingLang(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuNasaMirror_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveNasaMirror(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuOneplusOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveOneplusOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuTimelineOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveTimelineOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuTimelineCate_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveTimelineCate(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuYmyouliCol_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveYmyouliCol(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuInfinityOrder_Click(object sender, RoutedEventArgs e) {
+            IniUtil.SaveInfinityOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+        }
+
+        private void MenuSettings_Click(object sender, RoutedEventArgs e) {
+            //AnimeSettings.Begin();
+            ViewSplit.IsPaneOpen = true;
+        }
+
+        private void BtnInfoLink_Click(object sender, RoutedEventArgs e) {
+            InfoLink?.Invoke();
+        }
+
+        private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
+            ProgressLoading.Visibility = Visibility.Visible;
+            ToggleStory(true);
+            ToggleInfo(null);
+        }
+
+        private void ViewBar_PointerExited(object sender, PointerRoutedEventArgs e) {
+            if (ProgressLoading.ShowPaused && !ProgressLoading.ShowError) {
+                ProgressLoading.Visibility = Visibility.Collapsed;
+            }
+            ToggleStory(false);
+            ToggleInfo(null);
+        }
+
+        private void ImgUhd_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
+            ToggleFullscreenMode();
+        }
+
+        private void ImgUhd_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
+            if (stretchTimer == null) {
+                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
+                stretchTimer.Tick += (sender2, e2) => {
+                    stretchTimer.Stop();
+                    ImgUhd.Stretch = ImgUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
+                    MpeUhd.Stretch = MpeUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
+                };
+            }
+            stretchTimer.Stop();
+            stretchTimer.Start();
+        }
+
+        private void BoxGo_KeyDown(object sender, KeyRoutedEventArgs e) {
+            if (e.Key == VirtualKey.Enter) {
+                FlyoutGo.Hide();
+                DateTime date = DateUtil.ParseDate(BoxGo.Text);
+                if (date.Date != meta?.Date?.Date) {
+                    StatusLoading();
+                    LoadTargetAsync(date);
+                }
+            }
+        }
+
+        private void FlyoutMenu_Opened(object sender, object e) {
+            localSettings.Values["MenuLearned"] = true;
+        }
+
+        private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
+            switch (sender.Key) {
+                case VirtualKey.Left:
+                case VirtualKey.Up:
+                    StatusLoading();
+                    LoadYesterdayAsync();
+                    break;
+                case VirtualKey.Right:
+                case VirtualKey.Down:
+                    StatusLoading();
+                    LoadLastAsync();
+                    break;
+                case VirtualKey.Enter:
+                    ToggleFullscreenMode(true);
+                    break;
+                case VirtualKey.Escape:
+                    ToggleFullscreenMode(false);
+                    break;
+                case VirtualKey.B:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        SetWallpaperAsync(meta, true);
+                        ChecReviewAsync();
+                    }
+                    break;
+                case VirtualKey.L:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        SetWallpaperAsync(meta, false);
+                        ChecReviewAsync();
+                    }
+                    break;
+                case VirtualKey.S:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        DownloadAsync();
+                        ChecReviewAsync();
+                    }
+                    break;
+                case VirtualKey.R:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        ini = null;
+                        provider = null;
+                        StatusLoading();
+                        LoadFocusAsync();
+                    }
+                    break;
+                case VirtualKey.F5:
+                    ini = null;
+                    provider = null;
+                    StatusLoading();
+                    LoadFocusAsync();
+                    break;
+                case VirtualKey.F:
+                case VirtualKey.G:
+                    if (ini.GetIni().IsSequential() && !FlyoutGo.IsOpen) {
+                        BoxGo.PlaceholderText = String.Format(resLoader.GetString("CurDate"), meta.Date?.ToString("M") ?? "MMdd");
+                        BoxGo.Text = "";
+                        FlyoutBase.ShowAttachedFlyout(AnchorGo);
+                    } else {
+                        FlyoutGo.Hide();
+                    }
+                    break;
+            }
+            args.Handled = true;
+        }
+
+        private void AnimeYesterday1_Completed(object sender, object e) {
+            AnimeYesterday2.Begin();
+        }
+
+        private void SubmenuPush_Opened(object sender, object e) {
+            AnimePush.Begin();
+        }
+
+        private void SubmenuProvider_Opened(object sender, object e) {
+            AnimeProvider.Begin();
+        }
+
+        private void ImgUhd_Tapped(object sender, TappedRoutedEventArgs e) {
+            ViewSplit.IsPaneOpen = false;
+        }
+
+        private void ViewSplit_PaneOpenedOrClosed(SplitView sender, object args) {
+            ViewSettings.PaneOpenedOrClosed(ini, ViewSplit.IsPaneOpen);
+        }
+
+        private void MenuSettings_PointerEntered(object sender, PointerRoutedEventArgs e) {
+            AnimeSettings.Begin();
         }
     }
 }

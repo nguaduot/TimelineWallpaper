@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelineWallpaper", "TimelineWallpaper.csproj", "{C3BF495A-6BF6-4D5B-9ED9-2C3213399FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWPushService", "..\TWPushService\TWPushService.csproj", "{C8B76130-7DE6-469C-9051-D8CB783329FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelineWallpaperService", "..\TimelineWallpaperService\TimelineWallpaperService.csproj", "{C8B76130-7DE6-469C-9051-D8CB783329FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

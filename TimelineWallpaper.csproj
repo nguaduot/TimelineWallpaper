@@ -141,6 +141,9 @@
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
+    <Compile Include="DonateDlg.xaml.cs">
+      <DependentUpon>DonateDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Providers\Himawari8Provider.cs" />
     <Compile Include="Providers\TimelineProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />
@@ -154,7 +157,13 @@
     <Compile Include="Providers\DaihanProvider.cs" />
     <Compile Include="Providers\LofterProvider.cs" />
     <Compile Include="Providers\G3Provider.cs" />
+    <Compile Include="ReviewDlg.xaml.cs">
+      <DependentUpon>ReviewDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\ApiService.cs" />
+    <Compile Include="SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Ini.cs" />
     <Compile Include="Beans\NasaApiItem.cs" />
     <Compile Include="Beans\BingApi.cs" />
@@ -247,9 +256,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DonateDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ReviewDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +293,9 @@
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TWPushService\TWPushService.csproj">
+    <ProjectReference Include="..\TimelineWallpaperService\TimelineWallpaperService.csproj">
       <Project>{c8b76130-7de6-469c-9051-d8cb783329fc}</Project>
-      <Name>TWPushService</Name>
+      <Name>TimelineWallpaperService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

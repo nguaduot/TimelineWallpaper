@@ -88,7 +88,7 @@ namespace TimelineWallpaper.Utils {
 
     public class BingIni : BaseIni {
         public const string ID = "bing";
-        private readonly HashSet<string> LANG = new HashSet<string>() { "", "zh-cn", "en-us", "ja-jp", "de-de", "fr-fr" };
+        public static readonly List<string> LANG = new List<string>() { "", "zh-cn", "en-us", "ja-jp", "de-de", "fr-fr" };
 
         private string lang = "";
         public string Lang {
@@ -103,7 +103,7 @@ namespace TimelineWallpaper.Utils {
 
     public class NasaIni : BaseIni {
         public const string ID = "nasa";
-        private readonly HashSet<string> MIRROR = new HashSet<string>() { "", "bjp" };
+        public static readonly List<string> MIRROR = new List<string>() { "", "bjp" };
 
         private string mirror = "";
         public string Mirror {
@@ -125,7 +125,7 @@ namespace TimelineWallpaper.Utils {
 
     public class OneplusIni : BaseIni {
         public const string ID = "oneplus";
-        private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "rate", "view" };
+        public static readonly List<string> ORDER = new List<string>() { "date", "rate", "view" };
 
         private string order = "date";
         public string Order {
@@ -142,8 +142,8 @@ namespace TimelineWallpaper.Utils {
 
     public class TimelineIni : BaseIni {
         public const string ID = "timeline";
-        private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "random" };
-        private readonly HashSet<string> CATE = new HashSet<string>() { "", "landscape", "portrait", "culture" };
+        public static readonly List<string> ORDER = new List<string>() { "date", "random" };
+        public static readonly List<string> CATE = new List<string>() { "", "landscape", "portrait", "culture" };
 
         private string order = "date";
         public string Order {
@@ -186,7 +186,7 @@ namespace TimelineWallpaper.Utils {
 
     public class YmyouliIni : BaseIni {
         public const string ID = "ymyouli";
-        public static readonly Dictionary<string, Dictionary<string, string>> COL_MODULE_DIC = new Dictionary<string, Dictionary<string, string>> {
+        public static readonly SortedDictionary<string, Dictionary<string, string>> COL_MODULE_DIC = new SortedDictionary<string, Dictionary<string, string>> {
             { "182", new Dictionary<string, string> {
                 { "577", "126" },
                 { "606", "126" },
@@ -294,7 +294,7 @@ namespace TimelineWallpaper.Utils {
 
     public class InfinityIni : BaseIni {
         public const string ID = "infinity";
-        private readonly HashSet<string> ORDER = new HashSet<string>() { "", "rate" };
+        public static readonly List<string> ORDER = new List<string>() { "", "rate" };
 
         private string order = "";
         public string Order {

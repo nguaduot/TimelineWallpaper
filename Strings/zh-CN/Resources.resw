@@ -126,115 +126,37 @@
   <data name="AppNameShort" xml:space="preserve">
     <value>拾光</value>
   </data>
-  <data name="Btn3GOrder.Text" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="Btn3GOrder1.Text" xml:space="preserve">
-    <value>最新壁纸</value>
-  </data>
-  <data name="Btn3GOrder2.Text" xml:space="preserve">
-    <value>热门壁纸</value>
-  </data>
-  <data name="BtnAbout.Text" xml:space="preserve">
-    <value>关于拾光</value>
-  </data>
-  <data name="BtnBingLang.Text" xml:space="preserve">
-    <value>地区</value>
-  </data>
-  <data name="BtnBingLangCn.Text" xml:space="preserve">
-    <value>中国</value>
-  </data>
-  <data name="BtnBingLangDe.Text" xml:space="preserve">
-    <value>德国</value>
-  </data>
-  <data name="BtnBingLangDef.Text" xml:space="preserve">
-    <value>自动识别</value>
-  </data>
-  <data name="BtnBingLangFr.Text" xml:space="preserve">
-    <value>法国</value>
-  </data>
-  <data name="BtnBingLangJp.Text" xml:space="preserve">
-    <value>日本</value>
-  </data>
-  <data name="BtnBingLangUs.Text" xml:space="preserve">
-    <value>美国</value>
-  </data>
-  <data name="BtnTimelineCate3.Text" xml:space="preserve">
-    <value>人像摄影</value>
-  </data>
-  <data name="BtnTimelineCate4.Text" xml:space="preserve">
-    <value>人文摄影</value>
-  </data>
-  <data name="BtnTimelineOrder.Text" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="BtnTimelineOrder1.Text" xml:space="preserve">
-    <value>日期</value>
-  </data>
-  <data name="BtnTimelineOrder2.Text" xml:space="preserve">
-    <value>随机</value>
-  </data>
-  <data name="BtnInfinityOrder.Text" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="BtnInfinityOrder0.Text" xml:space="preserve">
-    <value>随机</value>
-  </data>
-  <data name="BtnInfinityOrder1.Text" xml:space="preserve">
-    <value>热度</value>
-  </data>
-  <data name="BtnIni.Text" xml:space="preserve">
-    <value>打开配置文件</value>
+  <data name="MenuSettings.Label" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="BtnInfoLink.Content" xml:space="preserve">
     <value>前往</value>
   </data>
-  <data name="BtnNasaMirror.Text" xml:space="preserve">
-    <value>镜像</value>
-  </data>
-  <data name="BtnNasaMirrorBjp.Text" xml:space="preserve">
-    <value>北京天文馆</value>
-  </data>
-  <data name="BtnNasaMirrorDef.Text" xml:space="preserve">
-    <value>无</value>
-  </data>
-  <data name="BtnYesterday.Text" xml:space="preserve">
+  <data name="MenuYesterday.Label" xml:space="preserve">
     <value>回顾</value>
   </data>
-  <data name="BtnOneplusOrder.Text" xml:space="preserve">
-    <value>排序</value>
-  </data>
-  <data name="BtnOneplusOrder1.Text" xml:space="preserve">
-    <value>最新添加</value>
-  </data>
-  <data name="BtnOneplusOrder2.Text" xml:space="preserve">
-    <value>点赞最多</value>
-  </data>
-  <data name="BtnOneplusOrder3.Text" xml:space="preserve">
-    <value>浏览最多</value>
-  </data>
-  <data name="BtnProvider.Text" xml:space="preserve">
+  <data name="MenuProvider.Label" xml:space="preserve">
     <value>图源</value>
   </data>
-  <data name="BtnProviderBing.Text" xml:space="preserve">
+  <data name="MenuProviderBing.Text" xml:space="preserve">
     <value>Microsoft Bing - 每天发现一个新地方</value>
   </data>
-  <data name="BtnProviderInfinity.Text" xml:space="preserve">
-    <value>Infinity - 365天精选壁纸</value>
+  <data name="MenuProviderInfinity.Text" xml:space="preserve">
+    <value>Infinity - 精选壁纸</value>
   </data>
-  <data name="BtnProviderNasa.Text" xml:space="preserve">
+  <data name="MenuProviderNasa.Text" xml:space="preserve">
     <value>NASA - 每日天文一图</value>
   </data>
-  <data name="BtnProviderOneplus.Text" xml:space="preserve">
+  <data name="MenuProviderOneplus.Text" xml:space="preserve">
     <value>OnePlus - Shot on OnePlus</value>
   </data>
-  <data name="BtnProviderTimeline.Text" xml:space="preserve">
+  <data name="MenuProviderTimeline.Text" xml:space="preserve">
     <value>拾光 - 时光如歌，岁月如诗</value>
   </data>
-  <data name="BtnProviderYmyouli.Text" xml:space="preserve">
+  <data name="MenuProviderYmyouli.Text" xml:space="preserve">
     <value>一梦幽黎 - 8K优质壁纸资源</value>
   </data>
-  <data name="BtnPush.Text" xml:space="preserve">
+  <data name="MenuPush.Label" xml:space="preserve">
     <value>推送</value>
   </data>
   <data name="PushDesktop" xml:space="preserve">
@@ -243,53 +165,38 @@
   <data name="PushLock" xml:space="preserve">
     <value>推送锁屏背景：{0}</value>
   </data>
-  <data name="BtnPushNone.Text" xml:space="preserve">
+  <data name="MenuPushNone.Text" xml:space="preserve">
     <value>关闭推送</value>
   </data>
-  <data name="BtnSave.Text" xml:space="preserve">
+  <data name="MenuSave.Label" xml:space="preserve">
     <value>保存</value>
   </data>
-  <data name="BtnSetDesktop.Text" xml:space="preserve">
+  <data name="MenuSetDesktop.Label" xml:space="preserve">
     <value>用作桌面背景</value>
   </data>
-  <data name="BtnSetLock.Text" xml:space="preserve">
+  <data name="MenuSetLock.Label" xml:space="preserve">
     <value>用作锁屏背景</value>
   </data>
-  <data name="BtnTimelineCate.Text" xml:space="preserve">
-    <value>类别</value>
-  </data>
-  <data name="BtnTimelineCate1.Text" xml:space="preserve">
-    <value>全部</value>
-  </data>
-  <data name="BtnTimelineCate2.Text" xml:space="preserve">
-    <value>风光摄影</value>
-  </data>
-  <data name="BtnVolumnOff.Text" xml:space="preserve">
+  <data name="MenuVolumnOff.ToolTipService.ToolTip" xml:space="preserve">
     <value>关闭声音</value>
   </data>
-  <data name="BtnVolumnOn.Text" xml:space="preserve">
+  <data name="MenuVolumnOn.ToolTipService.ToolTip" xml:space="preserve">
     <value>打开声音</value>
   </data>
-  <data name="BtnYmyouliCol.Text" xml:space="preserve">
-    <value>类别</value>
-  </data>
-  <data name="BtnYmyouliCol182.Text" xml:space="preserve">
+  <data name="YmyouliCol_182" xml:space="preserve">
     <value>游戏动漫人物</value>
   </data>
-  <data name="BtnYmyouliCol183.Text" xml:space="preserve">
+  <data name="YmyouliCol_183" xml:space="preserve">
     <value>游戏动漫场景</value>
   </data>
-  <data name="BtnYmyouliCol184.Text" xml:space="preserve">
+  <data name="YmyouliCol_184" xml:space="preserve">
     <value>自然风景</value>
   </data>
-  <data name="BtnYmyouliCol185.Text" xml:space="preserve">
+  <data name="YmyouliCol_185" xml:space="preserve">
     <value>花草植物</value>
   </data>
-  <data name="BtnYmyouliCol215.Text" xml:space="preserve">
+  <data name="YmyouliCol_215" xml:space="preserve">
     <value>意境</value>
-  </data>
-  <data name="BtnYmyouliColDef.Text" xml:space="preserve">
-    <value>随机</value>
   </data>
   <data name="DetailSize" xml:space="preserve">
     <value>{0} / {1}x{2}, {3}</value>
@@ -385,7 +292,7 @@
     <value>随机二次元图片</value>
   </data>
   <data name="Slogan_infinity" xml:space="preserve">
-    <value>365天精选壁纸</value>
+    <value>精选壁纸</value>
   </data>
   <data name="Slogan_lofter" xml:space="preserve">
     <value>看见每一种兴趣</value>
@@ -423,46 +330,46 @@
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>8K优质壁纸资源</value>
   </data>
-  <data name="BtnYmyouliCol186.Text" xml:space="preserve">
+  <data name="YmyouliCol_186" xml:space="preserve">
     <value>美女女孩</value>
   </data>
-  <data name="BtnYmyouliCol187.Text" xml:space="preserve">
+  <data name="YmyouliCol_187" xml:space="preserve">
     <value>机车</value>
   </data>
-  <data name="BtnYmyouliCol214.Text" xml:space="preserve">
+  <data name="YmyouliCol_214" xml:space="preserve">
     <value>科幻</value>
   </data>
-  <data name="BtnYmyouliCol224.Text" xml:space="preserve">
+  <data name="YmyouliCol_224" xml:space="preserve">
     <value>武器刀剑</value>
   </data>
-  <data name="BtnYmyouliCol225.Text" xml:space="preserve">
+  <data name="YmyouliCol_225" xml:space="preserve">
     <value>动物</value>
   </data>
-  <data name="BtnYmyouliCol226.Text" xml:space="preserve">
+  <data name="YmyouliCol_226" xml:space="preserve">
     <value>古风人物</value>
   </data>
-  <data name="BtnYmyouliCol227.Text" xml:space="preserve">
+  <data name="YmyouliCol_227" xml:space="preserve">
     <value>日暮云天</value>
   </data>
-  <data name="BtnYmyouliCol228.Text" xml:space="preserve">
+  <data name="YmyouliCol_228" xml:space="preserve">
     <value>夜空星河</value>
   </data>
-  <data name="BtnYmyouliCol229.Text" xml:space="preserve">
+  <data name="YmyouliCol_229" xml:space="preserve">
     <value>战场战争</value>
   </data>
-  <data name="BtnYmyouliCol230.Text" xml:space="preserve">
+  <data name="YmyouliCol_230" xml:space="preserve">
     <value>冰雪之境</value>
   </data>
-  <data name="BtnYmyouliCol231.Text" xml:space="preserve">
+  <data name="YmyouliCol_231" xml:space="preserve">
     <value>油画</value>
   </data>
-  <data name="BtnYmyouliCol232.Text" xml:space="preserve">
+  <data name="YmyouliCol_232" xml:space="preserve">
     <value>国漫壁纸</value>
   </data>
-  <data name="BtnYmyouliCol233.Text" xml:space="preserve">
+  <data name="YmyouliCol_233" xml:space="preserve">
     <value>美食蔬果</value>
   </data>
-  <data name="BtnYmyouliCol241.Text" xml:space="preserve">
+  <data name="YmyouliCol_241" xml:space="preserve">
     <value>樱落</value>
   </data>
   <data name="MsgUpdate" xml:space="preserve">
@@ -478,12 +385,9 @@
     <value>下次一定</value>
   </data>
   <data name="TextReview0.Text" xml:space="preserve">
-    <value>维护不易，随缘更新。如果您喜欢「拾光」分享的图源，前往 </value>
+    <value>独立开发，维护不易，如果您喜欢「拾光」分享的图源，前往 </value>
   </data>
-  <data name="DlgAbout.Title" xml:space="preserve">
-    <value>拾光{0}</value>
-  </data>
-  <data name="BtnProviderHimawari8.Text" xml:space="preserve">
+  <data name="MenuProviderHimawari8.Text" xml:space="preserve">
     <value>向日葵8号 - 实时地球</value>
   </data>
   <data name="Provider_himawari8" xml:space="preserve">
@@ -505,19 +409,19 @@
     <value>ms-windows-store://review/?ProductId=9N7VHQ989BB7</value>
   </data>
   <data name="TextContatc0.Text" xml:space="preserve">
-    <value>任何疑问或想法，可发 </value>
+    <value>该项目已在 </value>
   </data>
   <data name="TextContatc1.Text" xml:space="preserve">
-    <value>邮件</value>
-  </data>
-  <data name="TextContatc2.Text" xml:space="preserve">
-    <value> 联系我，或在 </value>
-  </data>
-  <data name="TextContatc3.Text" xml:space="preserve">
     <value>GitHub</value>
   </data>
+  <data name="TextContatc2.Text" xml:space="preserve">
+    <value> 开源。若有任何疑问、想法或合作意向，可发 </value>
+  </data>
+  <data name="TextContatc3.Text" xml:space="preserve">
+    <value>邮件</value>
+  </data>
   <data name="TextContatc4.Text" xml:space="preserve">
-    <value> 上查看该项目。</value>
+    <value> 联系我。</value>
   </data>
   <data name="TextCopyright.Text" xml:space="preserve">
     <value>© 2021 nguaduot。保留所有权利。</value>
@@ -550,6 +454,192 @@
     <value>扫码赞助</value>
   </data>
   <data name="TextReview4.Text" xml:space="preserve">
-    <value>  (●'◡'●)</value>
+    <value>。(●'◡'●)</value>
+  </data>
+  <data name="BoxGo.Header" xml:space="preserve">
+    <value>回顾日期</value>
+  </data>
+  <data name="CurDate" xml:space="preserve">
+    <value>当前：{0}</value>
+  </data>
+  <data name="RbThemeDark.Content" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="RbThemeLight.Content" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="RbThemeSys.Content" xml:space="preserve">
+    <value>使用系统设置</value>
+  </data>
+  <data name="SettingsIniDesc.Text" xml:space="preserve">
+    <value>查看/编辑配置文件</value>
+  </data>
+  <data name="SettingsIniTitle.Text" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="SettingsThemeDesc.Text" xml:space="preserve">
+    <value>选择要显示的应用主题</value>
+  </data>
+  <data name="SettingsThemeTitle.Text" xml:space="preserve">
+    <value>应用程序主题</value>
+  </data>
+  <data name="TextAbout.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="TextSettings.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="TextSettingsBeta.Text" xml:space="preserve">
+    <value>实验</value>
+  </data>
+  <data name="TextSettingsGeneral.Text" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="TextSettingsProvider.Text" xml:space="preserve">
+    <value>图源</value>
+  </data>
+  <data name="BingLang_" xml:space="preserve">
+    <value>自动识别</value>
+  </data>
+  <data name="BingLang_zh-cn" xml:space="preserve">
+    <value>中国</value>
+  </data>
+  <data name="BingLang_de-de" xml:space="preserve">
+    <value>德国</value>
+  </data>
+  <data name="BingLang_fr-fr" xml:space="preserve">
+    <value>法国</value>
+  </data>
+  <data name="BingLang_ja-jp" xml:space="preserve">
+    <value>日本</value>
+  </data>
+  <data name="BingLang_en-us" xml:space="preserve">
+    <value>美国</value>
+  </data>
+  <data name="BtnIni.Content" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="SettingsBingDesc.Text" xml:space="preserve">
+    <value>每天发现一个新地方</value>
+  </data>
+  <data name="SettingsBingTitle.Text" xml:space="preserve">
+    <value>Microsoft Bing</value>
+  </data>
+  <data name="TextBingLang.Text" xml:space="preserve">
+    <value>地区</value>
+  </data>
+  <data name="BoxHimiwari8Offset.PlaceholderText" xml:space="preserve">
+    <value>-1.0~1.0</value>
+  </data>
+  <data name="BtnShowCache.Content" xml:space="preserve">
+    <value>前往</value>
+  </data>
+  <data name="BtnShowIni.Content" xml:space="preserve">
+    <value>前往</value>
+  </data>
+  <data name="BtnShowSave.Content" xml:space="preserve">
+    <value>前往</value>
+  </data>
+  <data name="DetailSave" xml:space="preserve">
+    <value>已保存 {0} 张图片</value>
+  </data>
+  <data name="InfinityOrder_" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="InfinityOrder_rate" xml:space="preserve">
+    <value>热度</value>
+  </data>
+  <data name="OneplusOrder_date" xml:space="preserve">
+    <value>最新添加</value>
+  </data>
+  <data name="OneplusOrder_rate" xml:space="preserve">
+    <value>点赞最多</value>
+  </data>
+  <data name="OneplusOrder_view" xml:space="preserve">
+    <value>浏览最多</value>
+  </data>
+  <data name="SettingsHimiwari8Desc.Text" xml:space="preserve">
+    <value>实时地球</value>
+  </data>
+  <data name="SettingsHimiwari8Title.Text" xml:space="preserve">
+    <value>向日葵8号</value>
+  </data>
+  <data name="SettingsInfinityDesc.Text" xml:space="preserve">
+    <value>精选壁纸</value>
+  </data>
+  <data name="SettingsInfinityTitle.Text" xml:space="preserve">
+    <value>Infinity</value>
+  </data>
+  <data name="SettingsNasaDesc.Text" xml:space="preserve">
+    <value>每日天文一图</value>
+  </data>
+  <data name="SettingsNasaTitle.Text" xml:space="preserve">
+    <value>NASA</value>
+  </data>
+  <data name="SettingsOneplusDesc.Text" xml:space="preserve">
+    <value>Shot on OnePlus</value>
+  </data>
+  <data name="SettingsOneplusTitle.Text" xml:space="preserve">
+    <value>Oneplus</value>
+  </data>
+  <data name="SettingsSaveTitle.Text" xml:space="preserve">
+    <value>图片保存位置</value>
+  </data>
+  <data name="SettingsTimelineDesc.Text" xml:space="preserve">
+    <value>时光如歌，岁月如诗</value>
+  </data>
+  <data name="SettingsTimelineTitle.Text" xml:space="preserve">
+    <value>拾光</value>
+  </data>
+  <data name="SettingsYmyouliDesc.Text" xml:space="preserve">
+    <value>8K优质壁纸资源</value>
+  </data>
+  <data name="SettingsYmyouliTitle.Text" xml:space="preserve">
+    <value>一梦幽黎</value>
+  </data>
+  <data name="TextCache.Text" xml:space="preserve">
+    <value>图片缓存位置</value>
+  </data>
+  <data name="TextHimiwari8Offset.Text" xml:space="preserve">
+    <value>地球位置</value>
+  </data>
+  <data name="TextInfinityOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="TextNasaMirror.Text" xml:space="preserve">
+    <value>使用北京天文馆镜像</value>
+  </data>
+  <data name="TextOneplusOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="TextShowIni.Text" xml:space="preserve">
+    <value>配置文件位置</value>
+  </data>
+  <data name="TextTimelineCate.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="TextTimelineOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="TextYmyouliCol.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="TimelineCate_" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="TimelineCate_culture" xml:space="preserve">
+    <value>人文摄影</value>
+  </data>
+  <data name="TimelineCate_landscape" xml:space="preserve">
+    <value>风光摄影</value>
+  </data>
+  <data name="TimelineCate_portrait" xml:space="preserve">
+    <value>人像摄影</value>
+  </data>
+  <data name="TimelineOrder_date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="TimelineOrder_random" xml:space="preserve">
+    <value>随机</value>
   </data>
 </root>

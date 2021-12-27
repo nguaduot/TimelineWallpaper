@@ -9,7 +9,7 @@
   <Identity
     Name="54311Bysyk.forWindows11"
     Publisher="CN=2D8A43ED-3DC1-4AB1-AFFC-B379B33C48BD"
-    Version="2.8.60.0" />
+    Version="3.0.60.0" />
 
   <mp:PhoneIdentity PhoneProductId="6d47048f-fdc5-4720-8d9b-f7b7818e8700" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -53,7 +53,7 @@
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="TWPushService.PushService">
+        <Extension Category="windows.backgroundTasks" EntryPoint="TimelineWallpaperService.PushService">
           <BackgroundTasks>
             <Task Type="timer"/>
           </BackgroundTasks>
