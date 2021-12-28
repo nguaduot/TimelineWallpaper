@@ -11,6 +11,7 @@ using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System.Profile;
+using Windows.UI.Xaml;
 
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
@@ -543,6 +544,25 @@ namespace TimelineWallpaper.Utils {
                 return dataReader.ReadGuid().ToString();
             }
             return "";
+        }
+    }
+
+    public static class ThemeUtil {
+        public static ElementTheme ParseTheme(string theme) {
+            switch (theme) {
+                case "light":
+                    return ElementTheme.Light;
+                case "dark":
+                    return ElementTheme.Dark;
+                default:
+                    //return ElementTheme.Default; // 该值非系统主题值
+                    var uiSettings = new Windows.UI.ViewManagement.UISettings();
+                    var color = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Background);
+                    if (color == Windows.UI.Color.FromArgb(0xff, 0xff, 0xff, 0xff)) {
+                        return ElementTheme.Light;
+                    }
+                    return ElementTheme.Dark;
+            }
         }
     }
 }

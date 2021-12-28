@@ -150,22 +150,12 @@ namespace TimelineWallpaper {
                 string theme = selectItem.Tag?.ToString();
                 if (!ini.Theme.Equals(theme)) {
                     if (Window.Current.Content is FrameworkElement rootElement) {
-                        switch (theme) {
-                            case "light":
-                                rootElement.RequestedTheme = ElementTheme.Light;
-                                break;
-                            case "dark":
-                                rootElement.RequestedTheme = ElementTheme.Dark;
-                                break;
-                            default: // TODO：bug
-                                rootElement.RequestedTheme = ElementTheme.Default;
-                                break;
-                        }
+                        rootElement.RequestedTheme = ThemeUtil.ParseTheme(theme);
                     }
                     ini.Theme = theme;
                     IniUtil.SaveTheme(theme);
                     SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                        Ini = ini
+                        ThemeChanged = true
                     });
                 }
             }
@@ -195,11 +185,11 @@ namespace TimelineWallpaper {
         private void BoxBingLang_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
             BingIni bi = (BingIni)ini.GetIni(BingIni.ID);
-            if (!bi.Lang.Equals(paras.Id)) {
+            if (!bi.Lang.Equals(paras.Id) && BingIni.ID.Equals(ini.Provider)) {
                 bi.Lang = paras.Id;
                 IniUtil.SaveBingLang(paras.Id);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -207,11 +197,11 @@ namespace TimelineWallpaper {
         private void ToggleNasaMirror_Toggled(object sender, RoutedEventArgs e) {
             string mirror = ((ToggleSwitch)sender).IsOn ? "bjp" : "";
             NasaIni bi = (NasaIni)ini.GetIni(NasaIni.ID);
-            if (!bi.Mirror.Equals(mirror)) {
+            if (!bi.Mirror.Equals(mirror) && NasaIni.ID.Equals(ini.Provider)) {
                 bi.Mirror = mirror;
                 IniUtil.SaveNasaMirror(mirror);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -219,11 +209,11 @@ namespace TimelineWallpaper {
         private void BoxOneplusOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
             OneplusIni bi = (OneplusIni)ini.GetIni(OneplusIni.ID);
-            if (!bi.Order.Equals(paras.Id)) {
+            if (!bi.Order.Equals(paras.Id) && OneplusIni.ID.Equals(ini.Provider)) {
                 bi.Order = paras.Id;
                 IniUtil.SaveOneplusOrder(paras.Id);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -231,11 +221,11 @@ namespace TimelineWallpaper {
         private void BoxTimelineCate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
             TimelineIni bi = (TimelineIni)ini.GetIni(TimelineIni.ID);
-            if (!bi.Cate.Equals(paras.Id)) {
+            if (!bi.Cate.Equals(paras.Id) && TimelineIni.ID.Equals(ini.Provider)) {
                 bi.Cate = paras.Id;
                 IniUtil.SaveTimelineCate(paras.Id);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -243,11 +233,11 @@ namespace TimelineWallpaper {
         private void BoxTimelineOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
             TimelineIni bi = (TimelineIni)ini.GetIni(TimelineIni.ID);
-            if (!bi.Order.Equals(paras.Id)) {
+            if (!bi.Order.Equals(paras.Id) && TimelineIni.ID.Equals(ini.Provider)) {
                 bi.Order = paras.Id;
                 IniUtil.SaveTimelineOrder(paras.Id);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -255,11 +245,11 @@ namespace TimelineWallpaper {
         private void BoxHimawari8Offset_ValueChanged(Microsoft.UI.Xaml.Controls.NumberBox sender, Microsoft.UI.Xaml.Controls.NumberBoxValueChangedEventArgs args) {
             float offset = (float)args.NewValue;
             Himawari8Ini bi = (Himawari8Ini)ini.GetIni(Himawari8Ini.ID);
-            if (bi.Offset - offset >= 0.01) {
+            if (bi.Offset - offset >= 0.01 && Himawari8Ini.ID.Equals(ini.Provider)) {
                 bi.Offset = offset;
                 IniUtil.SaveHimawari8Offset(offset);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -267,11 +257,11 @@ namespace TimelineWallpaper {
         private void BoxYmyouliCol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
             YmyouliIni bi = (YmyouliIni)ini.GetIni(YmyouliIni.ID);
-            if (!bi.Col.Equals(paras.Id)) {
+            if (!bi.Col.Equals(paras.Id) && YmyouliIni.ID.Equals(ini.Provider)) {
                 bi.Col = paras.Id;
                 IniUtil.SaveYmyouliCol(paras.Id);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -279,11 +269,11 @@ namespace TimelineWallpaper {
         private void BoxInfinityOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             Paras paras = e.AddedItems[0] as Paras;
             InfinityIni bi = (InfinityIni)ini.GetIni(InfinityIni.ID);
-            if (!bi.Order.Equals(paras.Id)) {
+            if (!bi.Order.Equals(paras.Id) && InfinityIni.ID.Equals(ini.Provider)) {
                 bi.Order = paras.Id;
                 IniUtil.SaveInfinityOrder(paras.Id);
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
-                    Ini = ini
+                    CurProviderIniChanged = true
                 });
             }
         }
@@ -298,6 +288,8 @@ namespace TimelineWallpaper {
     }
 
     public class SettingsEventArgs : EventArgs {
-        public Ini Ini { get; set; }
+        public bool CurProviderIniChanged { get; set; }
+
+        public bool ThemeChanged { get; set; }
     }
 }

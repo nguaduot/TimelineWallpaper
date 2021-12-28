@@ -202,7 +202,7 @@
                         </FontIcon>
                     </AppBarButton.Icon>
                     <AppBarButton.Flyout>
-                        <MenuFlyout>
+                        <MenuFlyout x:Name="SubmenuPush">
                             <ToggleMenuFlyoutItem Name="MenuPushNone"
                                                   x:Uid="MenuPushNone"
                                                   Click="MenuPush_Click"
@@ -275,7 +275,7 @@
                DisplayMode="Overlay"
                PaneOpened="ViewSplit_PaneOpened"
                PaneBackground="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-               OpenPaneLength="340">
+               OpenPaneLength="360">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -284,12 +284,6 @@
                         <AdaptiveTrigger MinWindowWidth="640" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ViewSplit.DisplayMode"
-                                Value="Inline" />
-                        <Setter Target="ViewSplit.OpenPaneLength"
-                                Value="400" />
-                        <Setter Target="ViewSplit.PaneBackground"
-                                Value="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
                         <Setter Target="ViewBar.Margin"
                                 Value="24" />
                         <Setter Target="ViewBar.Padding"
@@ -302,6 +296,21 @@
                                 Value="24" />
                         <Setter Target="AnchorGo.Margin"
                                 Value="0,0,24,24" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="840" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ViewSplit.DisplayMode"
+                                Value="Inline" />
+                        <Setter Target="ViewSplit.OpenPaneLength"
+                                Value="420" />
+                        <Setter Target="ViewSplit.PaneBackground"
+                                Value="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

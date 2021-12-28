@@ -300,15 +300,6 @@
   <data name="Slogan_mty" xml:space="preserve">
     <value>随机图片</value>
   </data>
-  <data name="Slogan_muxiaoguo" xml:space="preserve">
-    <value>随机壁纸</value>
-  </data>
-  <data name="Slogan_muxiaoguo2" xml:space="preserve">
-    <value>动漫图片</value>
-  </data>
-  <data name="Slogan_muxiaoguo3" xml:space="preserve">
-    <value>快来看，这里有美女！</value>
-  </data>
   <data name="Slogan_nasa" xml:space="preserve">
     <value>每日天文一图</value>
   </data>
@@ -641,6 +632,15 @@
   </data>
   <data name="TimelineOrder_random" xml:space="preserve">
     <value>随机</value>
+  </data>
+  <data name="TextProject.Text" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="TextThank.Text" xml:space="preserve">
+    <value>致谢</value>
+  </data>
+  <data name="TextThank1.Text" xml:space="preserve">
+    <value>感谢酷安 @鱼离不开水 绘制的新图标。</value>
   </data>
   <data name="YmyouliCol_" xml:space="preserve">
     <value>随机一类</value>

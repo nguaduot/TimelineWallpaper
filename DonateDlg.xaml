@@ -8,6 +8,7 @@
                mc:Ignorable="d"
                x:Uid="DlgDonate"
                DefaultButton="Close"
+               Style="{StaticResource DefaultContentDialogStyle}"
                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                Closing="Donate_Closing"
                CloseButtonClick="Donate_CloseButtonClick"

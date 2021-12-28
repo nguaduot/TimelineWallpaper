@@ -262,7 +262,7 @@
     <value>OnePlus</value>
   </data>
   <data name="Provider_paul" xml:space="preserve">
-    <value>保罗API</value>
+    <value>Paul API</value>
   </data>
   <data name="Provider_pixivel" xml:space="preserve">
     <value>Pixivel</value>
@@ -286,10 +286,10 @@
     <value>One photo one story</value>
   </data>
   <data name="Slogan_daihan" xml:space="preserve">
-    <value>随机二次元ACG图片</value>
+    <value>Random ACG</value>
   </data>
   <data name="Slogan_dmoe" xml:space="preserve">
-    <value>随机二次元图片</value>
+    <value>Random ACG</value>
   </data>
   <data name="Slogan_infinity" xml:space="preserve">
     <value>Pictures from all over the world</value>
@@ -298,16 +298,7 @@
     <value>看见每一种兴趣</value>
   </data>
   <data name="Slogan_mty" xml:space="preserve">
-    <value>随机图片</value>
-  </data>
-  <data name="Slogan_muxiaoguo" xml:space="preserve">
-    <value>随机壁纸</value>
-  </data>
-  <data name="Slogan_muxiaoguo2" xml:space="preserve">
-    <value>动漫图片</value>
-  </data>
-  <data name="Slogan_muxiaoguo3" xml:space="preserve">
-    <value>快来看，这里有美女！</value>
+    <value>Random pictures</value>
   </data>
   <data name="Slogan_nasa" xml:space="preserve">
     <value>Astronomy picture of the day</value>
@@ -316,7 +307,7 @@
     <value>Shot on OnePlus</value>
   </data>
   <data name="Slogan_paul" xml:space="preserve">
-    <value>随机动漫壁纸</value>
+    <value>Random ACG</value>
   </data>
   <data name="Slogan_pixivel" xml:space="preserve">
     <value>Pixel 图片缓存/代理</value>
@@ -325,7 +316,7 @@
     <value>在线古风美图二次元</value>
   </data>
   <data name="Slogan_toubiec" xml:space="preserve">
-    <value>随机二次元图片</value>
+    <value>Random ACG</value>
   </data>
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>8K high-quality wallpapers</value>
@@ -337,7 +328,7 @@
     <value>Car</value>
   </data>
   <data name="YmyouliCol_214" xml:space="preserve">
-    <value>Science fictrion</value>
+    <value>Science fiction</value>
   </data>
   <data name="YmyouliCol_224" xml:space="preserve">
     <value>Weapon</value>
@@ -457,7 +448,7 @@
     <value>. (●'◡'●)</value>
   </data>
   <data name="BingLang_" xml:space="preserve">
-    <value>Audo</value>
+    <value>Auto</value>
   </data>
   <data name="BingLang_zh-cn" xml:space="preserve">
     <value>China</value>
@@ -478,19 +469,19 @@
     <value>Look back</value>
   </data>
   <data name="BtnIni.Content" xml:space="preserve">
-    <value>Go</value>
+    <value>Open</value>
   </data>
   <data name="CurDate" xml:space="preserve">
     <value>current: {0}</value>
   </data>
   <data name="RbThemeDark.Content" xml:space="preserve">
-    <value>深色</value>
+    <value>Dark</value>
   </data>
   <data name="RbThemeLight.Content" xml:space="preserve">
-    <value>浅色</value>
+    <value>Light</value>
   </data>
   <data name="RbThemeSys.Content" xml:space="preserve">
-    <value>使用系统设置</value>
+    <value>Use system setting</value>
   </data>
   <data name="SettingsBingDesc.Text" xml:space="preserve">
     <value>Explorer the world one photo at a time</value>
@@ -505,16 +496,16 @@
     <value>Configuration file</value>
   </data>
   <data name="SettingsThemeDesc.Text" xml:space="preserve">
-    <value>选择要显示的应用主题</value>
+    <value>Select which app theme to display</value>
   </data>
   <data name="SettingsThemeTitle.Text" xml:space="preserve">
-    <value>应用程序主题</value>
+    <value>App theme</value>
   </data>
   <data name="TextAbout.Text" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="TextBingLang.Text" xml:space="preserve">
-    <value>Country</value>
+    <value>Region</value>
   </data>
   <data name="TextSettings.Text" xml:space="preserve">
     <value>Settings</value>
@@ -535,7 +526,7 @@
     <value>Go</value>
   </data>
   <data name="BtnShowIni.Content" xml:space="preserve">
-    <value>Show</value>
+    <value>Go</value>
   </data>
   <data name="BtnShowSave.Content" xml:space="preserve">
     <value>Go</value>
@@ -641,6 +632,15 @@
   </data>
   <data name="TimelineOrder_random" xml:space="preserve">
     <value>Random</value>
+  </data>
+  <data name="TextProject.Text" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="TextThank.Text" xml:space="preserve">
+    <value>Thanks</value>
+  </data>
+  <data name="TextThank1.Text" xml:space="preserve">
+    <value>Thank @鱼离不开水 for drawing the new icon.</value>
   </data>
   <data name="YmyouliCol_" xml:space="preserve">
     <value>Random</value>

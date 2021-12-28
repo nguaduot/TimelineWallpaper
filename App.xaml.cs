@@ -91,6 +91,7 @@ namespace TimelineWallpaper {
         }
 
         private void ChangeTheme() {
+            // b注意：ElementTheme.Default 指向该值，非系统主题
             switch (IniUtil.GetIni().Theme) {
                 case "light":
                     this.RequestedTheme = ApplicationTheme.Light;

@@ -376,6 +376,9 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(3000);
+            if (localSettings.Values.ContainsKey("MenuLearned")) {
+                return;
+            }
             TipMenu.IsOpen = true;
         }
 
@@ -504,6 +507,7 @@ namespace TimelineWallpaper {
             }
             await Task.Delay(1000);
             //localSettings.Values.Remove("launchTimes");
+            FlyoutMenu.Hide();
             _ = new ReviewDlg().ShowAsync();
         }
 
@@ -836,10 +840,24 @@ namespace TimelineWallpaper {
         }
 
         private void ViewSettings_SettingsChanged(object sender, SettingsEventArgs e) {
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
+            if (e.CurProviderIniChanged) {
+                ini = null;
+                provider = null;
+                StatusLoading();
+                LoadFocusAsync();
+            }
+            if (e.ThemeChanged) { // 修复 muxc:CommandBarFlyout.SecondaryCommands 子元素无法响应随主题改变的BUG
+                ElementTheme theme = ThemeUtil.ParseTheme(ini.Theme);
+                MenuProvider.RequestedTheme = theme;
+                MenuPush.RequestedTheme = theme;
+                MenuSettings.RequestedTheme = theme;
+                foreach (RadioMenuFlyoutItem item in SubmenuProvider.Items.Cast<RadioMenuFlyoutItem>()) {
+                    item.RequestedTheme = theme;
+                }
+                foreach (ToggleMenuFlyoutItem item in SubmenuPush.Items.Cast<ToggleMenuFlyoutItem>()) {
+                    item.RequestedTheme = theme;
+                }
+            }
         }
     }
 }

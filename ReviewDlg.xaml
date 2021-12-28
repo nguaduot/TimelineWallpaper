@@ -1,4 +1,5 @@
-﻿<ContentDialog x:Class="TimelineWallpaper.ReviewDlg"
+﻿<!-- 修复样式丢失BUG：Style="{StaticResource DefaultContentDialogStyle}" -->
+<ContentDialog x:Class="TimelineWallpaper.ReviewDlg"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                xmlns:local="using:TimelineWallpaper"
@@ -6,13 +7,11 @@
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                mc:Ignorable="d"
                x:Uid="DlgAbout"
+               Style="{StaticResource DefaultContentDialogStyle}"
                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
 
     <StackPanel MaxWidth="280">
-        <!--
-                        Note: don't put Hyperlink element start to the next line
-                        otherwise unexpected whitespace will be add.
-                    -->
+        <!-- Note: don't put Hyperlink element start to the next line, otherwise unexpected whitespace will be add. -->
         <TextBlock TextWrapping="Wrap">
                     <Span><Run x:Uid="TextReview0" /><Hyperlink x:Uid="LinkReview"
                                                                 UnderlineStyle="None"><Run x:Uid="TextReview1" /></Hyperlink><Run x:Uid="TextReview2" /><Hyperlink x:Uid="LinkDonate"

@@ -610,9 +610,12 @@
                            Margin="0,8,0,0" />
                 <TextBlock x:Uid="TextCopyright"
                            Style="{StaticResource BodyTextBlockStyle}" />
-                
+
+                <TextBlock x:Uid="TextProject"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="0,24,0,0" />
                 <TextBlock TextWrapping="Wrap"
-                           Margin="0,24,0,0">
+                           Margin="0,8,0,0">
             <Span><Run x:Uid="TextReview0" /><Hyperlink x:Uid="LinkReview"
                                                         UnderlineStyle="None"><Run x:Uid="TextReview1" /></Hyperlink><Run x:Uid="TextReview2" /><Hyperlink x:Uid="LinkDonate"
                                                                                                                                                            UnderlineStyle="None"
@@ -624,6 +627,13 @@
                                                          UnderlineStyle="None"><Run x:Uid="TextContatc1" /></Hyperlink><Run x:Uid="TextContatc2" /><Hyperlink x:Uid="LinkEmail"
                                                                                                                                                               UnderlineStyle="None"><Run x:Uid="TextContatc3" /></Hyperlink><Run x:Uid="TextContatc4" /></Span>
                 </TextBlock>
+
+                <TextBlock x:Uid="TextThank"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="0,24,0,0" />
+                <TextBlock x:Uid="TextThank1"
+                           Style="{StaticResource BodyTextBlockStyle}"
+                           Margin="0,8,0,0" />
             </StackPanel>
         </ScrollViewer>
 
