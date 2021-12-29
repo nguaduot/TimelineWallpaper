@@ -81,7 +81,8 @@ namespace TimelineWallpaper.Providers {
 
         public override async Task<Meta> Cache(Meta meta) {
             _ = await base.Cache(meta);
-            if (meta == null || !meta.IsCached() || meta.CacheUhd.Path.Contains("-reset")) {
+            string offsetTag = (offsetEarth >= 0 ? "-offset+" : "-offset-") + Math.Abs(offsetEarth * 100).ToString("000");
+            if (meta == null || !meta.IsCached() || meta.CacheUhd.Path.Contains(offsetTag)) {
                 return meta;
             }
 
@@ -103,7 +104,7 @@ namespace TimelineWallpaper.Providers {
             }
 
             meta.CacheUhd = await ApplicationData.Current.TemporaryFolder
-                .CreateFileAsync(Id + "-" + meta.Id + "-reset" + meta.Format, CreationCollisionOption.OpenIfExists);
+                .CreateFileAsync(Id + "-" + meta.Id + offsetTag + meta.Format, CreationCollisionOption.OpenIfExists);
             await target.SaveAsync(meta.CacheUhd.Path, CanvasBitmapFileFormat.Png);
             return meta;
         }

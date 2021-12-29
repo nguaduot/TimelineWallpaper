@@ -15,7 +15,7 @@
                PrimaryButtonClick="Donate_PrimaryButtonClick"
                SecondaryButtonClick="Donate_SecondaryButtonClick">
 
-    <StackPanel MaxWidth="300">
+    <StackPanel MaxWidth="196">
         <Image Name="ImgDonate"
                Stretch="Uniform" />
     </StackPanel>

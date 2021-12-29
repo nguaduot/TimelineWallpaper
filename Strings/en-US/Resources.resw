@@ -367,7 +367,7 @@
     <value>New version is released.</value>
   </data>
   <data name="TipMenu.Subtitle" xml:space="preserve">
-    <value>您可以使用鼠标右键弹出菜单，更换桌面背景、保存图片、开启推送等。</value>
+    <value>Right-click to show menus.</value>
   </data>
   <data name="TipMenu.Title" xml:space="preserve">
     <value>Tips</value>
@@ -531,8 +531,8 @@
   <data name="BtnShowSave.Content" xml:space="preserve">
     <value>Go</value>
   </data>
-  <data name="DetailSave" xml:space="preserve">
-    <value>{0} pictures saved</value>
+  <data name="SettingsSaveDesc.Text" xml:space="preserve">
+    <value>Show saved pictures</value>
   </data>
   <data name="InfinityOrder_" xml:space="preserve">
     <value>Random</value>
@@ -640,9 +640,18 @@
     <value>Thanks</value>
   </data>
   <data name="TextThank1.Text" xml:space="preserve">
-    <value>Thank @鱼离不开水 for drawing the new icon.</value>
+    <value>Icon design: Coolapk@鱼离不开水</value>
   </data>
   <data name="YmyouliCol_" xml:space="preserve">
     <value>Random</value>
+  </data>
+  <data name="BtnContribute.Content" xml:space="preserve">
+    <value>Contribute</value>
+  </data>
+  <data name="SettingsContributeDesc.Text" xml:space="preserve">
+    <value>Welcome to share your photographic works</value>
+  </data>
+  <data name="SettingsContributeTitle.Text" xml:space="preserve">
+    <value>Want to contribute</value>
   </data>
 </root>

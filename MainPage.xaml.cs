@@ -511,6 +511,13 @@ namespace TimelineWallpaper {
             _ = new ReviewDlg().ShowAsync();
         }
 
+        private async void OpenSettingsAsync() {
+            ViewSettings.BeforePaneOpen(ini);
+            await Task.Delay(400);
+            ViewSettings.AfterPaneOpen();
+            ViewSplit.IsPaneOpen = true;
+        }
+
         private async Task<bool> RegService() {
             BackgroundAccessStatus reqStatus = await BackgroundExecutionManager.RequestAccessAsync();
             Debug.WriteLine("RequestAccessAsync: " + reqStatus);
@@ -648,65 +655,8 @@ namespace TimelineWallpaper {
             LoadFocusAsync();
         }
 
-        private void MenuBingLang_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveBingLang(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void MenuNasaMirror_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveNasaMirror(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void MenuOneplusOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveOneplusOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void MenuTimelineOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveTimelineOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void MenuTimelineCate_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveTimelineCate(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void MenuYmyouliCol_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveYmyouliCol(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
-        private void MenuInfinityOrder_Click(object sender, RoutedEventArgs e) {
-            IniUtil.SaveInfinityOrder(((RadioMenuFlyoutItem)sender).Tag.ToString());
-            ini = null;
-            provider = null;
-            StatusLoading();
-            LoadFocusAsync();
-        }
-
         private void MenuSettings_Click(object sender, RoutedEventArgs e) {
-            //AnimeSettings.Begin();
-            ViewSplit.IsPaneOpen = true;
+            OpenSettingsAsync();
         }
 
         private void BtnInfoLink_Click(object sender, RoutedEventArgs e) {
@@ -835,12 +785,8 @@ namespace TimelineWallpaper {
             AnimeSettings.Begin();
         }
 
-        private void ViewSplit_PaneOpened(SplitView sender, object args) {
-            ViewSettings.PaneOpened(ini);
-        }
-
         private void ViewSettings_SettingsChanged(object sender, SettingsEventArgs e) {
-            if (e.CurProviderIniChanged) {
+            if (e.ProviderChanged) {
                 ini = null;
                 provider = null;
                 StatusLoading();

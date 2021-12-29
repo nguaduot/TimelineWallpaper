@@ -58,6 +58,8 @@
                 <muxc:Expander Name="ExpanderBing"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="bing"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -92,7 +94,7 @@
                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                       FontFamily="{ThemeResource FluentIcons}"
                                       FontSize="16"
-                                      Glyph="&#xE774;" />
+                                      Glyph="&#xE909;" />
                             <TextBlock Grid.Column="1" x:Uid="TextBingLang"
                                        VerticalAlignment="Center"
                                        Style="{StaticResource BodyTextBlockStyle}" />
@@ -107,6 +109,8 @@
                 <muxc:Expander Name="ExpanderNasa"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="nasa"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -156,6 +160,8 @@
                 <muxc:Expander Name="ExpanderOneplus"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="oneplus"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -206,6 +212,8 @@
                 <muxc:Expander Name="ExpanderTimeline"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="timeline"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -280,6 +288,8 @@
                 <muxc:Expander Name="ExpanderHimawari8"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="himawari8"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -336,6 +346,8 @@
                 <muxc:Expander Name="ExpanderYmyouli"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="ymyouli"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -386,6 +398,8 @@
                 <muxc:Expander Name="ExpanderInfinity"
                                ExpandDirection="Down"
                                IsExpanded="False"
+                               Tag="infinity"
+                               Expanding="ExpanderProvider_Expanding"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -512,7 +526,7 @@
                                         Orientation="Vertical">
                                 <TextBlock x:Uid="SettingsSaveTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock Name="SettingsSaveDesc"
+                                <TextBlock x:Uid="SettingsSaveDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                            MaxLines="1"
@@ -547,6 +561,56 @@
                 <TextBlock x:Uid="TextSettingsBeta"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Margin="0,24,0,0" />
+                <muxc:Expander ExpandDirection="Down"
+                               IsExpanded="False"
+                               Visibility="Collapsed"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Margin="0,8,0,0">
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="{ThemeResource FluentIcons}"
+                                      FontSize="16"
+                                      Glyph="&#xEE56;" />
+                            <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                                <TextBlock x:Uid="SettingsContributeTitle"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock x:Uid="SettingsContributeDesc"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           MaxLines="1"
+                                           TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid Margin="28,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="ms-resource:AppDesc"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource BodyTextBlockStyle}" />
+                            <Button Grid.Column="1"
+                                    Name="BtnContribute"
+                                    x:Uid="BtnContribute"
+                                    Margin="28,0,0,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Click="BtnContribute_Click" />
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
                 <muxc:Expander ExpandDirection="Down"
                                IsExpanded="False"
                                HorizontalAlignment="Stretch"
@@ -601,7 +665,7 @@
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
-
+                
                 <TextBlock x:Uid="TextAbout"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Margin="0,24,0,0" />

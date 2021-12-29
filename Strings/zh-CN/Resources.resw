@@ -531,8 +531,8 @@
   <data name="BtnShowSave.Content" xml:space="preserve">
     <value>前往</value>
   </data>
-  <data name="DetailSave" xml:space="preserve">
-    <value>已保存 {0} 张图片</value>
+  <data name="SettingsSaveDesc.Text" xml:space="preserve">
+    <value>查看保存过的图片</value>
   </data>
   <data name="InfinityOrder_" xml:space="preserve">
     <value>随机</value>
@@ -592,7 +592,7 @@
     <value>图片缓存位置</value>
   </data>
   <data name="TextHimiwari8Offset.Text" xml:space="preserve">
-    <value>地球位置</value>
+    <value>地球偏移量</value>
   </data>
   <data name="TextInfinityOrder.Text" xml:space="preserve">
     <value>排序</value>
@@ -640,9 +640,18 @@
     <value>致谢</value>
   </data>
   <data name="TextThank1.Text" xml:space="preserve">
-    <value>感谢酷安 @鱼离不开水 绘制的新图标。</value>
+    <value>图标设计：酷安@鱼离不开水</value>
   </data>
   <data name="YmyouliCol_" xml:space="preserve">
     <value>随机一类</value>
+  </data>
+  <data name="BtnContribute.Content" xml:space="preserve">
+    <value>投稿</value>
+  </data>
+  <data name="SettingsContributeDesc.Text" xml:space="preserve">
+    <value>欢迎分享您在其他平台发布的摄影作品</value>
+  </data>
+  <data name="SettingsContributeTitle.Text" xml:space="preserve">
+    <value>我要投稿</value>
   </data>
 </root>
