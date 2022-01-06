@@ -40,6 +40,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             Debug.WriteLine("provider url: " + URL_API);
             try {
@@ -47,19 +48,11 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(URL_API);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 List<ToubiecApiItem> toubbiecApi = JsonConvert.DeserializeObject<List<ToubiecApiItem>>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (ToubiecApiItem item in toubbiecApi) {
-                    Meta meta = ParseBean(item);
-                    if (!meta.IsValid()) {
-                        return metas.Count > 0;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(meta);
-                    }
+                    metasAdd.Add(ParseBean(item));
                 }
+                AppendMetas(metasAdd);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

@@ -572,6 +572,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <FontIcon Margin="0,0,12,0"
                                       VerticalAlignment="Center"
@@ -590,25 +591,18 @@
                                            MaxLines="1"
                                            TextWrapping="WrapWholeWords" />
                             </StackPanel>
-                        </Grid>
-                    </muxc:Expander.Header>
-                    <muxc:Expander.Content>
-                        <Grid Margin="28,0,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="ms-resource:AppDesc"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource BodyTextBlockStyle}" />
-                            <Button Grid.Column="1"
+                            <Button Grid.Column="2"
                                     Name="BtnContribute"
                                     x:Uid="BtnContribute"
-                                    Margin="28,0,0,0"
-                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Click="BtnContribute_Click" />
                         </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <TextBlock x:Uid="TextContribute"
+                                   TextWrapping="Wrap"
+                                   Margin="28,0,0,0"
+                                   Style="{StaticResource BodyTextBlockStyle}" />
                     </muxc:Expander.Content>
                 </muxc:Expander>
                 <muxc:Expander ExpandDirection="Down"

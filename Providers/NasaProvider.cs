@@ -60,6 +60,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             nextPage = date ?? nextPage;
             string urlApi = string.Format(URL_API_PAGE, nextPage.AddDays(-PAGE_SIZE + 1).ToString("yyyy-MM-dd"),
@@ -70,20 +71,11 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 List<NasaApiItem> items = JsonConvert.DeserializeObject<List<NasaApiItem>>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (NasaApiItem item in items) {
-                    Meta meta = ParseBean(item);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(meta);
-                    }
+                    metasAdd.Add(ParseBean(item));
                 }
-                SortMetas(); // 按时序倒序排列
+                SortMetas(metasAdd); // 按时序倒序排列
                 nextPage = nextPage.AddDays(-PAGE_SIZE);
             } catch (Exception e) {
                 Debug.WriteLine(e);
@@ -150,6 +142,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             if (nextPage >= pageUrls.Count) {
                 string urlBjp = nextPage >= 100 ? string.Format(URL_API_DAY, (int)Math.Ceiling((nextPage + 1) / 100.0)) : URL_API_TODAY;
@@ -169,17 +162,10 @@ namespace TimelineWallpaper.Providers {
             try {
                 HttpClient client = new HttpClient();
                 string htmlData = await client.GetStringAsync(url);
-                Meta meta = ParseBean(htmlData);
-                if (!meta.IsValid()) {
-                    return metas.Count > 0;
-                }
-                bool exists = false;
-                foreach (Meta m in metas) {
-                    exists |= meta.Id.Equals(m.Id);
-                }
-                if (!exists) {
-                    metas.Add(meta);
-                }
+                List<Meta> metasAdd = new List<Meta> {
+                    ParseBean(htmlData)
+                };
+                AppendMetas(metasAdd);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

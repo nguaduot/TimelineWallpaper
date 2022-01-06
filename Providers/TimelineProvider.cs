@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class TimelineProvider : BaseProvider {
@@ -49,6 +50,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             nextPage = date ?? nextPage;
             string urlApi = string.Format(URL_API, ((TimelineIni)ini).Cate,
@@ -59,21 +61,14 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 TimelineApi timelinekApi = JsonConvert.DeserializeObject<TimelineApi>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (TimelineApiData item in timelinekApi.Data) {
-                    Meta meta = ParseBean(item);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(meta);
-                    }
+                    metasAdd.Add(ParseBean(item));
                 }
                 if ("date".Equals(((TimelineIni)ini).Order)) { // 按时序倒序排列
-                    SortMetas();
+                    SortMetas(metasAdd);
+                } else {
+                    AppendMetas(metasAdd);
                 }
                 nextPage = "date".Equals(((TimelineIni)ini).Order)
                     ? nextPage.AddDays(-timelinekApi.Data.Count) : nextPage;

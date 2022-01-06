@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class PaulProvider : BaseProvider {
@@ -42,6 +43,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             Debug.WriteLine("provider url: " + URL_API);
             try {
@@ -49,17 +51,10 @@ namespace TimelineWallpaper.Providers {
                     AllowAutoRedirect = false
                 });
                 HttpResponseMessage msg = await client.GetAsync(URL_API);
-                Meta meta = ParseBean(msg.Headers.Location);
-                if (!meta.IsValid()) {
-                    return metas.Count > 0;
-                }
-                bool exists = false;
-                foreach (Meta m in metas) {
-                    exists |= meta.Id.Equals(m.Id);
-                }
-                if (!exists) {
-                    metas.Add(meta);
-                }
+                List<Meta> metasAdd = new List<Meta> {
+                    ParseBean(msg.Headers.Location)
+                };
+                AppendMetas(metasAdd);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

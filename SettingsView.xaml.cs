@@ -140,16 +140,14 @@ namespace TimelineWallpaper {
             BoxHimawari8Offset.Value = ((Himawari8Ini)ini.GetIni(Himawari8Ini.ID)).Offset;
             BoxYmyouliCol.SelectedIndex = listYmyouliCol.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Col);
             BoxInfinityOrder.SelectedIndex = listInfinityOrder.Select(t => t.Id).ToList().IndexOf(((InfinityIni)ini.GetIni(InfinityIni.ID)).Order);
-
+            
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
             TextThemeCur.Text = rb.Content.ToString();
 
             //StorageFolder folderSave = await GetFolderSave();
             //SettingsSaveDesc.Text = string.Format(resLoader.GetString("DetailSave"), (await folderSave.GetFilesAsync()).Count);
-        }
 
-        public void AfterPaneOpen() {
             paneOpened = true;
         }
 

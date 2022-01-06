@@ -126,7 +126,7 @@
   <data name="AppNameShort" xml:space="preserve">
     <value>Timeline</value>
   </data>
-  <data name="MenuSettings.Label" xml:space="preserve">
+  <data name="MenuSettings.ToolTipService.ToolTip" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="BtnInfoLink.Content" xml:space="preserve">
@@ -372,7 +372,7 @@
   <data name="TipMenu.Title" xml:space="preserve">
     <value>Tips</value>
   </data>
-  <data name="DlgAbout.CloseButtonText" xml:space="preserve">
+  <data name="DlgReview.CloseButtonText" xml:space="preserve">
     <value>Maybe next</value>
   </data>
   <data name="TextReview0.Text" xml:space="preserve">
@@ -653,5 +653,29 @@
   </data>
   <data name="SettingsContributeTitle.Text" xml:space="preserve">
     <value>Want to contribute</value>
+  </data>
+  <data name="Provider_abyss" xml:space="preserve">
+    <value>Wallpaper Abyss</value>
+  </data>
+  <data name="Slogan_abyss" xml:space="preserve">
+    <value>Home to 935361 wallpapers</value>
+  </data>
+  <data name="TextContributeUrl.Text" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="DlgReview.PrimaryButtonText" xml:space="preserve">
+    <value>Rate it</value>
+  </data>
+  <data name="MsgCtrlR" xml:space="preserve">
+    <value>Ctrl+R: Refresh. LEFT: Look back.</value>
+  </data>
+  <data name="MsgF5" xml:space="preserve">
+    <value>F5: Refresh. LEFT: Look back.</value>
+  </data>
+  <data name="MsgKey" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="TextContribute.Text" xml:space="preserve">
+    <value>投稿即同意本项目非商业性使用您的摄影作品。</value>
   </data>
 </root>

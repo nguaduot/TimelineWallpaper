@@ -55,6 +55,8 @@ namespace TimelineWallpaper.Beans {
         // 主题色笔刷
         //public SolidColorBrush Dominant { set; get; }
 
+        public double SortFactor { set; get; }
+
         public bool IsValid() {
             return !string.IsNullOrEmpty(Id) && Date != null;
         }

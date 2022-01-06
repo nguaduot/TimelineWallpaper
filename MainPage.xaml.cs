@@ -345,7 +345,7 @@ namespace TimelineWallpaper {
             ProgressLoading.ShowPaused = false;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = Visibility.Visible;
-            ToggleInfo(null);
+            ToggleInfo(null, null);
         }
 
         private void StatusError() {
@@ -367,7 +367,7 @@ namespace TimelineWallpaper {
             MenuVolumnOff.Visibility = Visibility.Collapsed;
             MenuSave.IsEnabled = false;
 
-            ToggleInfo(!NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
+            ToggleInfo(null, !NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
                 : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
         }
 
@@ -388,7 +388,7 @@ namespace TimelineWallpaper {
             }
 
             if (!UserProfilePersonalizationSettings.IsSupported()) {
-                ToggleInfo(resLoader.GetString("MsgWallpaper0"));
+                ToggleInfo(null, resLoader.GetString("MsgWallpaper0"));
                 return;
             }
             // Your app can't set wallpapers from any folder.
@@ -401,9 +401,9 @@ namespace TimelineWallpaper {
                 ? await profileSettings.TrySetWallpaperImageAsync(fileWallpaper)
                 : await profileSettings.TrySetLockScreenImageAsync(fileWallpaper);
             if (wallpaperSet) {
-                ToggleInfo(resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop1" : "MsgSetLock1"), InfoBarSeverity.Success);
+                ToggleInfo(null, resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop1" : "MsgSetLock1"), InfoBarSeverity.Success);
             } else {
-                ToggleInfo(resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop0" : "MsgSetLock0"));
+                ToggleInfo(null, resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop0" : "MsgSetLock0"));
             }
         }
 
@@ -411,12 +411,12 @@ namespace TimelineWallpaper {
             StorageFile file = await provider.Download(meta, resLoader.GetString("AppNameShort"),
                 resLoader.GetString("Provider_" + provider.Id));
             if (file != null) {
-                ToggleInfo(resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, () => {
+                ToggleInfo(null, resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, () => {
                     LaunchPicLib(file);
-                    ToggleInfo(null);
+                    ToggleInfo(null, null);
                 });
             } else {
-                ToggleInfo(resLoader.GetString("MsgSave0"));
+                ToggleInfo(null, resLoader.GetString("MsgSave0"));
             }
         }
 
@@ -475,12 +475,16 @@ namespace TimelineWallpaper {
             }
         }
 
-        private void ToggleInfo(string msg, InfoBarSeverity severity = InfoBarSeverity.Error, BtnInfoLinkHandler handler = null) {
+        private void ToggleInfo(string title, string msg, InfoBarSeverity severity = InfoBarSeverity.Error, BtnInfoLinkHandler handler = null) {
             if (string.IsNullOrEmpty(msg)) {
                 Info.IsOpen = false;
                 return;
             }
             Info.Severity = severity;
+            //Info.Background = new AcrylicBrush() {
+            //    BackgroundSource = AcrylicBackgroundSource.Backdrop
+            //};
+            Info.Title = title ?? "";
             Info.Message = msg;
             InfoLink = handler;
             BtnInfoLink.Visibility = handler != null ? Visibility.Visible : Visibility.Collapsed;
@@ -493,29 +497,26 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(2000);
-            ToggleInfo(resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
+            ToggleInfo(null, resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
                 LaunchRelealse();
-                ToggleInfo(null);
+                ToggleInfo(null, null);
             });
         }
 
         private async void ChecReviewAsync() {
             int.TryParse(localSettings.Values["launchTimes"]?.ToString(), out int times);
             localSettings.Values["launchTimes"] = ++times;
-            if (times != 10) {
+            if (times != 15) {
                 return;
             }
             await Task.Delay(1000);
-            //localSettings.Values.Remove("launchTimes");
             FlyoutMenu.Hide();
-            _ = new ReviewDlg().ShowAsync();
-        }
-
-        private async void OpenSettingsAsync() {
-            ViewSettings.BeforePaneOpen(ini);
-            await Task.Delay(400);
-            ViewSettings.AfterPaneOpen();
-            ViewSplit.IsPaneOpen = true;
+            var action = await new ReviewDlg().ShowAsync();
+            if (action == ContentDialogResult.Primary) {
+                _ = Launcher.LaunchUriAsync(new Uri(resLoader.GetStringForUri(new Uri("ms-resource:///Resources/LinkReview/NavigateUri"))));
+            } else {
+                localSettings.Values.Remove("launchTimes");
+            }
         }
 
         private async Task<bool> RegService() {
@@ -523,7 +524,7 @@ namespace TimelineWallpaper {
             Debug.WriteLine("RequestAccessAsync: " + reqStatus);
             if (reqStatus != BackgroundAccessStatus.AlwaysAllowed
                 && reqStatus != BackgroundAccessStatus.AllowedSubjectToSystemPolicy) {
-                ToggleInfo(resLoader.GetString("TitleErrPush"));
+                ToggleInfo(null, resLoader.GetString("TitleErrPush"));
                 return false;
             }
             if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(BG_TASK_NAME_TIMER))) {
@@ -656,7 +657,9 @@ namespace TimelineWallpaper {
         }
 
         private void MenuSettings_Click(object sender, RoutedEventArgs e) {
-            OpenSettingsAsync();
+            FlyoutMenu.Hide();
+            ViewSettings.BeforePaneOpen(ini);
+            ViewSplit.IsPaneOpen = true;
         }
 
         private void BtnInfoLink_Click(object sender, RoutedEventArgs e) {
@@ -666,7 +669,7 @@ namespace TimelineWallpaper {
         private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
             ProgressLoading.Visibility = Visibility.Visible;
             ToggleStory(true);
-            ToggleInfo(null);
+            ToggleInfo(null, null);
         }
 
         private void ViewBar_PointerExited(object sender, PointerRoutedEventArgs e) {
@@ -674,7 +677,7 @@ namespace TimelineWallpaper {
                 ProgressLoading.Visibility = Visibility.Collapsed;
             }
             ToggleStory(false);
-            ToggleInfo(null);
+            ToggleInfo(null, null);
         }
 
         private void ImgUhd_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
@@ -747,22 +750,16 @@ namespace TimelineWallpaper {
                     break;
                 case VirtualKey.R:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        ini = null;
-                        provider = null;
-                        StatusLoading();
-                        LoadFocusAsync();
+                        Refresh(true);
                     }
                     break;
                 case VirtualKey.F5:
-                    ini = null;
-                    provider = null;
-                    StatusLoading();
-                    LoadFocusAsync();
+                    Refresh();
                     break;
                 case VirtualKey.F:
                 case VirtualKey.G:
                     if (ini.GetIni().IsSequential() && !FlyoutGo.IsOpen) {
-                        BoxGo.PlaceholderText = String.Format(resLoader.GetString("CurDate"), meta.Date?.ToString("M") ?? "MMdd");
+                        BoxGo.PlaceholderText = string.Format(resLoader.GetString("CurDate"), meta?.Date?.ToString("M") ?? "MMdd");
                         BoxGo.Text = "";
                         FlyoutBase.ShowAttachedFlyout(AnchorGo);
                     } else {
@@ -771,6 +768,19 @@ namespace TimelineWallpaper {
                     break;
             }
             args.Handled = true;
+        }
+
+        private void Refresh(bool useCtrlR = false) {
+            ini = null;
+            provider = null;
+            StatusLoading();
+            LoadFocusAsync();
+
+            if (!localSettings.Values.ContainsKey("tipRefresh")) {
+                localSettings.Values["tipRefresh"] = true;
+                ToggleInfo(resLoader.GetString("MsgKey"), useCtrlR ? resLoader.GetString("MsgCtrlR") : resLoader.GetString("MsgF5"),
+                    InfoBarSeverity.Informational);
+            }
         }
 
         private void AnimeYesterday1_Completed(object sender, object e) {
@@ -796,7 +806,8 @@ namespace TimelineWallpaper {
                 ElementTheme theme = ThemeUtil.ParseTheme(ini.Theme);
                 MenuProvider.RequestedTheme = theme;
                 MenuPush.RequestedTheme = theme;
-                MenuSettings.RequestedTheme = theme;
+                MenuSetDesktop.RequestedTheme = theme;
+                MenuSetLock.RequestedTheme = theme;
                 foreach (RadioMenuFlyoutItem item in SubmenuProvider.Items.Cast<RadioMenuFlyoutItem>()) {
                     item.RequestedTheme = theme;
                 }

@@ -8,6 +8,7 @@ using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class LofterProvider : BaseProvider {
@@ -53,6 +54,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             Debug.WriteLine("provider url: " + URL_API);
             try {
@@ -61,20 +63,11 @@ namespace TimelineWallpaper.Providers {
                 string htmlData = await client.GetStringAsync(URL_API);
                 //Debug.WriteLine("provider data: " + htmlData);
                 LofterApi lofterApi = JsonConvert.DeserializeObject<LofterApi>(FindJson(htmlData));
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (LofterApiBg bg in lofterApi.Background) {
-                    Meta meta = ParseBean(bg, lofterApi.CurDate);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(meta);
-                    }
+                    metasAdd.Add(ParseBean(bg, lofterApi.CurDate));
                 }
-                RandomMetas();
+                RandomMetas(metasAdd);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

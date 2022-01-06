@@ -57,6 +57,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             string module = modules[nextPage++];
             col = YmyouliIni.COL_MODULE_DIC[col][module];
@@ -76,20 +77,11 @@ namespace TimelineWallpaper.Providers {
                 jsonData = Regex.Replace(jsonData, @"^.*?(\{.+\}).*$", "$1", RegexOptions.Singleline); // 提取JSON
                 //Debug.WriteLine("provider data: " + jsonData);
                 YmyouliApi ymyouliApi = JsonConvert.DeserializeObject<YmyouliApi>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (YmyouliApiProp5 prop in ymyouliApi.ModuleInfo.Props) {
-                    Meta meta = ParseBean(prop.Id, ymyouliApi.ModuleInfo.Name, ymyouliApi.ModuleInfo.CreateTime);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(meta);
-                    }
+                    metasAdd.Add(ParseBean(prop.Id, ymyouliApi.ModuleInfo.Name, ymyouliApi.ModuleInfo.CreateTime));
                 }
-                RandomMetas();
+                RandomMetas(metasAdd);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

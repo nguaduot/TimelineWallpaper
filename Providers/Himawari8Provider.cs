@@ -11,6 +11,7 @@ using Microsoft.Graphics.Canvas;
 using Windows.UI;
 using Windows.Storage;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class Himawari8Provider : BaseProvider {
@@ -47,6 +48,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             try {
                 for (int i = 0; i < 5; i++) {
@@ -59,19 +61,14 @@ namespace TimelineWallpaper.Providers {
                     req.Method = HttpMethod.Head.Method;
                     var res = (HttpWebResponse)await req.GetResponseAsync();
                     if (res.StatusCode == HttpStatusCode.OK && res.ContentLength > 10 * 1024) {
-                        Meta meta = ParseBean(nextPage.AddMinutes(-10 * i));
-                        bool exists = false;
-                        foreach (Meta m in metas) {
-                            exists |= meta.Id.Equals(m.Id);
-                        }
-                        if (!exists) {
-                            metas.Add(meta);
-                        }
+                        List<Meta> metasAdd = new List<Meta> {
+                            ParseBean(nextPage.AddMinutes(-10 * i))
+                        };
+                        SortMetas(metasAdd);
                         break;
                     }
                     res.Close();
                 }
-                SortMetas();
                 nextPage = nextPage.AddHours(-1);
             } catch (Exception e) {
                 Debug.WriteLine(e);

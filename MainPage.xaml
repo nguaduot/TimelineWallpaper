@@ -78,32 +78,6 @@
                                          Modifiers="None" />
                 </AppBarButton.KeyboardAccelerators>
             </AppBarButton>
-            <AppBarButton Name="MenuSetDesktop"
-                          x:Uid="MenuSetDesktop"
-                          IsEnabled="False"
-                          Click="MenuSetDesktop_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                              Glyph="&#xE7F7;" />
-                </AppBarButton.Icon>
-                <AppBarButton.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="B"
-                                         Modifiers="Control" />
-                </AppBarButton.KeyboardAccelerators>
-            </AppBarButton>
-            <AppBarButton Name="MenuSetLock"
-                          x:Uid="MenuSetLock"
-                          IsEnabled="False"
-                          Click="MenuSetLock_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                              Glyph="&#xEE3F;" />
-                </AppBarButton.Icon>
-                <AppBarButton.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="L"
-                                         Modifiers="Control" />
-                </AppBarButton.KeyboardAccelerators>
-            </AppBarButton>
             <AppBarButton Name="MenuVolumnOn"
                           x:Uid="MenuVolumnOn"
                           Label=""
@@ -137,7 +111,49 @@
                                          Modifiers="Control" />
                 </AppBarButton.KeyboardAccelerators>
             </AppBarButton>
+            <AppBarButton Name="MenuSettings"
+                          x:Uid="MenuSettings"
+                          PointerEntered="MenuSettings_PointerEntered"
+                          Click="MenuSettings_Click">
+                <AppBarButton.Icon>
+                    <FontIcon x:Name="IconSettings"
+                              FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xE713;"
+                              RenderTransformOrigin="0.5,0.5">
+                        <FontIcon.RenderTransform>
+                            <RotateTransform Angle="0" />
+                        </FontIcon.RenderTransform>
+                    </FontIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
             <muxc:CommandBarFlyout.SecondaryCommands>
+                <AppBarButton Name="MenuSetDesktop"
+                              x:Uid="MenuSetDesktop"
+                              IsEnabled="False"
+                              Click="MenuSetDesktop_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Glyph="&#xE7F7;" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="B"
+                                             Modifiers="Control" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <AppBarButton Name="MenuSetLock"
+                              x:Uid="MenuSetLock"
+                              IsEnabled="False"
+                              Click="MenuSetLock_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Glyph="&#xEE3F;" />
+                    </AppBarButton.Icon>
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Key="L"
+                                             Modifiers="Control" />
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
+                <AppBarSeparator />
                 <AppBarButton Name="MenuProvider"
                               x:Uid="MenuProvider">
                     <AppBarButton.Icon>
@@ -221,22 +237,6 @@
                         </MenuFlyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarSeparator />
-                <AppBarButton Name="MenuSettings"
-                              x:Uid="MenuSettings"
-                              PointerEntered="MenuSettings_PointerEntered"
-                              Click="MenuSettings_Click">
-                    <AppBarButton.Icon>
-                        <FontIcon x:Name="IconSettings"
-                                  FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                                  Glyph="&#xE713;"
-                                  RenderTransformOrigin="0.5,0.5">
-                            <FontIcon.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
-                    </AppBarButton.Icon>
-                </AppBarButton>
             </muxc:CommandBarFlyout.SecondaryCommands>
         </muxc:CommandBarFlyout>
 
@@ -283,6 +283,12 @@
                         <AdaptiveTrigger MinWindowWidth="640" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="ViewSplit.DisplayMode"
+                                Value="Overlay" />
+                        <Setter Target="ViewSplit.OpenPaneLength"
+                                Value="420" />
+                        <Setter Target="ViewSplit.PaneBackground"
+                                Value="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
                         <Setter Target="ViewBar.Margin"
                                 Value="24" />
                         <Setter Target="ViewBar.Padding"
@@ -290,9 +296,7 @@
                         <Setter Target="ViewBar.CornerRadius"
                                 Value="14" />
                         <Setter Target="Info.Margin"
-                                Value="24" />
-                        <Setter Target="Info.Margin"
-                                Value="24" />
+                                Value="24,36,24,24" />
                         <Setter Target="AnchorGo.Margin"
                                 Value="0,0,24,24" />
                     </VisualState.Setters>
@@ -455,16 +459,17 @@
 
         </StackPanel>
 
-        <muxc:InfoBar Name="Info"
-                      IsOpen="False"
-                      Margin="12">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Name="BtnInfoLink"
-                                 x:Uid="BtnInfoLink"
-                                 Visibility="Collapsed"
-                                 Click="BtnInfoLink_Click" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
+            <muxc:InfoBar Name="Info"
+                          Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                          IsOpen="False"
+                          Margin="12,36,12,12">
+                <muxc:InfoBar.ActionButton>
+                    <HyperlinkButton Name="BtnInfoLink"
+                                     x:Uid="BtnInfoLink"
+                                     Visibility="Collapsed"
+                                     Click="BtnInfoLink_Click" />
+                </muxc:InfoBar.ActionButton>
+            </muxc:InfoBar>
 
             <Rectangle Name="AnchorGo"
                        Width="0"

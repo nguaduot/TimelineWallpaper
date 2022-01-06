@@ -27,7 +27,7 @@
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>D:\uwp\TimelineWallpaper\AppPackages</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -144,6 +144,7 @@
     <Compile Include="DonateDlg.xaml.cs">
       <DependentUpon>DonateDlg.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Providers\AbyssProvider.cs" />
     <Compile Include="Providers\Himawari8Provider.cs" />
     <Compile Include="Providers\TimelineProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />

@@ -46,6 +46,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             string urlApi = "rate".Equals(((InfinityIni)ini).Order) ? String.Format(URL_API, ++pageIndex)
                 : string.Format(URL_API_RANDOM, DateUtil.CurrentTimeMillis());
@@ -55,18 +56,14 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 InfinityApi infinityApi = JsonConvert.DeserializeObject<InfinityApi>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (InfinityApiData item in infinityApi.Data) {
-                    Meta meta = ParseBean(item);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(ParseBean(item));
-                    }
+                    metasAdd.Add(ParseBean(item));
+                }
+                if ("rate".Equals(((InfinityIni)ini).Order)) {
+                    RandomMetas(metasAdd);
+                } else {
+                    AppendMetas(metasAdd);
                 }
             } catch (Exception e) {
                 Debug.WriteLine(e);

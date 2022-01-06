@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class OneplusProvider : BaseProvider {
@@ -48,6 +49,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             // "1"：最新添加，"2"：点赞最多，"3"：浏览最多
             string sort = "rate".Equals(((OneplusIni)ini).Order) ? "2" : ("view".Equals(((OneplusIni)ini).Order) ? "3" : "1");
@@ -67,22 +69,14 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 OneplusApi oneplusApi = JsonConvert.DeserializeObject<OneplusApi>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (OneplusApiItem item in oneplusApi.Items) {
-                    Debug.WriteLine(item.ScheduleTime);
-                    Meta meta = ParseBean(item);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(ParseBean(item));
-                    }
+                    metasAdd.Add(ParseBean(item));
                 }
                 if ("1".Equals(((OneplusIni)ini).Order)) { // 按时序倒序排列
-                    SortMetas();
+                    SortMetas(metasAdd);
+                } else {
+                    RandomMetas(metasAdd);
                 }
             } catch (Exception e) {
                 Debug.WriteLine(e);

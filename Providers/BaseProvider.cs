@@ -11,6 +11,9 @@ using Windows.Graphics.Imaging;
 using Windows.Media.Editing;
 using System.Drawing;
 using Newtonsoft.Json;
+using System.Text;
+using System.IO;
+using System.Linq;
 
 namespace TimelineWallpaper.Providers {
     public class BaseProvider {
@@ -23,7 +26,19 @@ namespace TimelineWallpaper.Providers {
         // 当前浏览索引
         protected int indexFocus = 0;
 
-        protected void SortMetas() {
+        protected Dictionary<string, int> dicHistory = new Dictionary<string, int>();
+
+        protected void AppendMetas(List<Meta> metasAdd) {
+            List<string> list = metas.Select(t => t.Id).ToList();
+            foreach (Meta meta in metasAdd) {
+                if (!list.Contains(meta.Id) && meta.IsValid()) {
+                    metas.Add(meta);
+                }
+            }
+        }
+
+        protected void SortMetas(List<Meta> metasAdd) {
+            AppendMetas(metasAdd);
             string idFocus = GetFocus()?.Id;
             // 按日期降序排列
             metas.Sort((m1, m2) => {
@@ -46,26 +61,56 @@ namespace TimelineWallpaper.Providers {
             }
         }
 
-        protected void RandomMetas() {
-            List<Meta> metasNew = new List<Meta>();
+        protected void RandomMetas(List<Meta> metasAdd) {
+            //List<Meta> metasNew = new List<Meta>();
+            //Random random = new Random();
+            //foreach (Meta meta in metas) {
+            //    metasNew.Insert(random.Next(metasNew.Count + 1), meta);
+            //}
+            //metas.Clear();
+            //metas.AddRange(metasNew);
             Random random = new Random();
-            foreach (Meta meta in metas) {
-                metasNew.Insert(random.Next(metasNew.Count + 1), meta);
+            foreach (Meta meta in metasAdd) {
+                dicHistory.TryGetValue(meta.Id, out int times);
+                meta.SortFactor = random.NextDouble() + (times / 10.0 > 0.9 ? 0.9 : times / 10.0);
             }
-            metas.Clear();
-            metas.AddRange(metasNew);
+            // 升序排列，已阅图降低出现在前排的概率
+            metasAdd.Sort((m1, m2) => m1.SortFactor.CompareTo(m2.SortFactor));
+            AppendMetas(metasAdd);
         }
 
         public virtual async Task<bool> LoadData(BaseIni ini, DateTime? date = null) {
-            await Task.Delay(1000);
+            await Task.Run(() => {
+                dicHistory = GetHistory(Id);
+            });
             return false;
         }
 
-        public Meta GetFocus() => metas.Count > 0 ? metas[indexFocus] : null;
+        public Meta GetFocus() {
+            if (metas.Count > 0) {
+                if (dicHistory.ContainsKey(metas[indexFocus].Id)) {
+                    dicHistory[metas[indexFocus].Id] += 1;
+                } else {
+                    dicHistory[metas[indexFocus].Id] = 1;
+                }
+                SaveHistory(Id, dicHistory);
+                return metas[indexFocus];
+            }
+            return null;
+        }
 
         public Meta Yesterday() {
             indexFocus = indexFocus < metas.Count - 1 ? indexFocus + 1 : metas.Count - 1;
-            return metas.Count > 0 ? metas[indexFocus] : null;
+            if (metas.Count > 0) {
+                if (dicHistory.ContainsKey(metas[indexFocus].Id)) {
+                    dicHistory[metas[indexFocus].Id] += 1;
+                } else {
+                    dicHistory[metas[indexFocus].Id] = 1;
+                }
+                SaveHistory(Id, dicHistory);
+                return metas[indexFocus];
+            }
+            return null;
         }
 
         public Meta GetYesterday() {
@@ -206,6 +251,20 @@ namespace TimelineWallpaper.Providers {
                 Debug.WriteLine("download error");
             }
             return null;
+        }
+
+        public static Dictionary<string, int> GetHistory(string provider) {
+            string file = Path.Combine(ApplicationData.Current.LocalFolder.Path, provider + ".json");
+            if (!File.Exists(file)) {
+                return new Dictionary<string, int>();
+            }
+            string content = File.ReadAllText(file, UTF8Encoding.UTF8);
+            return JsonConvert.DeserializeObject<Dictionary<string, int>>(content);
+        }
+
+        public static void SaveHistory(string provider, Dictionary<string, int> dic) {
+            string file = Path.Combine(ApplicationData.Current.LocalFolder.Path, provider + ".json");
+            File.WriteAllText(file, JsonConvert.SerializeObject(dic), UTF8Encoding.UTF8);
         }
     }
 }

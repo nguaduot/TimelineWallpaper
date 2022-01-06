@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class BingProvider : BaseProvider {
@@ -93,6 +94,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             string urlApi = URL_API_PAGES[++pageIndex];
             if (((BingIni)ini).Lang.Length > 0) {
@@ -104,20 +106,11 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 BingApi bingApi = JsonConvert.DeserializeObject<BingApi>(jsonData);
+                List<Meta> metasAdd = new List<Meta>();
                 foreach (BingApiImg img in bingApi.Images) {
-                    Meta meta = ParseBean(img);
-                    if (!meta.IsValid()) {
-                        continue;
-                    }
-                    bool exists = false;
-                    foreach (Meta m in metas) {
-                        exists |= meta.Id.Equals(m.Id);
-                    }
-                    if (!exists) {
-                        metas.Add(meta);
-                    }
+                    metasAdd.Add(ParseBean(img));
                 }
-                SortMetas(); // 按时序倒序排列
+                SortMetas(metasAdd); // 按时序倒序排列
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

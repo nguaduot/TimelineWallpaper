@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TimelineWallpaper.Utils;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace TimelineWallpaper.Providers {
     public class MtyProvider : BaseProvider {
@@ -40,6 +41,7 @@ namespace TimelineWallpaper.Providers {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
+            await base.LoadData(ini, date);
 
             Debug.WriteLine("provider url: " + URL_API);
             try {
@@ -47,17 +49,10 @@ namespace TimelineWallpaper.Providers {
                 string jsonData = await client.GetStringAsync(URL_API);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 DmoeApiItem item = JsonConvert.DeserializeObject<DmoeApiItem>(jsonData);
-                Meta meta = ParseBean(item);
-                if (!meta.IsValid()) {
-                    return metas.Count > 0;
-                }
-                bool exists = false;
-                foreach (Meta m in metas) {
-                    exists |= meta.Id.Equals(m.Id);
-                }
-                if (!exists) {
-                    metas.Add(meta);
-                }
+                List<Meta> metasAdd = new List<Meta> {
+                    ParseBean(item)
+                };
+                AppendMetas(metasAdd);
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

@@ -14,6 +14,7 @@ namespace TimelineWallpaper.Utils {
             { G3Ini.ID, new G3Ini() },
             { PixivelIni.ID, new PixivelIni() },
             { LofterIni.ID, new LofterIni() },
+            { AbyssIni.ID, new AbyssIni() },
             { DaihanIni.ID, new DaihanIni() },
             { DmoeIni.ID, new DmoeIni() },
             { ToubiecIni.ID, new ToubiecIni() },
@@ -348,6 +349,16 @@ namespace TimelineWallpaper.Utils {
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new LofterProvider() { Id = ID };
+
+        override public string ToString() => $"pushperiod={PushPeriod}";
+    }
+
+    public class AbyssIni : BaseIni {
+        public const string ID = "abyss";
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new AbyssProvider() { Id = ID };
 
         override public string ToString() => $"pushperiod={PushPeriod}";
     }

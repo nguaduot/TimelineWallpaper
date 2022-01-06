@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,7 +19,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-3.0.ini";
+        private const string FILE_INI = "timelinewallpaper-3.1.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -50,6 +53,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=pixivel    图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
                     "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
+                    "; provider=abyss      图源：Wallpaper Abyss - 壁纸聚集地 https://wall.alphacoders.com",
                     "; provider=daihan     图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
                     "; provider=dmoe       图源：樱花API - 随机二次元图片 https://www.dmoe.cc",
                     "; provider=toubiec    图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
@@ -179,6 +183,11 @@ namespace TimelineWallpaper.Utils {
                     "; sanity={n}   敏感度：1~10（默认为5）",
                     "",
                     "[lofter]",
+                    "",
+                    "pushperiod=24",
+                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "[abyss]",
                     "",
                     "pushperiod=24",
                     "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
@@ -382,6 +391,11 @@ namespace TimelineWallpaper.Utils {
             ini.SetIni("lofter", new LofterIni {
                 PushPeriod = period
             });
+            _ = GetPrivateProfileString("abyss", "pushperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out period);
+            ini.SetIni("abyss", new AbyssIni {
+                PushPeriod = period
+            });
             _ = GetPrivateProfileString("daihan", "pushperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out period);
             ini.SetIni("daihan", new DaihanIni {
@@ -453,18 +467,18 @@ namespace TimelineWallpaper.Utils {
             }
             if (Regex.Match(text, @"\d").Success) {
                 if (text.Length == 8) {
-                    text = text.Substring(0, 4) + "-" + text.Substring(4, 6) + "-" + text.Substring(6);
+                    text = text.Substring(0, 4) + "-" + text.Substring(4, 2) + "-" + text.Substring(6);
                 } else if (text.Length == 6) {
-                    text = text.Substring(0, 2) + "-" + text.Substring(2, 4) + "-" + text.Substring(4);
+                    text = text.Substring(0, 2) + "-" + text.Substring(2, 2) + "-" + text.Substring(4);
                 } else if (text.Length == 5) {
-                    text = text.Substring(0, 2) + "-" + text.Substring(2, 3) + "-" + text.Substring(3);
+                    text = text.Substring(0, 2) + "-" + text.Substring(2, 1) + "-" + text.Substring(3);
                 } else if (text.Length == 4) {
                     text = text.Substring(0, 2) + "-" + text.Substring(2);
                 } else if (text.Length == 3) {
                     text = text.Substring(0, 1) + "-" + text.Substring(1);
                 } else if (text.Length == 2) {
                     if (int.Parse(text) > DateTime.DaysInMonth(date.Year, date.Month)) {
-                        text = text = text.Substring(0, 1) + "-" + text.Substring(1);
+                        text = text.Substring(0, 1) + "-" + text.Substring(1);
                     } else {
                         text = date.Month + "-" + text;
                     }
