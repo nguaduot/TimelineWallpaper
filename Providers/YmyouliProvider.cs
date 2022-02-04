@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Windows.ApplicationModel.Resources;
 
 namespace TimelineWallpaper.Providers {
     public class YmyouliProvider : BaseProvider {
@@ -27,12 +28,13 @@ namespace TimelineWallpaper.Providers {
         // https://www.ymyouli.com/
         private const string URL_API = "https://www.ymyouli.com/ajax/ajaxLoadModuleDom_h.jsp";
 
-        private Meta ParseBean(string id, string name, long time) {
+        private Meta ParseBean(string id, string name, string cate, long time) {
             return new Meta {
                 Id = id,
                 Uhd = string.Format(URL_UHD, id),
                 Thumb = string.Format(URL_THUMB, id),
                 Caption = name?.Replace(Regex.Escape("\x00a0"), ""),
+                Cate = cate,
                 Date = DateUtil.FromUnixMillis(time),
                 Format = ".jpg" // TODO
             };
@@ -79,7 +81,9 @@ namespace TimelineWallpaper.Providers {
                 YmyouliApi ymyouliApi = JsonConvert.DeserializeObject<YmyouliApi>(jsonData);
                 List<Meta> metasAdd = new List<Meta>();
                 foreach (YmyouliApiProp5 prop in ymyouliApi.ModuleInfo.Props) {
-                    metasAdd.Add(ParseBean(prop.Id, ymyouliApi.ModuleInfo.Name, ymyouliApi.ModuleInfo.CreateTime));
+                    metasAdd.Add(ParseBean(prop.Id, ymyouliApi.ModuleInfo.Name,
+                        ResourceLoader.GetForCurrentView().GetString("YmyouliCol_" + col),
+                        ymyouliApi.ModuleInfo.CreateTime));
                 }
                 RandomMetas(metasAdd);
             } catch (Exception e) {

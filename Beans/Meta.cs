@@ -25,6 +25,9 @@ namespace TimelineWallpaper.Beans {
         // 副标题
         public string Caption { set; get; }
 
+        // 类别
+        public string Cate { set; get; }
+
         // 位置
         public string Location { set; get; }
 

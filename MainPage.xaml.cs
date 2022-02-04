@@ -85,7 +85,7 @@ namespace TimelineWallpaper {
             }
 
             meta = provider.GetFocus();
-            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
+            Debug.WriteLine("focus: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await provider.Cache(meta);
             if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
@@ -111,7 +111,7 @@ namespace TimelineWallpaper {
             }
 
             meta = provider.Yesterday();
-            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
+            Debug.WriteLine("yesterday: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await provider.Cache(meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
@@ -126,7 +126,7 @@ namespace TimelineWallpaper {
             PreLoadYesterdayAsync();
         }
 
-        private async void LoadLastAsync() {
+        private async void LoadTormorrowAsync() {
             long cost = DateTime.Now.Ticks;
             if (!await provider.LoadData(ini.GetIni())) {
                 Debug.WriteLine("failed to load data");
@@ -138,7 +138,7 @@ namespace TimelineWallpaper {
             }
 
             meta = provider.Tormorrow();
-            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
+            Debug.WriteLine("tormorrow: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await provider.Cache(meta);
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
@@ -193,33 +193,39 @@ namespace TimelineWallpaper {
             }
             provider = ini.GenerateProvider();
 
-            MenuPushCur.Text = string.Format(resLoader.GetString("Pushing"), resLoader.GetString("Provider_" + ini.PushProvider));
-            MenuPushDesktop.Text = string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + provider.Id));
-            MenuPushLock.Text = string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + provider.Id));
-            if (MenuPushNone.Tag.Equals(ini.Push)) {
-                MenuPushNone.IsChecked = true;
-                MenuPushCur.Visibility = Visibility.Collapsed;
-                MenuPushDesktop.IsChecked = false;
-                MenuPushLock.IsChecked = false;
+            //MenuPushDesktop.Label = string.Format(resLoader.GetString("PushDesktop"), resLoader.GetString("Provider_" + provider.Id));
+            //MenuPushLock.Label = string.Format(resLoader.GetString("PushLock"), resLoader.GetString("Provider_" + provider.Id));
+            MenuCurDesktop.Label = string.Format(resLoader.GetString("CurDesktop"), resLoader.GetString("Provider_" + ini.DesktopProvider));
+            MenuCurLock.Label = string.Format(resLoader.GetString("CurLock"), resLoader.GetString("Provider_" + ini.LockProvider));
+            if (string.IsNullOrEmpty(ini.DesktopProvider)) {
+                MenuPushDesktopIcon.Visibility = Visibility.Collapsed;
+                MenuCurDesktopIcon.Visibility = Visibility.Collapsed;
+                MenuCurDesktop.Visibility = Visibility.Collapsed;
+            } else if (ini.DesktopProvider.Equals(ini.Provider)) {
+                MenuPushDesktopIcon.Visibility = Visibility.Visible;
+                MenuCurDesktopIcon.Visibility = Visibility.Collapsed;
+                MenuCurDesktop.Visibility = Visibility.Collapsed;
             } else {
-                MenuPushNone.IsChecked = false;
-                if (provider.Id.Equals(ini.PushProvider)) {
-                    MenuPushCur.Visibility = Visibility.Collapsed;
-                    MenuPushDesktop.IsChecked = MenuPushDesktop.Tag.Equals(ini.Push);
-                    MenuPushLock.IsChecked = MenuPushLock.Tag.Equals(ini.Push);
-                } else {
-                    MenuPushCur.Visibility = Visibility.Visible;
-                    MenuPushCur.Tag = ini.Push;
-                    MenuPushCur.IsChecked = true;
-                    MenuPushDesktop.IsChecked = false;
-                    MenuPushLock.IsChecked = false;
-                }
+                MenuPushDesktopIcon.Visibility = Visibility.Collapsed;
+                MenuCurDesktopIcon.Visibility = Visibility.Visible;
+                MenuCurDesktop.Visibility = Visibility.Visible;
             }
-            if (MenuPushNone.IsChecked) {
+            if (string.IsNullOrEmpty(ini.LockProvider)) {
+                MenuPushLockIcon.Visibility = Visibility.Collapsed;
+                MenuCurLock.Visibility = Visibility.Collapsed;
+            } else if (ini.LockProvider.Equals(ini.Provider)) {
+                MenuPushLockIcon.Visibility = Visibility.Visible;
+                MenuCurLock.Visibility = Visibility.Collapsed;
+            } else {
+                MenuPushLockIcon.Visibility = Visibility.Collapsed;
+                MenuCurLockIcon.Visibility = Visibility.Visible;
+                MenuCurLock.Visibility = Visibility.Visible;
+            }
+            if (string.IsNullOrEmpty(ini.DesktopProvider) && string.IsNullOrEmpty(ini.LockProvider)) {
                 UnregService();
             } else {
                 _ = RegService();
-                if (provider.Id.Equals(ini.PushProvider)) {
+                if (ini.DesktopProvider.Equals(ini.Provider) || ini.LockProvider.Equals(ini.Provider)) {
                     RunServiceNow(); // 用户浏览图源与推送图源一致，立即推送一次
                 }
             }
@@ -247,24 +253,22 @@ namespace TimelineWallpaper {
                     : resLoader.GetString("Slogan_" + provider.Id);
                 TextDetailCaption.Text = "";
             }
+            TextDetailCaption.Visibility = TextDetailCaption.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
             // 位置
             TextDetailLocation.Text = meta.Location ?? "";
+            TextDetailLocation.Visibility = TextDetailLocation.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
             // 图文故事
             TextDetailStory.Text = meta.Story ?? "";
+            TextDetailStory.Visibility = TextDetailStory.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
             // 版权所有者
             TextDetailCopyright.Text = meta.Copyright ?? "";
-            // 日期
+            TextDetailCopyright.Visibility = TextDetailCopyright.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
+            // 日期（保持可见）
             TextDetailDate.Text = meta.Date?.ToLongDateString();
-            // 文件属性
+            TextDetailDate.Visibility = Visibility.Visible;
+            // 文件属性（保持可见）
             TextDetailProperties.Text = "";
-
-            //if (ini.GetIni().IsSequential()) {
-            //    CalendarGo.SelectedDates.Clear();
-            //    CalendarGo.SelectedDates.Add(meta.Date.Value);
-            //    CalendarGo.SetDisplayDate(meta.Date.Value.AddDays(-7));
-            //} else {
-            //    CalendarGo.Visibility = Visibility.Collapsed;
-            //}
+            TextDetailProperties.Visibility = Visibility.Visible;
         }
 
         private void ShowImg(Meta meta) {
@@ -291,10 +295,15 @@ namespace TimelineWallpaper {
                 ImgUhd.Source = null;
             }
 
+            string source = resLoader.GetString("Provider_" + provider.Id);
+            if (meta.Cate != null) {
+                source += " · " + meta.Cate;
+            }
             StorageFile file = meta.CacheUhd ?? meta.CacheVideo ?? meta.CacheAudio;
             string fileSize = FileUtil.ConvertFileSize(file != null ? new FileInfo(file.Path).Length : 0);
             TextDetailProperties.Text = string.Format(resLoader.GetString("DetailSize"),
-                resLoader.GetString("Provider_" + provider.Id), meta.Dimen.Width, meta.Dimen.Height, fileSize);
+                source, meta.Dimen.Width, meta.Dimen.Height, fileSize);
+            TextDetailProperties.Visibility = Visibility.Visible;
             MenuSetDesktop.IsEnabled = meta.CacheUhd != null;
             MenuSetLock.IsEnabled = meta.CacheUhd != null;
             MenuVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume == 0
@@ -334,7 +343,7 @@ namespace TimelineWallpaper {
             MpeUhd.Scale = new Vector3(1, 1, 1);
             ProgressLoading.ShowPaused = true;
             ProgressLoading.ShowError = false;
-            ProgressLoading.Visibility = TextDetailDate.Visibility;
+            ProgressLoading.Visibility = ViewStory.Visibility;
         }
 
         private void StatusLoading() {
@@ -352,12 +361,12 @@ namespace TimelineWallpaper {
             ImgUhd.Opacity = 0;
             MpeUhd.Opacity = 0;
             TextTitle.Text = resLoader.GetString("AppDesc");
-            TextDetailCaption.Text = "";
-            TextDetailLocation.Text = "";
-            TextDetailStory.Text = "";
-            TextDetailCopyright.Text = "";
-            TextDetailDate.Text = "";
-            TextDetailProperties.Text = "";
+            TextDetailCaption.Visibility = Visibility.Collapsed;
+            TextDetailLocation.Visibility = Visibility.Collapsed;
+            TextDetailStory.Visibility = Visibility.Collapsed;
+            TextDetailCopyright.Visibility = Visibility.Collapsed;
+            TextDetailDate.Visibility = Visibility.Collapsed;
+            TextDetailProperties.Visibility = Visibility.Collapsed;
             ProgressLoading.ShowError = true;
             ProgressLoading.Visibility = Visibility.Visible;
 
@@ -457,38 +466,27 @@ namespace TimelineWallpaper {
             }
         }
 
-        private void ToggleStory(bool on) {
-            if (on) {
-                TextDetailCaption.Visibility = TextDetailCaption.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailLocation.Visibility = TextDetailLocation.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailStory.Visibility = TextDetailStory.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailCopyright.Visibility = TextDetailCopyright.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailDate.Visibility = TextDetailDate.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-                TextDetailProperties.Visibility = TextDetailProperties.Text.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-            } else {
-                TextDetailCaption.Visibility = Visibility.Collapsed;
-                TextDetailLocation.Visibility = Visibility.Collapsed;
-                TextDetailStory.Visibility = Visibility.Collapsed;
-                TextDetailCopyright.Visibility = Visibility.Collapsed;
-                TextDetailDate.Visibility = Visibility.Collapsed;
-                TextDetailProperties.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private void ToggleInfo(string title, string msg, InfoBarSeverity severity = InfoBarSeverity.Error, BtnInfoLinkHandler handler = null) {
             if (string.IsNullOrEmpty(msg)) {
                 Info.IsOpen = false;
                 return;
             }
             Info.Severity = severity;
-            //Info.Background = new AcrylicBrush() {
-            //    BackgroundSource = AcrylicBackgroundSource.Backdrop
-            //};
             Info.Title = title ?? "";
             Info.Message = msg;
             InfoLink = handler;
             BtnInfoLink.Visibility = handler != null ? Visibility.Visible : Visibility.Collapsed;
             Info.IsOpen = true;
+        }
+
+        private void ToggleImgMode(bool fillOn) {
+            ImgUhd.Stretch = fillOn ? Stretch.UniformToFill : Stretch.Uniform;
+            MpeUhd.Stretch = fillOn ? Stretch.UniformToFill : Stretch.Uniform;
+            MenuFillOn.Visibility = fillOn ? Visibility.Collapsed : Visibility.Visible;
+            MenuFillOff.Visibility = fillOn ? Visibility.Visible : Visibility.Collapsed;
+
+            ToggleInfo(null, fillOn ? resLoader.GetString("MsgUniformToFill") : resLoader.GetString("MsgUniform"),
+                InfoBarSeverity.Informational);
         }
 
         private async void CheckUpdateAsync() {
@@ -619,6 +617,12 @@ namespace TimelineWallpaper {
             MenuVolumnOff.Visibility = MpeUhd.MediaPlayer.Volume > 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        private void MenuFill_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+
+            ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
+        }
+
         private void MenuSave_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
             DownloadAsync();
@@ -628,21 +632,70 @@ namespace TimelineWallpaper {
         private void MenuPush_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
 
-            string push = ((ToggleMenuFlyoutItem)sender).Tag.ToString();
-            MenuPushNone.IsChecked = MenuPushNone.Tag.Equals(push);
-            MenuPushDesktop.IsChecked = MenuPushDesktop.Tag.Equals(push);
-            MenuPushLock.IsChecked = MenuPushLock.Tag.Equals(push);
-            MenuPushCur.Visibility = Visibility.Collapsed; // 该项禁选，因此无论选择其他任何项，该项都不再显示
+            AppBarButton menuCheck = sender as AppBarButton;
+            if (MenuPushDesktop.Tag.Equals(menuCheck.Tag)) {
+                if (MenuPushDesktopIcon.Visibility == Visibility.Visible) {
+                    MenuPushDesktopIcon.Visibility = Visibility.Collapsed;
+                } else {
+                    MenuPushDesktopIcon.Visibility = Visibility.Visible;
+                    MenuCurDesktopIcon.Visibility = Visibility.Collapsed;
+                    MenuCurDesktop.Visibility = Visibility.Collapsed;
+                }
+            } else if (MenuCurDesktop.Tag.Equals(menuCheck.Tag)) {
+                MenuCurDesktopIcon.Visibility = Visibility.Collapsed;
+                MenuCurDesktop.Visibility = Visibility.Collapsed;
+            }
+            if (MenuPushLock.Tag.Equals(menuCheck.Tag)) {
+                if (MenuPushLockIcon.Visibility == Visibility.Visible) {
+                    MenuPushLockIcon.Visibility = Visibility.Collapsed;
+                } else {
+                    MenuPushLockIcon.Visibility = Visibility.Visible;
+                    MenuCurLockIcon.Visibility = Visibility.Collapsed;
+                    MenuCurLock.Visibility = Visibility.Collapsed;
+                }
+            } else if (MenuCurLock.Tag.Equals(menuCheck.Tag)) {
+                MenuCurLockIcon.Visibility = Visibility.Collapsed;
+                MenuCurLock.Visibility = Visibility.Collapsed;
+            }
 
-            IniUtil.SavePush(push);
-            IniUtil.SavePushProvider(provider.Id);
-            ini.Push = push;
-            ini.PushProvider = provider.Id;
-            if (MenuPushNone.IsChecked) {
+            if (MenuCurDesktopIcon.Visibility == Visibility.Collapsed) {
+                ini.DesktopProvider = MenuPushDesktopIcon.Visibility == Visibility.Visible ? provider.Id : "";
+                IniUtil.SaveDesktopProvider(ini.DesktopProvider);
+            }
+            if (MenuCurLockIcon.Visibility == Visibility.Collapsed) {
+                ini.LockProvider = MenuPushLockIcon.Visibility == Visibility.Visible ? provider.Id : "";
+                IniUtil.SaveLockProvider(ini.LockProvider);
+            }
+
+            if (string.IsNullOrEmpty(ini.DesktopProvider) && string.IsNullOrEmpty(ini.LockProvider)) {
                 UnregService();
             } else {
                 _ = RegService();
-                RunServiceNow(); // 用户明确开启推送，立即推送一次
+                if ((MenuPushDesktop.Tag.Equals(menuCheck.Tag) && MenuPushDesktopIcon.Visibility == Visibility.Visible)
+                    || (MenuPushLock.Tag.Equals(menuCheck.Tag) && MenuPushLockIcon.Visibility == Visibility.Visible)) {
+                    RunServiceNow(); // 用户浏览图源与推送图源一致，立即推送一次
+                }
+            }
+
+            if (MenuPushDesktop.Tag.Equals(menuCheck.Tag)) {
+                if (MenuPushDesktopIcon.Visibility == Visibility.Visible) {
+                    ToggleInfo(null, resLoader.GetString("MsgPushDesktopOn"), InfoBarSeverity.Success);
+                } else {
+                    ToggleInfo(null, resLoader.GetString("MsgPushDesktopOff"), InfoBarSeverity.Warning);
+                }
+            }
+            if (MenuCurDesktop.Tag.Equals(menuCheck.Tag)) {
+                ToggleInfo(null, resLoader.GetString("MsgPushDesktopOff"), InfoBarSeverity.Warning);
+            }
+            if (MenuPushLock.Tag.Equals(menuCheck.Tag)) {
+                if (MenuPushLockIcon.Visibility == Visibility.Visible) {
+                    ToggleInfo(null, resLoader.GetString("MsgPushLockOn"), InfoBarSeverity.Success);
+                } else {
+                    ToggleInfo(null, resLoader.GetString("MsgPushLockOff"), InfoBarSeverity.Warning);
+                }
+            }
+            if (MenuCurLock.Tag.Equals(menuCheck.Tag)) {
+                ToggleInfo(null, resLoader.GetString("MsgPushLockOff"), InfoBarSeverity.Warning);
             }
         }
 
@@ -666,17 +719,17 @@ namespace TimelineWallpaper {
             InfoLink?.Invoke();
         }
 
-        private void ViewBar_PointerEntered(object sender, PointerRoutedEventArgs e) {
+        private void ViewBarPointer_PointerEntered(object sender, PointerRoutedEventArgs e) {
             ProgressLoading.Visibility = Visibility.Visible;
-            ToggleStory(true);
+            ViewStory.Visibility = Visibility.Visible;
             ToggleInfo(null, null);
         }
 
-        private void ViewBar_PointerExited(object sender, PointerRoutedEventArgs e) {
+        private void ViewBarPointer_PointerExited(object sender, PointerRoutedEventArgs e) {
             if (ProgressLoading.ShowPaused && !ProgressLoading.ShowError) {
                 ProgressLoading.Visibility = Visibility.Collapsed;
             }
-            ToggleStory(false);
+            ViewStory.Visibility = Visibility.Collapsed;
             ToggleInfo(null, null);
         }
 
@@ -689,8 +742,7 @@ namespace TimelineWallpaper {
                 stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
                 stretchTimer.Tick += (sender2, e2) => {
                     stretchTimer.Stop();
-                    ImgUhd.Stretch = ImgUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
-                    MpeUhd.Stretch = MpeUhd.Stretch == Stretch.Uniform ? Stretch.UniformToFill : Stretch.Uniform;
+                    ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
                 };
             }
             stretchTimer.Stop();
@@ -710,6 +762,7 @@ namespace TimelineWallpaper {
 
         private void FlyoutMenu_Opened(object sender, object e) {
             localSettings.Values["MenuLearned"] = true;
+            ToggleInfo(null, null);
         }
 
         private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
@@ -722,7 +775,7 @@ namespace TimelineWallpaper {
                 case VirtualKey.Right:
                 case VirtualKey.Down:
                     StatusLoading();
-                    LoadLastAsync();
+                    LoadTormorrowAsync();
                     break;
                 case VirtualKey.Enter:
                     ToggleFullscreenMode(true);
@@ -805,16 +858,33 @@ namespace TimelineWallpaper {
             if (e.ThemeChanged) { // 修复 muxc:CommandBarFlyout.SecondaryCommands 子元素无法响应随主题改变的BUG
                 ElementTheme theme = ThemeUtil.ParseTheme(ini.Theme);
                 MenuProvider.RequestedTheme = theme;
-                MenuPush.RequestedTheme = theme;
                 MenuSetDesktop.RequestedTheme = theme;
                 MenuSetLock.RequestedTheme = theme;
                 foreach (RadioMenuFlyoutItem item in SubmenuProvider.Items.Cast<RadioMenuFlyoutItem>()) {
                     item.RequestedTheme = theme;
                 }
-                foreach (ToggleMenuFlyoutItem item in SubmenuPush.Items.Cast<ToggleMenuFlyoutItem>()) {
-                    item.RequestedTheme = theme;
+                // 刷新状态颜色
+                ProgressLoading.ShowError = !ProgressLoading.ShowError;
+                ProgressLoading.ShowError = !ProgressLoading.ShowError;
+            }
+        }
+
+        private async void ViewSettings_ContributeChanged(object sender, EventArgs e) {
+            ContributeDlg dlg = new ContributeDlg();
+            var res = await dlg.ShowAsync();
+            if (res == ContentDialogResult.Primary) {
+                ContributeApiReq req = dlg.GetContent();
+                bool status = await ApiService.Contribute(req);
+                if (status) {
+                    ToggleInfo(null, resLoader.GetString("MsgContribute1"), InfoBarSeverity.Success);
+                } else {
+                    ToggleInfo(null, resLoader.GetString("MsgContribute0"), InfoBarSeverity.Warning);
                 }
             }
+        }
+
+        private void MenuFillOff_PointerEntered(object sender, PointerRoutedEventArgs e) {
+            AnimeFillOff.Begin();
         }
     }
 }

@@ -563,7 +563,6 @@
                            Margin="0,24,0,0" />
                 <muxc:Expander ExpandDirection="Down"
                                IsExpanded="False"
-                               Visibility="Collapsed"
                                HorizontalAlignment="Stretch"
                                HorizontalContentAlignment="Stretch"
                                Margin="0,8,0,0">
@@ -599,7 +598,7 @@
                         </Grid>
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
-                        <TextBlock x:Uid="TextContribute"
+                        <TextBlock x:Uid="TextContributePrivacy"
                                    TextWrapping="Wrap"
                                    Margin="28,0,0,0"
                                    Style="{StaticResource BodyTextBlockStyle}" />

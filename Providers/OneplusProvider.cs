@@ -3,11 +3,12 @@ using TimelineWallpaper.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace TimelineWallpaper.Providers {
     public class OneplusProvider : BaseProvider {
@@ -23,14 +24,18 @@ namespace TimelineWallpaper.Providers {
                 Id = bean.PhotoCode,
                 Uhd = bean.PhotoUrl,
                 Thumb = bean.PhotoUrl.Replace(".jpg", "_400_0.jpg"),
-                Title = bean.PhotoTopic,
-                Caption = bean.Remark,
-                Location = bean.PhotoLocation,
+                Title = bean.PhotoTopic?.Trim(),
                 Copyright = "@" + bean.Author,
                 Date = DateTime.ParseExact(bean.ScheduleTime, "yyyyMMdd", new System.Globalization.CultureInfo("en-US")),
                 Format = ".jpg"
             };
 
+            if (!bean.PhotoTopic.Equals(bean.Remark?.Trim())) {
+                meta.Caption = bean.Remark?.Trim();
+            }
+            if (!bean.PhotoTopic.Equals(bean.PhotoLocation?.Trim())) {
+                meta.Location = bean.PhotoLocation?.Trim();
+            }
             if (!string.IsNullOrEmpty(bean.CountryCodeStr)) {
                 meta.Copyright += " | " + bean.CountryCodeStr;
             }
@@ -61,8 +66,13 @@ namespace TimelineWallpaper.Providers {
             string requestStr = JsonConvert.SerializeObject(request);
             Debug.WriteLine("provider url: " + URL_API + " " + requestStr);
             try {
+                //HttpClientHandler handler = new HttpClientHandler() {
+                //    CookieContainer = new CookieContainer(),
+                //    UseCookies = true
+                //};
+                //handler.CookieContainer.Add(new Uri(URL_API), new Cookie("LOCALE", "zh_CN"));
                 HttpClient client = new HttpClient();
-                HttpContent content = new StringContent(requestStr);
+                HttpContent content = new StringContent(requestStr, Encoding.UTF8);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 HttpResponseMessage response = await client.PostAsync(URL_API, content);
                 _ = response.EnsureSuccessStatusCode();
@@ -73,7 +83,7 @@ namespace TimelineWallpaper.Providers {
                 foreach (OneplusApiItem item in oneplusApi.Items) {
                     metasAdd.Add(ParseBean(item));
                 }
-                if ("1".Equals(((OneplusIni)ini).Order)) { // 按时序倒序排列
+                if ("date".Equals(((OneplusIni)ini).Order)) { // 按时序倒序排列
                     SortMetas(metasAdd);
                 } else {
                     RandomMetas(metasAdd);

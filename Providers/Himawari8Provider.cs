@@ -23,7 +23,8 @@ namespace TimelineWallpaper.Providers {
 
         // 向日葵-8号即時網頁 - NICT
         // https://himawari8.nict.go.jp/zh/himawari8-image.htm
-        private const string URL_API = "https://himawari8.nict.go.jp/img/D531106/1d/550/{0}/{1}_0_0.png";
+        //private const string URL_API = "https://himawari8.nict.go.jp/img/D531106/1d/550/{0}/{1}_0_0.png";
+        private const string URL_API = "https://himawari8.nict.go.jp/img/D531106/thumbnail/550/{0}/{1}_0_0.png";
 
         private Meta ParseBean(DateTime time) {
             string index = string.Format("{0}{1}000", time.ToString("HH"), (time.Minute / 10));

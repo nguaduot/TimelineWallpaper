@@ -49,6 +49,10 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "reldate")]
         public string RelDate { set; get; }
 
+        // 隐藏标记
+        [JsonProperty(PropertyName = "deprecated")]
+        public int Deprecated { set; get; }
+
         // ...
     }
 }

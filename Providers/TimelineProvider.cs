@@ -15,7 +15,7 @@ namespace TimelineWallpaper.Providers {
 
         // 自建图源
         // https://github.com/nguaduot/TimelineApi
-        private const string URL_API = "https://api.nguaduot.cn/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}";
+        private const string URL_API = "https://api.nguaduot.cn/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}&authorize={3}";
         
         private Meta ParseBean(TimelineApiData bean) {
             Meta meta = new Meta {
@@ -23,10 +23,14 @@ namespace TimelineWallpaper.Providers {
                 Uhd = bean.ImgUrl,
                 Thumb = bean.ThumbUrl,
                 Title = bean.Title,
+                Cate = bean.Cate,
                 Story = bean.Story?.Trim(),
                 Copyright = "@" + bean.Author?.Trim(),
                 Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US")),
             };
+            if (bean.Deprecated != 0) {
+                meta.Title = "🚫 " + meta.Title;
+            }
             if (!string.IsNullOrEmpty(bean.Platform)) {
                 meta.Copyright = bean.Platform + meta.Copyright;
             }
@@ -54,7 +58,7 @@ namespace TimelineWallpaper.Providers {
 
             nextPage = date ?? nextPage;
             string urlApi = string.Format(URL_API, ((TimelineIni)ini).Cate,
-                nextPage.ToString("yyyyMMdd"), ((TimelineIni)ini).Order);
+                nextPage.ToString("yyyyMMdd"), ((TimelineIni)ini).Order, ((TimelineIni)ini).Authorize);
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();

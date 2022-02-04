@@ -58,6 +58,19 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+        <Storyboard x:Name="AnimeFillOff"
+                    AutoReverse="True">
+            <DoubleAnimation Duration="0:0:0.2"
+                             From="1.0"
+                             To="0.8"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             Storyboard.TargetName="IconFillOff" />
+            <DoubleAnimation Duration="0:0:0.2"
+                             From="1.0"
+                             To="0.8"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             Storyboard.TargetName="IconFillOff" />
+        </Storyboard>
 
         <muxc:CommandBarFlyout x:Name="FlyoutMenu"
                                AlwaysExpanded="True"
@@ -66,7 +79,8 @@
                           x:Uid="MenuYesterday"
                           Click="MenuYesterday_Click">
                 <AppBarButton.Icon>
-                    <FontIcon x:Name="IconYesterday" FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                    <FontIcon x:Name="IconYesterday"
+                              FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xEB9E;">
                         <FontIcon.RenderTransform>
                             <TranslateTransform X="0" />
@@ -96,6 +110,32 @@
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
                               Glyph="&#xE74F;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Name="MenuFillOn"
+                          x:Uid="MenuFillOn"
+                          Label=""
+                          Visibility="Collapsed"
+                          Click="MenuFill_Click">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xE740;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Name="MenuFillOff"
+                          x:Uid="MenuFillOff"
+                          Label=""
+                          PointerEntered="MenuFillOff_PointerEntered"
+                          Click="MenuFill_Click">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              x:Name="IconFillOff"
+                              Glyph="&#xE73F;">
+                        <FontIcon.RenderTransform>
+                            <ScaleTransform CenterX="12"
+                                            CenterY="12" />
+                        </FontIcon.RenderTransform>
+                    </FontIcon>
                 </AppBarButton.Icon>
             </AppBarButton>
             <AppBarButton Name="MenuSave"
@@ -154,16 +194,57 @@
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
                 <AppBarSeparator />
+                <AppBarButton Name="MenuPushDesktop"
+                              x:Uid="MenuPushDesktop"
+                              Tag="pushdesktop"
+                              Click="MenuPush_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Name="MenuPushDesktopIcon"
+                                  Visibility="Collapsed"
+                                  Glyph="&#xE73E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Name="MenuCurDesktop"
+                              Tag="curdesktop"
+                              Click="MenuPush_Click"
+                              Visibility="Collapsed">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Name="MenuCurDesktopIcon"
+                                  Visibility="Collapsed"
+                                  Glyph="&#xE73E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarSeparator />
+                <AppBarButton Name="MenuPushLock"
+                              x:Uid="MenuPushLock"
+                              Tag="pushlock"
+                              Click="MenuPush_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Name="MenuPushLockIcon"
+                                  Visibility="Collapsed"
+                                  Glyph="&#xE73E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Name="MenuCurLock"
+                              Tag="curlock"
+                              Click="MenuPush_Click"
+                              Visibility="Collapsed">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Name="MenuCurLockIcon"
+                                  Visibility="Collapsed"
+                                  Glyph="&#xE73E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarSeparator />
                 <AppBarButton Name="MenuProvider"
                               x:Uid="MenuProvider">
                     <AppBarButton.Icon>
-                        <FontIcon x:Name="IconProvider"
-                                  FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                                  Glyph="&#xE8B9;">
-                            <FontIcon.RenderTransform>
-                                <TranslateTransform Y="0" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
+                        <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                                  Glyph="&#xE8B9;" />
                     </AppBarButton.Icon>
                     <AppBarButton.Flyout>
                         <MenuFlyout x:Name="SubmenuProvider">
@@ -202,38 +283,6 @@
                                                       Click="MenuProvider_Click"
                                                       Tag="infinity"
                                                       GroupName="Provider" />
-                        </MenuFlyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
-                <AppBarButton Name="MenuPush"
-                              x:Uid="MenuPush">
-                    <AppBarButton.Icon>
-                        <FontIcon x:Name="IconPush"
-                                  FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                                  Glyph="&#xECC5;"
-                                  RenderTransformOrigin="0.5,0.5">
-                            <FontIcon.RenderTransform>
-                                <RotateTransform Angle="0" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
-                    </AppBarButton.Icon>
-                    <AppBarButton.Flyout>
-                        <MenuFlyout x:Name="SubmenuPush">
-                            <ToggleMenuFlyoutItem Name="MenuPushNone"
-                                                  x:Uid="MenuPushNone"
-                                                  Click="MenuPush_Click"
-                                                  Tag="" />
-                            <ToggleMenuFlyoutItem Name="MenuPushCur"
-                                                  Click="MenuPush_Click"
-                                                  Visibility="Collapsed"
-                                                  IsEnabled="False"
-                                                  Tag="" />
-                            <ToggleMenuFlyoutItem Name="MenuPushDesktop"
-                                                  Click="MenuPush_Click"
-                                                  Tag="desktop" />
-                            <ToggleMenuFlyoutItem Name="MenuPushLock"
-                                                  Click="MenuPush_Click"
-                                                  Tag="lock" />
                         </MenuFlyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
@@ -321,143 +370,179 @@
 
         <SplitView.Pane>
             <local:SettingsView x:Name="ViewSettings"
-                                SettingsChanged="ViewSettings_SettingsChanged" />
+                                SettingsChanged="ViewSettings_SettingsChanged"
+                                ContributeChanged="ViewSettings_ContributeChanged" />
         </SplitView.Pane>
 
-    <RelativePanel KeyboardAcceleratorPlacementMode="Hidden">
+        <RelativePanel KeyboardAcceleratorPlacementMode="Hidden">
 
-        <RelativePanel.KeyboardAccelerators>
-            <KeyboardAccelerator Key="Left" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="Up" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="Right" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="Down" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="Escape" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="B" Modifiers="Control" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="L" Modifiers="Control" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="S" Modifiers="Control" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="O" Modifiers="Control" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="R" Modifiers="Control" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="F5" Modifiers="None" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="F" Modifiers="Control" Invoked="KeyInvoked" />
-            <KeyboardAccelerator Key="G" Modifiers="Control" Invoked="KeyInvoked" />
-        </RelativePanel.KeyboardAccelerators>
+            <RelativePanel.KeyboardAccelerators>
+                <KeyboardAccelerator Key="Left"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Up"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Right"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Down"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Enter"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="Escape"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="B"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="L"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="S"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="O"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="R"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="F5"
+                                     Modifiers="None"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="F"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="G"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
+            </RelativePanel.KeyboardAccelerators>
 
-        <MediaPlayerElement Name="MpeUhd"
-                            Opacity="0"
-                            Scale="1.014,1.014,1.014"
-                            AutoPlay="True"
-                            AreTransportControlsEnabled="False"
-                            Stretch="UniformToFill"
-                            ContextFlyout="{x:Bind FlyoutMenu}"
-                            Tapped="ImgUhd_Tapped"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            RelativePanel.AlignHorizontalCenterWithPanel="True"
-                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                            DoubleTapped="ImgUhd_DoubleTapped"
-                            PointerWheelChanged="ImgUhd_PointerWheelChanged">
-            <MediaPlayerElement.OpacityTransition>
-                <ScalarTransition />
-            </MediaPlayerElement.OpacityTransition>
-            <MediaPlayerElement.ScaleTransition>
-                <Vector3Transition />
-            </MediaPlayerElement.ScaleTransition>
-        </MediaPlayerElement>
+            <MediaPlayerElement Name="MpeUhd"
+                                Opacity="0"
+                                Scale="1.014,1.014,1.014"
+                                AutoPlay="True"
+                                AreTransportControlsEnabled="False"
+                                Stretch="UniformToFill"
+                                ContextFlyout="{x:Bind FlyoutMenu}"
+                                Tapped="ImgUhd_Tapped"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                RelativePanel.AlignVerticalCenterWithPanel="True"
+                                DoubleTapped="ImgUhd_DoubleTapped"
+                                PointerWheelChanged="ImgUhd_PointerWheelChanged">
+                <MediaPlayerElement.OpacityTransition>
+                    <ScalarTransition />
+                </MediaPlayerElement.OpacityTransition>
+                <MediaPlayerElement.ScaleTransition>
+                    <Vector3Transition />
+                </MediaPlayerElement.ScaleTransition>
+            </MediaPlayerElement>
 
-        <Image Name="ImgUhd"
-               Opacity="0"
-               Scale="1.014,1.014,1.014"
-               Stretch="UniformToFill"
-               ContextFlyout="{x:Bind FlyoutMenu}"
-               Tapped="ImgUhd_Tapped"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               RelativePanel.AlignHorizontalCenterWithPanel="True"
-               RelativePanel.AlignVerticalCenterWithPanel="True"
-               DoubleTapped="ImgUhd_DoubleTapped"
-               PointerWheelChanged="ImgUhd_PointerWheelChanged">
-            <Image.OpacityTransition>
-                <ScalarTransition />
-            </Image.OpacityTransition>
-            <Image.ScaleTransition>
-                <Vector3Transition />
-            </Image.ScaleTransition>
-        </Image>
+            <Image Name="ImgUhd"
+                   Opacity="0"
+                   Scale="1.014,1.014,1.014"
+                   Stretch="UniformToFill"
+                   ContextFlyout="{x:Bind FlyoutMenu}"
+                   Tapped="ImgUhd_Tapped"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   RelativePanel.AlignHorizontalCenterWithPanel="True"
+                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                   DoubleTapped="ImgUhd_DoubleTapped"
+                   PointerWheelChanged="ImgUhd_PointerWheelChanged">
+                <Image.OpacityTransition>
+                    <ScalarTransition />
+                </Image.OpacityTransition>
+                <Image.ScaleTransition>
+                    <Vector3Transition />
+                </Image.ScaleTransition>
+            </Image>
 
-        <StackPanel Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                    Name="ViewBar"
-                    RelativePanel.AlignBottomWithPanel="True"
-                    MaxWidth="640"
-                    Margin="12"
-                    Padding="12,10"
-                    CornerRadius="12"
-                    PointerEntered="ViewBar_PointerEntered"
-                    PointerExited="ViewBar_PointerExited">
+            <RelativePanel Name="ViewBarPointer"
+                           Background="Transparent"
+                           RelativePanel.AlignBottomWithPanel="True"
+                           PointerEntered="ViewBarPointer_PointerEntered"
+                           PointerExited="ViewBarPointer_PointerExited">
 
-            <StackPanel.Transitions>
-                <TransitionCollection>
-                    <RepositionThemeTransition IsStaggeringEnabled="True" />
-                </TransitionCollection>
-            </StackPanel.Transitions>
+                <RelativePanel.Transitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition IsStaggeringEnabled="True" />
+                    </TransitionCollection>
+                </RelativePanel.Transitions>
 
-            <TextBlock Name="TextTitle"
-                       Style="{StaticResource SubtitleTextBlockStyle}"
-                       TextWrapping="NoWrap"
-                       TextTrimming="CharacterEllipsis">
-            </TextBlock>
+                <StackPanel Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                            Name="ViewBar"
+                            MaxWidth="640"
+                            Margin="12"
+                            Padding="12,10"
+                            CornerRadius="12">
 
-            <muxc:ProgressBar Name="ProgressLoading"
-                              Margin="0,8,0,0"
-                              ShowPaused="False"
-                              ShowError="False"
-                              IsIndeterminate="True" />
+                    <TextBlock Name="TextTitle"
+                               Style="{StaticResource SubtitleTextBlockStyle}"
+                               TextWrapping="NoWrap"
+                               TextTrimming="CharacterEllipsis">
+                    </TextBlock>
 
-            <TextBlock Name="TextDetailCaption"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       TextWrapping="NoWrap"
-                       TextTrimming="CharacterEllipsis"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Visibility="Collapsed"
-                       Margin="0,8,0,0"
-                       IsTextSelectionEnabled="True" />
-            <TextBlock Name="TextDetailLocation"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       TextWrapping="NoWrap"
-                       TextTrimming="CharacterEllipsis"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Visibility="Collapsed"
-                       Margin="0,8,0,0"
-                       IsTextSelectionEnabled="True" />
-            <TextBlock Name="TextDetailStory"
-                       Style="{StaticResource BodyTextBlockStyle}"
-                       TextWrapping="Wrap"
-                       Margin="0,8,0,0"
-                       Visibility="Collapsed"
-                       IsTextSelectionEnabled="True" />
-            <TextBlock Name="TextDetailCopyright"
-                       Style="{StaticResource CaptionTextBlockStyle}"
-                       IsTextSelectionEnabled="True"
-                       Margin="0,8,0,0"
-                       Visibility="Collapsed"
-                       TextWrapping="NoWrap"
-                       TextTrimming="CharacterEllipsis" />
-            <TextBlock Name="TextDetailDate"
-                       Style="{StaticResource CaptionTextBlockStyle}"
-                       TextWrapping="NoWrap"
-                       Visibility="Collapsed"
-                       TextTrimming="CharacterEllipsis"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Margin="0,8,0,0" />
-            <TextBlock Name="TextDetailProperties"
-                       Style="{StaticResource CaptionTextBlockStyle}"
-                       TextWrapping="NoWrap"
-                       Visibility="Collapsed"
-                       TextTrimming="CharacterEllipsis"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Margin="0,8,0,0" />
+                    <muxc:ProgressBar Name="ProgressLoading"
+                                      Margin="0,8,0,0"
+                                      ShowPaused="False"
+                                      ShowError="False"
+                                      IsIndeterminate="True" />
 
-        </StackPanel>
+                    <StackPanel Name="ViewStory"
+                                Visibility="Collapsed">
+                        <TextBlock Name="TextDetailCaption"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextWrapping="NoWrap"
+                                   TextTrimming="CharacterEllipsis"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Visibility="Collapsed"
+                                   Margin="0,8,0,0"
+                                   IsTextSelectionEnabled="True" />
+                        <TextBlock Name="TextDetailLocation"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextWrapping="NoWrap"
+                                   TextTrimming="CharacterEllipsis"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Visibility="Collapsed"
+                                   Margin="0,8,0,0"
+                                   IsTextSelectionEnabled="True" />
+                        <TextBlock Name="TextDetailStory"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,8,0,0"
+                                   Visibility="Collapsed"
+                                   IsTextSelectionEnabled="True" />
+                        <TextBlock Name="TextDetailCopyright"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   IsTextSelectionEnabled="True"
+                                   Margin="0,8,0,0"
+                                   Visibility="Collapsed"
+                                   TextWrapping="NoWrap"
+                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Name="TextDetailDate"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   TextWrapping="NoWrap"
+                                   Visibility="Collapsed"
+                                   TextTrimming="CharacterEllipsis"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Margin="0,8,0,0" />
+                        <TextBlock Name="TextDetailProperties"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   TextWrapping="NoWrap"
+                                   Visibility="Collapsed"
+                                   TextTrimming="CharacterEllipsis"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Margin="0,8,0,0" />
+                    </StackPanel>
+
+                </StackPanel>
+            </RelativePanel>
 
             <muxc:InfoBar Name="Info"
                           Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"

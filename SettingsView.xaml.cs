@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls;
 namespace TimelineWallpaper {
     public sealed partial class SettingsView : UserControl {
         public event EventHandler<SettingsEventArgs> SettingsChanged;
+        public event EventHandler<EventArgs> ContributeChanged;
 
         private Ini ini = new Ini();
 
@@ -325,7 +326,7 @@ namespace TimelineWallpaper {
         }
 
         private void BtnContribute_Click(object sender, RoutedEventArgs e) {
-            // TODO
+            ContributeChanged?.Invoke(this, new EventArgs());
         }
     }
 

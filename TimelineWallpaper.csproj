@@ -131,6 +131,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Beans\ReleaseApi.cs" />
+    <Compile Include="Beans\ContributeApiReq.cs" />
     <Compile Include="Beans\StatsApiReq.cs" />
     <Compile Include="Beans\TimelineApi.cs" />
     <Compile Include="Beans\MxgApi.cs" />
@@ -141,10 +142,14 @@
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
+    <Compile Include="ContributeDlg.xaml.cs">
+      <DependentUpon>ContributeDlg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DonateDlg.xaml.cs">
       <DependentUpon>DonateDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="Providers\AbyssProvider.cs" />
+    <Compile Include="Providers\BoboProvider.cs" />
     <Compile Include="Providers\Himawari8Provider.cs" />
     <Compile Include="Providers\TimelineProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />
@@ -154,7 +159,6 @@
     <Compile Include="Providers\PaulProvider.cs" />
     <Compile Include="Providers\InfinityProvider.cs" />
     <Compile Include="Providers\YmyouliProvider.cs" />
-    <Compile Include="Providers\PixivelProvider.cs" />
     <Compile Include="Providers\DaihanProvider.cs" />
     <Compile Include="Providers\LofterProvider.cs" />
     <Compile Include="Providers\G3Provider.cs" />
@@ -257,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ContributeDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DonateDlg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

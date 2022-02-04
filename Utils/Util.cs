@@ -19,7 +19,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-3.1.ini";
+        private const string FILE_INI = "timelinewallpaper-3.3.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -51,7 +51,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 精选壁纸 http://cn.infinitynewtab.com",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
-                    "; provider=pixivel    图源：Pixivel - Pixel 图片缓存/代理 https://pixivel.moe",
+                    "; provider=bobo       图源：BoBoPic - 每天都有好看的壁纸图片 https://bobopic.com",
                     "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
                     "; provider=abyss      图源：Wallpaper Abyss - 壁纸聚集地 https://wall.alphacoders.com",
                     "; provider=daihan     图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
@@ -61,13 +61,11 @@ namespace TimelineWallpaper.Utils {
                     "; provider=seovx      图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
                     "; provider=paul       图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
-                    "push=",
-                    "; push=         推送：关闭推送（默认）",
-                    "; push=desktop  推送：推送桌面背景",
-                    "; push=lock     推送：推送锁屏背景",
+                    "desktopprovider=",
+                    "; desktopprovider={provider}  桌面背景推送图源：参数参考 provider（置空则关闭推送）",
                     "",
-                    "pushprovider=bing",
-                    "; pushprovider={provider}  推送图源：参数参考 provider",
+                    "lockprovider=",
+                    "; lockprovider={provider}  锁屏背景推送图源：参数参考 provider（置空则关闭推送）",
                     "",
                     "theme=",
                     "; theme=       主题：跟随系统（默认）",
@@ -76,8 +74,11 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[bing]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "lang=",
                     "; lang=       语言代码：自动识别（默认）",
@@ -89,8 +90,11 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[nasa]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "mirror=bjp",
                     "; mirror=     镜像：官方",
@@ -98,8 +102,11 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[oneplus]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date  排序：最新添加（默认）",
@@ -108,8 +115,11 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[timeline]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date    排序：日期（默认）",
@@ -121,18 +131,27 @@ namespace TimelineWallpaper.Utils {
                     "; cate=portrait   类别：人像摄影",
                     "; cate=culture    类别：人文摄影",
                     "",
+                    "authorize=1",
+                    "; authorize={n}  授权：0或1（默认为1，仅展示已授权图片，若手动修改为0，请勿擅自商用未授权图片）",
+                    "",
                     "[himawari8]",
                     "",
-                    "pushperiod=1",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=1",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为1h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=2",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为2h/次，开启推送后生效）",
                     "",
                     "offset=0",
                     "; offset={n}  地球位置：-1.0~1.0（默认为0，居中，-1.0~0偏左，0~1.0偏右）",
                     "",
                     "[ymyouli]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "col=",
                     "; col=     类别：随机（默认）",
@@ -158,8 +177,11 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[infinity]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=",
                     "; order=      排序：随机（默认）",
@@ -167,50 +189,71 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[3g]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "order=date",
                     "; order=date  排序：最新壁纸（默认）",
                     "; order=view  排序：热门壁纸",
                     "",
-                    "[pixivel]",
+                    "[bobo]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
-                    "sanity=5",
-                    "; sanity={n}   敏感度：1~10（默认为5）",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[lofter]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[abyss]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[daihan]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[dmoe]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[toubiec]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[seovx]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "cate=d",
                     "; cate=    类别：美图",
@@ -219,8 +262,11 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[paul]",
                     "",
-                    "pushperiod=24",
-                    "; pushperiod={n}  推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     ""
                 });
                 //StorageFile defFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/timelinewallpaper.ini"));
@@ -242,14 +288,24 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("timelinewallpaper", "provider", provider, iniFile.Path);
         }
 
-        public static async void SavePush(string push) {
+        //public static async void SavePush(string push) {
+        //    StorageFile iniFile = await GenerateIniFileAsync();
+        //    _ = WritePrivateProfileString("timelinewallpaper", "push", push, iniFile.Path);
+        //}
+
+        //public static async void SavePushProvider(string provider) {
+        //    StorageFile iniFile = await GenerateIniFileAsync();
+        //    _ = WritePrivateProfileString("timelinewallpaper", "pushprovider", provider, iniFile.Path);
+        //}
+
+        public static async void SaveDesktopProvider(string provider) {
             StorageFile iniFile = await GenerateIniFileAsync();
-            _ = WritePrivateProfileString("timelinewallpaper", "push", push, iniFile.Path);
+            _ = WritePrivateProfileString("timelinewallpaper", "desktopprovider", provider, iniFile.Path);
         }
 
-        public static async void SavePushProvider(string provider) {
+        public static async void SaveLockProvider(string provider) {
             StorageFile iniFile = await GenerateIniFileAsync();
-            _ = WritePrivateProfileString("timelinewallpaper", "pushprovider", provider, iniFile.Path);
+            _ = WritePrivateProfileString("timelinewallpaper", "lockprovider", provider, iniFile.Path);
         }
 
         public static async void SaveTheme(string theme) {
@@ -312,116 +368,168 @@ namespace TimelineWallpaper.Utils {
             StringBuilder sb = new StringBuilder(1024);
             _ = GetPrivateProfileString("timelinewallpaper", "provider", "bing", sb, 1024, iniFile);
             ini.Provider = sb.ToString();
-            _ = GetPrivateProfileString("timelinewallpaper", "push", "", sb, 1024, iniFile);
-            ini.Push = sb.ToString();
-            _ = GetPrivateProfileString("timelinewallpaper", "pushprovider", "bing", sb, 1024, iniFile);
-            ini.PushProvider = sb.ToString();
+            //_ = GetPrivateProfileString("timelinewallpaper", "push", "", sb, 1024, iniFile);
+            //ini.Push = sb.ToString();
+            //_ = GetPrivateProfileString("timelinewallpaper", "pushprovider", "bing", sb, 1024, iniFile);
+            //ini.PushProvider = sb.ToString();
+            _ = GetPrivateProfileString("timelinewallpaper", "desktopprovider", "", sb, 1024, iniFile);
+            ini.DesktopProvider = sb.ToString();
+            _ = GetPrivateProfileString("timelinewallpaper", "lockprovider", "", sb, 1024, iniFile);
+            ini.LockProvider = sb.ToString();
             _ = GetPrivateProfileString("timelinewallpaper", "theme", "", sb, 1024, iniFile);
             ini.Theme = sb.ToString();
-            _ = GetPrivateProfileString("bing", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out int period);
+            _ = GetPrivateProfileString("bing", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out int desktopPeriod);
+            _ = GetPrivateProfileString("bing", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out int lockPeriod);
             _ = GetPrivateProfileString("bing", "lang", "", sb, 1024, iniFile);
             ini.SetIni("bing", new BingIni {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Lang = sb.ToString()
             });
-            _ = GetPrivateProfileString("nasa", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("nasa", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("nasa", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("nasa", "mirror", "", sb, 1024, iniFile);
             ini.SetIni("nasa", new NasaIni {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Mirror = sb.ToString()
             });
-            _ = GetPrivateProfileString("oneplus", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("oneplus", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("oneplus", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("oneplus", "order", "date", sb, 1024, iniFile);
             ini.SetIni("oneplus", new OneplusIni {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Order = sb.ToString()
             });
-            _ = GetPrivateProfileString("timeline", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
-            _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile);
+            _ = GetPrivateProfileString("timeline", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("timeline", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             TimelineIni timelineIni = new TimelineIni {
-                PushPeriod = period,
-                Order = sb.ToString()
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             };
+            _ = GetPrivateProfileString("timeline", "order", "date", sb, 1024, iniFile);
+            timelineIni.Order = sb.ToString();
             _ = GetPrivateProfileString("timeline", "cate", "", sb, 1024, iniFile);
             timelineIni.Cate = sb.ToString();
+            _ = GetPrivateProfileString("timeline", "authorize", "1", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out int authorize);
+            timelineIni.Authorize = authorize;
             ini.SetIni("timeline", timelineIni);
-            _ = GetPrivateProfileString("ymyouli", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("ymyouli", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("ymyouli", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile);
             ini.SetIni("ymyouli", new YmyouliIni {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Col = sb.ToString()
             });
-            _ = GetPrivateProfileString("himawari8", "pushperiod", "1", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("himawari8", "desktopperiod", "1", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("himawari8", "lockperiod", "2", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("himawari8", "offset", "0", sb, 1024, iniFile);
             _ = float.TryParse(sb.ToString(), out float offset);
             ini.SetIni("himawari8", new Himawari8Ini {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Offset = offset
             });
-            _ = GetPrivateProfileString("infinity", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("infinity", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("infinity", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("infinity", "order", "", sb, 1024, iniFile);
             ini.SetIni("infinity", new InfinityIni {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Order = sb.ToString()
             });
-            _ = GetPrivateProfileString("3g", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("3g", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("3g", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("3g", "order", "date", sb, 1024, iniFile);
             ini.SetIni("3g", new G3Ini {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Order = sb.ToString()
             });
-            _ = GetPrivateProfileString("pixivel", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
-            _ = GetPrivateProfileString("pixivel", "sanity", "5", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out int sanity);
-            ini.SetIni("pixivel", new PixivelIni {
-                PushPeriod = period,
-                Sanity = sanity
+            _ = GetPrivateProfileString("bing", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("bing", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
+            ini.SetIni("bobo", new BoboIni {
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
-            _ = GetPrivateProfileString("lofter", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("lofter", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("lofter", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("lofter", new LofterIni {
-                PushPeriod = period
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
-            _ = GetPrivateProfileString("abyss", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("abyss", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("abyss", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("abyss", new AbyssIni {
-                PushPeriod = period
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
-            _ = GetPrivateProfileString("daihan", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("daihan", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("daihan", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("daihan", new DaihanIni {
-                PushPeriod = period
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
-            _ = GetPrivateProfileString("dmoe", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("bing", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("bing", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("dmoe", new DmoeIni {
-                PushPeriod = period
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
-            _ = GetPrivateProfileString("toubiec", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("toubiec", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("toubiec", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("toubiec", new ToubiecIni {
-                PushPeriod = period
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
-            _ = GetPrivateProfileString("seovx", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("seovx", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("seovx", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             _ = GetPrivateProfileString("seovx", "cate", "d", sb, 1024, iniFile);
             ini.SetIni("seovx", new SeovxIni {
-                PushPeriod = period,
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod,
                 Cate = sb.ToString()
             });
-            _ = GetPrivateProfileString("paul", "pushperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out period);
+            _ = GetPrivateProfileString("paul", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("paul", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("paul", new PaulIni {
-                PushPeriod = period
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
             return ini;
         }

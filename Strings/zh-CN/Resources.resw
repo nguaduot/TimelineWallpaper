@@ -136,7 +136,7 @@
     <value>回顾</value>
   </data>
   <data name="MenuProvider.Label" xml:space="preserve">
-    <value>图源</value>
+    <value>切换默认图源</value>
   </data>
   <data name="MenuProviderBing.Text" xml:space="preserve">
     <value>Microsoft Bing - 每天发现一个新地方</value>
@@ -156,14 +156,11 @@
   <data name="MenuProviderYmyouli.Text" xml:space="preserve">
     <value>一梦幽黎 - 8K优质壁纸资源</value>
   </data>
-  <data name="MenuPush.Label" xml:space="preserve">
-    <value>推送</value>
+  <data name="MenuPushDesktop.Label" xml:space="preserve">
+    <value>推送桌面背景</value>
   </data>
-  <data name="PushDesktop" xml:space="preserve">
-    <value>推送桌面背景：{0}</value>
-  </data>
-  <data name="PushLock" xml:space="preserve">
-    <value>推送锁屏背景：{0}</value>
+  <data name="MenuPushLock.Label" xml:space="preserve">
+    <value>推送锁屏背景</value>
   </data>
   <data name="MenuPushNone.Text" xml:space="preserve">
     <value>关闭推送</value>
@@ -182,6 +179,12 @@
   </data>
   <data name="MenuVolumnOn.ToolTipService.ToolTip" xml:space="preserve">
     <value>打开声音</value>
+  </data>
+  <data name="MenuFillOff.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换显示模式：全图</value>
+  </data>
+  <data name="MenuFillOn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>切换显示模式：拉伸</value>
   </data>
   <data name="YmyouliCol_182" xml:space="preserve">
     <value>游戏动漫人物</value>
@@ -264,9 +267,6 @@
   <data name="Provider_paul" xml:space="preserve">
     <value>保罗API</value>
   </data>
-  <data name="Provider_pixivel" xml:space="preserve">
-    <value>Pixivel</value>
-  </data>
   <data name="Provider_seovx" xml:space="preserve">
     <value>夏末博客API</value>
   </data>
@@ -308,9 +308,6 @@
   </data>
   <data name="Slogan_paul" xml:space="preserve">
     <value>随机动漫壁纸</value>
-  </data>
-  <data name="Slogan_pixivel" xml:space="preserve">
-    <value>Pixel 图片缓存/代理</value>
   </data>
   <data name="Slogan_seovx" xml:space="preserve">
     <value>在线古风美图二次元</value>
@@ -387,7 +384,10 @@
   <data name="Slogan_himawari8" xml:space="preserve">
     <value>实时地球</value>
   </data>
-  <data name="Pushing" xml:space="preserve">
+  <data name="CurDesktop" xml:space="preserve">
+    <value>推送中：{0}</value>
+  </data>
+  <data name="CurLock" xml:space="preserve">
     <value>推送中：{0}</value>
   </data>
   <data name="LinkEmail.NavigateUri" xml:space="preserve">
@@ -675,7 +675,61 @@
   <data name="MsgKey" xml:space="preserve">
     <value>快捷键</value>
   </data>
-  <data name="TextContribute.Text" xml:space="preserve">
-    <value>投稿即同意本项目非商业性使用您的摄影作品。</value>
+  <data name="TextContributePrivacy.Text" xml:space="preserve">
+    <value>投稿一经采用，本项目将无偿非商业性使用您的摄影作品。</value>
+  </data>
+  <data name="Provider_bobo" xml:space="preserve">
+    <value>BoBoPic</value>
+  </data>
+  <data name="Slogan_bobo" xml:space="preserve">
+    <value>每天都有好看的壁纸图片</value>
+  </data>
+  <data name="BoxContact.Header" xml:space="preserve">
+    <value>联系方式（选填）</value>
+  </data>
+  <data name="BoxStory.Header" xml:space="preserve">
+    <value>图文故事（选填）</value>
+  </data>
+  <data name="BoxTitle.Header" xml:space="preserve">
+    <value>图文标题（选填）</value>
+  </data>
+  <data name="BoxUrl.Header" xml:space="preserve">
+    <value>发布链接</value>
+  </data>
+  <data name="DlgContribute.CloseButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DlgContribute.PrimaryButtonText" xml:space="preserve">
+    <value>投稿</value>
+  </data>
+  <data name="DlgContribute.Title" xml:space="preserve">
+    <value>我要投稿</value>
+  </data>
+  <data name="MsgPushDesktopOff" xml:space="preserve">
+    <value>已关闭桌面背景推送</value>
+  </data>
+  <data name="MsgPushDesktopOn" xml:space="preserve">
+    <value>已开启桌面背景推送</value>
+  </data>
+  <data name="MsgPushLockOff" xml:space="preserve">
+    <value>已关闭锁屏背景推送</value>
+  </data>
+  <data name="MsgPushLockOn" xml:space="preserve">
+    <value>已开启锁屏背景推送</value>
+  </data>
+  <data name="MsgContribute1" xml:space="preserve">
+    <value>投稿成功</value>
+  </data>
+  <data name="MsgUniform" xml:space="preserve">
+    <value>图片显示模式：全图</value>
+  </data>
+  <data name="MsgUniformToFill" xml:space="preserve">
+    <value>图片显示模式：拉伸</value>
+  </data>
+  <data name="ActionClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="MsgContribute0" xml:space="preserve">
+    <value>投稿失败</value>
   </data>
 </root>

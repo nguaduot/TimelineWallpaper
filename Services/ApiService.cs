@@ -24,7 +24,7 @@ namespace TimelineWallpaper.Services {
             }
             const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
             StatsApiReq req = new StatsApiReq {
-                App = Package.Current.DisplayName,
+                App = Package.Current.DisplayName, // 不会随语言改变
                 Package = Package.Current.Id.FamilyName,
                 Version = VerUtil.GetPkgVer(false),
                 Api = ini?.ToString(),
@@ -47,6 +47,28 @@ namespace TimelineWallpaper.Services {
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }
+        }
+
+        public static async Task<bool> Contribute(ContributeApiReq req) {
+            if (!NetworkInterface.GetIsNetworkAvailable()) {
+                return false;
+            }
+            const string URL_API_CONTRIBUTE = "https://api.nguaduot.cn/timeline/contribute";
+            req.AppVer = VerUtil.GetPkgVer(false);
+            try {
+                HttpClient client = new HttpClient();
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
+                    Encoding.UTF8, "application/json");
+                //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                HttpResponseMessage response = await client.PostAsync(URL_API_CONTRIBUTE, content);
+                _ = response.EnsureSuccessStatusCode();
+                string jsonData = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine("stats: " + jsonData.Trim());
+                return jsonData.Contains(@"""status"":1");
+            } catch (Exception e) {
+                Debug.WriteLine(e);
+            }
+            return false;
         }
 
         public static async Task<ReleaseApi> CheckUpdate() {

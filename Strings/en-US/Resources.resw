@@ -156,14 +156,11 @@
   <data name="MenuProviderYmyouli.Text" xml:space="preserve">
     <value>Ymyouli - 8K high-quality wallpapers</value>
   </data>
-  <data name="MenuPush.Label" xml:space="preserve">
-    <value>Push daily</value>
+  <data name="MenuPushDesktop.Label" xml:space="preserve">
+    <value>Push desktop</value>
   </data>
-  <data name="PushDesktop" xml:space="preserve">
-    <value>Push desktop: {0}</value>
-  </data>
-  <data name="PushLock" xml:space="preserve">
-    <value>Push lock screen: {0}</value>
+  <data name="MenuPushLock.Label" xml:space="preserve">
+    <value>Push lock screen</value>
   </data>
   <data name="MenuPushNone.Text" xml:space="preserve">
     <value>Push off</value>
@@ -172,16 +169,22 @@
     <value>Save image</value>
   </data>
   <data name="MenuSetDesktop.Label" xml:space="preserve">
-    <value>Set as desktop background</value>
+    <value>Set as desktop</value>
   </data>
   <data name="MenuSetLock.Label" xml:space="preserve">
-    <value>Set as lock screen background</value>
+    <value>Set as lock screen</value>
   </data>
   <data name="MenuVolumnOff.ToolTipService.ToolTip" xml:space="preserve">
     <value>Volumn off</value>
   </data>
   <data name="MenuVolumnOn.ToolTipService.ToolTip" xml:space="preserve">
     <value>Volumn on</value>
+  </data>
+  <data name="MenuFillOff.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Uniform</value>
+  </data>
+  <data name="MenuFillOn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Uniform to fill</value>
   </data>
   <data name="YmyouliCol_182" xml:space="preserve">
     <value>ACG character</value>
@@ -264,9 +267,6 @@
   <data name="Provider_paul" xml:space="preserve">
     <value>Paul API</value>
   </data>
-  <data name="Provider_pixivel" xml:space="preserve">
-    <value>Pixivel</value>
-  </data>
   <data name="Provider_seovx" xml:space="preserve">
     <value>夏末博客API</value>
   </data>
@@ -308,9 +308,6 @@
   </data>
   <data name="Slogan_paul" xml:space="preserve">
     <value>Random ACG</value>
-  </data>
-  <data name="Slogan_pixivel" xml:space="preserve">
-    <value>Pixel 图片缓存/代理</value>
   </data>
   <data name="Slogan_seovx" xml:space="preserve">
     <value>在线古风美图二次元</value>
@@ -387,7 +384,10 @@
   <data name="Slogan_himawari8" xml:space="preserve">
     <value>Real-time Earth </value>
   </data>
-  <data name="Pushing" xml:space="preserve">
+  <data name="CurDesktop" xml:space="preserve">
+    <value>Pushing: {0}</value>
+  </data>
+  <data name="CurLock" xml:space="preserve">
     <value>Pushing: {0}</value>
   </data>
   <data name="LinkEmail.NavigateUri" xml:space="preserve">
@@ -675,7 +675,61 @@
   <data name="MsgKey" xml:space="preserve">
     <value>Tips</value>
   </data>
-  <data name="TextContribute.Text" xml:space="preserve">
-    <value>投稿即同意本项目非商业性使用您的摄影作品。</value>
+  <data name="TextContributePrivacy.Text" xml:space="preserve">
+    <value>Once adopted, this project will use your photographic works for free and non-commercial use.</value>
+  </data>
+  <data name="Provider_bobo" xml:space="preserve">
+    <value>BoBoPic</value>
+  </data>
+  <data name="Slogan_bobo" xml:space="preserve">
+    <value>每天都有好看的壁纸图片</value>
+  </data>
+  <data name="BoxContact.Header" xml:space="preserve">
+    <value>Contact (Optional)</value>
+  </data>
+  <data name="BoxStory.Header" xml:space="preserve">
+    <value>Story (Optional)</value>
+  </data>
+  <data name="BoxTitle.Header" xml:space="preserve">
+    <value>TItle (Optional)</value>
+  </data>
+  <data name="BoxUrl.Header" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="DlgContribute.CloseButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DlgContribute.PrimaryButtonText" xml:space="preserve">
+    <value>Contribute</value>
+  </data>
+  <data name="DlgContribute.Title" xml:space="preserve">
+    <value>Want to contribute</value>
+  </data>
+  <data name="MsgPushDesktopOff" xml:space="preserve">
+    <value>Push off</value>
+  </data>
+  <data name="MsgPushDesktopOn" xml:space="preserve">
+    <value>Push on</value>
+  </data>
+  <data name="MsgPushLockOff" xml:space="preserve">
+    <value>Push off</value>
+  </data>
+  <data name="MsgPushLockOn" xml:space="preserve">
+    <value>Push on</value>
+  </data>
+  <data name="MsgUniform" xml:space="preserve">
+    <value>Image mode: Unifrom</value>
+  </data>
+  <data name="MsgUniformToFill" xml:space="preserve">
+    <value>Image mode: Unifrom to fill</value>
+  </data>
+  <data name="ActionClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MsgContribute0" xml:space="preserve">
+    <value>Failed to contribute.</value>
+  </data>
+  <data name="MsgContribute1" xml:space="preserve">
+    <value>Contributed. Thanks.</value>
   </data>
 </root>

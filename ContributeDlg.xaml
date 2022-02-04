@@ -1,0 +1,42 @@
+﻿<ContentDialog x:Class="TimelineWallpaper.ContributeDlg"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="using:TimelineWallpaper"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               mc:Ignorable="d"
+               x:Uid="DlgContribute"
+               DefaultButton="Primary"
+               IsPrimaryButtonEnabled="False"
+               Style="{StaticResource DefaultContentDialogStyle}"
+               Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  HorizontalScrollMode="Disabled"
+                  VerticalScrollMode="Auto"
+                  VerticalScrollBarVisibility="Hidden"
+                  IsVerticalRailEnabled="True"
+                  ZoomMode="Disabled">
+        <StackPanel MaxWidth="300">
+            <TextBox Name="BoxUrl"
+                     x:Uid="BoxUrl"
+                     TextChanged="BoxUrl_TextChanged" />
+            <TextBox Name="BoxTitle"
+                     x:Uid="BoxTitle"
+                     Margin="0,12,0,0" />
+            <TextBox Name="BoxStory"
+                     x:Uid="BoxStory"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     Margin="0,12,0,0" />
+            <TextBox Name="BoxContact"
+                     x:Uid="BoxContact"
+                     Margin="0,12,0,0" />
+            <TextBlock x:Uid="TextContributePrivacy"
+                       Foreground="OrangeRed"
+                       TextWrapping="Wrap"
+                       Margin="0,16,0,0" />
+        </StackPanel>
+    </ScrollViewer>
+    
+</ContentDialog>

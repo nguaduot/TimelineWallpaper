@@ -24,7 +24,7 @@ namespace TimelineWallpaper.Providers {
                 Meta meta = new Meta {
                     Date = DateTime.Now // 需从详情页获取
                 };
-                Match match = Regex.Match(m.Groups[0].Value, @"src=[""']([^""]+thumbbig-(\d+)(\.[^""']+))[""']", RegexOptions.Singleline);
+                Match match = Regex.Match(m.Groups[0].Value, @"src=[""']([^""]+thumbbig-(\d+)(\.[^""']+))[""']");
                 if (match.Success) {
                     meta.Id = match.Groups[2].Value;
                     meta.Thumb = match.Groups[1].Value;
