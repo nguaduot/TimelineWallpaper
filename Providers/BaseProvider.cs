@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.IO;
 using System.Linq;
+using Windows.Media.FaceAnalysis;
 
 namespace TimelineWallpaper.Providers {
     public class BaseProvider {
@@ -214,12 +215,41 @@ namespace TimelineWallpaper.Providers {
                     Debug.WriteLine("cache error");
                 }
             }
+            // 获取图片尺寸&检测人像位置
             if (meta.CacheUhd != null) {
                 using(var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
                     var decoder = await BitmapDecoder.CreateAsync(stream);
+                    // 获取图片尺寸
                     meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                    // 检测人像位置
+                    BitmapTransform transform = new BitmapTransform();
+                    //const float sizeLimit = 960;
+                    //if (Math.Min(decoder.PixelWidth, decoder.PixelHeight) > sizeLimit) {
+                    //    float factor = sizeLimit / Math.Min(decoder.PixelWidth, decoder.PixelHeight);
+                    //    transform.ScaledWidth = (uint)(decoder.PixelWidth * factor);
+                    //    transform.ScaledHeight = (uint)(decoder.PixelHeight * factor);
+                    //}
+                    SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync(decoder.BitmapPixelFormat,
+                        BitmapAlphaMode.Premultiplied, transform, ExifOrientationMode.IgnoreExifOrientation,
+                        ColorManagementMode.DoNotColorManage);
+                    if (bitmap.BitmapPixelFormat != BitmapPixelFormat.Gray8) {
+                        bitmap = SoftwareBitmap.Convert(bitmap, BitmapPixelFormat.Gray8);
+                    }
+                    FaceDetector detector = await FaceDetector.CreateAsync();
+                    IList<DetectedFace> faces = await detector.DetectFacesAsync(bitmap);
+                    bool faceLeft = true;
+                    foreach (DetectedFace face in faces) {
+                        float offset = (face.FaceBox.X + face.FaceBox.Width / 2.0f) / bitmap.PixelWidth;
+                        Debug.WriteLine("face: " + Math.Round(offset, 2));
+                        if (offset > 0.4) {
+                            faceLeft = false;
+                        }
+                    }
+                    meta.FaceLeft = faces.Count > 0 && faceLeft;
+                    bitmap.Dispose();
                 }
             }
+            // 获取视频尺寸
             if (meta.CacheVideo != null) {
                 try {
                     MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);

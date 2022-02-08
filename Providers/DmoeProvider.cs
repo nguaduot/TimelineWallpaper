@@ -13,7 +13,7 @@ namespace TimelineWallpaper.Providers {
     public class DmoeProvider : BaseProvider {
         // 随机二次元图片API - 樱花
         // https://www.dmoe.cc/
-        private const string URL_API = "https://www.dmoe.cc/random.php?return=json";
+        private const string URL_API = "https://www.dmoe.cc/random.php?return=json&t={0}";
 
         private Meta ParseBean(DmoeApiItem bean) {
             Meta meta = new Meta();
@@ -43,10 +43,11 @@ namespace TimelineWallpaper.Providers {
             }
             await base.LoadData(ini, date);
 
-            Debug.WriteLine("provider url: " + URL_API);
+            string url = string.Format(URL_API, DateUtil.CurrentTimeMillis());
+            Debug.WriteLine("provider url: " + url);
             try {
                 HttpClient client = new HttpClient();
-                string jsonData = await client.GetStringAsync(URL_API);
+                string jsonData = await client.GetStringAsync(url);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 DmoeApiItem item = JsonConvert.DeserializeObject<DmoeApiItem>(jsonData);
                 List<Meta> metasAdd = new List<Meta> {

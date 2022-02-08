@@ -179,6 +179,7 @@ namespace TimelineWallpaper {
         }
 
         private async void PreLoadYesterdayAsync() {
+            Debug.WriteLine("PreLoadYesterdayAsync");
             if (await provider.LoadData(ini.GetIni())) {
                 _ = provider.Cache(provider.GetYesterday());
             }
@@ -311,6 +312,14 @@ namespace TimelineWallpaper {
             MenuVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
                 ? Visibility.Visible : Visibility.Collapsed;
             MenuSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
+
+            // 根据人脸识别优化组件放置位置
+            RelativePanel.SetAlignLeftWithPanel(ViewBarPointer, !meta.FaceLeft);
+            RelativePanel.SetAlignRightWithPanel(ViewBarPointer, meta.FaceLeft);
+            RelativePanel.SetAlignLeftWithPanel(Info, !meta.FaceLeft);
+            RelativePanel.SetAlignRightWithPanel(Info, meta.FaceLeft);
+            RelativePanel.SetAlignLeftWithPanel(AnchorGo, meta.FaceLeft);
+            RelativePanel.SetAlignRightWithPanel(AnchorGo, !meta.FaceLeft);
 
             StatusEnjoy();
         }
