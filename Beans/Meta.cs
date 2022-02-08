@@ -58,8 +58,8 @@ namespace TimelineWallpaper.Beans {
         // 主题色笔刷
         //public SolidColorBrush Dominant { set; get; }
 
-        // 人像靠左
-        public bool FaceLeft { set; get; }
+        // 人像位置
+        public float FaceOffset { set; get; } = 0.5f;
 
         public double SortFactor { set; get; }
 

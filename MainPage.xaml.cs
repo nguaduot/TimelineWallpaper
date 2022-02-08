@@ -314,12 +314,13 @@ namespace TimelineWallpaper {
             MenuSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
             // 根据人脸识别优化组件放置位置
-            RelativePanel.SetAlignLeftWithPanel(ViewBarPointer, !meta.FaceLeft);
-            RelativePanel.SetAlignRightWithPanel(ViewBarPointer, meta.FaceLeft);
-            RelativePanel.SetAlignLeftWithPanel(Info, !meta.FaceLeft);
-            RelativePanel.SetAlignRightWithPanel(Info, meta.FaceLeft);
-            RelativePanel.SetAlignLeftWithPanel(AnchorGo, meta.FaceLeft);
-            RelativePanel.SetAlignRightWithPanel(AnchorGo, !meta.FaceLeft);
+            bool faceLeft = meta.FaceOffset < 0.4;
+            RelativePanel.SetAlignLeftWithPanel(ViewBarPointer, !faceLeft);
+            RelativePanel.SetAlignRightWithPanel(ViewBarPointer, faceLeft);
+            RelativePanel.SetAlignLeftWithPanel(Info, !faceLeft);
+            RelativePanel.SetAlignRightWithPanel(Info, faceLeft);
+            RelativePanel.SetAlignLeftWithPanel(AnchorGo, faceLeft);
+            RelativePanel.SetAlignRightWithPanel(AnchorGo, !faceLeft);
 
             StatusEnjoy();
         }

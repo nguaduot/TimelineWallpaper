@@ -237,15 +237,11 @@ namespace TimelineWallpaper.Providers {
                     }
                     FaceDetector detector = await FaceDetector.CreateAsync();
                     IList<DetectedFace> faces = await detector.DetectFacesAsync(bitmap);
-                    bool faceLeft = true;
+                    float offset = -1;
                     foreach (DetectedFace face in faces) {
-                        float offset = (face.FaceBox.X + face.FaceBox.Width / 2.0f) / bitmap.PixelWidth;
-                        Debug.WriteLine("face: " + Math.Round(offset, 2));
-                        if (offset > 0.4) {
-                            faceLeft = false;
-                        }
+                        offset = Math.Max(offset, (face.FaceBox.X + face.FaceBox.Width / 2.0f) / bitmap.PixelWidth);
                     }
-                    meta.FaceLeft = faces.Count > 0 && faceLeft;
+                    meta.FaceOffset = offset >= 0 ? offset : 0.5f;
                     bitmap.Dispose();
                 }
             }
