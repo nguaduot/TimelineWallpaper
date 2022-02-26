@@ -62,14 +62,14 @@ namespace TimelineWallpaper.Providers {
             await base.LoadData(ini, date);
 
             string module = modules[nextPage++];
-            col = YmyouliIni.COL_MODULE_DIC[col][module];
+            string colReal = YmyouliIni.COL_MODULE_DIC[col][module];
             Dictionary<string, string> formData = new Dictionary<string, string>() {
                 { "cmd", "getWafNotCk_getAjaxPageModuleInfo" },
-                { "href", string.Format("/col.jsp?id={0}&m{1}pageno=1", col, module) },
-                { "_colId", col },
+                { "href", string.Format("/col.jsp?id={0}&m{1}pageno=1", colReal, module) },
+                { "_colId", colReal },
                 { "moduleId", module }
             };
-            Debug.WriteLine("provider url: " + URL_API + " " + col + " " + module);
+            Debug.WriteLine("provider url: " + URL_API + " " + colReal + " " + module);
             try {
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("timelinewallpaper", VerUtil.GetPkgVer(true)));

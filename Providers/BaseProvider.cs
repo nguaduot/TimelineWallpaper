@@ -49,7 +49,7 @@ namespace TimelineWallpaper.Providers {
                 if (m1.Date.Value < m2.Date.Value) {
                     return 1;
                 }
-                return m1.Id.CompareTo(m2);
+                return m1.Id.CompareTo(m2.Id);
             });
             // 恢复当前索引
             if (indexFocus > 0) {
