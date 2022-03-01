@@ -162,7 +162,7 @@ namespace TimelineWallpaper.Utils {
     public class TimelineIni : BaseIni {
         public const string ID = "timeline";
         public static readonly List<string> ORDER = new List<string>() { "date", "random" };
-        public static readonly List<string> CATE = new List<string>() { "", "landscape", "portrait", "culture" };
+        public static readonly List<string> CATE = new List<string>() { "", "landscape", "portrait", "culture", "term" };
 
         private string order = "date";
         public string Order {

@@ -732,4 +732,7 @@
   <data name="MsgContribute1" xml:space="preserve">
     <value>Contributed. Thanks.</value>
   </data>
+  <data name="TimelineCate_term" xml:space="preserve">
+    <value>Solar term</value>
+  </data>
 </root>

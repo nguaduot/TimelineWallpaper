@@ -130,6 +130,7 @@ namespace TimelineWallpaper.Utils {
                     "; cate=landscape  类别：风光摄影",
                     "; cate=portrait   类别：人像摄影",
                     "; cate=culture    类别：人文摄影",
+                    "; cate=term       类别：节气摄影",
                     "",
                     "authorize=1",
                     "; authorize={n}  授权：0或1（默认为1，仅展示已授权图片，若手动修改为0，请勿擅自商用未授权图片）",

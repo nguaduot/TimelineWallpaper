@@ -217,32 +217,36 @@ namespace TimelineWallpaper.Providers {
             }
             // 获取图片尺寸&检测人像位置
             if (meta.CacheUhd != null) {
-                using(var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
-                    var decoder = await BitmapDecoder.CreateAsync(stream);
-                    // 获取图片尺寸
-                    meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                    // 检测人像位置
-                    BitmapTransform transform = new BitmapTransform();
-                    //const float sizeLimit = 960;
-                    //if (Math.Min(decoder.PixelWidth, decoder.PixelHeight) > sizeLimit) {
-                    //    float factor = sizeLimit / Math.Min(decoder.PixelWidth, decoder.PixelHeight);
-                    //    transform.ScaledWidth = (uint)(decoder.PixelWidth * factor);
-                    //    transform.ScaledHeight = (uint)(decoder.PixelHeight * factor);
-                    //}
-                    SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync(decoder.BitmapPixelFormat,
-                        BitmapAlphaMode.Premultiplied, transform, ExifOrientationMode.IgnoreExifOrientation,
-                        ColorManagementMode.DoNotColorManage);
-                    if (bitmap.BitmapPixelFormat != BitmapPixelFormat.Gray8) {
-                        bitmap = SoftwareBitmap.Convert(bitmap, BitmapPixelFormat.Gray8);
+                try {
+                    using (var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
+                        var decoder = await BitmapDecoder.CreateAsync(stream);
+                        // 获取图片尺寸
+                        meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                        // 检测人像位置
+                        BitmapTransform transform = new BitmapTransform();
+                        //const float sizeLimit = 960;
+                        //if (Math.Min(decoder.PixelWidth, decoder.PixelHeight) > sizeLimit) {
+                        //    float factor = sizeLimit / Math.Min(decoder.PixelWidth, decoder.PixelHeight);
+                        //    transform.ScaledWidth = (uint)(decoder.PixelWidth * factor);
+                        //    transform.ScaledHeight = (uint)(decoder.PixelHeight * factor);
+                        //}
+                        SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync(decoder.BitmapPixelFormat,
+                            BitmapAlphaMode.Premultiplied, transform, ExifOrientationMode.IgnoreExifOrientation,
+                            ColorManagementMode.DoNotColorManage);
+                        if (bitmap.BitmapPixelFormat != BitmapPixelFormat.Gray8) {
+                            bitmap = SoftwareBitmap.Convert(bitmap, BitmapPixelFormat.Gray8);
+                        }
+                        FaceDetector detector = await FaceDetector.CreateAsync();
+                        IList<DetectedFace> faces = await detector.DetectFacesAsync(bitmap);
+                        float offset = -1;
+                        foreach (DetectedFace face in faces) {
+                            offset = Math.Max(offset, (face.FaceBox.X + face.FaceBox.Width / 2.0f) / bitmap.PixelWidth);
+                        }
+                        meta.FaceOffset = offset >= 0 ? offset : 0.5f;
+                        bitmap.Dispose();
                     }
-                    FaceDetector detector = await FaceDetector.CreateAsync();
-                    IList<DetectedFace> faces = await detector.DetectFacesAsync(bitmap);
-                    float offset = -1;
-                    foreach (DetectedFace face in faces) {
-                        offset = Math.Max(offset, (face.FaceBox.X + face.FaceBox.Width / 2.0f) / bitmap.PixelWidth);
-                    }
-                    meta.FaceOffset = offset >= 0 ? offset : 0.5f;
-                    bitmap.Dispose();
+                } catch (Exception e) {
+                    Debug.WriteLine("parse dimen or face error");
                 }
             }
             // 获取视频尺寸
