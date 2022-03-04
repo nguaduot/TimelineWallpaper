@@ -870,6 +870,10 @@ namespace TimelineWallpaper {
                 MenuProvider.RequestedTheme = theme;
                 MenuSetDesktop.RequestedTheme = theme;
                 MenuSetLock.RequestedTheme = theme;
+                MenuPushDesktop.RequestedTheme = theme;
+                MenuCurDesktop.RequestedTheme = theme;
+                MenuPushLock.RequestedTheme = theme;
+                MenuCurLock.RequestedTheme = theme;
                 foreach (RadioMenuFlyoutItem item in SubmenuProvider.Items.Cast<RadioMenuFlyoutItem>()) {
                     item.RequestedTheme = theme;
                 }
