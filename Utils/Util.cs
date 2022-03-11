@@ -19,7 +19,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-3.3.ini";
+        private const string FILE_INI = "timelinewallpaper-3.8.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -50,6 +50,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=infinity   图源：Infinity - 精选壁纸 http://cn.infinitynewtab.com",
+                    "; provider=one        图源：ONE · 一个 - 复杂世界里，一个就够了 http://m.wufazhuce.com/one",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=bobo       图源：BoBoPic - 每天都有好看的壁纸图片 https://bobopic.com",
                     "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
@@ -187,6 +188,14 @@ namespace TimelineWallpaper.Utils {
                     "order=",
                     "; order=      排序：随机（默认）",
                     "; order=rate  排序：热度",
+                    "",
+                    "[one]",
+                    "",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
                     "[3g]",
                     "",
@@ -455,6 +464,14 @@ namespace TimelineWallpaper.Utils {
                 DesktopPeriod = desktopPeriod,
                 LockPeriod = lockPeriod,
                 Order = sb.ToString()
+            });
+            _ = GetPrivateProfileString("one", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("one", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
+            ini.SetIni("one", new OneIni {
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
             });
             _ = GetPrivateProfileString("3g", "desktopperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);

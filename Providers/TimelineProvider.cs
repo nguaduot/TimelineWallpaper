@@ -19,7 +19,7 @@ namespace TimelineWallpaper.Providers {
         
         private Meta ParseBean(TimelineApiData bean) {
             Meta meta = new Meta {
-                Id = bean?.Id.ToString(),
+                Id = bean.Id.ToString(),
                 Uhd = bean.ImgUrl,
                 Thumb = bean.ThumbUrl,
                 Title = bean.Title,
@@ -64,9 +64,9 @@ namespace TimelineWallpaper.Providers {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
-                TimelineApi timelinekApi = JsonConvert.DeserializeObject<TimelineApi>(jsonData);
+                TimelineApi timelineApi = JsonConvert.DeserializeObject<TimelineApi>(jsonData);
                 List<Meta> metasAdd = new List<Meta>();
-                foreach (TimelineApiData item in timelinekApi.Data) {
+                foreach (TimelineApiData item in timelineApi.Data) {
                     metasAdd.Add(ParseBean(item));
                 }
                 if ("date".Equals(((TimelineIni)ini).Order)) { // 按时序倒序排列
@@ -75,7 +75,7 @@ namespace TimelineWallpaper.Providers {
                     AppendMetas(metasAdd);
                 }
                 nextPage = "date".Equals(((TimelineIni)ini).Order)
-                    ? nextPage.AddDays(-timelinekApi.Data.Count) : nextPage;
+                    ? nextPage.AddDays(-timelineApi.Data.Count) : nextPage;
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }

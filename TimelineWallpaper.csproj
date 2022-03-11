@@ -133,6 +133,7 @@
     <Compile Include="Beans\ReleaseApi.cs" />
     <Compile Include="Beans\ContributeApiReq.cs" />
     <Compile Include="Beans\StatsApiReq.cs" />
+    <Compile Include="Beans\OneApi.cs" />
     <Compile Include="Beans\TimelineApi.cs" />
     <Compile Include="Beans\MxgApi.cs" />
     <Compile Include="Beans\MtyApiItem.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Providers\AbyssProvider.cs" />
     <Compile Include="Providers\BoboProvider.cs" />
     <Compile Include="Providers\Himawari8Provider.cs" />
+    <Compile Include="Providers\OneProvider.cs" />
     <Compile Include="Providers\TimelineProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />
     <Compile Include="Providers\MtyProvider.cs" />

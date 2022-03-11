@@ -11,6 +11,7 @@ namespace TimelineWallpaper.Utils {
             { Himawari8Ini.ID, new Himawari8Ini() },
             { YmyouliIni.ID, new YmyouliIni() },
             { InfinityIni.ID, new InfinityIni() },
+            { OneIni.ID, new OneIni() },
             { G3Ini.ID, new G3Ini() },
             { BoboIni.ID, new BoboIni() },
             { LofterIni.ID, new LofterIni() },
@@ -334,6 +335,16 @@ namespace TimelineWallpaper.Utils {
         public override BaseProvider GenerateProvider() => new InfinityProvider() { Id = ID };
 
         override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}";
+    }
+
+    public class OneIni : BaseIni {
+        public const string ID = "one";
+
+        public override bool IsSequential() => true;
+
+        public override BaseProvider GenerateProvider() => new OneProvider() { Id = ID };
+
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}";
     }
 
     public class G3Ini : BaseIni {

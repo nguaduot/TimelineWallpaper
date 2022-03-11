@@ -735,4 +735,10 @@
   <data name="TimelineCate_term" xml:space="preserve">
     <value>节气摄影</value>
   </data>
+  <data name="Provider_one" xml:space="preserve">
+    <value>ONE · 一个</value>
+  </data>
+  <data name="Slogan_one" xml:space="preserve">
+    <value>复杂世界里，一个就够了</value>
+  </data>
 </root>
