@@ -741,4 +741,22 @@
   <data name="Slogan_one" xml:space="preserve">
     <value>复杂世界里，一个就够了</value>
   </data>
+  <data name="MenuProviderOne.Text" xml:space="preserve">
+    <value>ONE · 一个 - 复杂世界里，一个就够了</value>
+  </data>
+  <data name="OneOrder_date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="OneOrder_random" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="SettingsOneDesc.Text" xml:space="preserve">
+    <value>复杂世界里，一个就够了</value>
+  </data>
+  <data name="SettingsOneTitle.Text" xml:space="preserve">
+    <value>ONE · 一个</value>
+  </data>
+  <data name="TextOneOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
 </root>

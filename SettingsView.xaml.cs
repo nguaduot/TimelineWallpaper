@@ -28,6 +28,7 @@ namespace TimelineWallpaper {
         private readonly List<Paras> listTimelineOrder = new List<Paras>();
         private readonly List<Paras> listYmyouliCol = new List<Paras>();
         private readonly List<Paras> listInfinityOrder = new List<Paras>();
+        private readonly List<Paras> listOneOrder = new List<Paras>();
 
         private bool paneOpened = false; // 避免初始化设置选项的非必要事件
 
@@ -83,6 +84,12 @@ namespace TimelineWallpaper {
                     Name = resLoader.GetString("InfinityOrder_" + item)
                 });
             }
+            foreach (string item in OneIni.ORDER) {
+                listOneOrder.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("OneOrder_" + item)
+                });
+            }
 
             BoxHimawari8Offset.NumberFormatter = new DecimalFormatter {
                 IntegerDigits = 1,
@@ -132,6 +139,7 @@ namespace TimelineWallpaper {
             ExpanderHimawari8.IsExpanded = Himawari8Ini.ID.Equals(ini.Provider);
             ExpanderYmyouli.IsExpanded = YmyouliIni.ID.Equals(ini.Provider);
             ExpanderInfinity.IsExpanded = InfinityIni.ID.Equals(ini.Provider);
+            ExpanderOne.IsExpanded = OneIni.ID.Equals(ini.Provider);
 
             BoxBingLang.SelectedIndex = listBingLang.Select(t => t.Id).ToList().IndexOf(((BingIni)ini.GetIni(BingIni.ID)).Lang);
             ToggleNasaMirror.IsOn = "bjp".Equals(((NasaIni)ini.GetIni(NasaIni.ID)).Mirror);
@@ -141,7 +149,8 @@ namespace TimelineWallpaper {
             BoxHimawari8Offset.Value = ((Himawari8Ini)ini.GetIni(Himawari8Ini.ID)).Offset;
             BoxYmyouliCol.SelectedIndex = listYmyouliCol.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Col);
             BoxInfinityOrder.SelectedIndex = listInfinityOrder.Select(t => t.Id).ToList().IndexOf(((InfinityIni)ini.GetIni(InfinityIni.ID)).Order);
-            
+            BoxOneOrder.SelectedIndex = listOneOrder.Select(t => t.Id).ToList().IndexOf(((OneIni)ini.GetIni(OneIni.ID)).Order);
+
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
             TextThemeCur.Text = rb.Content.ToString();
@@ -320,6 +329,20 @@ namespace TimelineWallpaper {
             bi.Order = paras.Id;
             IniUtil.SaveInfinityOrder(paras.Id);
             IniUtil.SaveProvider(InfinityIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BoxOneOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            OneIni bi = (OneIni)ini.GetIni(OneIni.ID);
+            bi.Order = paras.Id;
+            IniUtil.SaveOneOrder(paras.Id);
+            IniUtil.SaveProvider(OneIni.ID);
             SettingsChanged?.Invoke(this, new SettingsEventArgs {
                 ProviderChanged = true
             });

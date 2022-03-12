@@ -339,12 +339,19 @@ namespace TimelineWallpaper.Utils {
 
     public class OneIni : BaseIni {
         public const string ID = "one";
+        public static readonly List<string> ORDER = new List<string>() { "date", "random" };
+        
+        private string order = "date";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "date";
+            get => order;
+        }
 
-        public override bool IsSequential() => true;
+        public override bool IsSequential() => "date".Equals(order);
 
         public override BaseProvider GenerateProvider() => new OneProvider() { Id = ID };
 
-        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}";
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}";
     }
 
     public class G3Ini : BaseIni {

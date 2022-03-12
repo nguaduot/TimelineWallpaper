@@ -283,6 +283,11 @@
                                                       Click="MenuProvider_Click"
                                                       Tag="infinity"
                                                       GroupName="Provider" />
+                            <muxc:RadioMenuFlyoutItem Name="MenuProviderOne"
+                                                      x:Uid="MenuProviderOne"
+                                                      Click="MenuProvider_Click"
+                                                      Tag="one"
+                                                      GroupName="Provider" />
                         </MenuFlyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>

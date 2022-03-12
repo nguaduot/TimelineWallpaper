@@ -197,6 +197,10 @@ namespace TimelineWallpaper.Utils {
                     "lockperiod=24",
                     "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
+                    "order=date",
+                    "; order=date    排序：日期（默认）",
+                    "; order=random  排序：随机",
+                    "",
                     "[3g]",
                     "",
                     "desktopperiod=24",
@@ -364,6 +368,11 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("infinity", "order", order, iniFile.Path);
         }
 
+        public static async void SaveOneOrder(string order) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("one", "order", order, iniFile.Path);
+        }
+
         public static async Task<StorageFile> GetIniPath() {
             return await GenerateIniFileAsync();
         }
@@ -469,9 +478,11 @@ namespace TimelineWallpaper.Utils {
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
             _ = GetPrivateProfileString("one", "lockperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out lockPeriod);
+            _ = GetPrivateProfileString("one", "order", "date", sb, 1024, iniFile);
             ini.SetIni("one", new OneIni {
                 DesktopPeriod = desktopPeriod,
-                LockPeriod = lockPeriod
+                LockPeriod = lockPeriod,
+                Order = sb.ToString()
             });
             _ = GetPrivateProfileString("3g", "desktopperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);

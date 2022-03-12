@@ -741,4 +741,22 @@
   <data name="Slogan_one" xml:space="preserve">
     <value>ONE IS ALL</value>
   </data>
+  <data name="MenuProviderOne.Text" xml:space="preserve">
+    <value>ONE - ONE IS ALL</value>
+  </data>
+  <data name="OneOrder_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="OneOrder_random" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="SettingsOneDesc.Text" xml:space="preserve">
+    <value>ONE IS ALL</value>
+  </data>
+  <data name="SettingsOneTitle.Text" xml:space="preserve">
+    <value>ONE</value>
+  </data>
+  <data name="TextOneOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
 </root>

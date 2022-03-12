@@ -33,6 +33,31 @@ namespace TimelineWallpaper.Providers {
                 Copyright = bean.PictureAuthor,
                 Date = DateTime.ParseExact(bean.Date, "yyyy / MM / dd", new System.Globalization.CultureInfo("en-US")),
             };
+            if (!string.IsNullOrEmpty(bean.Content)) {
+                //Match match = Regex.Match(bean.Content, @"^[^ ，、。！？；：—\r\n]+");
+                //if (match.Success) {
+                //    meta.Title = match.Groups[0].Value;
+                //    if (meta.Title.Length > 4) {
+                //        meta.Title = meta.Title.Substring(0, Math.Min(meta.Title.Length, 18)) + "……";
+                //    } else {
+                //        meta.Title = bean.Content.Substring(0, Math.Min(bean.Content.Length, 18)) + "……";
+                //        meta.Title = Regex.Replace(meta.Title, @"[ ，、。！？；：(——)(\r\n)]……", "……");
+                //    }
+                //}
+                meta.Title = "";
+                foreach (Match match in Regex.Matches(bean.Content, @"([^  ，、。！？；：(?:——)\n(?:\r\n)]+)([  ，、。！？；：(?:——)\n(?:\r\n)])")) {
+                    meta.Title += match.Groups[1].Value;
+                    if (meta.Title.Length < 6) {
+                        meta.Title += match.Groups[2].Value;
+                    } else {
+                        if (meta.Title.Length > 16) {
+                            meta.Title = meta.Title.Substring(0, 16);
+                        }
+                        break;
+                    }
+                }
+                meta.Title += "……";
+            }
             if (!string.IsNullOrEmpty(bean.TextAuthors)) {
                 meta.Story += "\n——" + bean.TextAuthors;
             }
@@ -72,6 +97,11 @@ namespace TimelineWallpaper.Providers {
                 return metas.Count > 0;
             }
 
+            if ("random".Equals(((OneIni)ini).Order)) {
+                nextPage = (3012 + new Random().Next((DateTime.Now - DateTime.Parse("2020-11-10")).Days)).ToString();
+            } else {
+                nextPage = metas.Count > 0 ? metas[metas.Count - 1].Id : "0";
+            }
             string urlApi = string.Format(URL_API, nextPage, token);
             Debug.WriteLine("provider url: " + urlApi);
             try {
@@ -89,8 +119,11 @@ namespace TimelineWallpaper.Providers {
                 foreach (OneApiData item in oneApi.Data) {
                     metasAdd.Add(ParseBean(item));
                 }
-                SortMetas(metasAdd); // 按时序倒序排列
-                nextPage = metas.Count > 0 ? metas[metas.Count - 1].Id : "0";
+                if ("date".Equals(((OneIni)ini).Order)) { // 按时序倒序排列
+                    SortMetas(metasAdd);
+                } else {
+                    RandomMetas(metasAdd);
+                }
             } catch (Exception e) {
                 Debug.WriteLine(e);
             }
