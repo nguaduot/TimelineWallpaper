@@ -7,7 +7,6 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 
 namespace TimelineWallpaper.Providers {
@@ -66,17 +65,13 @@ namespace TimelineWallpaper.Providers {
             string requestStr = JsonConvert.SerializeObject(request);
             Debug.WriteLine("provider url: " + URL_API + " " + requestStr);
             try {
-                //HttpClientHandler handler = new HttpClientHandler() {
-                //    CookieContainer = new CookieContainer(),
-                //    UseCookies = true
-                //};
-                //handler.CookieContainer.Add(new Uri(URL_API), new Cookie("LOCALE", "zh_CN"));
                 HttpClient client = new HttpClient();
-                HttpContent content = new StringContent(requestStr, Encoding.UTF8);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                HttpResponseMessage response = await client.PostAsync(URL_API, content);
-                _ = response.EnsureSuccessStatusCode();
-                string jsonData = await response.Content.ReadAsStringAsync();
+                HttpRequestMessage msgReq = new HttpRequestMessage(HttpMethod.Post, URL_API);
+                //msgReq.Headers.Add("Cookie", "LOCALE=zh_CN; Path=/");
+                msgReq.Content = new StringContent(requestStr, Encoding.UTF8, "application/json");
+                HttpResponseMessage msgRes = await client.SendAsync(msgReq);
+                _ = msgRes.EnsureSuccessStatusCode();
+                string jsonData = await msgRes.Content.ReadAsStringAsync();
                 Debug.WriteLine("provider data: " + jsonData.Trim());
                 OneplusApi oneplusApi = JsonConvert.DeserializeObject<OneplusApi>(jsonData);
                 List<Meta> metasAdd = new List<Meta>();

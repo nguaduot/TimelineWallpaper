@@ -415,7 +415,7 @@
     <value> me.</value>
   </data>
   <data name="TextCopyright.Text" xml:space="preserve">
-    <value>© 2021 nguaduot. All rights reserved.</value>
+    <value>© 2021-2022 nguaduot. All rights reserved.</value>
   </data>
   <data name="TextReview1.Text" xml:space="preserve">
     <value>Microsoft Store</value>
@@ -490,7 +490,7 @@
     <value>Microsoft Bing</value>
   </data>
   <data name="SettingsIniDesc.Text" xml:space="preserve">
-    <value>View or modify configuration file</value>
+    <value>Beta, only for experienced users</value>
   </data>
   <data name="SettingsIniTitle.Text" xml:space="preserve">
     <value>Configuration file</value>
@@ -525,7 +525,7 @@
   <data name="BtnShowCache.Content" xml:space="preserve">
     <value>Go</value>
   </data>
-  <data name="BtnShowIni.Content" xml:space="preserve">
+  <data name="BtnAppData.Content" xml:space="preserve">
     <value>Go</value>
   </data>
   <data name="BtnShowSave.Content" xml:space="preserve">
@@ -571,7 +571,7 @@
     <value>Shot on OnePlus</value>
   </data>
   <data name="SettingsOneplusTitle.Text" xml:space="preserve">
-    <value>Oneplus</value>
+    <value>OnePlus</value>
   </data>
   <data name="SettingsSaveTitle.Text" xml:space="preserve">
     <value>Save location</value>
@@ -603,8 +603,8 @@
   <data name="TextOneplusOrder.Text" xml:space="preserve">
     <value>Order</value>
   </data>
-  <data name="TextShowIni.Text" xml:space="preserve">
-    <value>Configuration file location</value>
+  <data name="TextIni.Text" xml:space="preserve">
+    <value>Edit configuration</value>
   </data>
   <data name="TextTimelineCate.Text" xml:space="preserve">
     <value>Category</value>
@@ -633,26 +633,14 @@
   <data name="TimelineOrder_random" xml:space="preserve">
     <value>Random</value>
   </data>
-  <data name="TextProject.Text" xml:space="preserve">
-    <value>Project</value>
-  </data>
-  <data name="TextThank.Text" xml:space="preserve">
-    <value>Thanks</value>
-  </data>
   <data name="TextThank1.Text" xml:space="preserve">
-    <value>Icon design: Coolapk@鱼离不开水</value>
+    <value>Thank Coolapk@鱼离不开水 for designing the main icon.</value>
   </data>
   <data name="YmyouliCol_" xml:space="preserve">
     <value>Random</value>
   </data>
-  <data name="BtnContribute.Content" xml:space="preserve">
+  <data name="BtnTimelineContribute.Content" xml:space="preserve">
     <value>Contribute</value>
-  </data>
-  <data name="SettingsContributeDesc.Text" xml:space="preserve">
-    <value>Welcome to share your photographic works</value>
-  </data>
-  <data name="SettingsContributeTitle.Text" xml:space="preserve">
-    <value>Want to contribute</value>
   </data>
   <data name="Provider_abyss" xml:space="preserve">
     <value>Wallpaper Abyss</value>
@@ -758,5 +746,35 @@
   </data>
   <data name="TextOneOrder.Text" xml:space="preserve">
     <value>Order</value>
+  </data>
+  <data name="BtnReview.Content" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="BtnYmyouliDonate.Content" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="SettingsReviewDesc.Text" xml:space="preserve">
+    <value>羡青山有思，白鹤忘机</value>
+  </data>
+  <data name="SettingsReviewTitle.Text" xml:space="preserve">
+    <value>Rate it</value>
+  </data>
+  <data name="SettingsThankDesc.Text" xml:space="preserve">
+    <value>但从今、记取楚楼风，裴台月</value>
+  </data>
+  <data name="SettingsThankTitle.Text" xml:space="preserve">
+    <value>Thanks</value>
+  </data>
+  <data name="TextTimelineContribute.Text" xml:space="preserve">
+    <value>Share my works</value>
+  </data>
+  <data name="TextTranslate.Text" xml:space="preserve">
+    <value>If you wish to provide translations for the project, please contact me. Thanks.</value>
+  </data>
+  <data name="TextYmyouliDonate.Text" xml:space="preserve">
+    <value>Buy me a coffee</value>
+  </data>
+  <data name="UrlYmyouli" xml:space="preserve">
+    <value>https://www.ymyouli.com/</value>
   </data>
 </root>

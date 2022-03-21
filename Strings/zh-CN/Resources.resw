@@ -373,7 +373,7 @@
     <value>下次一定</value>
   </data>
   <data name="TextReview0.Text" xml:space="preserve">
-    <value>独立开发，维护不易，如果您喜欢「拾光」分享的图源，前往 </value>
+    <value>独立开发，维护不易。我利用有限的业余时间设计了「拾光」，如果您喜欢，前往 </value>
   </data>
   <data name="MenuProviderHimawari8.Text" xml:space="preserve">
     <value>向日葵8号 - 实时地球</value>
@@ -415,7 +415,7 @@
     <value> 联系我。</value>
   </data>
   <data name="TextCopyright.Text" xml:space="preserve">
-    <value>© 2021 nguaduot。保留所有权利。</value>
+    <value>© 2021-2022 nguaduot。保留所有权利。</value>
   </data>
   <data name="TextReview1.Text" xml:space="preserve">
     <value>商店</value>
@@ -445,7 +445,7 @@
     <value>扫码赞助</value>
   </data>
   <data name="TextReview4.Text" xml:space="preserve">
-    <value>。(●'◡'●)</value>
+    <value>，所有捐赠都将用来维护本项目以及提升积极性。(●'◡'●)</value>
   </data>
   <data name="BoxGo.Header" xml:space="preserve">
     <value>回顾日期</value>
@@ -463,7 +463,7 @@
     <value>使用系统设置</value>
   </data>
   <data name="SettingsIniDesc.Text" xml:space="preserve">
-    <value>查看/编辑配置文件</value>
+    <value>实验性功能，谨慎尝试</value>
   </data>
   <data name="SettingsIniTitle.Text" xml:space="preserve">
     <value>配置文件</value>
@@ -525,14 +525,14 @@
   <data name="BtnShowCache.Content" xml:space="preserve">
     <value>前往</value>
   </data>
-  <data name="BtnShowIni.Content" xml:space="preserve">
+  <data name="BtnAppData.Content" xml:space="preserve">
     <value>前往</value>
   </data>
   <data name="BtnShowSave.Content" xml:space="preserve">
     <value>前往</value>
   </data>
   <data name="SettingsSaveDesc.Text" xml:space="preserve">
-    <value>查看保存过的图片</value>
+    <value>查看已保存的图片</value>
   </data>
   <data name="InfinityOrder_" xml:space="preserve">
     <value>随机</value>
@@ -571,7 +571,7 @@
     <value>Shot on OnePlus</value>
   </data>
   <data name="SettingsOneplusTitle.Text" xml:space="preserve">
-    <value>Oneplus</value>
+    <value>OnePlus</value>
   </data>
   <data name="SettingsSaveTitle.Text" xml:space="preserve">
     <value>图片保存位置</value>
@@ -603,8 +603,8 @@
   <data name="TextOneplusOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
-  <data name="TextShowIni.Text" xml:space="preserve">
-    <value>配置文件位置</value>
+  <data name="TextIni.Text" xml:space="preserve">
+    <value>编辑配置文件</value>
   </data>
   <data name="TextTimelineCate.Text" xml:space="preserve">
     <value>类别</value>
@@ -633,25 +633,13 @@
   <data name="TimelineOrder_random" xml:space="preserve">
     <value>随机</value>
   </data>
-  <data name="TextProject.Text" xml:space="preserve">
-    <value>项目</value>
-  </data>
-  <data name="TextThank.Text" xml:space="preserve">
-    <value>致谢</value>
-  </data>
   <data name="TextThank1.Text" xml:space="preserve">
-    <value>图标设计：酷安@鱼离不开水</value>
+    <value>感谢酷安 @鱼离不开水 帮助设计主图标。</value>
   </data>
   <data name="YmyouliCol_" xml:space="preserve">
     <value>随机一类</value>
   </data>
-  <data name="BtnContribute.Content" xml:space="preserve">
-    <value>投稿</value>
-  </data>
-  <data name="SettingsContributeDesc.Text" xml:space="preserve">
-    <value>欢迎分享您在其他平台发布的摄影作品</value>
-  </data>
-  <data name="SettingsContributeTitle.Text" xml:space="preserve">
+  <data name="BtnTimelineContribute.Content" xml:space="preserve">
     <value>我要投稿</value>
   </data>
   <data name="Provider_abyss" xml:space="preserve">
@@ -694,7 +682,7 @@
     <value>图文标题（选填）</value>
   </data>
   <data name="BoxUrl.Header" xml:space="preserve">
-    <value>发布链接</value>
+    <value>图文链接</value>
   </data>
   <data name="DlgContribute.CloseButtonText" xml:space="preserve">
     <value>取消</value>
@@ -758,5 +746,35 @@
   </data>
   <data name="TextOneOrder.Text" xml:space="preserve">
     <value>排序</value>
+  </data>
+  <data name="BtnReview.Content" xml:space="preserve">
+    <value>评分</value>
+  </data>
+  <data name="BtnYmyouliDonate.Content" xml:space="preserve">
+    <value>赞助支持</value>
+  </data>
+  <data name="SettingsReviewDesc.Text" xml:space="preserve">
+    <value>羡青山有思，白鹤忘机</value>
+  </data>
+  <data name="SettingsReviewTitle.Text" xml:space="preserve">
+    <value>支持</value>
+  </data>
+  <data name="SettingsThankDesc.Text" xml:space="preserve">
+    <value>但从今、记取楚楼风，裴台月</value>
+  </data>
+  <data name="SettingsThankTitle.Text" xml:space="preserve">
+    <value>致谢</value>
+  </data>
+  <data name="TextTimelineContribute.Text" xml:space="preserve">
+    <value>分享摄影作品</value>
+  </data>
+  <data name="TextTranslate.Text" xml:space="preserve">
+    <value>如果您愿意为「拾光」提供其他语言的翻译，请联系我，感谢。 </value>
+  </data>
+  <data name="TextYmyouliDonate.Text" xml:space="preserve">
+    <value>维护不易</value>
+  </data>
+  <data name="UrlYmyouli" xml:space="preserve">
+    <value>https://www.ymyouli.com/</value>
   </data>
 </root>

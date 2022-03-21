@@ -34,16 +34,6 @@ namespace TimelineWallpaper.Providers {
                 Date = DateTime.ParseExact(bean.Date, "yyyy / MM / dd", new System.Globalization.CultureInfo("en-US")),
             };
             if (!string.IsNullOrEmpty(bean.Content)) {
-                //Match match = Regex.Match(bean.Content, @"^[^ ，、。！？；：—\r\n]+");
-                //if (match.Success) {
-                //    meta.Title = match.Groups[0].Value;
-                //    if (meta.Title.Length > 4) {
-                //        meta.Title = meta.Title.Substring(0, Math.Min(meta.Title.Length, 18)) + "……";
-                //    } else {
-                //        meta.Title = bean.Content.Substring(0, Math.Min(bean.Content.Length, 18)) + "……";
-                //        meta.Title = Regex.Replace(meta.Title, @"[ ，、。！？；：(——)(\r\n)]……", "……");
-                //    }
-                //}
                 meta.Title = "";
                 foreach (Match match in Regex.Matches(bean.Content, @"([^  ，、。！？；：(?:——)\n(?:\r\n)]+)([  ，、。！？；：(?:——)\n(?:\r\n)])")) {
                     meta.Title += match.Groups[1].Value;

@@ -282,6 +282,27 @@
                                           ItemsSource="{x:Bind listTimelineOrder}"
                                           SelectionChanged="BoxTimelineOrder_SelectionChanged" />
                             </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xEE56;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextTimelineContribute"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <Button Grid.Column="2"
+                                        Name="BtnTimelineContribute"
+                                        x:Uid="BtnTimelineContribute"
+                                        Click="BtnTimelineContribute_Click" />
+                            </Grid>
                         </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>
@@ -371,28 +392,51 @@
                         </Grid>
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Margin="0,0,12,0"
-                                      VerticalAlignment="Center"
-                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                      FontFamily="{ThemeResource FluentIcons}"
-                                      FontSize="16"
-                                      Glyph="&#xE8F1;" />
-                            <TextBlock Grid.Column="1"
-                                       x:Uid="TextYmyouliCol"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource BodyTextBlockStyle}" />
-                            <ComboBox Name="BoxYmyouliCol"
-                                      Grid.Column="2"
-                                      MinWidth="140"
-                                      ItemsSource="{x:Bind listYmyouliCol}"
-                                      SelectionChanged="BoxYmyouliCol_SelectionChanged" />
-                        </Grid>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE8F1;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextYmyouliCol"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <ComboBox Name="BoxYmyouliCol"
+                                          Grid.Column="2"
+                                          MinWidth="140"
+                                          ItemsSource="{x:Bind listYmyouliCol}"
+                                          SelectionChanged="BoxYmyouliCol_SelectionChanged" />
+                            </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE95E;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextYmyouliDonate"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <Button Grid.Column="2"
+                                        Name="BtnYmyouliDonate"
+                                        x:Uid="BtnYmyouliDonate"
+                                        Click="BtnYmyouliDonate_Click" />
+                            </Grid>
+                        </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>
                 <muxc:Expander Name="ExpanderInfinity"
@@ -609,10 +653,6 @@
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
-
-                <TextBlock x:Uid="TextSettingsBeta"
-                           Style="{StaticResource BodyTextBlockStyle}"
-                           Margin="0,24,0,0" />
                 <muxc:Expander ExpandDirection="Down"
                                IsExpanded="False"
                                HorizontalAlignment="Stretch"
@@ -623,50 +663,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Margin="0,0,12,0"
-                                      VerticalAlignment="Center"
-                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                      FontFamily="{ThemeResource FluentIcons}"
-                                      FontSize="16"
-                                      Glyph="&#xEE56;" />
-                            <StackPanel Grid.Column="1"
-                                        Margin="0,12"
-                                        Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsContributeTitle"
-                                           Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsContributeDesc"
-                                           Style="{StaticResource CaptionTextBlockStyle}"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           MaxLines="1"
-                                           TextWrapping="WrapWholeWords" />
-                            </StackPanel>
-                            <Button Grid.Column="2"
-                                    Name="BtnContribute"
-                                    x:Uid="BtnContribute"
-                                    VerticalAlignment="Center"
-                                    Click="BtnContribute_Click" />
-                        </Grid>
-                    </muxc:Expander.Header>
-                    <muxc:Expander.Content>
-                        <TextBlock x:Uid="TextContributePrivacy"
-                                   TextWrapping="Wrap"
-                                   Margin="28,0,0,0"
-                                   Style="{StaticResource BodyTextBlockStyle}" />
-                    </muxc:Expander.Content>
-                </muxc:Expander>
-                <muxc:Expander ExpandDirection="Down"
-                               IsExpanded="False"
-                               HorizontalAlignment="Stretch"
-                               HorizontalContentAlignment="Stretch"
-                               Margin="0,8,0,0">
-                    <muxc:Expander.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <FontIcon Margin="0,0,12,0"
                                       VerticalAlignment="Center"
@@ -685,11 +681,6 @@
                                            MaxLines="1"
                                            TextWrapping="WrapWholeWords" />
                             </StackPanel>
-                            <Button Grid.Column="2"
-                                    Name="BtnIni"
-                                    x:Uid="BtnIni"
-                                    VerticalAlignment="Center"
-                                    Click="BtnIni_Click" />
                         </Grid>
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
@@ -698,19 +689,113 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Uid="TextShowIni"
+                            <TextBlock x:Uid="TextIni"
                                        VerticalAlignment="Center"
                                        Style="{StaticResource BodyTextBlockStyle}" />
                             <Button Grid.Column="1"
-                                    Name="BtnShowIni"
-                                    x:Uid="BtnShowIni"
+                                    Name="BtnIni"
+                                    x:Uid="BtnIni"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    Click="BtnShowIni_Click" />
+                                    Click="BtnIni_Click" />
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
+                <muxc:Expander ExpandDirection="Down"
+                               IsExpanded="False"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Margin="0,8,0,0">
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="{ThemeResource FluentIcons}"
+                                      FontSize="16"
+                                      Glyph="&#xE8E1;" />
+                            <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                                <TextBlock x:Uid="SettingsReviewTitle"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock x:Uid="SettingsReviewDesc"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           MaxLines="1"
+                                           TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                            <Button Grid.Column="2"
+                                    Name="BtnReview"
+                                    x:Uid="BtnReview"
+                                    VerticalAlignment="Center"
+                                    Click="BtnReview_Click" />
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <StackPanel Margin="28,0,0,0">
+                            <TextBlock TextWrapping="Wrap">
+                                <Span><Run x:Uid="TextReview0" /><Hyperlink x:Uid="LinkReview"
+                                                                        UnderlineStyle="None"><Run x:Uid="TextReview1" /></Hyperlink><Run x:Uid="TextReview2" /><Hyperlink x:Uid="LinkDonate"
+                                                                                                                                                                           UnderlineStyle="None"
+                                                                                                                                                                           Click="LinkDonate_Click"><Run x:Uid="TextReview3" /></Hyperlink><Run x:Uid="TextReview4" /></Span>
+                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap"
+                                       Margin="0,8,0,0">
+                                <Span><Run x:Uid="TextContatc0" /><Hyperlink x:Uid="LinkGithub"
+                                                         UnderlineStyle="None"><Run x:Uid="TextContatc1" /></Hyperlink><Run x:Uid="TextContatc2" /><Hyperlink x:Uid="LinkEmail"
+                                                                                                                                                              UnderlineStyle="None"><Run x:Uid="TextContatc3" /></Hyperlink><Run x:Uid="TextContatc4" /></Span>
+                            </TextBlock>
+                            <TextBlock TextWrapping="Wrap"
+                                       x:Uid="TextTranslate"
+                                       Margin="0,8,0,0" />
+                        </StackPanel>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+                <muxc:Expander ExpandDirection="Down"
+                               IsExpanded="False"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Margin="0,8,0,0">
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="{ThemeResource FluentIcons}"
+                                      FontSize="16"
+                                      Glyph="&#xEB51;" />
+                            <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                                <TextBlock x:Uid="SettingsThankTitle"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock x:Uid="SettingsThankDesc"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           MaxLines="1"
+                                           TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <StackPanel Margin="28,0,0,0">
+                            <TextBlock x:Uid="TextThank1"
+                                       Style="{StaticResource BodyTextBlockStyle}" />
+                        </StackPanel>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
                 
+
                 <TextBlock x:Uid="TextAbout"
                            Style="{StaticResource BodyTextBlockStyle}"
                            Margin="0,24,0,0" />
@@ -719,30 +804,7 @@
                            Margin="0,8,0,0" />
                 <TextBlock x:Uid="TextCopyright"
                            Style="{StaticResource BodyTextBlockStyle}" />
-
-                <TextBlock x:Uid="TextProject"
-                           Style="{StaticResource BodyTextBlockStyle}"
-                           Margin="0,24,0,0" />
-                <TextBlock TextWrapping="Wrap"
-                           Margin="0,8,0,0">
-            <Span><Run x:Uid="TextReview0" /><Hyperlink x:Uid="LinkReview"
-                                                        UnderlineStyle="None"><Run x:Uid="TextReview1" /></Hyperlink><Run x:Uid="TextReview2" /><Hyperlink x:Uid="LinkDonate"
-                                                                                                                                                           UnderlineStyle="None"
-                                                                                                                                                           Click="LinkDonate_Click"><Run x:Uid="TextReview3" /></Hyperlink><Run x:Uid="TextReview4" /></Span>
-                </TextBlock>
-                <TextBlock TextWrapping="Wrap"
-                           Margin="0,8,0,0">
-            <Span><Run x:Uid="TextContatc0" /><Hyperlink x:Uid="LinkGithub"
-                                                         UnderlineStyle="None"><Run x:Uid="TextContatc1" /></Hyperlink><Run x:Uid="TextContatc2" /><Hyperlink x:Uid="LinkEmail"
-                                                                                                                                                              UnderlineStyle="None"><Run x:Uid="TextContatc3" /></Hyperlink><Run x:Uid="TextContatc4" /></Span>
-                </TextBlock>
-
-                <TextBlock x:Uid="TextThank"
-                           Style="{StaticResource BodyTextBlockStyle}"
-                           Margin="0,24,0,0" />
-                <TextBlock x:Uid="TextThank1"
-                           Style="{StaticResource BodyTextBlockStyle}"
-                           Margin="0,8,0,0" />
+                
             </StackPanel>
         </ScrollViewer>
 

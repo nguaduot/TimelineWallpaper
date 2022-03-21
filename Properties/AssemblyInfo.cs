@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("拾光 for Windows 11")]
-[assembly: AssemblyCopyright("Copyright © nguaduot 2021")]
+[assembly: AssemblyCopyright("Copyright © nguaduot 2021-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -24,6 +24,6 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.5")]
-[assembly: AssemblyFileVersion("3.5")]
+[assembly: AssemblyVersion("3.9")]
+[assembly: AssemblyFileVersion("3.9")]
 [assembly: ComVisible(false)]

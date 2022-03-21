@@ -198,11 +198,6 @@ namespace TimelineWallpaper {
             LaunchFile(await IniUtil.GetIniPath());
         }
 
-        private async void BtnShowIni_Click(object sender, RoutedEventArgs e) {
-            StorageFile file = await IniUtil.GetIniPath();
-            LaunchFolder(await file.GetParentAsync(), file);
-        }
-
         private async void BtnShowSave_Click(object sender, RoutedEventArgs e) {
             LaunchFolder(await GetFolderSave());
         }
@@ -281,6 +276,10 @@ namespace TimelineWallpaper {
             });
         }
 
+        private void BtnTimelineContribute_Click(object sender, RoutedEventArgs e) {
+            ContributeChanged?.Invoke(this, new EventArgs());
+        }
+
         private void BoxHimawari8Offset_ValueChanged(Microsoft.UI.Xaml.Controls.NumberBox sender, Microsoft.UI.Xaml.Controls.NumberBoxValueChangedEventArgs args) {
             if (!paneOpened) {
                 return;
@@ -320,6 +319,10 @@ namespace TimelineWallpaper {
             });
         }
 
+        private void BtnYmyouliDonate_Click(object sender, RoutedEventArgs e) {
+            _ = Launcher.LaunchUriAsync(new Uri(resLoader.GetString("UrlYmyouli")));
+        }
+
         private void BoxInfinityOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (!paneOpened) {
                 return;
@@ -348,8 +351,8 @@ namespace TimelineWallpaper {
             });
         }
 
-        private void BtnContribute_Click(object sender, RoutedEventArgs e) {
-            ContributeChanged?.Invoke(this, new EventArgs());
+        private void BtnReview_Click(object sender, RoutedEventArgs e) {
+            _ = Launcher.LaunchUriAsync(new Uri(resLoader.GetStringForUri(new Uri("ms-resource:///Resources/LinkReview/NavigateUri"))));
         }
     }
 

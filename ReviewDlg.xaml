@@ -19,12 +19,6 @@
                                                                                                                                                                    UnderlineStyle="None"
                                                                                                                                                                    Click="LinkDonate_Click"><Run x:Uid="TextReview3" /></Hyperlink><Run x:Uid="TextReview4" /></Span>
         </TextBlock>
-        <TextBlock TextWrapping="Wrap"
-                   Margin="0,12,0,0">
-                    <Span><Run x:Uid="TextContatc0" /><Hyperlink x:Uid="LinkGithub"
-                                                                 UnderlineStyle="None"><Run x:Uid="TextContatc1" /></Hyperlink><Run x:Uid="TextContatc2" /><Hyperlink x:Uid="LinkEmail"
-                                                                                                                                                                      UnderlineStyle="None"><Run x:Uid="TextContatc3" /></Hyperlink><Run x:Uid="TextContatc4" /></Span>
-        </TextBlock>
     </StackPanel>
     
 </ContentDialog>
