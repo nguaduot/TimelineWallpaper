@@ -44,6 +44,7 @@
   *维护不易，若喜欢该图源，可前往其官网赞助。*
 
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
++ [ONE · 一个](http://m.wufazhuce.com/one) - 复杂世界里，一个就够了
 
 其他图源：
 
