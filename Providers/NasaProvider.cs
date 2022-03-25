@@ -117,7 +117,7 @@ namespace TimelineWallpaper.Providers {
                 meta.Video = URL_API_HOST + match.Groups[1].Value;
                 meta.Format = match.Groups[2].Value;
             }
-            match = Regex.Match(htmlData, @"<strong>([^=]+?)<br ?/>(.+?)</p>");
+            match = Regex.Match(htmlData, @"<strong>([^=<]+)(<.+?>)说明");
             if (match.Success) {
                 meta.Title = HtmlUtilities.ConvertToText(match.Groups[1].Value);
                 meta.Copyright = HtmlUtilities.ConvertToText(match.Groups[2].Value).Trim(new char[] { '\n', ' ' });
@@ -159,6 +159,7 @@ namespace TimelineWallpaper.Providers {
             }
 
             string url = pageUrls[nextPage++];
+            Debug.WriteLine("provider url: " + url);
             try {
                 HttpClient client = new HttpClient();
                 string htmlData = await client.GetStringAsync(url);

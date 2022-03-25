@@ -193,7 +193,7 @@
                                              Modifiers="Control" />
                     </AppBarButton.KeyboardAccelerators>
                 </AppBarButton>
-                <AppBarSeparator />
+                <AppBarSeparator Name="Separator1" />
                 <AppBarButton Name="MenuPushDesktop"
                               x:Uid="MenuPushDesktop"
                               Tag="pushdesktop"
@@ -216,7 +216,7 @@
                                   Glyph="&#xE73E;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarSeparator />
+                <AppBarSeparator Name="Separator2" />
                 <AppBarButton Name="MenuPushLock"
                               x:Uid="MenuPushLock"
                               Tag="pushlock"
@@ -239,7 +239,7 @@
                                   Glyph="&#xE73E;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarSeparator />
+                <AppBarSeparator Name="Separator3" />
                 <AppBarButton Name="MenuProvider"
                               x:Uid="MenuProvider">
                     <AppBarButton.Icon>

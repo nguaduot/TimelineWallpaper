@@ -49,6 +49,32 @@ namespace TimelineWallpaper.Services {
             }
         }
 
+        public static async void Rank(Ini ini, Meta meta, string action) {
+            if (!NetworkInterface.GetIsNetworkAvailable()) {
+                return;
+            }
+            const string URL_API_RANK = "https://api.nguaduot.cn/appstats/rank";
+            RankApiReq req = new RankApiReq {
+                Provider = ini?.Provider,
+                ImgId = meta?.Id,
+                ImgUrl = meta?.Uhd,
+                Action = action,
+                DeviceId = VerUtil.GetDeviceId(),
+                Region = GlobalizationPreferences.HomeGeographicRegion
+            };
+            try {
+                HttpClient client = new HttpClient();
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
+                    Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(URL_API_RANK, content);
+                _ = response.EnsureSuccessStatusCode();
+                string jsonData = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine("rank: " + jsonData.Trim());
+            } catch (Exception e) {
+                Debug.WriteLine(e);
+            }
+        }
+
         public static async Task<bool> Contribute(ContributeApiReq req) {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;

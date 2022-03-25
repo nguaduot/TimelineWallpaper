@@ -191,7 +191,9 @@ namespace TimelineWallpaper {
         }
 
         private void LinkDonate_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args) {
-            _ = new DonateDlg().ShowAsync();
+            _ = new DonateDlg {
+                RequestedTheme = ThemeUtil.ParseTheme(ini.Theme) // 修复未响应主题切换的BUG
+            }.ShowAsync();
         }
 
         private async void BtnIni_Click(object sender, RoutedEventArgs e) {

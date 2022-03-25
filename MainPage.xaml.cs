@@ -312,6 +312,8 @@ namespace TimelineWallpaper {
             MenuVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
                 ? Visibility.Visible : Visibility.Collapsed;
             MenuSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
+            MenuFillOn.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
+            MenuFillOff.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
             // 根据人脸识别优化组件放置位置
             bool faceLeft = meta.FaceOffset < 0.4;
@@ -385,6 +387,8 @@ namespace TimelineWallpaper {
             MenuVolumnOn.Visibility = Visibility.Collapsed;
             MenuVolumnOff.Visibility = Visibility.Collapsed;
             MenuSave.IsEnabled = false;
+            MenuFillOn.IsEnabled = false;
+            MenuFillOff.IsEnabled = false;
 
             ToggleInfo(null, !NetworkInterface.GetIsNetworkAvailable() ? resLoader.GetString("MsgNoInternet")
                 : string.Format(resLoader.GetString("MsgLostProvider"), resLoader.GetString("Provider_" + provider.Id)));
@@ -519,7 +523,9 @@ namespace TimelineWallpaper {
             }
             await Task.Delay(1000);
             FlyoutMenu.Hide();
-            var action = await new ReviewDlg().ShowAsync();
+            var action = await new ReviewDlg {
+                RequestedTheme = ThemeUtil.ParseTheme(ini.Theme) // 修复未响应主题切换的BUG
+            }.ShowAsync();
             if (action == ContentDialogResult.Primary) {
                 _ = Launcher.LaunchUriAsync(new Uri(resLoader.GetStringForUri(new Uri("ms-resource:///Resources/LinkReview/NavigateUri"))));
             } else {
@@ -611,12 +617,14 @@ namespace TimelineWallpaper {
         private void MenuSetDesktop_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
             SetWallpaperAsync(meta, true);
+            ApiService.Rank(ini, meta, "desktop");
             ChecReviewAsync();
         }
 
         private void MenuSetLock_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
             SetWallpaperAsync(meta, false);
+            ApiService.Rank(ini, meta, "lock");
             ChecReviewAsync();
         }
 
@@ -636,6 +644,7 @@ namespace TimelineWallpaper {
         private void MenuSave_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
             DownloadAsync();
+            ApiService.Rank(ini, meta, "save");
             ChecReviewAsync();
         }
 
@@ -874,6 +883,9 @@ namespace TimelineWallpaper {
                 MenuCurDesktop.RequestedTheme = theme;
                 MenuPushLock.RequestedTheme = theme;
                 MenuCurLock.RequestedTheme = theme;
+                Separator1.RequestedTheme = theme;
+                Separator2.RequestedTheme = theme;
+                Separator3.RequestedTheme = theme;
                 foreach (RadioMenuFlyoutItem item in SubmenuProvider.Items.Cast<RadioMenuFlyoutItem>()) {
                     item.RequestedTheme = theme;
                 }
@@ -884,7 +896,9 @@ namespace TimelineWallpaper {
         }
 
         private async void ViewSettings_ContributeChanged(object sender, EventArgs e) {
-            ContributeDlg dlg = new ContributeDlg();
+            ContributeDlg dlg = new ContributeDlg {
+                RequestedTheme = ThemeUtil.ParseTheme(ini.Theme) // 修复未响应主题切换的BUG
+            };
             var res = await dlg.ShowAsync();
             if (res == ContentDialogResult.Primary) {
                 ContributeApiReq req = dlg.GetContent();

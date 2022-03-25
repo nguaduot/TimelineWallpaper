@@ -23,7 +23,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>D:\uwp\TimelineWallpaper\AppPackages</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Beans\ReleaseApi.cs" />
     <Compile Include="Beans\ContributeApiReq.cs" />
+    <Compile Include="Beans\RankApiReq.cs" />
     <Compile Include="Beans\StatsApiReq.cs" />
     <Compile Include="Beans\OneApi.cs" />
     <Compile Include="Beans\TimelineApi.cs" />

@@ -216,23 +216,17 @@ namespace TimelineWallpaper.Providers {
                 }
             }
             // 获取图片尺寸&检测人像位置
-            if (meta.CacheUhd != null) {
-                try {
-                    using (var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
-                        var decoder = await BitmapDecoder.CreateAsync(stream);
-                        // 获取图片尺寸
-                        meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                        // 检测人像位置
-                        BitmapTransform transform = new BitmapTransform();
-                        //const float sizeLimit = 960;
-                        //if (Math.Min(decoder.PixelWidth, decoder.PixelHeight) > sizeLimit) {
-                        //    float factor = sizeLimit / Math.Min(decoder.PixelWidth, decoder.PixelHeight);
-                        //    transform.ScaledWidth = (uint)(decoder.PixelWidth * factor);
-                        //    transform.ScaledHeight = (uint)(decoder.PixelHeight * factor);
-                        //}
+            if (meta.CacheUhd != null && FaceDetector.IsSupported) {
+                using (var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    // 获取图片尺寸
+                    meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                    // 检测人像位置
+                    try {
+                        // TODO: 该行会随机抛出异常 System.Exception: 图像无法识别
                         SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync(decoder.BitmapPixelFormat,
-                            BitmapAlphaMode.Premultiplied, transform, ExifOrientationMode.IgnoreExifOrientation,
-                            ColorManagementMode.DoNotColorManage);
+                            BitmapAlphaMode.Premultiplied, new BitmapTransform(),
+                            ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
                         if (bitmap.BitmapPixelFormat != BitmapPixelFormat.Gray8) {
                             bitmap = SoftwareBitmap.Convert(bitmap, BitmapPixelFormat.Gray8);
                         }
@@ -244,9 +238,9 @@ namespace TimelineWallpaper.Providers {
                         }
                         meta.FaceOffset = offset >= 0 ? offset : 0.5f;
                         bitmap.Dispose();
+                    } catch (Exception ex) {
+                        Debug.WriteLine(ex);
                     }
-                } catch (Exception e) {
-                    Debug.WriteLine("parse dimen or face error");
                 }
             }
             // 获取视频尺寸
