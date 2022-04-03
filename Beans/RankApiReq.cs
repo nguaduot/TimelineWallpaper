@@ -19,5 +19,8 @@ namespace TimelineWallpaper.Beans {
 
         [JsonProperty(PropertyName = "region")]
         public string Region { set; get; }
+
+        [JsonProperty(PropertyName = "undo")]
+        public bool Undo { set; get; }
     }
 }

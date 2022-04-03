@@ -43,10 +43,10 @@ namespace TimelineWallpaper.Providers {
             string idFocus = GetFocus()?.Id;
             // 按日期降序排列
             metas.Sort((m1, m2) => {
-                if (m1.Date.Value > m2.Date.Value) {
+                if (m1.SortFactor > m2.SortFactor) {
                     return -1;
                 }
-                if (m1.Date.Value < m2.Date.Value) {
+                if (m1.SortFactor < m2.SortFactor) {
                     return 1;
                 }
                 return m1.Id.CompareTo(m2.Id);

@@ -312,6 +312,7 @@ namespace TimelineWallpaper {
             MenuVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
                 ? Visibility.Visible : Visibility.Collapsed;
             MenuSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
+            MenuDislike.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
             MenuFillOn.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
             MenuFillOff.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
@@ -323,22 +324,21 @@ namespace TimelineWallpaper {
             RelativePanel.SetAlignRightWithPanel(Info, faceLeft);
             RelativePanel.SetAlignLeftWithPanel(AnchorGo, faceLeft);
             RelativePanel.SetAlignRightWithPanel(AnchorGo, !faceLeft);
-
-            StatusEnjoy();
         }
 
         private void ReDecodeImg() {
             if (ImgUhd.Source == null) {
                 return;
             }
-            float winW = Window.Current.Content.ActualSize.X;
-            float winH = Window.Current.Content.ActualSize.Y;
             BitmapImage bi = ImgUhd.Source as BitmapImage;
             if (bi.PixelHeight == 0) {
                 Debug.WriteLine("ReDecodeImg(): bi.PixelWidth 0");
                 return;
             }
+            Debug.WriteLine("ReDecodeImg()");
             bi.DecodePixelType = DecodePixelType.Logical;
+            float winW = Window.Current.Content.ActualSize.X;
+            float winH = Window.Current.Content.ActualSize.Y;
             if (bi.PixelWidth / bi.PixelHeight > winW / winH) {
                 bi.DecodePixelWidth = (int)Math.Round(winH * bi.PixelWidth / bi.PixelHeight);
                 bi.DecodePixelHeight = (int)Math.Round(winH);
@@ -387,6 +387,7 @@ namespace TimelineWallpaper {
             MenuVolumnOn.Visibility = Visibility.Collapsed;
             MenuVolumnOff.Visibility = Visibility.Collapsed;
             MenuSave.IsEnabled = false;
+            MenuDislike.IsEnabled = false;
             MenuFillOn.IsEnabled = false;
             MenuFillOff.IsEnabled = false;
 
@@ -434,7 +435,7 @@ namespace TimelineWallpaper {
             StorageFile file = await provider.Download(meta, resLoader.GetString("AppNameShort"),
                 resLoader.GetString("Provider_" + provider.Id));
             if (file != null) {
-                ToggleInfo(null, resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, () => {
+                ToggleInfo(null, resLoader.GetString("MsgSave1"), InfoBarSeverity.Success, resLoader.GetString("ActionGo"), () => {
                     LaunchPicLib(file);
                     ToggleInfo(null, null);
                 });
@@ -480,7 +481,8 @@ namespace TimelineWallpaper {
             }
         }
 
-        private void ToggleInfo(string title, string msg, InfoBarSeverity severity = InfoBarSeverity.Error, BtnInfoLinkHandler handler = null) {
+        private void ToggleInfo(string title, string msg, InfoBarSeverity severity = InfoBarSeverity.Error,
+            string action = null, BtnInfoLinkHandler handler = null) {
             if (string.IsNullOrEmpty(msg)) {
                 Info.IsOpen = false;
                 return;
@@ -489,6 +491,7 @@ namespace TimelineWallpaper {
             Info.Title = title ?? "";
             Info.Message = msg;
             InfoLink = handler;
+            BtnInfoLink.Content = action ?? resLoader.GetString("ActionGo");
             BtnInfoLink.Visibility = handler != null ? Visibility.Visible : Visibility.Collapsed;
             Info.IsOpen = true;
         }
@@ -509,7 +512,7 @@ namespace TimelineWallpaper {
                 return;
             }
             await Task.Delay(2000);
-            ToggleInfo(null, resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, () => {
+            ToggleInfo(null, resLoader.GetString("MsgUpdate"), InfoBarSeverity.Informational, resLoader.GetString("ActionGo"), () => {
                 LaunchRelealse();
                 ToggleInfo(null, null);
             });
@@ -648,6 +651,15 @@ namespace TimelineWallpaper {
             ChecReviewAsync();
         }
 
+        private void MenuDislike_Click(object sender, RoutedEventArgs e) {
+            FlyoutMenu.Hide();
+            ApiService.Rank(ini, meta, "dislike");
+            ToggleInfo(null, resLoader.GetString("MsgDislike"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
+                ToggleInfo(null, null);
+                ApiService.Rank(ini, meta, "dislike", true);
+            });
+        }
+
         private void MenuPush_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
 
@@ -752,6 +764,14 @@ namespace TimelineWallpaper {
             ToggleInfo(null, null);
         }
 
+        private void ImgUhd_ImageOpened(object sender, RoutedEventArgs e) {
+            StatusEnjoy();
+        }
+
+        private void ImgUhd_Tapped(object sender, TappedRoutedEventArgs e) {
+            ViewSplit.IsPaneOpen = false;
+        }
+
         private void ImgUhd_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
             ToggleFullscreenMode();
         }
@@ -804,28 +824,32 @@ namespace TimelineWallpaper {
                     break;
                 case VirtualKey.B:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        SetWallpaperAsync(meta, true);
-                        ChecReviewAsync();
+                        MenuSetDesktop_Click(null, null);
                     }
                     break;
                 case VirtualKey.L:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        SetWallpaperAsync(meta, false);
-                        ChecReviewAsync();
+                        MenuSetLock_Click(null, null);
                     }
                     break;
                 case VirtualKey.S:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        DownloadAsync();
-                        ChecReviewAsync();
+                        MenuSave_Click(null, null);
+                    }
+                    break;
+                case VirtualKey.D:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        MenuDislike_Click(null, null);
                     }
                     break;
                 case VirtualKey.R:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        FlyoutMenu.Hide();
                         Refresh(true);
                     }
                     break;
                 case VirtualKey.F5:
+                    FlyoutMenu.Hide();
                     Refresh();
                     break;
                 case VirtualKey.F:
@@ -859,12 +883,12 @@ namespace TimelineWallpaper {
             AnimeYesterday2.Begin();
         }
 
-        private void ImgUhd_Tapped(object sender, TappedRoutedEventArgs e) {
-            ViewSplit.IsPaneOpen = false;
-        }
-
         private void MenuSettings_PointerEntered(object sender, PointerRoutedEventArgs e) {
             AnimeSettings.Begin();
+        }
+
+        private void MenuDislike_PointerEntered(object sender, PointerRoutedEventArgs e) {
+            AnimeDislike.Begin();
         }
 
         private void ViewSettings_SettingsChanged(object sender, SettingsEventArgs e) {

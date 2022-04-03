@@ -46,6 +46,7 @@ namespace TimelineWallpaper.Providers {
                 Caption = bean.Copyright,
                 Format = ".jpg"
             };
+            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
 
             if (!string.IsNullOrEmpty(bean.Title)) {
                 if (!bean.Title.Equals("Info")) { // ko-kr等未支持的地区

@@ -7,7 +7,6 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using TimelineWallpaper.Utils;
-using Windows.Data.Html;
 
 namespace TimelineWallpaper.Providers {
     public class AbyssProvider : BaseProvider {

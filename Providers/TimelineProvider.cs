@@ -26,8 +26,9 @@ namespace TimelineWallpaper.Providers {
                 Cate = bean.Cate,
                 Story = bean.Story?.Trim(),
                 Copyright = "@" + bean.Author?.Trim(),
-                Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US")),
+                Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"))
             };
+            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
             if (bean.Deprecated != 0) {
                 meta.Title = "🚫 " + meta.Title;
             }
@@ -41,7 +42,7 @@ namespace TimelineWallpaper.Providers {
             } else {
                 meta.Format = ".jpg";
             }
-
+            
             return meta;
         }
 

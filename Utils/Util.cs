@@ -16,7 +16,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-3.8.ini";
+        private const string FILE_INI = "timelinewallpaper-4.0.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -152,27 +152,26 @@ namespace TimelineWallpaper.Utils {
                     "lockperiod=24",
                     "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     "",
-                    "col=",
-                    "; col=     类别：随机（默认）",
-                    "; col=182  类别：游戏动漫人物",
-                    "; col=183  类别：游戏动漫场景",
-                    "; col=184  类别：自然风景",
-                    "; col=185  类别：花草植物",
-                    "; col=186  类别：美女女孩",
-                    "; col=187  类别：机车",
-                    "; col=214  类别：科幻",
-                    "; col=215  类别：意境",
-                    "; col=224  类别：武器刀剑",
-                    "; col=225  类别：动物",
-                    "; col=226  类别：古风人物",
-                    "; col=227  类别：日暮云天",
-                    "; col=228  类别：夜空星河",
-                    "; col=229  类别：战场战争",
-                    "; col=230  类别：冰雪之境",
-                    "; col=231  类别：油画",
-                    "; col=232  类别：国漫壁纸",
-                    "; col=233  类别：美食蔬果",
-                    "; col=241  类别：樱落",
+                    "order=random",
+                    "; order=date    排序：收录",
+                    "; order=random  排序：随机（默认）",
+                    "",
+                    "cate=",
+                    "; cate=              类别：全部（默认）",
+                    "; cate=acgcharacter  类别：动漫人物",
+                    "; cate=acgscene      类别：动漫场景",
+                    "; cate=sky           类别：日暮云天",
+                    "; cate=war           类别：战场战争",
+                    "; cate=sword         类别：刀光剑影",
+                    "; cate=artistry      类别：意境",
+                    "; cate=car           类别：机车",
+                    "; cate=portrait      类别：人像",
+                    "; cate=animal        类别：动物",
+                    "; cate=delicacy      类别：美食蔬果",
+                    "; cate=nature        类别：山水花草",
+                    "",
+                    "qc=1",
+                    "; qc={n}  质检：0或1（默认为1，仅展示已质检图片，过滤R18内容、含水印图）",
                     "",
                     "[infinity]",
                     "",
@@ -355,9 +354,14 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("himawari8", "offset", offset.ToString("0.00"), iniFile.Path);
         }
 
-        public static async void SaveYmyouliCol(string col) {
+        public static async void SaveYmyouliOrder(string order) {
             StorageFile iniFile = await GenerateIniFileAsync();
-            _ = WritePrivateProfileString("ymyouli", "col", col, iniFile.Path);
+            _ = WritePrivateProfileString("ymyouli", "order", order, iniFile.Path);
+        }
+
+        public static async void SaveYmyouliCate(string cate) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("ymyouli", "cate", cate, iniFile.Path);
         }
 
         public static async void SaveInfinityOrder(string order) {
@@ -444,12 +448,18 @@ namespace TimelineWallpaper.Utils {
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
             _ = GetPrivateProfileString("ymyouli", "lockperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out lockPeriod);
-            _ = GetPrivateProfileString("ymyouli", "col", "", sb, 1024, iniFile);
-            ini.SetIni("ymyouli", new YmyouliIni {
+            YmyouliIni ymyouliIni = new YmyouliIni {
                 DesktopPeriod = desktopPeriod,
-                LockPeriod = lockPeriod,
-                Col = sb.ToString()
-            });
+                LockPeriod = lockPeriod
+            };
+            _ = GetPrivateProfileString("ymyouli", "order", "random", sb, 1024, iniFile);
+            ymyouliIni.Order = sb.ToString();
+            _ = GetPrivateProfileString("ymyouli", "cate", "", sb, 1024, iniFile);
+            ymyouliIni.Cate = sb.ToString();
+            _ = GetPrivateProfileString("ymyouli", "qc", "1", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out int qc);
+            ymyouliIni.Qc = qc;
+            ini.SetIni("ymyouli", ymyouliIni);
             _ = GetPrivateProfileString("himawari8", "desktopperiod", "1", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
             _ = GetPrivateProfileString("himawari8", "lockperiod", "2", sb, 1024, iniFile);

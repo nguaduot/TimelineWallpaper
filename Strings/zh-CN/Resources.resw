@@ -129,7 +129,7 @@
   <data name="MenuSettings.ToolTipService.ToolTip" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="BtnInfoLink.Content" xml:space="preserve">
+  <data name="ActionGo" xml:space="preserve">
     <value>前往</value>
   </data>
   <data name="MenuYesterday.Label" xml:space="preserve">
@@ -186,19 +186,16 @@
   <data name="MenuFillOn.ToolTipService.ToolTip" xml:space="preserve">
     <value>切换显示模式：拉伸</value>
   </data>
-  <data name="YmyouliCol_182" xml:space="preserve">
-    <value>游戏动漫人物</value>
+  <data name="YmyouliCate_acgcharacter" xml:space="preserve">
+    <value>动漫人物</value>
   </data>
-  <data name="YmyouliCol_183" xml:space="preserve">
-    <value>游戏动漫场景</value>
+  <data name="YmyouliCate_acgscene" xml:space="preserve">
+    <value>动漫场景</value>
   </data>
-  <data name="YmyouliCol_184" xml:space="preserve">
-    <value>自然风景</value>
+  <data name="YmyouliCate_nature" xml:space="preserve">
+    <value>山水花草</value>
   </data>
-  <data name="YmyouliCol_185" xml:space="preserve">
-    <value>花草植物</value>
-  </data>
-  <data name="YmyouliCol_215" xml:space="preserve">
+  <data name="YmyouliCate_artistry" xml:space="preserve">
     <value>意境</value>
   </data>
   <data name="DetailSize" xml:space="preserve">
@@ -318,47 +315,26 @@
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>8K优质壁纸资源</value>
   </data>
-  <data name="YmyouliCol_186" xml:space="preserve">
-    <value>美女女孩</value>
+  <data name="YmyouliCate_portrait" xml:space="preserve">
+    <value>人像</value>
   </data>
-  <data name="YmyouliCol_187" xml:space="preserve">
+  <data name="YmyouliCate_car" xml:space="preserve">
     <value>机车</value>
   </data>
-  <data name="YmyouliCol_214" xml:space="preserve">
-    <value>科幻</value>
+  <data name="YmyouliCate_sword" xml:space="preserve">
+    <value>刀光剑影</value>
   </data>
-  <data name="YmyouliCol_224" xml:space="preserve">
-    <value>武器刀剑</value>
-  </data>
-  <data name="YmyouliCol_225" xml:space="preserve">
+  <data name="YmyouliCate_animal" xml:space="preserve">
     <value>动物</value>
   </data>
-  <data name="YmyouliCol_226" xml:space="preserve">
-    <value>古风人物</value>
-  </data>
-  <data name="YmyouliCol_227" xml:space="preserve">
+  <data name="YmyouliCate_sky" xml:space="preserve">
     <value>日暮云天</value>
   </data>
-  <data name="YmyouliCol_228" xml:space="preserve">
-    <value>夜空星河</value>
-  </data>
-  <data name="YmyouliCol_229" xml:space="preserve">
+  <data name="YmyouliCate_war" xml:space="preserve">
     <value>战场战争</value>
   </data>
-  <data name="YmyouliCol_230" xml:space="preserve">
-    <value>冰雪之境</value>
-  </data>
-  <data name="YmyouliCol_231" xml:space="preserve">
-    <value>油画</value>
-  </data>
-  <data name="YmyouliCol_232" xml:space="preserve">
-    <value>国漫壁纸</value>
-  </data>
-  <data name="YmyouliCol_233" xml:space="preserve">
+  <data name="YmyouliCate_delicacy" xml:space="preserve">
     <value>美食蔬果</value>
-  </data>
-  <data name="YmyouliCol_241" xml:space="preserve">
-    <value>樱落</value>
   </data>
   <data name="MsgUpdate" xml:space="preserve">
     <value>「拾光」已发布新版本</value>
@@ -612,7 +588,7 @@
   <data name="TextTimelineOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
-  <data name="TextYmyouliCol.Text" xml:space="preserve">
+  <data name="TextYmyouliCate.Text" xml:space="preserve">
     <value>类别</value>
   </data>
   <data name="TimelineCate_" xml:space="preserve">
@@ -636,8 +612,8 @@
   <data name="TextThank1.Text" xml:space="preserve">
     <value>感谢酷安 @鱼离不开水 帮助设计主图标。</value>
   </data>
-  <data name="YmyouliCol_" xml:space="preserve">
-    <value>随机一类</value>
+  <data name="YmyouliCate_" xml:space="preserve">
+    <value>全部</value>
   </data>
   <data name="BtnTimelineContribute.Content" xml:space="preserve">
     <value>我要投稿</value>
@@ -776,5 +752,23 @@
   </data>
   <data name="UrlYmyouli" xml:space="preserve">
     <value>https://www.ymyouli.com/</value>
+  </data>
+  <data name="ActionUndo" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="MenuDislike.Label" xml:space="preserve">
+    <value>我不喜欢这张图片</value>
+  </data>
+  <data name="MsgDislike" xml:space="preserve">
+    <value>您已将该图标记为“不喜欢”</value>
+  </data>
+  <data name="TextYmyouliOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="YmyouliOrder_date" xml:space="preserve">
+    <value>收录</value>
+  </data>
+  <data name="YmyouliOrder_random" xml:space="preserve">
+    <value>随机</value>
   </data>
 </root>

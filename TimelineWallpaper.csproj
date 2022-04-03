@@ -135,13 +135,13 @@
     <Compile Include="Beans\RankApiReq.cs" />
     <Compile Include="Beans\StatsApiReq.cs" />
     <Compile Include="Beans\OneApi.cs" />
+    <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\TimelineApi.cs" />
     <Compile Include="Beans\MxgApi.cs" />
     <Compile Include="Beans\MtyApiItem.cs" />
     <Compile Include="Beans\ToubiecApiItem.cs" />
     <Compile Include="Beans\DmoeApiItem.cs" />
     <Compile Include="Beans\InfinityApi.cs" />
-    <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="Beans\LofterApi.cs" />
     <Compile Include="ContributeDlg.xaml.cs">

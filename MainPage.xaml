@@ -71,6 +71,18 @@
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
                              Storyboard.TargetName="IconFillOff" />
         </Storyboard>
+        <Storyboard x:Name="AnimeDislike"
+                    AutoReverse="True">
+            <DoubleAnimation Duration="0:0:0.1"
+                             From="0"
+                             To="-4"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Y)"
+                             Storyboard.TargetName="IconDislike">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
 
         <muxc:CommandBarFlyout x:Name="FlyoutMenu"
                                AlwaysExpanded="True"
@@ -148,6 +160,26 @@
                 </AppBarButton.Icon>
                 <AppBarButton.KeyboardAccelerators>
                     <KeyboardAccelerator Key="S"
+                                         Modifiers="Control" />
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
+            <AppBarButton Name="MenuDislike"
+                          x:Uid="MenuDislike"
+                          IsEnabled="False"
+                          PointerEntered="MenuDislike_PointerEntered"
+                          Click="MenuDislike_Click">
+                <AppBarButton.Icon>
+                    <FontIcon x:Name="IconDislike"
+                              FontFamily="{StaticResource ResourceKey=FluentIcons}"
+                              Glyph="&#xE8E0;"
+                              RenderTransformOrigin="0.5,0.5">
+                        <FontIcon.RenderTransform>
+                            <TranslateTransform X="0" />
+                        </FontIcon.RenderTransform>
+                    </FontIcon>
+                </AppBarButton.Icon>
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="D"
                                          Modifiers="Control" />
                 </AppBarButton.KeyboardAccelerators>
             </AppBarButton>
@@ -409,6 +441,9 @@
                 <KeyboardAccelerator Key="S"
                                      Modifiers="Control"
                                      Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="D"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
                 <KeyboardAccelerator Key="O"
                                      Modifiers="Control"
                                      Invoked="KeyInvoked" />
@@ -453,11 +488,12 @@
                    Scale="1.014,1.014,1.014"
                    Stretch="UniformToFill"
                    ContextFlyout="{x:Bind FlyoutMenu}"
-                   Tapped="ImgUhd_Tapped"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    RelativePanel.AlignHorizontalCenterWithPanel="True"
                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                   ImageOpened="ImgUhd_ImageOpened"
+                   Tapped="ImgUhd_Tapped"
                    DoubleTapped="ImgUhd_DoubleTapped"
                    PointerWheelChanged="ImgUhd_PointerWheelChanged">
                 <Image.OpacityTransition>
@@ -559,7 +595,6 @@
                           Margin="12,36,12,12">
                 <muxc:InfoBar.ActionButton>
                     <HyperlinkButton Name="BtnInfoLink"
-                                     x:Uid="BtnInfoLink"
                                      Visibility="Collapsed"
                                      Click="BtnInfoLink_Click" />
                 </muxc:InfoBar.ActionButton>

@@ -28,6 +28,7 @@ namespace TimelineWallpaper.Providers {
                 Date = DateTime.ParseExact(bean.ScheduleTime, "yyyyMMdd", new System.Globalization.CultureInfo("en-US")),
                 Format = ".jpg"
             };
+            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
 
             if (!bean.PhotoTopic.Equals(bean.Remark?.Trim())) {
                 meta.Caption = bean.Remark?.Trim();

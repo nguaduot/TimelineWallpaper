@@ -42,6 +42,7 @@ namespace TimelineWallpaper.Providers {
             }*/
             if (!string.IsNullOrEmpty(bean.Date)) {
                 meta.Date = DateTime.ParseExact(bean.Date, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"));
+                meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
                 meta.Id = bean.MediaType + meta.Date?.ToString("yyyyMMdd");
             }
             if (!string.IsNullOrEmpty(bean.Copyright)) {
@@ -129,6 +130,7 @@ namespace TimelineWallpaper.Providers {
             match = Regex.Match(htmlData, @">(\d+\-\d+\-\d+)<");
             if (match.Success) {
                 meta.Date = DateTime.ParseExact(match.Groups[1].Value, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"));
+                meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
             }
             return meta;
         }

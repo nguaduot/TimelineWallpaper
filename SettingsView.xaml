@@ -406,14 +406,36 @@
                                           FontSize="16"
                                           Glyph="&#xE8F1;" />
                                 <TextBlock Grid.Column="1"
-                                           x:Uid="TextYmyouliCol"
+                                           x:Uid="TextYmyouliCate"
                                            VerticalAlignment="Center"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <ComboBox Name="BoxYmyouliCol"
+                                <ComboBox Name="BoxYmyouliCate"
                                           Grid.Column="2"
                                           MinWidth="140"
-                                          ItemsSource="{x:Bind listYmyouliCol}"
-                                          SelectionChanged="BoxYmyouliCol_SelectionChanged" />
+                                          ItemsSource="{x:Bind listYmyouliCate}"
+                                          SelectionChanged="BoxYmyouliCate_SelectionChanged" />
+                            </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE8CB;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextYmyouliOrder"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <ComboBox Name="BoxYmyouliOrder"
+                                          Grid.Column="2"
+                                          MinWidth="140"
+                                          ItemsSource="{x:Bind listYmyouliOrder}"
+                                          SelectionChanged="BoxYmyouliOrder_SelectionChanged" />
                             </Grid>
                             <Grid Margin="0,8,0,0">
                                 <Grid.ColumnDefinitions>

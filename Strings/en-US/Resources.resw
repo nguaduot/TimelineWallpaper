@@ -129,7 +129,7 @@
   <data name="MenuSettings.ToolTipService.ToolTip" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="BtnInfoLink.Content" xml:space="preserve">
+  <data name="ActionGo" xml:space="preserve">
     <value>Go</value>
   </data>
   <data name="MenuYesterday.Label" xml:space="preserve">
@@ -186,19 +186,16 @@
   <data name="MenuFillOn.ToolTipService.ToolTip" xml:space="preserve">
     <value>Uniform to fill</value>
   </data>
-  <data name="YmyouliCol_182" xml:space="preserve">
+  <data name="YmyouliCate_acgcharacter" xml:space="preserve">
     <value>ACG character</value>
   </data>
-  <data name="YmyouliCol_183" xml:space="preserve">
+  <data name="YmyouliCate_acgscene" xml:space="preserve">
     <value>ACG scene</value>
   </data>
-  <data name="YmyouliCol_184" xml:space="preserve">
+  <data name="YmyouliCate_nature" xml:space="preserve">
     <value>Nature</value>
   </data>
-  <data name="YmyouliCol_185" xml:space="preserve">
-    <value>Plant</value>
-  </data>
-  <data name="YmyouliCol_215" xml:space="preserve">
+  <data name="YmyouliCate_artistry" xml:space="preserve">
     <value>Artistry</value>
   </data>
   <data name="DetailSize" xml:space="preserve">
@@ -318,47 +315,26 @@
   <data name="Slogan_ymyouli" xml:space="preserve">
     <value>8K high-quality wallpapers</value>
   </data>
-  <data name="YmyouliCol_186" xml:space="preserve">
-    <value>Girl</value>
+  <data name="YmyouliCate_portrait" xml:space="preserve">
+    <value>Portrait</value>
   </data>
-  <data name="YmyouliCol_187" xml:space="preserve">
+  <data name="YmyouliCate_car" xml:space="preserve">
     <value>Car</value>
   </data>
-  <data name="YmyouliCol_214" xml:space="preserve">
-    <value>Science fiction</value>
+  <data name="YmyouliCate_sword" xml:space="preserve">
+    <value>Sword</value>
   </data>
-  <data name="YmyouliCol_224" xml:space="preserve">
-    <value>Weapon</value>
-  </data>
-  <data name="YmyouliCol_225" xml:space="preserve">
+  <data name="YmyouliCate_animal" xml:space="preserve">
     <value>Animal</value>
   </data>
-  <data name="YmyouliCol_226" xml:space="preserve">
-    <value>Costume</value>
+  <data name="YmyouliCate_sky" xml:space="preserve">
+    <value>Sky</value>
   </data>
-  <data name="YmyouliCol_227" xml:space="preserve">
-    <value>Sunset</value>
-  </data>
-  <data name="YmyouliCol_228" xml:space="preserve">
-    <value>Night sky</value>
-  </data>
-  <data name="YmyouliCol_229" xml:space="preserve">
+  <data name="YmyouliCate_war" xml:space="preserve">
     <value>War</value>
   </data>
-  <data name="YmyouliCol_230" xml:space="preserve">
-    <value>Ice and snow</value>
-  </data>
-  <data name="YmyouliCol_231" xml:space="preserve">
-    <value>Painting</value>
-  </data>
-  <data name="YmyouliCol_232" xml:space="preserve">
-    <value>Chinese animation</value>
-  </data>
-  <data name="YmyouliCol_233" xml:space="preserve">
+  <data name="YmyouliCate_delicacy" xml:space="preserve">
     <value>Delicacy</value>
-  </data>
-  <data name="YmyouliCol_241" xml:space="preserve">
-    <value>Cherry</value>
   </data>
   <data name="MsgUpdate" xml:space="preserve">
     <value>New version is released.</value>
@@ -612,7 +588,7 @@
   <data name="TextTimelineOrder.Text" xml:space="preserve">
     <value>Order</value>
   </data>
-  <data name="TextYmyouliCol.Text" xml:space="preserve">
+  <data name="TextYmyouliCate.Text" xml:space="preserve">
     <value>Category</value>
   </data>
   <data name="TimelineCate_" xml:space="preserve">
@@ -636,8 +612,8 @@
   <data name="TextThank1.Text" xml:space="preserve">
     <value>Thank Coolapk@鱼离不开水 for designing the main icon.</value>
   </data>
-  <data name="YmyouliCol_" xml:space="preserve">
-    <value>Random</value>
+  <data name="YmyouliCate_" xml:space="preserve">
+    <value>All</value>
   </data>
   <data name="BtnTimelineContribute.Content" xml:space="preserve">
     <value>Contribute</value>
@@ -776,5 +752,23 @@
   </data>
   <data name="UrlYmyouli" xml:space="preserve">
     <value>https://www.ymyouli.com/</value>
+  </data>
+  <data name="ActionUndo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="MenuDislike.Label" xml:space="preserve">
+    <value>Dislike the picture</value>
+  </data>
+  <data name="MsgDislike" xml:space="preserve">
+    <value>Disliked.</value>
+  </data>
+  <data name="TextYmyouliOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="YmyouliOrder_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="YmyouliOrder_random" xml:space="preserve">
+    <value>Random</value>
   </data>
 </root>

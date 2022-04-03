@@ -39,6 +39,7 @@ namespace TimelineWallpaper.Providers {
                     meta.Date = DateTime.ParseExact(match.Groups[1].Value, "yyyy/MMdd", new System.Globalization.CultureInfo("en-US"));
                     meta.Format = match.Groups[3].Value;
                 }
+                meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
                 match = Regex.Match(m.Groups[2].Value, @"^(.+?)(?:的)?(?:美图桌面|高清桌面|唯美桌面|桌面|唯美场景|唯美插画|唯美风光景色|创意动漫3D|高清海报|摄影|酷飒游戏|酷飒|搞怪|艺术|唯美|手绘插画|油墨风插画|场景插画|人物插画|插画|高清|风景|动漫)?(?:壁纸)?图片$");
                 if (!match.Success) {
                     match = Regex.Match(m.Groups[2].Value, @"^(.+?)(?:的)?(?:唯美艺术山水画|唯美摄影|唯美意境|唯美|影视插画|插画|静态摄影|静态|创意手绘|个性|创意|玄幻|可爱|霸气|帅气|美图|静态摄影|近距离摄影|唯美摄影|室外摄影|摄影|浪漫|超清.*?|高清.*?)?(?:高清)?(?:手机)?(?:电脑)?(?:桌面)?壁纸$");

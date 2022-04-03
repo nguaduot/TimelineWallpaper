@@ -49,7 +49,7 @@ namespace TimelineWallpaper.Services {
             }
         }
 
-        public static async void Rank(Ini ini, Meta meta, string action) {
+        public static async void Rank(Ini ini, Meta meta, string action, bool undo = false) {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
@@ -59,6 +59,7 @@ namespace TimelineWallpaper.Services {
                 ImgId = meta?.Id,
                 ImgUrl = meta?.Uhd,
                 Action = action,
+                Undo = undo,
                 DeviceId = VerUtil.GetDeviceId(),
                 Region = GlobalizationPreferences.HomeGeographicRegion
             };

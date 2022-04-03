@@ -26,7 +26,8 @@ namespace TimelineWallpaper {
         private readonly List<Paras> listOneplusOrder = new List<Paras>();
         private readonly List<Paras> listTimelineCate = new List<Paras>();
         private readonly List<Paras> listTimelineOrder = new List<Paras>();
-        private readonly List<Paras> listYmyouliCol = new List<Paras>();
+        private readonly List<Paras> listYmyouliCate = new List<Paras>();
+        private readonly List<Paras> listYmyouliOrder = new List<Paras>();
         private readonly List<Paras> listInfinityOrder = new List<Paras>();
         private readonly List<Paras> listOneOrder = new List<Paras>();
 
@@ -68,14 +69,16 @@ namespace TimelineWallpaper {
                     Name = resLoader.GetString("TimelineOrder_" + item)
                 });
             }
-            listYmyouliCol.Add(new Paras {
-                Id = "",
-                Name = resLoader.GetString("YmyouliCol_")
-            });
-            foreach (string item in YmyouliIni.COL_MODULE_DIC.Keys) {
-                listYmyouliCol.Add(new Paras {
+            foreach (string item in YmyouliIni.CATE) {
+                listYmyouliCate.Add(new Paras {
                     Id = item,
-                    Name = resLoader.GetString("YmyouliCol_" + item)
+                    Name = resLoader.GetString("YmyouliCate_" + item)
+                });
+            }
+            foreach (string item in YmyouliIni.ORDER) {
+                listYmyouliOrder.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("YmyouliOrder_" + item)
                 });
             }
             foreach (string item in InfinityIni.ORDER) {
@@ -147,7 +150,8 @@ namespace TimelineWallpaper {
             BoxTimelineCate.SelectedIndex = listTimelineCate.Select(t => t.Id).ToList().IndexOf(((TimelineIni)ini.GetIni(TimelineIni.ID)).Cate);
             BoxTimelineOrder.SelectedIndex = listTimelineOrder.Select(t => t.Id).ToList().IndexOf(((TimelineIni)ini.GetIni(TimelineIni.ID)).Order);
             BoxHimawari8Offset.Value = ((Himawari8Ini)ini.GetIni(Himawari8Ini.ID)).Offset;
-            BoxYmyouliCol.SelectedIndex = listYmyouliCol.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Col);
+            BoxYmyouliCate.SelectedIndex = listYmyouliCate.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Cate);
+            BoxYmyouliOrder.SelectedIndex = listYmyouliOrder.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Order);
             BoxInfinityOrder.SelectedIndex = listInfinityOrder.Select(t => t.Id).ToList().IndexOf(((InfinityIni)ini.GetIni(InfinityIni.ID)).Order);
             BoxOneOrder.SelectedIndex = listOneOrder.Select(t => t.Id).ToList().IndexOf(((OneIni)ini.GetIni(OneIni.ID)).Order);
 
@@ -307,14 +311,28 @@ namespace TimelineWallpaper {
             settingsTimer.Start();
         }
 
-        private void BoxYmyouliCol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private void BoxYmyouliCate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (!paneOpened) {
                 return;
             }
             Paras paras = e.AddedItems[0] as Paras;
             YmyouliIni bi = (YmyouliIni)ini.GetIni(YmyouliIni.ID);
-            bi.Col = paras.Id;
-            IniUtil.SaveYmyouliCol(paras.Id);
+            bi.Cate = paras.Id;
+            IniUtil.SaveYmyouliCate(paras.Id);
+            IniUtil.SaveProvider(YmyouliIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BoxYmyouliOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            YmyouliIni bi = (YmyouliIni)ini.GetIni(YmyouliIni.ID);
+            bi.Order = paras.Id;
+            IniUtil.SaveYmyouliOrder(paras.Id);
             IniUtil.SaveProvider(YmyouliIni.ID);
             SettingsChanged?.Invoke(this, new SettingsEventArgs {
                 ProviderChanged = true

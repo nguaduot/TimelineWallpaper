@@ -24,7 +24,6 @@ namespace TimelineWallpaper.Utils {
             { PaulIni.ID, new PaulIni() }
         };
 
-        //private readonly HashSet<string> PUSH = new HashSet<string>() { "", "desktop", "lock" };
         private readonly HashSet<string> THEME = new HashSet<string>() { "", "light", "dark" };
 
         private string provider = BingIni.ID;
@@ -32,18 +31,6 @@ namespace TimelineWallpaper.Utils {
             set => provider = Inis.ContainsKey(value) ? value : BingIni.ID;
             get => provider;
         }
-
-        //private string push = "";
-        //public string Push {
-        //    set => push = PUSH.Contains(value) ? value : "";
-        //    get => push;
-        //}
-
-        //private string pushProvider = BingIni.ID;
-        //public string PushProvider {
-        //    set => pushProvider = Inis.ContainsKey(value) ? value : BingIni.ID;
-        //    get => pushProvider;
-        //}
 
         private string desktopProvider = "";
         public string DesktopProvider {
@@ -209,116 +196,29 @@ namespace TimelineWallpaper.Utils {
 
     public class YmyouliIni : BaseIni {
         public const string ID = "ymyouli";
-        public static readonly SortedDictionary<string, Dictionary<string, string>> COL_MODULE_DIC = new SortedDictionary<string, Dictionary<string, string>> {
-            { "182", new Dictionary<string, string> {
-                { "577", "126" },
-                { "606", "126" },
-                { "607", "126" },
-                { "611", "126" },
-                { "681", "126" }, // 4K-第五栏
-                { "575", "182" },
-                { "610", "182" },
-                { "695", "182" },
-                { "743", "182" },
-                { "744", "182" },
-                { "768", "182" },
-                { "776", "182" },
-                { "786", "182" },
-                { "787", "182" },
-                { "792", "182" },
-                { "833", "182" },
-                { "842", "182" },
-                { "834", "182" },
-                { "844", "182" },
-                { "845", "182" }, // 8K-第一章-第十五栏
-                { "848", "248" },
-                { "860", "248" } // 8K-第二章-第十七栏
-            } }, // 游戏动漫人物（4K+8K）
-            { "183", new Dictionary<string, string> {
-                { "677", "127" }, // 4K-第一栏
-                { "673", "183" },
-                { "777", "183" } // 8K-第一章-第二栏
-            } }, // 游戏动漫场景（4K+8K）
-            { "184", new Dictionary<string, string> {
-                { "678", "134" }, // 4K-第一栏
-                { "675", "184" },
-                { "791", "184" } // 8K-第一章-第二栏
-            } }, // 自然风景（4K+8K）
-            { "185", new Dictionary<string, string> {
-                { "578", "185" },
-                { "679", "185" },
-                { "680", "185" },
-                { "754", "185" } // 8K-第一章-第四栏
-            } }, // 花草植物
-            { "186", new Dictionary<string, string> {
-                { "753", "186" } // 8K-第一章-第一栏
-            } }, // 美女女孩
-            { "187", new Dictionary<string, string> {
-                { "670", "187" },
-                { "741", "187" },
-                { "790", "187" } // 8K-第一章-第三栏
-            } }, // 机车
-            { "214", new Dictionary<string, string> {
-                { "690", "214" },
-                { "691", "214" } // 8K-第一章-第二栏
-            } }, // 科幻
-            { "215", new Dictionary<string, string> {
-                { "693", "215" },
-                { "694", "215" },
-                { "742", "215" },
-                { "836", "215" } // 8K-第一章-第四栏
-            } }, // 意境
-            { "224", new Dictionary<string, string> {
-                { "746", "224" } // 8K-第一章-第一栏
-            } }, // 武器刀剑
-            { "225", new Dictionary<string, string> {
-                { "748", "225" } // 8K-第一章-第一栏
-            } }, // 动物
-            { "226", new Dictionary<string, string> {
-                { "682", "128" }, // 4K-第一栏
-                { "751", "226" } // 8K-第一章-第一栏
-            } }, // 古风人物（4K+8K）
-            { "227", new Dictionary<string, string> {
-                { "756", "227" },
-                { "773", "227" } // 8K-第一章-第二栏
-            } }, // 日暮云天
-            { "228", new Dictionary<string, string> {
-                { "758", "228" } // 8K-第一章-第一栏
-            } }, // 夜空星河
-            { "229", new Dictionary<string, string> {
-                { "760", "229" },
-                { "761", "229" },
-                { "762", "229" },
-                { "843", "229" } // 8K-第一章-第四栏
-            } }, // 战场战争
-            { "230", new Dictionary<string, string> {
-                { "763", "230" } // 8K-第一章-第一栏
-            } }, // 冰雪之境
-            { "231", new Dictionary<string, string> {
-                { "766", "231" } // 8K-第一章-第一栏
-            } }, // 油画
-            { "232", new Dictionary<string, string> {
-                { "775", "232" } // 8K-第一章-第一栏
-            } }, // 国漫壁纸
-            { "233", new Dictionary<string, string> {
-                { "778", "233" } // 8K-第一章-第一栏
-            } }, // 美食蔬果
-            { "241", new Dictionary<string, string> {
-                { "830", "241" } // 8K-第一章-第一栏
-            } } // 樱落
-        }; // { col: { module: col } }
+        public static readonly List<string> ORDER = new List<string>() { "date", "random" };
+        public static readonly List<string> CATE = new List<string>() { "", "acgcharacter", "acgscene", "sky",
+            "war", "sword", "artistry", "car", "portrait", "animal", "delicacy", "nature" };
 
-        private string col = "";
-        public string Col {
-            set => col = COL_MODULE_DIC.ContainsKey(value) ? value : "";
-            get => col;
+        private string order = "random";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "random";
+            get => order;
         }
+
+        private string cate = "";
+        public string Cate {
+            set => cate = CATE.Contains(value) ? value : "";
+            get => cate;
+        }
+
+        public int Qc { set; get; } = 1;
 
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new YmyouliProvider() { Id = ID };
 
-        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&col={Col}";
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&qc={Qc}";
     }
 
     public class InfinityIni : BaseIni {

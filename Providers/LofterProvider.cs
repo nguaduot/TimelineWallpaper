@@ -28,6 +28,7 @@ namespace TimelineWallpaper.Providers {
                 Date = DateUtil.FromUnixMillis(curDate),
                 Copyright = "@" + bean.Author.Name
             };
+            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
             if (bean.Image != null) {
                 meta.Id = bean.Image;
                 meta.Uhd = bean.Image.Split("?")[0];
