@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Crashes;
+using System;
 using TimelineWallpaper.Utils;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -65,6 +67,8 @@ namespace TimelineWallpaper {
                 OptimizeSize();
                 // 将内容扩展到标题栏，并使标题栏半透明
                 TransTitleBar();
+                // 集成崩溃日志反馈
+                AppCenter.Start("867dbb71-eaa5-4525-8f70-9877a65d0796", typeof(Crashes));
             }
         }
 

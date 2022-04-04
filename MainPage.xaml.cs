@@ -1,6 +1,4 @@
-﻿using Microsoft.AppCenter;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -63,11 +61,6 @@ namespace TimelineWallpaper {
         }
 
         private void Init() {
-            AppCenter.Start("867dbb71-eaa5-4525-8f70-9877a65d0796", typeof(Crashes));
-            Crashes.SentErrorReport += (sender, e) => {
-                ToggleInfo(null, "sent");
-            };
-
             // 启动时页面获得焦点，使快捷键一开始即可用
             this.IsTabStop = true;
 
@@ -90,7 +83,7 @@ namespace TimelineWallpaper {
                 ApiService.Stats(ini, false);
                 return;
             }
-            
+
             meta = provider.GetFocus();
             Debug.WriteLine("focus: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
