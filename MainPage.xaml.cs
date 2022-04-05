@@ -284,13 +284,15 @@ namespace TimelineWallpaper {
                 BitmapImage biUhd = new BitmapImage();
                 ImgUhd.Source = biUhd;
                 biUhd.DecodePixelType = DecodePixelType.Logical;
-                if (meta.Dimen.Width / meta.Dimen.Height > winW / winH) {
+                if (meta.Dimen.Width * 1.0f / meta.Dimen.Height > winW / winH) { // 图片比窗口宽，缩放至与窗口等高
                     biUhd.DecodePixelWidth = (int)Math.Round(winH * meta.Dimen.Width / meta.Dimen.Height);
                     biUhd.DecodePixelHeight = (int)Math.Round(winH);
-                } else {
+                } else { // 图片比窗口窄，缩放至与窗口等宽
                     biUhd.DecodePixelWidth = (int)Math.Round(winW);
                     biUhd.DecodePixelHeight = (int)Math.Round(winW * meta.Dimen.Height / meta.Dimen.Width);
                 }
+                Debug.WriteLine("img pixel: {0}x{1}, win logical: {2}x{3}, scale logical: {4}x{5}",
+                    meta.Dimen.Width, meta.Dimen.Height, winW, winH, biUhd.DecodePixelWidth, biUhd.DecodePixelHeight);
                 biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
             } else {
                 ImgUhd.Source = null;
@@ -339,13 +341,15 @@ namespace TimelineWallpaper {
             bi.DecodePixelType = DecodePixelType.Logical;
             float winW = Window.Current.Content.ActualSize.X;
             float winH = Window.Current.Content.ActualSize.Y;
-            if (bi.PixelWidth / bi.PixelHeight > winW / winH) {
+            if (bi.PixelWidth * 1.0f / bi.PixelHeight > winW / winH) { // 图片比窗口宽，缩放至与窗口等高
                 bi.DecodePixelWidth = (int)Math.Round(winH * bi.PixelWidth / bi.PixelHeight);
                 bi.DecodePixelHeight = (int)Math.Round(winH);
-            } else {
+            } else { // 图片比窗口窄，缩放至与窗口等宽
                 bi.DecodePixelWidth = (int)Math.Round(winW);
                 bi.DecodePixelHeight = (int)Math.Round(winW * bi.PixelHeight / bi.PixelWidth);
             }
+            Debug.WriteLine("img pixel: {0}x{1}, win logical: {2}x{3}, scale logical: {4}x{5}",
+                bi.PixelWidth, bi.PixelHeight, winW, winH, bi.DecodePixelWidth, bi.DecodePixelHeight);
         }
 
         private void StatusEnjoy() {

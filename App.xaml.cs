@@ -26,6 +26,19 @@ namespace TimelineWallpaper {
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            
+            // 集成崩溃日志反馈
+            AppCenter.Start("867dbb71-eaa5-4525-8f70-9877a65d0796", typeof(Crashes));
+            // 输出崩溃日志
+            //this.UnhandledException += (sender, e) => {
+            //    StorageFolder folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //    Task<StorageFile> tFile = folder.CreateFileAsync("crash.txt", CreationCollisionOption.ReplaceExisting).AsTask<StorageFile>();
+            //    tFile.Wait();
+            //    StorageFile file = tFile.Result;
+            //    Task t = Windows.Storage.FileIO.WriteTextAsync(file, e.Exception.ToString()).AsTask();
+            //    t.Wait();
+            //    e.Handled = false;
+            //};
         }
 
         /// <summary>
@@ -67,8 +80,6 @@ namespace TimelineWallpaper {
                 OptimizeSize();
                 // 将内容扩展到标题栏，并使标题栏半透明
                 TransTitleBar();
-                // 集成崩溃日志反馈
-                AppCenter.Start("867dbb71-eaa5-4525-8f70-9877a65d0796", typeof(Crashes));
             }
         }
 
