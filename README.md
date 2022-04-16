@@ -7,7 +7,7 @@
 
 > 拾光如歌，岁月如诗。拾光，每日一景
 
-`拾光` 是一款壁纸应用，集成丰富图源，每日推送桌面/锁屏，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 系统。
+`拾光` 是一款壁纸应用，集成丰富图源，支持每日推送桌面/锁屏。使用 UWP 框架开发，遵循 Fluent Design，是原生的 Windows 应用，于 Windows 11 体验最佳，向下兼容 Windows 10。
 
 ## 开始
 
@@ -86,4 +86,4 @@
 
 自取：[截图1壁纸原图](https://s3.bmp.ovh/imgs/2021/11/5db69c315b1ab3e3.jpg)
 
-*Copyright © 2021 nguaduot. All rights reserved.*
+*Copyright © 2021-2022 nguaduot. All rights reserved.*
