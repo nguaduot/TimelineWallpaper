@@ -11,15 +11,15 @@
 
 ## 开始
 
-如果想安装拾光，
+提供以下两种安装方式：
 
-+ 方式1（最新版）：
++ 从 Microsoft Store 安装
   
-  请打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，并选择适用于当前系统的安装包下载。在应用压缩包下载完成后，解压压缩包，找到 `install.ps1` 脚本，右键 **使用 PowerShell 运行**，根据提示进行安装。
+  在 Microsoft Store 搜索 `拾光壁纸` 进行安装。直达链接：[拾光壁纸 - Microsoft Store](https://www.microsoft.com/store/apps/9N7VHQ989BB7)
 
-+ 方式2（仅限稳定版）：
++ 下载安装包手动安装
   
-  前往 [Microsoft Store](https://www.microsoft.com/store/apps/9N7VHQ989BB7) 安装 `拾光`。
+  打开右侧的 [Release](https://github.com/nguaduot/TimelineWallpaper/releases) 页面，找到最新版本，下载压缩包，然后解压，找到 `install.ps1` 脚本，右键 **使用 PowerShell 运行**，根据提示即可顺利安装。
 
 **Watch** 项目，以获取应用的更新动态。
 
