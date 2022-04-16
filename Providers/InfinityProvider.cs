@@ -25,8 +25,7 @@ namespace TimelineWallpaper.Providers {
                 Thumb = bean.Src?.SmallSrc,
                 Story = string.Join(" ", bean.Tags ?? new List<string>()),
                 Copyright = "© " + bean.Source,
-                Date = DateTime.Now,
-                Format = ".jpg"
+                Date = DateTime.Now
             };
 
             if (!string.IsNullOrEmpty(bean.Src?.RawSrc)) {

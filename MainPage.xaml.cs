@@ -14,8 +14,6 @@ using TimelineWallpaper.Utils;
 using TimelineWallpaperService;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
-using Windows.Media.Core;
-using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.System;
 using Windows.System.UserProfile;
@@ -64,10 +62,6 @@ namespace TimelineWallpaper {
             // 启动时页面获得焦点，使快捷键一开始即可用
             this.IsTabStop = true;
 
-            MpeUhd.MediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
-            MpeUhd.MediaPlayer.IsLoopingEnabled = true;
-            MpeUhd.MediaPlayer.Volume = 0;
-
             TextTitle.Text = resLoader.GetString("AppDesc");
             
             // 前者会在应用启动时触发多次，后者仅一次
@@ -88,7 +82,7 @@ namespace TimelineWallpaper {
             Debug.WriteLine("focus: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await provider.Cache(meta);
-            if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
+            if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
                 ShowTips();
                 ChecReviewAsync();
@@ -117,7 +111,7 @@ namespace TimelineWallpaper {
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                 await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
             }
-            if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
+            if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
                 ChecReviewAsync();
             }
@@ -144,7 +138,7 @@ namespace TimelineWallpaper {
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                 await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
             }
-            if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
+            if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
             }
 
@@ -170,7 +164,7 @@ namespace TimelineWallpaper {
             if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
                 await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
             }
-            if (metaCache != null && metaCache.IsValid() && metaCache.Id == meta?.Id) {
+            if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
             }
 
@@ -268,55 +262,45 @@ namespace TimelineWallpaper {
             TextDetailDate.Text = meta.Date?.ToLongDateString();
             TextDetailDate.Visibility = Visibility.Visible;
             // 文件属性（保持可见）
-            TextDetailProperties.Text = "";
+            TextDetailProperties.Text = resLoader.GetString("Provider_" + provider.Id)
+                + (meta.Cate != null ? (" · " + meta.Cate) : "");
             TextDetailProperties.Visibility = Visibility.Visible;
         }
 
         private void ShowImg(Meta meta) {
-            if (meta == null) {
+            if (meta?.CacheUhd == null) {
                 StatusError();
                 return;
             }
-            MpeUhd.Source = meta.CacheVideo != null ? MediaSource.CreateFromStorageFile(meta.CacheVideo) : null;
-            if (meta.CacheUhd != null) {
-                float winW = Window.Current.Content.ActualSize.X;
-                float winH = Window.Current.Content.ActualSize.Y;
-                BitmapImage biUhd = new BitmapImage();
-                ImgUhd.Source = biUhd;
-                biUhd.DecodePixelType = DecodePixelType.Logical;
-                if (meta.Dimen.Width * 1.0f / meta.Dimen.Height > winW / winH) { // 图片比窗口宽，缩放至与窗口等高
-                    biUhd.DecodePixelWidth = (int)Math.Round(winH * meta.Dimen.Width / meta.Dimen.Height);
-                    biUhd.DecodePixelHeight = (int)Math.Round(winH);
-                } else { // 图片比窗口窄，缩放至与窗口等宽
-                    biUhd.DecodePixelWidth = (int)Math.Round(winW);
-                    biUhd.DecodePixelHeight = (int)Math.Round(winW * meta.Dimen.Height / meta.Dimen.Width);
-                }
-                Debug.WriteLine("img pixel: {0}x{1}, win logical: {2}x{3}, scale logical: {4}x{5}",
-                    meta.Dimen.Width, meta.Dimen.Height, winW, winH, biUhd.DecodePixelWidth, biUhd.DecodePixelHeight);
-                biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
-            } else {
-                ImgUhd.Source = null;
-            }
 
-            string source = resLoader.GetString("Provider_" + provider.Id);
-            if (meta.Cate != null) {
-                source += " · " + meta.Cate;
+            // 显示图片
+            float winW = Window.Current.Content.ActualSize.X;
+            float winH = Window.Current.Content.ActualSize.Y;
+            BitmapImage biUhd = new BitmapImage();
+            biUhd.ImageOpened += (sender, e) => {
+                Debug.WriteLine("ImageOpened");
+                StatusEnjoy();
+            };
+            ImgUhd.Source = biUhd;
+            biUhd.DecodePixelType = DecodePixelType.Logical;
+            if (meta.Dimen.Width * 1.0f / meta.Dimen.Height > winW / winH) { // 图片比窗口宽，缩放至与窗口等高
+                biUhd.DecodePixelWidth = (int)Math.Round(winH * meta.Dimen.Width / meta.Dimen.Height);
+                biUhd.DecodePixelHeight = (int)Math.Round(winH);
+            } else { // 图片比窗口窄，缩放至与窗口等宽
+                biUhd.DecodePixelWidth = (int)Math.Round(winW);
+                biUhd.DecodePixelHeight = (int)Math.Round(winW * meta.Dimen.Height / meta.Dimen.Width);
             }
-            StorageFile file = meta.CacheUhd ?? meta.CacheVideo ?? meta.CacheAudio;
-            string fileSize = FileUtil.ConvertFileSize(file != null ? new FileInfo(file.Path).Length : 0);
-            TextDetailProperties.Text = string.Format(resLoader.GetString("DetailSize"),
+            Debug.WriteLine("img pixel: {0}x{1}, win logical: {2}x{3}, scale logical: {4}x{5}",
+                meta.Dimen.Width, meta.Dimen.Height, winW, winH, biUhd.DecodePixelWidth, biUhd.DecodePixelHeight);
+            biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
+
+            // 显示与图片文件相关的信息
+            string source = resLoader.GetString("Provider_" + provider.Id) + (meta.Cate != null ? (" · " + meta.Cate) : "");
+            string fileSize = FileUtil.ConvertFileSize(File.Exists(meta.CacheUhd.Path)
+                ? new FileInfo(meta.CacheUhd.Path).Length : 0);
+            TextDetailProperties.Text = string.Format("{0} / {1}x{2}, {3}",
                 source, meta.Dimen.Width, meta.Dimen.Height, fileSize);
             TextDetailProperties.Visibility = Visibility.Visible;
-            MenuSetDesktop.IsEnabled = meta.CacheUhd != null;
-            MenuSetLock.IsEnabled = meta.CacheUhd != null;
-            MenuVolumnOn.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume == 0
-                ? Visibility.Visible : Visibility.Collapsed;
-            MenuVolumnOff.Visibility = (meta.CacheVideo != null || meta.CacheAudio != null) && MpeUhd.MediaPlayer.Volume > 0
-                ? Visibility.Visible : Visibility.Collapsed;
-            MenuSave.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
-            MenuDislike.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
-            MenuFillOn.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
-            MenuFillOff.IsEnabled = meta.CacheUhd != null || meta.CacheVideo != null || meta.CacheAudio != null;
 
             // 根据人脸识别优化组件放置位置
             bool faceLeft = meta.FaceOffset < 0.4;
@@ -355,18 +339,23 @@ namespace TimelineWallpaper {
         private void StatusEnjoy() {
             ImgUhd.Opacity = 1;
             ImgUhd.Scale = new Vector3(1, 1, 1);
-            MpeUhd.Opacity = 1;
-            MpeUhd.Scale = new Vector3(1, 1, 1);
             ProgressLoading.ShowPaused = true;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = ViewStory.Visibility;
+
+            MenuSetDesktop.IsEnabled = true;
+            MenuSetLock.IsEnabled = true;
+            MenuSave.IsEnabled = true;
+            MenuDislike.IsEnabled = true;
+            MenuFillOn.IsEnabled = true;
+            MenuFillOff.IsEnabled = true;
+
+            ToggleInfo(null, null);
         }
 
         private void StatusLoading() {
             ImgUhd.Opacity = 0;
             ImgUhd.Scale = new Vector3(1.014f, 1.014f, 1.014f);
-            MpeUhd.Opacity = 0;
-            MpeUhd.Scale = new Vector3(1.014f, 1.014f, 1.014f);
             ProgressLoading.ShowPaused = false;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = Visibility.Visible;
@@ -375,7 +364,6 @@ namespace TimelineWallpaper {
 
         private void StatusError() {
             ImgUhd.Opacity = 0;
-            MpeUhd.Opacity = 0;
             TextTitle.Text = resLoader.GetString("AppDesc");
             TextDetailCaption.Visibility = Visibility.Collapsed;
             TextDetailLocation.Visibility = Visibility.Collapsed;
@@ -388,8 +376,6 @@ namespace TimelineWallpaper {
 
             MenuSetDesktop.IsEnabled = false;
             MenuSetLock.IsEnabled = false;
-            MenuVolumnOn.Visibility = Visibility.Collapsed;
-            MenuVolumnOff.Visibility = Visibility.Collapsed;
             MenuSave.IsEnabled = false;
             MenuDislike.IsEnabled = false;
             MenuFillOn.IsEnabled = false;
@@ -419,19 +405,30 @@ namespace TimelineWallpaper {
                 ToggleInfo(null, resLoader.GetString("MsgWallpaper0"));
                 return;
             }
-            // Your app can't set wallpapers from any folder.
-            // Copy file in ApplicationData.Current.LocalFolder and set wallpaper from there.
-            StorageFile fileWallpaper = await meta.CacheUhd.CopyAsync(ApplicationData.Current.LocalFolder,
-                setDesktopOrLock ? "desktop" : "lock", NameCollisionOption.ReplaceExisting);
-            Debug.WriteLine(fileWallpaper.Path);
-            UserProfilePersonalizationSettings profileSettings = UserProfilePersonalizationSettings.Current;
-            bool wallpaperSet = setDesktopOrLock
-                ? await profileSettings.TrySetWallpaperImageAsync(fileWallpaper)
-                : await profileSettings.TrySetLockScreenImageAsync(fileWallpaper);
-            if (wallpaperSet) {
-                ToggleInfo(null, resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop1" : "MsgSetLock1"), InfoBarSeverity.Success);
-            } else {
-                ToggleInfo(null, resLoader.GetString(setDesktopOrLock ? "MsgSetDesktop0" : "MsgSetLock0"));
+            try {
+                if (setDesktopOrLock) {
+                    // Your app can't set wallpapers from any folder.
+                    // Copy file in ApplicationData.Current.LocalFolder and set wallpaper from there.
+                    StorageFile fileWallpaper = await meta.CacheUhd.CopyAsync(ApplicationData.Current.LocalFolder,
+                        "desktop", NameCollisionOption.ReplaceExisting);
+                    bool wallpaperSet = await UserProfilePersonalizationSettings.Current.TrySetWallpaperImageAsync(fileWallpaper);
+                    if (wallpaperSet) {
+                        ToggleInfo(null, resLoader.GetString("MsgSetDesktop1"), InfoBarSeverity.Success);
+                    } else {
+                        ToggleInfo(null, resLoader.GetString("MsgSetDesktop0"));
+                    }
+                } else {
+                    StorageFile fileWallpaper = await meta.CacheUhd.CopyAsync(ApplicationData.Current.LocalFolder,
+                        "lock", NameCollisionOption.ReplaceExisting);
+                    bool wallpaperSet = await UserProfilePersonalizationSettings.Current.TrySetLockScreenImageAsync(fileWallpaper);
+                    if (wallpaperSet) {
+                        ToggleInfo(null, resLoader.GetString("MsgSetLock1"), InfoBarSeverity.Success);
+                    } else {
+                        ToggleInfo(null, resLoader.GetString("MsgSetLock0"));
+                    }
+                }
+            } catch (Exception ex) {
+                Debug.WriteLine(ex);
             }
         }
 
@@ -502,7 +499,6 @@ namespace TimelineWallpaper {
 
         private void ToggleImgMode(bool fillOn) {
             ImgUhd.Stretch = fillOn ? Stretch.UniformToFill : Stretch.Uniform;
-            MpeUhd.Stretch = fillOn ? Stretch.UniformToFill : Stretch.Uniform;
             MenuFillOn.Visibility = fillOn ? Visibility.Collapsed : Visibility.Visible;
             MenuFillOff.Visibility = fillOn ? Visibility.Visible : Visibility.Collapsed;
 
@@ -635,13 +631,6 @@ namespace TimelineWallpaper {
             ChecReviewAsync();
         }
 
-        private void MenuVolumn_Click(object sender, RoutedEventArgs e) {
-            FlyoutMenu.Hide();
-            MpeUhd.MediaPlayer.Volume = MpeUhd.MediaPlayer.Volume > 0 ? 0 : 0.5;
-            MenuVolumnOn.Visibility = MpeUhd.MediaPlayer.Volume == 0 ? Visibility.Visible : Visibility.Collapsed;
-            MenuVolumnOff.Visibility = MpeUhd.MediaPlayer.Volume > 0 ? Visibility.Visible : Visibility.Collapsed;
-        }
-
         private void MenuFill_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
 
@@ -768,29 +757,9 @@ namespace TimelineWallpaper {
             ToggleInfo(null, null);
         }
 
-        private void ImgUhd_ImageOpened(object sender, RoutedEventArgs e) {
-            StatusEnjoy();
-        }
-
-        private void ImgUhd_Tapped(object sender, TappedRoutedEventArgs e) {
-            ViewSplit.IsPaneOpen = false;
-        }
-
-        private void ImgUhd_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
-            ToggleFullscreenMode();
-        }
-
-        private void ImgUhd_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
-            if (stretchTimer == null) {
-                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
-                stretchTimer.Tick += (sender2, e2) => {
-                    stretchTimer.Stop();
-                    ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
-                };
-            }
-            stretchTimer.Stop();
-            stretchTimer.Start();
-        }
+        //private void ImgUhd_ImageOpened(object sender, RoutedEventArgs e) {
+        //    StatusEnjoy();
+        //}
 
         private void BoxGo_KeyDown(object sender, KeyRoutedEventArgs e) {
             if (e.Key == VirtualKey.Enter) {
@@ -806,6 +775,26 @@ namespace TimelineWallpaper {
         private void FlyoutMenu_Opened(object sender, object e) {
             localSettings.Values["MenuLearned"] = true;
             ToggleInfo(null, null);
+        }
+
+        private void ViewMain_Tapped(object sender, TappedRoutedEventArgs e) {
+            ViewSplit.IsPaneOpen = false;
+        }
+
+        private void ViewMain_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
+            ToggleFullscreenMode();
+        }
+
+        private void ViewMain_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
+            if (stretchTimer == null) {
+                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
+                stretchTimer.Tick += (sender2, e2) => {
+                    stretchTimer.Stop();
+                    ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
+                };
+            }
+            stretchTimer.Stop();
+            stretchTimer.Start();
         }
 
         private void KeyInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args) {
@@ -839,6 +828,14 @@ namespace TimelineWallpaper {
                 case VirtualKey.S:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
                         MenuSave_Click(null, null);
+                    }
+                    break;
+                case VirtualKey.C:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        if (meta != null) {
+                            TextUtil.Copy(JsonConvert.SerializeObject(meta).Trim());
+                            ToggleInfo(null, resLoader.GetString("MsgIdCopied"), InfoBarSeverity.Success);
+                        }
                     }
                     break;
                 case VirtualKey.D:

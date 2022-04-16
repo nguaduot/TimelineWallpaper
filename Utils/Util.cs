@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -154,6 +155,7 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "order=random",
                     "; order=date    排序：收录",
+                    "; order=score   排序：热度",
                     "; order=random  排序：随机（默认）",
                     "",
                     "cate=",
@@ -721,6 +723,16 @@ namespace TimelineWallpaper.Utils {
                     }
                     return ElementTheme.Dark;
             }
+        }
+    }
+
+    public static class TextUtil {
+        public static void Copy(string content) {
+            DataPackage pkg = new DataPackage {
+                RequestedOperation = DataPackageOperation.Copy
+            };
+            pkg.SetText(content);
+            Clipboard.SetContent(pkg);
         }
     }
 }

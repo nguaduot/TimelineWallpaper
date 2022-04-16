@@ -174,12 +174,6 @@
   <data name="MenuSetLock.Label" xml:space="preserve">
     <value>Set as lock screen</value>
   </data>
-  <data name="MenuVolumnOff.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Volumn off</value>
-  </data>
-  <data name="MenuVolumnOn.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Volumn on</value>
-  </data>
   <data name="MenuFillOff.ToolTipService.ToolTip" xml:space="preserve">
     <value>Uniform</value>
   </data>
@@ -197,9 +191,6 @@
   </data>
   <data name="YmyouliCate_artistry" xml:space="preserve">
     <value>Artistry</value>
-  </data>
-  <data name="DetailSize" xml:space="preserve">
-    <value>{0} / {1}x{2}, {3}</value>
   </data>
   <data name="MsgLostProvider" xml:space="preserve">
     <value>Connection failed: {0}</value>
@@ -770,5 +761,20 @@
   </data>
   <data name="YmyouliOrder_random" xml:space="preserve">
     <value>Random</value>
+  </data>
+  <data name="Provider_edge" xml:space="preserve">
+    <value>Edge</value>
+  </data>
+  <data name="Slogan_edge" xml:space="preserve">
+    <value>Image or video of the day</value>
+  </data>
+  <data name="MsgIdCopied" xml:space="preserve">
+    <value>Image code copied.</value>
+  </data>
+  <data name="TimelineOrder_score" xml:space="preserve">
+    <value>Recently popular</value>
+  </data>
+  <data name="YmyouliOrder_score" xml:space="preserve">
+    <value>Recently popular</value>
   </data>
 </root>

@@ -81,7 +81,7 @@ namespace TimelineWallpaper.Providers {
         public override async Task<Meta> Cache(Meta meta) {
             _ = await base.Cache(meta);
             string offsetTag = (offsetEarth >= 0 ? "-offset+" : "-offset-") + Math.Abs(offsetEarth * 100).ToString("000");
-            if (meta == null || !meta.IsCached() || meta.CacheUhd.Path.Contains(offsetTag)) {
+            if (meta?.CacheUhd == null || meta.CacheUhd.Path.Contains(offsetTag)) {
                 return meta;
             }
 

@@ -104,26 +104,6 @@
                                          Modifiers="None" />
                 </AppBarButton.KeyboardAccelerators>
             </AppBarButton>
-            <AppBarButton Name="MenuVolumnOn"
-                          x:Uid="MenuVolumnOn"
-                          Label=""
-                          Visibility="Collapsed"
-                          Click="MenuVolumn_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                              Glyph="&#xE767;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton Name="MenuVolumnOff"
-                          x:Uid="MenuVolumnOff"
-                          Label=""
-                          Visibility="Collapsed"
-                          Click="MenuVolumn_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="{StaticResource ResourceKey=FluentIcons}"
-                              Glyph="&#xE74F;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
             <AppBarButton Name="MenuFillOn"
                           x:Uid="MenuFillOn"
                           Label=""
@@ -411,7 +391,13 @@
                                 ContributeChanged="ViewSettings_ContributeChanged" />
         </SplitView.Pane>
 
-        <RelativePanel KeyboardAcceleratorPlacementMode="Hidden">
+        <!-- 避免浮出菜单无法呼出：Background="Transparent"-->
+        <RelativePanel KeyboardAcceleratorPlacementMode="Hidden"
+                       Background="Transparent"
+                       Tapped="ViewMain_Tapped"
+                       DoubleTapped="ViewMain_DoubleTapped"
+                       PointerWheelChanged="ViewMain_PointerWheelChanged"
+                       ContextFlyout="{x:Bind FlyoutMenu}">
 
             <RelativePanel.KeyboardAccelerators>
                 <KeyboardAccelerator Key="Left"
@@ -441,6 +427,9 @@
                 <KeyboardAccelerator Key="S"
                                      Modifiers="Control"
                                      Invoked="KeyInvoked" />
+                <KeyboardAccelerator Key="C"
+                                     Modifiers="Control"
+                                     Invoked="KeyInvoked" />
                 <KeyboardAccelerator Key="D"
                                      Modifiers="Control"
                                      Invoked="KeyInvoked" />
@@ -461,41 +450,14 @@
                                      Invoked="KeyInvoked" />
             </RelativePanel.KeyboardAccelerators>
 
-            <MediaPlayerElement Name="MpeUhd"
-                                Opacity="0"
-                                Scale="1.014,1.014,1.014"
-                                AutoPlay="True"
-                                AreTransportControlsEnabled="False"
-                                Stretch="UniformToFill"
-                                ContextFlyout="{x:Bind FlyoutMenu}"
-                                Tapped="ImgUhd_Tapped"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                RelativePanel.AlignVerticalCenterWithPanel="True"
-                                DoubleTapped="ImgUhd_DoubleTapped"
-                                PointerWheelChanged="ImgUhd_PointerWheelChanged">
-                <MediaPlayerElement.OpacityTransition>
-                    <ScalarTransition />
-                </MediaPlayerElement.OpacityTransition>
-                <MediaPlayerElement.ScaleTransition>
-                    <Vector3Transition />
-                </MediaPlayerElement.ScaleTransition>
-            </MediaPlayerElement>
-
             <Image Name="ImgUhd"
                    Opacity="0"
                    Scale="1.014,1.014,1.014"
                    Stretch="UniformToFill"
-                   ContextFlyout="{x:Bind FlyoutMenu}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    RelativePanel.AlignHorizontalCenterWithPanel="True"
-                   RelativePanel.AlignVerticalCenterWithPanel="True"
-                   ImageOpened="ImgUhd_ImageOpened"
-                   Tapped="ImgUhd_Tapped"
-                   DoubleTapped="ImgUhd_DoubleTapped"
-                   PointerWheelChanged="ImgUhd_PointerWheelChanged">
+                   RelativePanel.AlignVerticalCenterWithPanel="True">
                 <Image.OpacityTransition>
                     <ScalarTransition />
                 </Image.OpacityTransition>

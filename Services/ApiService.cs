@@ -50,6 +50,9 @@ namespace TimelineWallpaper.Services {
         }
 
         public static async void Rank(Ini ini, Meta meta, string action, bool undo = false) {
+            if (ini == null || meta == null) {
+                return;
+            }
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
@@ -106,18 +109,28 @@ namespace TimelineWallpaper.Services {
         }
 
         public static async Task<ReleaseApi> CheckUpdateFromStore() {
-            StoreContext context = StoreContext.GetDefault();
-            IReadOnlyList<StorePackageUpdate> updates = await context.GetAppAndOptionalStorePackageUpdatesAsync();
-            if (updates.Count > 0) {
-                return new ReleaseApi {
-                    Version = "",
-                    Url = URI_STORE
-                };
+            if (!NetworkInterface.GetIsNetworkAvailable()) {
+                return null;
+            }
+            try {
+                StoreContext context = StoreContext.GetDefault();
+                IReadOnlyList<StorePackageUpdate> updates = await context.GetAppAndOptionalStorePackageUpdatesAsync();
+                if (updates.Count > 0) {
+                    return new ReleaseApi {
+                        Version = "",
+                        Url = URI_STORE
+                    };
+                }
+            } catch (Exception e) {
+                Debug.WriteLine(e);
             }
             return null;
         }
 
         public static async Task<ReleaseApi> CheckUpdateFromGithub() {
+            if (!NetworkInterface.GetIsNetworkAvailable()) {
+                return null;
+            }
             const string URL_RELEASE = "https://api.github.com/repos/nguaduot/TimelineWallpaper/releases/latest";
             try {
                 HttpClient client = new HttpClient();

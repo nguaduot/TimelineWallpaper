@@ -15,6 +15,7 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using Windows.Media.FaceAnalysis;
+using System.Net.NetworkInformation;
 
 namespace TimelineWallpaper.Providers {
     public class BaseProvider {
@@ -185,7 +186,7 @@ namespace TimelineWallpaper.Providers {
         }
 
         public virtual async Task<Meta> Cache(Meta meta) {
-            if (meta == null || meta.IsCached()) {
+            if (meta == null || File.Exists(meta.CacheUhd?.Path)) {
                 return meta;
             }
             // 缓存到临时文件夹（允许随时被清理）
@@ -193,12 +194,12 @@ namespace TimelineWallpaper.Providers {
                 .CreateFileAsync(Id + "-" + meta.Id + meta.Format, CreationCollisionOption.OpenIfExists);
             BasicProperties fileProperties = await cacheFile.GetBasicPropertiesAsync();
             if (fileProperties.Size > 0) { // 已缓存过
-                meta.SetCacheOne(cacheFile);
+                meta.CacheUhd = cacheFile;
                 Debug.WriteLine("cached from disk: " + JsonConvert.SerializeObject(meta).Trim());
-            } else if (meta.IsUrled()) {
+            } else if (meta.Uhd != null && NetworkInterface.GetIsNetworkAvailable()) {
                 try {
                     BackgroundDownloader downloader = new BackgroundDownloader();
-                    DownloadOperation operation = downloader.CreateDownload(new Uri(meta.GetUrlOne()), cacheFile);
+                    DownloadOperation operation = downloader.CreateDownload(new Uri(meta.Uhd), cacheFile);
                     //Progress<DownloadOperation> progress = new Progress<DownloadOperation>((op) => {
                     //    if (op.Progress.TotalBytesToReceive > 0 && op.Progress.BytesReceived > 0) {
                     //        ulong value = op.Progress.BytesReceived * 100 / op.Progress.TotalBytesToReceive;
@@ -208,7 +209,7 @@ namespace TimelineWallpaper.Providers {
                     //DownloadOperation resOperation = await operation.StartAsync().AsTask(progress);
                     DownloadOperation resOperation = await operation.StartAsync();
                     if (resOperation.Progress.Status == BackgroundTransferStatus.Completed) {
-                        meta.SetCacheOne(cacheFile);
+                        meta.CacheUhd = cacheFile;
                         Debug.WriteLine("cached from network: " + JsonConvert.SerializeObject(meta).Trim());
                     }
                 } catch (Exception) {
@@ -244,24 +245,24 @@ namespace TimelineWallpaper.Providers {
                 }
             }
             // 获取视频尺寸
-            if (meta.CacheVideo != null) {
-                try {
-                    MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
-                    MediaComposition mediaComposition = new MediaComposition();
-                    mediaComposition.Clips.Add(mediaClip);
-                    var stream = await mediaComposition.GetThumbnailAsync(TimeSpan.FromMilliseconds(5000), 0, 0,
-                        VideoFramePrecision.NearestFrame);
-                    var decoder = await BitmapDecoder.CreateAsync(stream);
-                    meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                } catch (Exception) {
-                    Debug.WriteLine("dimen error");
-                }
-            }
+            //if (meta.CacheVideo != null) {
+            //    try {
+            //        MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
+            //        MediaComposition mediaComposition = new MediaComposition();
+            //        mediaComposition.Clips.Add(mediaClip);
+            //        var stream = await mediaComposition.GetThumbnailAsync(TimeSpan.FromMilliseconds(5000), 0, 0,
+            //            VideoFramePrecision.NearestFrame);
+            //        var decoder = await BitmapDecoder.CreateAsync(stream);
+            //        meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+            //    } catch (Exception) {
+            //        Debug.WriteLine("dimen error");
+            //    }
+            //}
             return meta;
         }
 
         public async Task<StorageFile> Download(Meta meta, string appName, string provider) {
-            if (meta == null || !meta.IsCached()) {
+            if (meta?.CacheUhd == null) {
                 return null;
             }
 
@@ -270,7 +271,7 @@ namespace TimelineWallpaper.Providers {
                     .CreateFolderAsync(appName, CreationCollisionOption.OpenIfExists);
                 string name = string.Format("{0}_{1}_{2}{3}", appName, provider, meta.Id, meta.Format);
                 name = FileUtil.MakeValidFileName(name, "");
-                return await meta.GetCacheOne().CopyAsync(folder, name, NameCollisionOption.ReplaceExisting);
+                return await meta.CacheUhd.CopyAsync(folder, name, NameCollisionOption.ReplaceExisting);
             } catch (Exception) {
                 Debug.WriteLine("download error");
             }

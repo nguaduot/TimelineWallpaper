@@ -113,11 +113,11 @@ namespace TimelineWallpaper.Providers {
                 meta.Thumb = URL_API_HOST + match.Groups[1].Value;
                 meta.Format = match.Groups[2].Value;
             }
-            match = Regex.Match(htmlData, @"<source src=""(.+?(\..+?))""");
-            if (match.Success) {
-                meta.Video = URL_API_HOST + match.Groups[1].Value;
-                meta.Format = match.Groups[2].Value;
-            }
+            //match = Regex.Match(htmlData, @"<source src=""(.+?(\..+?))""");
+            //if (match.Success) {
+            //    meta.Video = URL_API_HOST + match.Groups[1].Value;
+            //    meta.Format = match.Groups[2].Value;
+            //}
             match = Regex.Match(htmlData, @"<strong>([^=<]+)(<.+?>)说明");
             if (match.Success) {
                 meta.Title = HtmlUtilities.ConvertToText(match.Groups[1].Value);

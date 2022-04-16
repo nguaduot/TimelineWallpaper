@@ -15,15 +15,14 @@ namespace TimelineWallpaper.Providers {
 
         private const string URL_API = "https://api.nguaduot.cn/ymyouli?client=timelinewallpaper&cate={0}&order={1}&qc={2}&page={3}";
 
-        private Meta ParseBean(YmyouliApiData bean) {
+        private Meta ParseBean(YmyouliApiData bean, string order) {
             Meta meta = new Meta {
                 Id = bean.ImgId,
                 Uhd = bean.ImgUrl,
                 Thumb = bean.ThumbUrl,
                 Cate = bean.CateAlt,
                 Date = DateTime.Now,
-                Format = ".jpg", // TODO
-                SortFactor = bean.No
+                SortFactor = "score".Equals(order) ? bean.Score : bean.No
             };
             //meta.Caption = String.Format("{0} · {1}",
             //    ResourceLoader.GetForCurrentView().GetString("Provider_" + this.Id), bean.Cate);
@@ -31,6 +30,9 @@ namespace TimelineWallpaper.Providers {
             meta.Caption = string.Format("{0} · {1}", bean.Cate, bean.Group);
             if (bean.Deprecated != 0) {
                 meta.Title = "🚫 " + meta.Title;
+            }
+            if (!string.IsNullOrEmpty(bean.Copyright)) {
+                meta.Copyright = "© " + bean.Copyright;
             }
             return meta;
         }
@@ -56,7 +58,7 @@ namespace TimelineWallpaper.Providers {
                 YmyouliApi ymyouliApi = JsonConvert.DeserializeObject<YmyouliApi>(jsonData);
                 List<Meta> metasAdd = new List<Meta>();
                 foreach (YmyouliApiData item in ymyouliApi.Data) {
-                    metasAdd.Add(ParseBean(item));
+                    metasAdd.Add(ParseBean(item, ((YmyouliIni)ini).Order));
                 }
                 if ("date".Equals(((YmyouliIni)ini).Order)) { // 按时序倒序排列
                     SortMetas(metasAdd);

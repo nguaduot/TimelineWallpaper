@@ -43,8 +43,7 @@ namespace TimelineWallpaper.Providers {
                 Uhd = string.Format("{0}{1}_UHD.jpg", URL_API_HOST, bean.UrlBase),
                 Thumb = string.Format("{0}{1}_400x240.jpg", URL_API_HOST, bean.UrlBase),
                 Date = DateTime.ParseExact(bean.EndDate, "yyyyMMdd", new System.Globalization.CultureInfo("en-US")),
-                Caption = bean.Copyright,
-                Format = ".jpg"
+                Caption = bean.Copyright
             };
             meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
 

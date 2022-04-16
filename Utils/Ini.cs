@@ -196,7 +196,7 @@ namespace TimelineWallpaper.Utils {
 
     public class YmyouliIni : BaseIni {
         public const string ID = "ymyouli";
-        public static readonly List<string> ORDER = new List<string>() { "date", "random" };
+        public static readonly List<string> ORDER = new List<string>() { "date", "score", "random" };
         public static readonly List<string> CATE = new List<string>() { "", "acgcharacter", "acgscene", "sky",
             "war", "sword", "artistry", "car", "portrait", "animal", "delicacy", "nature" };
 

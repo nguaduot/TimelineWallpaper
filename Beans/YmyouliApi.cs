@@ -45,6 +45,14 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "thumburl")]
         public string ThumbUrl { set; get; }
 
+        // 版权所有
+        [JsonProperty(PropertyName = "copyright")]
+        public string Copyright { set; get; }
+
+        // 热度分
+        [JsonProperty(PropertyName = "score")]
+        public float Score { set; get; }
+
         // 隐藏标记
         [JsonProperty(PropertyName = "deprecated")]
         public int Deprecated { set; get; }

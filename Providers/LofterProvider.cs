@@ -33,10 +33,10 @@ namespace TimelineWallpaper.Providers {
                 meta.Id = bean.Image;
                 meta.Uhd = bean.Image.Split("?")[0];
                 meta.Thumb = bean.Image;
-            } else if (bean.Video != null) {
+            }/* else if (bean.Video != null) {
                 meta.Id = bean.Video;
                 meta.Video = bean.Video.Split("?")[0];
-            }
+            }*/
             Match match = Regex.Match(meta.Id, @"https://lofter.lf127.net/(.+?)/[^\.]+(\.[^\?]+)");
             if (match.Success) {
                 meta.Id = match.Groups[1].Value;

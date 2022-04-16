@@ -17,7 +17,7 @@ namespace TimelineWallpaper.Providers {
         // https://github.com/nguaduot/TimelineApi
         private const string URL_API = "https://api.nguaduot.cn/timeline?client=timelinewallpaper&cate={0}&enddate={1}&order={2}&authorize={3}";
         
-        private Meta ParseBean(TimelineApiData bean) {
+        private Meta ParseBean(TimelineApiData bean, string order) {
             Meta meta = new Meta {
                 Id = bean.Id.ToString(),
                 Uhd = bean.ImgUrl,
@@ -28,7 +28,7 @@ namespace TimelineWallpaper.Providers {
                 Copyright = "@" + bean.Author?.Trim(),
                 Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"))
             };
-            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
+            meta.SortFactor = "score".Equals(order) ? bean.Score : meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
             if (bean.Deprecated != 0) {
                 meta.Title = "🚫 " + meta.Title;
             }
@@ -39,8 +39,6 @@ namespace TimelineWallpaper.Providers {
                 Uri uri = new Uri(bean.ImgUrl);
                 string[] name = uri.Segments[uri.Segments.Length - 1].Split(".");
                 meta.Format = "." + name[1];
-            } else {
-                meta.Format = ".jpg";
             }
             
             return meta;
@@ -68,7 +66,7 @@ namespace TimelineWallpaper.Providers {
                 TimelineApi timelineApi = JsonConvert.DeserializeObject<TimelineApi>(jsonData);
                 List<Meta> metasAdd = new List<Meta>();
                 foreach (TimelineApiData item in timelineApi.Data) {
-                    metasAdd.Add(ParseBean(item));
+                    metasAdd.Add(ParseBean(item, ((TimelineIni)ini).Order));
                 }
                 if ("date".Equals(((TimelineIni)ini).Order)) { // 按时序倒序排列
                     SortMetas(metasAdd);

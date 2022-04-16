@@ -25,8 +25,7 @@ namespace TimelineWallpaper.Providers {
                 Thumb = bean.PhotoUrl.Replace(".jpg", "_400_0.jpg"),
                 Title = bean.PhotoTopic?.Trim(),
                 Copyright = "@" + bean.Author,
-                Date = DateTime.ParseExact(bean.ScheduleTime, "yyyyMMdd", new System.Globalization.CultureInfo("en-US")),
-                Format = ".jpg"
+                Date = DateTime.ParseExact(bean.ScheduleTime, "yyyyMMdd", new System.Globalization.CultureInfo("en-US"))
             };
             meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
 

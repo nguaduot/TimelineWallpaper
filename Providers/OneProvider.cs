@@ -52,7 +52,6 @@ namespace TimelineWallpaper.Providers {
             if (!string.IsNullOrEmpty(bean.TextAuthors)) {
                 meta.Story += "\n——" + bean.TextAuthors;
             }
-            meta.Format = ".jpg";
 
             return meta;
         }
