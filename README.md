@@ -33,7 +33,7 @@
   
   开源：[github.com/nguaduot/timeline-api](https://github.com/nguaduot/timeline-api)
 
-默认图源：
+三方图源：
 
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
@@ -46,20 +46,7 @@
 + [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
 + [ONE · 一个](http://m.wufazhuce.com/one) - 复杂世界里，一个就够了
 
-其他图源：
-
-+ [3G壁纸](https://desk.3gbizhi.com) - 电脑壁纸专家
-+ [BoBoPic](https://bobopic.com) - 每天都有好看的壁纸图片
-+ [Lofter](https://www.lofter.com) - 看见每一种兴趣
-+ [Wallpaper Abyss](https://wall.alphacoders.com) - 壁纸聚集地
-+ [呆憨API](https://api.daihan.top/html/acg.html) - 随机二次元ACG图片
-+ [樱花API](https://www.dmoe.cc) - 随机二次元图片
-+ [晓晴API](https://acg.toubiec.cn) - 随机二次元图片
-+ [墨天逸API](https://api.mtyqx.cn) - 随机图片
-+ [夏沫博客API](https://cdn.seovx.com) - 在线古风美图二次元
-+ [保罗API](https://api.paugram.com/help/wallpaper) - 随机动漫壁纸
-
-*特别注明：除了自建图源，均为来自网络的第三方资源，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
+*特别注明：三方图源均为来自网络，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
 
 ## 进阶
 
@@ -74,12 +61,14 @@
   + `Ctrl` + `S`：保存图片
   + `Ctrl` + `R` / `F5`：刷新
   + `Ctrl` + `F` / `Ctrl` + `G`：跳转至指定日期
+  + `Ctrl` + `D`：标记“不喜欢”
+  + `Ctrl` + `C`：复制图片元素
   + `回车`：切换为全屏模式
   + `Esc`：切换为窗口模式
 
 + 如何以2小时/次的周期更换桌面壁纸？
   + 开启目标图源的桌面/锁屏推送
-  + 右键菜单点击“**设置**”图标，“**实验**”组“**配置文件**”行点击“**打开**”，即可编辑配置文件
+  + 右键菜单点击“**设置**”图标，导航至“**常规**”组，展开“**配置文件**”，点击“**打开**”，即可编辑配置文件
   + 找到当前图源的块 `[xxx]`，将 `desktopperiod` 参数值修改为 `2`，即2h/次，保存即可
 
 ## 反馈
@@ -88,7 +77,6 @@
 + 邮件 [nguaduot@163.com](mailto:nguaduot@163.com)
 + 酷安 [@南瓜多糖](http://www.coolapk.com/u/474144)
 + Telegram [@nguaduot](https://t.me/nguaduot)
-+ TG群 [拾光 for Windows 11](https://t.me/timelinewallpaper)
 
 ## 截图
 
