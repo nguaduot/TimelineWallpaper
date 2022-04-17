@@ -219,11 +219,11 @@ namespace TimelineWallpaper.Providers {
             // 获取图片尺寸&检测人像位置
             if (meta.CacheUhd != null && FaceDetector.IsSupported) {
                 using (var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
-                    var decoder = await BitmapDecoder.CreateAsync(stream);
-                    // 获取图片尺寸
-                    meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-                    // 检测人像位置
                     try {
+                        var decoder = await BitmapDecoder.CreateAsync(stream);
+                        // 获取图片尺寸
+                        meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+                        // 检测人像位置
                         // TODO: 该行会随机抛出异常 System.Exception: 图像无法识别
                         SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync(decoder.BitmapPixelFormat,
                             BitmapAlphaMode.Premultiplied, new BitmapTransform(),

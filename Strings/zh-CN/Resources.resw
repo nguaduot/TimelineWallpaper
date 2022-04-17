@@ -240,9 +240,6 @@
   <data name="Provider_infinity" xml:space="preserve">
     <value>Infinity</value>
   </data>
-  <data name="Provider_lofter" xml:space="preserve">
-    <value>Lofter</value>
-  </data>
   <data name="Provider_mty" xml:space="preserve">
     <value>墨天逸API</value>
   </data>
@@ -251,9 +248,6 @@
   </data>
   <data name="Provider_oneplus" xml:space="preserve">
     <value>OnePlus</value>
-  </data>
-  <data name="Provider_paul" xml:space="preserve">
-    <value>保罗API</value>
   </data>
   <data name="Provider_seovx" xml:space="preserve">
     <value>夏末博客API</value>
@@ -282,9 +276,6 @@
   <data name="Slogan_infinity" xml:space="preserve">
     <value>精选壁纸</value>
   </data>
-  <data name="Slogan_lofter" xml:space="preserve">
-    <value>看见每一种兴趣</value>
-  </data>
   <data name="Slogan_mty" xml:space="preserve">
     <value>随机图片</value>
   </data>
@@ -293,9 +284,6 @@
   </data>
   <data name="Slogan_oneplus" xml:space="preserve">
     <value>Shot on OnePlus</value>
-  </data>
-  <data name="Slogan_paul" xml:space="preserve">
-    <value>随机动漫壁纸</value>
   </data>
   <data name="Slogan_seovx" xml:space="preserve">
     <value>在线古风美图二次元</value>
@@ -721,7 +709,7 @@
     <value>赞助支持</value>
   </data>
   <data name="SettingsReviewDesc.Text" xml:space="preserve">
-    <value>与谁同坐，明月清风我</value>
+    <value>连雨不知春去，一晴方觉夏深</value>
   </data>
   <data name="SettingsReviewTitle.Text" xml:space="preserve">
     <value>支持</value>
@@ -762,17 +750,77 @@
   <data name="YmyouliOrder_random" xml:space="preserve">
     <value>随机</value>
   </data>
-  <data name="Provider_edge" xml:space="preserve">
-    <value>Edge</value>
+  <data name="BtnQingbzDonate.Content" xml:space="preserve">
+    <value>加鸡腿</value>
   </data>
-  <data name="Slogan_edge" xml:space="preserve">
-    <value>每日一图/视频</value>
+  <data name="MenuProviderQingbz.Text" xml:space="preserve">
+    <value>轻壁纸 - 4K壁纸分享站</value>
   </data>
   <data name="MsgIdCopied" xml:space="preserve">
     <value>已复制图片元素</value>
   </data>
+  <data name="Provider_qingbz" xml:space="preserve">
+    <value>轻壁纸</value>
+  </data>
+  <data name="QingbzCate_" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="QingbzCate_acg" xml:space="preserve">
+    <value>二次元</value>
+  </data>
+  <data name="QingbzCate_animal" xml:space="preserve">
+    <value>动物萌宠</value>
+  </data>
+  <data name="QingbzCate_car" xml:space="preserve">
+    <value>汽车迷</value>
+  </data>
+  <data name="QingbzCate_color" xml:space="preserve">
+    <value>颜色系</value>
+  </data>
+  <data name="QingbzCate_game" xml:space="preserve">
+    <value>游戏迷</value>
+  </data>
+  <data name="QingbzCate_nature" xml:space="preserve">
+    <value>自然界</value>
+  </data>
+  <data name="QingbzCate_portrait" xml:space="preserve">
+    <value>人物墙</value>
+  </data>
+  <data name="QingbzCate_star" xml:space="preserve">
+    <value>明星区</value>
+  </data>
+  <data name="QingbzOrder_date" xml:space="preserve">
+    <value>收录</value>
+  </data>
+  <data name="QingbzOrder_random" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="QingbzOrder_score" xml:space="preserve">
+    <value>热度</value>
+  </data>
+  <data name="SettingsQingbzDesc.Text" xml:space="preserve">
+    <value>4K壁纸分享站</value>
+  </data>
+  <data name="SettingsQingbzTitle.Text" xml:space="preserve">
+    <value>轻壁纸</value>
+  </data>
+  <data name="Slogan_qingbz" xml:space="preserve">
+    <value>4K壁纸分享站</value>
+  </data>
+  <data name="TextQingbzCate.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="TextQingbzDonate.Text" xml:space="preserve">
+    <value>支持一下</value>
+  </data>
+  <data name="TextQingbzOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
   <data name="TimelineOrder_score" xml:space="preserve">
     <value>热度</value>
+  </data>
+  <data name="UrlQingbz" xml:space="preserve">
+    <value>https://bz.qinggongju.com/</value>
   </data>
   <data name="YmyouliOrder_score" xml:space="preserve">
     <value>热度</value>

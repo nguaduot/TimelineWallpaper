@@ -42,7 +42,7 @@ namespace TimelineWallpaper.Providers {
                     DateTime.TryParseExact("2021-" + match.Groups[1].Value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
                         DateTimeStyles.AdjustToUniversal, out DateTime date);
                     meta.Date = date;
-                    meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
+                    meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).TotalDays;
                 }
                 match = Regex.Match(m.Groups[0].Value, @"""bookmark"">([^<]+)</a>");
                 if (match.Success) {

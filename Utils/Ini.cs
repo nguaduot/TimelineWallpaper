@@ -12,16 +12,15 @@ namespace TimelineWallpaper.Utils {
             { YmyouliIni.ID, new YmyouliIni() },
             { InfinityIni.ID, new InfinityIni() },
             { OneIni.ID, new OneIni() },
+            { QingbzIni.ID, new QingbzIni() },
             { G3Ini.ID, new G3Ini() },
             { BoboIni.ID, new BoboIni() },
-            { LofterIni.ID, new LofterIni() },
             { AbyssIni.ID, new AbyssIni() },
             { DaihanIni.ID, new DaihanIni() },
             { DmoeIni.ID, new DmoeIni() },
             { ToubiecIni.ID, new ToubiecIni() },
             { MtyIni.ID, new MtyIni() },
-            { SeovxIni.ID, new SeovxIni() },
-            { PaulIni.ID, new PaulIni() }
+            { SeovxIni.ID, new SeovxIni() }
         };
 
         private readonly HashSet<string> THEME = new HashSet<string>() { "", "light", "dark" };
@@ -255,6 +254,33 @@ namespace TimelineWallpaper.Utils {
         override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}";
     }
 
+    public class QingbzIni : BaseIni {
+        public const string ID = "qingbz";
+        public static readonly List<string> ORDER = new List<string>() { "date", "score", "random" };
+        public static readonly List<string> CATE = new List<string>() { "", "portrait", "acg", "nature",
+            "star", "color", "car", "game", "animal" };
+
+        private string order = "random";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "random";
+            get => order;
+        }
+
+        private string cate = "";
+        public string Cate {
+            set => cate = CATE.Contains(value) ? value : "";
+            get => cate;
+        }
+
+        public int Qc { set; get; } = 1;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new QingbzProvider() { Id = ID };
+
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&qc={Qc}";
+    }
+
     public class G3Ini : BaseIni {
         public const string ID = "3g";
         private readonly HashSet<string> ORDER = new HashSet<string>() { "date", "view" };
@@ -278,16 +304,6 @@ namespace TimelineWallpaper.Utils {
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new BoboProvider() { Id = ID };
-
-        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}";
-    }
-
-    public class LofterIni : BaseIni {
-        public const string ID = "lofter";
-
-        public override bool IsSequential() => false;
-
-        public override BaseProvider GenerateProvider() => new LofterProvider() { Id = ID };
 
         override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}";
     }
@@ -357,15 +373,5 @@ namespace TimelineWallpaper.Utils {
         public override BaseProvider GenerateProvider() => new SeovxProvider() { Id = ID };
 
         override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&cate={Cate}";
-    }
-
-    public class PaulIni : BaseIni {
-        public const string ID = "paul";
-
-        public override bool IsSequential() => false;
-
-        public override BaseProvider GenerateProvider() => new PaulProvider() { Id = ID };
-
-        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}";
     }
 }

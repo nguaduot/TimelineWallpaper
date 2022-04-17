@@ -17,7 +17,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-4.0.ini";
+        private const string FILE_INI = "timelinewallpaper-4.2.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -45,20 +45,19 @@ namespace TimelineWallpaper.Utils {
                     "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
                     "; provider=timeline   图源：拾光 - 时光如歌，岁月如诗 https://api.nguaduot.cn/timeline",
+                    "; provider=one        图源：ONE · 一个 - 复杂世界里，一个就够了 http://m.wufazhuce.com/one",
                     "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
+                    "; provider=qingbz     图源：轻壁纸 - 4K壁纸分享站 https://bz.qinggongju.com",
                     "; provider=infinity   图源：Infinity - 精选壁纸 http://cn.infinitynewtab.com",
-                    "; provider=one        图源：ONE · 一个 - 复杂世界里，一个就够了 http://m.wufazhuce.com/one",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=bobo       图源：BoBoPic - 每天都有好看的壁纸图片 https://bobopic.com",
-                    "; provider=lofter     图源：Lofter - 看见每一种兴趣 https://www.lofter.com",
                     "; provider=abyss      图源：Wallpaper Abyss - 壁纸聚集地 https://wall.alphacoders.com",
                     "; provider=daihan     图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html",
                     "; provider=dmoe       图源：樱花API - 随机二次元图片 https://www.dmoe.cc",
                     "; provider=toubiec    图源：晓晴API - 随机二次元图片 https://acg.toubiec.cn",
                     "; provider=mty        图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
                     "; provider=seovx      图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
-                    "; provider=paul       图源：保罗API - 随机动漫壁纸 https://api.paugram.com/help/wallpaper",
                     "",
                     "desktopprovider=",
                     "; desktopprovider={provider}  桌面背景推送图源：参数参考 provider（置空则关闭推送）",
@@ -134,6 +133,18 @@ namespace TimelineWallpaper.Utils {
                     "authorize=1",
                     "; authorize={n}  授权：0或1（默认为1，仅展示已授权图片，若手动修改为0，请勿擅自商用未授权图片）",
                     "",
+                    "[one]",
+                    "",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "order=date",
+                    "; order=date    排序：日期（默认）",
+                    "; order=random  排序：随机",
+                    "",
                     "[himawari8]",
                     "",
                     "desktopperiod=1",
@@ -175,6 +186,33 @@ namespace TimelineWallpaper.Utils {
                     "qc=1",
                     "; qc={n}  质检：0或1（默认为1，仅展示已质检图片，过滤R18内容、含水印图）",
                     "",
+                    "[qingbz]",
+                    "",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "order=random",
+                    "; order=date    排序：收录",
+                    "; order=score   排序：热度",
+                    "; order=random  排序：随机（默认）",
+                    "",
+                    "cate=",
+                    "; cate=          类别：全部（默认）",
+                    "; cate=portrait  类别：人物墙",
+                    "; cate=star      类别：明星区",
+                    "; cate=nature    类别：自然界",
+                    "; cate=acg       类别：二次元",
+                    "; cate=color     类别：颜色系",
+                    "; cate=car       类别：汽车迷",
+                    "; cate=game      类别：游戏迷",
+                    "; cate=animal    类别：动物萌宠",
+                    "",
+                    "qc=1",
+                    "; qc={n}  质检：0或1（默认为1，仅展示已质检图片，过滤R18内容、含水印图）",
+                    "",
                     "[infinity]",
                     "",
                     "desktopperiod=24",
@@ -186,18 +224,6 @@ namespace TimelineWallpaper.Utils {
                     "order=",
                     "; order=      排序：随机（默认）",
                     "; order=rate  排序：热度",
-                    "",
-                    "[one]",
-                    "",
-                    "desktopperiod=24",
-                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
-                    "",
-                    "lockperiod=24",
-                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
-                    "",
-                    "order=date",
-                    "; order=date    排序：日期（默认）",
-                    "; order=random  排序：随机",
                     "",
                     "[3g]",
                     "",
@@ -212,14 +238,6 @@ namespace TimelineWallpaper.Utils {
                     "; order=view  排序：热门壁纸",
                     "",
                     "[bobo]",
-                    "",
-                    "desktopperiod=24",
-                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
-                    "",
-                    "lockperiod=24",
-                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
-                    "",
-                    "[lofter]",
                     "",
                     "desktopperiod=24",
                     "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
@@ -271,14 +289,6 @@ namespace TimelineWallpaper.Utils {
                     "; cate=    类别：美图",
                     "; cate=d   类别：二次元（默认）",
                     "; cate=ha  类别：古风",
-                    "",
-                    "[paul]",
-                    "",
-                    "desktopperiod=24",
-                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
-                    "",
-                    "lockperiod=24",
-                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
                     ""
                 });
                 //StorageFile defFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/timelinewallpaper.ini"));
@@ -299,16 +309,6 @@ namespace TimelineWallpaper.Utils {
             StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("timelinewallpaper", "provider", provider, iniFile.Path);
         }
-
-        //public static async void SavePush(string push) {
-        //    StorageFile iniFile = await GenerateIniFileAsync();
-        //    _ = WritePrivateProfileString("timelinewallpaper", "push", push, iniFile.Path);
-        //}
-
-        //public static async void SavePushProvider(string provider) {
-        //    StorageFile iniFile = await GenerateIniFileAsync();
-        //    _ = WritePrivateProfileString("timelinewallpaper", "pushprovider", provider, iniFile.Path);
-        //}
 
         public static async void SaveDesktopProvider(string provider) {
             StorageFile iniFile = await GenerateIniFileAsync();
@@ -374,6 +374,16 @@ namespace TimelineWallpaper.Utils {
         public static async void SaveOneOrder(string order) {
             StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("one", "order", order, iniFile.Path);
+        }
+
+        public static async void SaveQingbzOrder(string order) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("qingbz", "order", order, iniFile.Path);
+        }
+
+        public static async void SaveQingbzCate(string cate) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("qingbz", "cate", cate, iniFile.Path);
         }
 
         public static async Task<StorageFile> GetIniPath() {
@@ -493,6 +503,22 @@ namespace TimelineWallpaper.Utils {
                 LockPeriod = lockPeriod,
                 Order = sb.ToString()
             });
+            _ = GetPrivateProfileString("qingbz", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("qingbz", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
+            QingbzIni qingbzIni = new QingbzIni {
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
+            };
+            _ = GetPrivateProfileString("qingbz", "order", "random", sb, 1024, iniFile);
+            qingbzIni.Order = sb.ToString();
+            _ = GetPrivateProfileString("qingbz", "cate", "", sb, 1024, iniFile);
+            qingbzIni.Cate = sb.ToString();
+            _ = GetPrivateProfileString("qingbz", "qc", "1", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out qc);
+            qingbzIni.Qc = qc;
+            ini.SetIni("qingbz", qingbzIni);
             _ = GetPrivateProfileString("3g", "desktopperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
             _ = GetPrivateProfileString("3g", "lockperiod", "24", sb, 1024, iniFile);
@@ -508,14 +534,6 @@ namespace TimelineWallpaper.Utils {
             _ = GetPrivateProfileString("bing", "lockperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out lockPeriod);
             ini.SetIni("bobo", new BoboIni {
-                DesktopPeriod = desktopPeriod,
-                LockPeriod = lockPeriod
-            });
-            _ = GetPrivateProfileString("lofter", "desktopperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out desktopPeriod);
-            _ = GetPrivateProfileString("lofter", "lockperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out lockPeriod);
-            ini.SetIni("lofter", new LofterIni {
                 DesktopPeriod = desktopPeriod,
                 LockPeriod = lockPeriod
             });
@@ -560,14 +578,6 @@ namespace TimelineWallpaper.Utils {
                 DesktopPeriod = desktopPeriod,
                 LockPeriod = lockPeriod,
                 Cate = sb.ToString()
-            });
-            _ = GetPrivateProfileString("paul", "desktopperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out desktopPeriod);
-            _ = GetPrivateProfileString("paul", "lockperiod", "24", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out lockPeriod);
-            ini.SetIni("paul", new PaulIni {
-                DesktopPeriod = desktopPeriod,
-                LockPeriod = lockPeriod
             });
             return ini;
         }

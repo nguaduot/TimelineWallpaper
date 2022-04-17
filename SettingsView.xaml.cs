@@ -30,6 +30,8 @@ namespace TimelineWallpaper {
         private readonly List<Paras> listYmyouliOrder = new List<Paras>();
         private readonly List<Paras> listInfinityOrder = new List<Paras>();
         private readonly List<Paras> listOneOrder = new List<Paras>();
+        private readonly List<Paras> listQingbzCate = new List<Paras>();
+        private readonly List<Paras> listQingbzOrder = new List<Paras>();
 
         private bool paneOpened = false; // 避免初始化设置选项的非必要事件
 
@@ -93,6 +95,18 @@ namespace TimelineWallpaper {
                     Name = resLoader.GetString("OneOrder_" + item)
                 });
             }
+            foreach (string item in QingbzIni.CATE) {
+                listQingbzCate.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("QingbzCate_" + item)
+                });
+            }
+            foreach (string item in QingbzIni.ORDER) {
+                listQingbzOrder.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("QingbzOrder_" + item)
+                });
+            }
 
             BoxHimawari8Offset.NumberFormatter = new DecimalFormatter {
                 IntegerDigits = 1,
@@ -143,6 +157,7 @@ namespace TimelineWallpaper {
             ExpanderYmyouli.IsExpanded = YmyouliIni.ID.Equals(ini.Provider);
             ExpanderInfinity.IsExpanded = InfinityIni.ID.Equals(ini.Provider);
             ExpanderOne.IsExpanded = OneIni.ID.Equals(ini.Provider);
+            ExpanderQingbz.IsExpanded = QingbzIni.ID.Equals(ini.Provider);
 
             BoxBingLang.SelectedIndex = listBingLang.Select(t => t.Id).ToList().IndexOf(((BingIni)ini.GetIni(BingIni.ID)).Lang);
             ToggleNasaMirror.IsOn = "bjp".Equals(((NasaIni)ini.GetIni(NasaIni.ID)).Mirror);
@@ -154,13 +169,12 @@ namespace TimelineWallpaper {
             BoxYmyouliOrder.SelectedIndex = listYmyouliOrder.Select(t => t.Id).ToList().IndexOf(((YmyouliIni)ini.GetIni(YmyouliIni.ID)).Order);
             BoxInfinityOrder.SelectedIndex = listInfinityOrder.Select(t => t.Id).ToList().IndexOf(((InfinityIni)ini.GetIni(InfinityIni.ID)).Order);
             BoxOneOrder.SelectedIndex = listOneOrder.Select(t => t.Id).ToList().IndexOf(((OneIni)ini.GetIni(OneIni.ID)).Order);
+            BoxQingbzCate.SelectedIndex = listQingbzCate.Select(t => t.Id).ToList().IndexOf(((QingbzIni)ini.GetIni(QingbzIni.ID)).Cate);
+            BoxQingbzOrder.SelectedIndex = listQingbzOrder.Select(t => t.Id).ToList().IndexOf(((QingbzIni)ini.GetIni(QingbzIni.ID)).Order);
 
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
             TextThemeCur.Text = rb.Content.ToString();
-
-            //StorageFolder folderSave = await GetFolderSave();
-            //SettingsSaveDesc.Text = string.Format(resLoader.GetString("DetailSave"), (await folderSave.GetFilesAsync()).Count);
 
             paneOpened = true;
         }
@@ -369,6 +383,38 @@ namespace TimelineWallpaper {
             SettingsChanged?.Invoke(this, new SettingsEventArgs {
                 ProviderChanged = true
             });
+        }
+
+        private void BoxQingbzCate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            QingbzIni bi = (QingbzIni)ini.GetIni(QingbzIni.ID);
+            bi.Cate = paras.Id;
+            IniUtil.SaveQingbzCate(paras.Id);
+            IniUtil.SaveProvider(QingbzIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BoxQingbzOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            QingbzIni bi = (QingbzIni)ini.GetIni(QingbzIni.ID);
+            bi.Order = paras.Id;
+            IniUtil.SaveQingbzOrder(paras.Id);
+            IniUtil.SaveProvider(QingbzIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BtnQingbzDonate_Click(object sender, RoutedEventArgs e) {
+            _ = Launcher.LaunchUriAsync(new Uri(resLoader.GetString("UrlQingbz")));
         }
 
         private void BtnReview_Click(object sender, RoutedEventArgs e) {

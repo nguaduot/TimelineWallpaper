@@ -35,7 +35,7 @@ namespace TimelineWallpaper.Providers {
             };
             meta.Thumb = meta.Uhd;
             meta.Date = time.ToLocalTime();
-            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Minutes;
+            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).TotalMinutes;
             meta.Caption = meta.Date.Value.ToString("M") + " " + meta.Date.Value.ToString("t");
             return meta;
         }

@@ -810,7 +810,7 @@ namespace TimelineWallpaper {
                     LoadTormorrowAsync();
                     break;
                 case VirtualKey.Enter:
-                    ToggleFullscreenMode(true);
+                    ToggleFullscreenMode();
                     break;
                 case VirtualKey.Escape:
                     ToggleFullscreenMode(false);

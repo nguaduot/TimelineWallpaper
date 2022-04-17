@@ -23,7 +23,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>False</GenerateTestArtifacts>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>D:\uwp\TimelineWallpaper\AppPackages</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
@@ -136,6 +136,7 @@
     <Compile Include="Beans\StatsApiReq.cs" />
     <Compile Include="Beans\OneApi.cs" />
     <Compile Include="Beans\EdgeApi.cs" />
+    <Compile Include="Beans\QingbzApi.cs" />
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\TimelineApi.cs" />
     <Compile Include="Beans\MxgApi.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="Beans\DmoeApiItem.cs" />
     <Compile Include="Beans\InfinityApi.cs" />
     <Compile Include="Beans\PixivelApi.cs" />
-    <Compile Include="Beans\LofterApi.cs" />
     <Compile Include="ContributeDlg.xaml.cs">
       <DependentUpon>ContributeDlg.xaml</DependentUpon>
     </Compile>
@@ -160,11 +160,10 @@
     <Compile Include="Providers\MtyProvider.cs" />
     <Compile Include="Providers\ToubiecProvider.cs" />
     <Compile Include="Providers\DmoeProvider.cs" />
-    <Compile Include="Providers\PaulProvider.cs" />
     <Compile Include="Providers\InfinityProvider.cs" />
+    <Compile Include="Providers\QingbzProvider.cs" />
     <Compile Include="Providers\YmyouliProvider.cs" />
     <Compile Include="Providers\DaihanProvider.cs" />
-    <Compile Include="Providers\LofterProvider.cs" />
     <Compile Include="Providers\G3Provider.cs" />
     <Compile Include="ReviewDlg.xaml.cs">
       <DependentUpon>ReviewDlg.xaml</DependentUpon>
@@ -199,7 +198,6 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
-    <Content Include="Assets\Images\default.png" />
     <Content Include="Assets\Images\donate_alipay.png" />
     <Content Include="Assets\Images\donate_wechat.png" />
     <Content Include="Assets\Images\tip_menu.jpg" />

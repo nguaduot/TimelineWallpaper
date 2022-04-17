@@ -28,7 +28,7 @@ namespace TimelineWallpaper.Providers {
                 Copyright = "@" + bean.Author?.Trim(),
                 Date = DateTime.ParseExact(bean.RelDate, "yyyy-MM-dd", new System.Globalization.CultureInfo("en-US"))
             };
-            meta.SortFactor = "score".Equals(order) ? bean.Score : meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
+            meta.SortFactor = "score".Equals(order) ? bean.Score : meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).TotalDays;
             if (bean.Deprecated != 0) {
                 meta.Title = "🚫 " + meta.Title;
             }

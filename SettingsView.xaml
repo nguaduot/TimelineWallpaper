@@ -306,6 +306,58 @@
                         </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>
+                <muxc:Expander Name="ExpanderOne"
+                               ExpandDirection="Down"
+                               IsExpanded="False"
+                               Tag="one"
+                               Expanding="ExpanderProvider_Expanding"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Margin="0,8,0,0">
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                                <TextBlock x:Uid="SettingsOneTitle"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock x:Uid="SettingsOneDesc"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           MaxLines="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Margin="0,0,12,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                      FontFamily="{ThemeResource FluentIcons}"
+                                      FontSize="16"
+                                      Glyph="&#xE8CB;" />
+                            <TextBlock Grid.Column="1"
+                                       x:Uid="TextOneOrder"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource BodyTextBlockStyle}" />
+                            <ComboBox Name="BoxOneOrder"
+                                      Grid.Column="2"
+                                      MinWidth="140"
+                                      ItemsSource="{x:Bind listOneOrder}"
+                                      SelectionChanged="BoxOneOrder_SelectionChanged" />
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
                 <muxc:Expander Name="ExpanderHimawari8"
                                ExpandDirection="Down"
                                IsExpanded="False"
@@ -461,6 +513,103 @@
                         </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>
+                <muxc:Expander Name="ExpanderQingbz"
+                               ExpandDirection="Down"
+                               IsExpanded="False"
+                               Tag="qingbz"
+                               Expanding="ExpanderProvider_Expanding"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Margin="0,8,0,0">
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                                <TextBlock x:Uid="SettingsQingbzTitle"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock x:Uid="SettingsQingbzDesc"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           MaxLines="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE8F1;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextQingbzCate"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <ComboBox Name="BoxQingbzCate"
+                                          Grid.Column="2"
+                                          MinWidth="140"
+                                          ItemsSource="{x:Bind listQingbzCate}"
+                                          SelectionChanged="BoxQingbzCate_SelectionChanged" />
+                            </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE8CB;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextQingbzOrder"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <ComboBox Name="BoxQingbzOrder"
+                                          Grid.Column="2"
+                                          MinWidth="140"
+                                          ItemsSource="{x:Bind listQingbzOrder}"
+                                          SelectionChanged="BoxQingbzOrder_SelectionChanged" />
+                            </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE95E;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextQingbzDonate"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <Button Grid.Column="2"
+                                        Name="BtnQingbzDonate"
+                                        x:Uid="BtnQingbzDonate"
+                                        Click="BtnQingbzDonate_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
                 <muxc:Expander Name="ExpanderInfinity"
                                ExpandDirection="Down"
                                IsExpanded="False"
@@ -510,58 +659,6 @@
                                       MinWidth="140"
                                       ItemsSource="{x:Bind listInfinityOrder}"
                                       SelectionChanged="BoxInfinityOrder_SelectionChanged" />
-                        </Grid>
-                    </muxc:Expander.Content>
-                </muxc:Expander>
-                <muxc:Expander Name="ExpanderOne"
-                               ExpandDirection="Down"
-                               IsExpanded="False"
-                               Tag="one"
-                               Expanding="ExpanderProvider_Expanding"
-                               HorizontalAlignment="Stretch"
-                               HorizontalContentAlignment="Stretch"
-                               Margin="0,8,0,0">
-                    <muxc:Expander.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="1"
-                                        Margin="0,12"
-                                        Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsOneTitle"
-                                           Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsOneDesc"
-                                           Style="{StaticResource CaptionTextBlockStyle}"
-                                           MaxLines="1"
-                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                           TextWrapping="WrapWholeWords" />
-                            </StackPanel>
-                        </Grid>
-                    </muxc:Expander.Header>
-                    <muxc:Expander.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <FontIcon Margin="0,0,12,0"
-                                      VerticalAlignment="Center"
-                                      Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                      FontFamily="{ThemeResource FluentIcons}"
-                                      FontSize="16"
-                                      Glyph="&#xE8CB;" />
-                            <TextBlock Grid.Column="1"
-                                       x:Uid="TextOneOrder"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource BodyTextBlockStyle}" />
-                            <ComboBox Name="BoxOneOrder"
-                                      Grid.Column="2"
-                                      MinWidth="140"
-                                      ItemsSource="{x:Bind listOneOrder}"
-                                      SelectionChanged="BoxOneOrder_SelectionChanged" />
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>

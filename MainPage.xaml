@@ -280,6 +280,11 @@
                                                       Click="MenuProvider_Click"
                                                       Tag="timeline"
                                                       GroupName="Provider" />
+                            <muxc:RadioMenuFlyoutItem Name="MenuProviderOne"
+                                                      x:Uid="MenuProviderOne"
+                                                      Click="MenuProvider_Click"
+                                                      Tag="one"
+                                                      GroupName="Provider" />
                             <muxc:RadioMenuFlyoutItem Name="MenuProviderHimawari8"
                                                       x:Uid="MenuProviderHimawari8"
                                                       Click="MenuProvider_Click"
@@ -290,15 +295,15 @@
                                                       Click="MenuProvider_Click"
                                                       Tag="ymyouli"
                                                       GroupName="Provider" />
+                            <muxc:RadioMenuFlyoutItem Name="MenuProviderQingbz"
+                                                      x:Uid="MenuProviderQingbz"
+                                                      Click="MenuProvider_Click"
+                                                      Tag="qingbz"
+                                                      GroupName="Provider" />
                             <muxc:RadioMenuFlyoutItem Name="MenuProviderInfinity"
                                                       x:Uid="MenuProviderInfinity"
                                                       Click="MenuProvider_Click"
                                                       Tag="infinity"
-                                                      GroupName="Provider" />
-                            <muxc:RadioMenuFlyoutItem Name="MenuProviderOne"
-                                                      x:Uid="MenuProviderOne"
-                                                      Click="MenuProvider_Click"
-                                                      Tag="one"
                                                       GroupName="Provider" />
                         </MenuFlyout>
                     </AppBarButton.Flyout>

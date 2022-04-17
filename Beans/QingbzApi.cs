@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 
 namespace TimelineWallpaper.Beans {
-    public class YmyouliApi {
+    public class QingbzApi {
         // 图片信息数组
         [JsonProperty(PropertyName = "data")]
-        public List<YmyouliApiData> Data { set; get; }
+        public List<QingbzApiData> Data { set; get; }
     }
 
-    public class YmyouliApiData {
-        // 排序编号
-        [JsonProperty(PropertyName = "no")]
-        public int No { set; get; }
-
+    public class QingbzApiData {
         // 类别内排序序号
         [JsonProperty(PropertyName = "catealtno")]
         public int CateAltNo { set; get; }
@@ -25,17 +21,9 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "catealt")]
         public string CateAlt { set; get; }
 
-        // 类别
-        [JsonProperty(PropertyName = "cate")]
-        public string Cate { set; get; }
-
-        // 组
-        [JsonProperty(PropertyName = "group")]
-        public string Group { set; get; }
-
         // 图片ID
         [JsonProperty(PropertyName = "imgid")]
-        public string ImgId { set; get; }
+        public int ImgId { set; get; }
 
         // 图片URL
         [JsonProperty(PropertyName = "imgurl")]
@@ -45,9 +33,9 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "thumburl")]
         public string ThumbUrl { set; get; }
 
-        // 版权所有
-        [JsonProperty(PropertyName = "copyright")]
-        public string Copyright { set; get; }
+        // 发布日期
+        [JsonProperty(PropertyName = "reldate")]
+        public string RelDate { set; get; }
 
         // 热度分
         [JsonProperty(PropertyName = "score")]

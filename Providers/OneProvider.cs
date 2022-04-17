@@ -33,7 +33,7 @@ namespace TimelineWallpaper.Providers {
                 Copyright = bean.PictureAuthor,
                 Date = DateTime.ParseExact(bean.Date, "yyyy / MM / dd", new System.Globalization.CultureInfo("en-US")),
             };
-            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).Days;
+            meta.SortFactor = meta.Date.Value.Subtract(new DateTime(1970, 1, 1)).TotalDays;
             if (!string.IsNullOrEmpty(bean.Content)) {
                 meta.Title = "";
                 foreach (Match match in Regex.Matches(bean.Content, @"([^  ，、。！？；：(?:——)\n(?:\r\n)]+)([  ，、。！？；：(?:——)\n(?:\r\n)])")) {
