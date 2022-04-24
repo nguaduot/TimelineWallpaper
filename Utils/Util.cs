@@ -17,7 +17,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-4.2.ini";
+        private const string FILE_INI = "timelinewallpaper-4.3.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -29,10 +29,28 @@ namespace TimelineWallpaper.Utils {
         private static async Task<StorageFile> GenerateIniFileAsync() {
             StorageFolder folder = ApplicationData.Current.LocalFolder;
             StorageFile iniFile = await folder.TryGetItemAsync(FILE_INI) as StorageFile;
-            if (iniFile == null) {
-                iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
+            if (iniFile == null) { // 生成初始配置文件
                 string version = string.Format("; 拾光 v{0}.{1}",
                     Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor);
+                string provider = "provider=bing";
+                string providerDesktop = "desktopprovider=";
+                string providerLock = "lockprovider=";
+                string theme = "theme=";
+                FileInfo[] files = new DirectoryInfo(folder.Path).GetFiles("*.ini");
+                Array.Sort(files, (a, b) => (b as FileInfo).CreationTime.CompareTo((a as FileInfo).CreationTime));
+                if (files.Length > 0) { // 继承设置
+                    Debug.WriteLine("inherit: " + files[0].Name);
+                    StringBuilder sb = new StringBuilder(1024);
+                    _ = GetPrivateProfileString("timelinewallpaper", "provider", "bing", sb, 1024, files[0].FullName);
+                    provider = "provider=" + sb.ToString();
+                    _ = GetPrivateProfileString("timelinewallpaper", "desktopprovider", "", sb, 1024, files[0].FullName);
+                    providerDesktop = "desktopprovider=" + sb.ToString();
+                    _ = GetPrivateProfileString("timelinewallpaper", "lockprovider", "", sb, 1024, files[0].FullName);
+                    providerLock = "lockprovider=" + sb.ToString();
+                    _ = GetPrivateProfileString("timelinewallpaper", "theme", "", sb, 1024, files[0].FullName);
+                    theme = "theme=" + sb.ToString();
+                }
+                iniFile = await folder.CreateFileAsync(FILE_INI, CreationCollisionOption.ReplaceExisting);
                 await FileIO.WriteLinesAsync(iniFile, new string[] {
                     version,
                     "; https://github.com/nguaduot/TimelineWallpaper",
@@ -40,7 +58,7 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "[timelinewallpaper]",
                     "",
-                    "provider=bing",
+                    provider,
                     "; provider=bing       图源：Microsoft Bing - 每天发现一个新地方 https://cn.bing.com",
                     "; provider=nasa       图源：NASA - 每日天文一图 https://apod.nasa.gov/apod",
                     "; provider=oneplus    图源：OnePlus - Shot on OnePlus https://photos.oneplus.com",
@@ -49,6 +67,7 @@ namespace TimelineWallpaper.Utils {
                     "; provider=himawari8  图源：向日葵8号 - 实时地球 https://himawari8.nict.go.jp",
                     "; provider=ymyouli    图源：一梦幽黎 - 本站资源准备历时数年 https://www.ymyouli.com",
                     "; provider=qingbz     图源：轻壁纸 - 4K壁纸分享站 https://bz.qinggongju.com",
+                    "; provider=obzhi      图源：乌云壁纸 - 高清壁纸站 https://www.obzhi.com",
                     "; provider=infinity   图源：Infinity - 精选壁纸 http://cn.infinitynewtab.com",
                     "; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com",
                     "; provider=bobo       图源：BoBoPic - 每天都有好看的壁纸图片 https://bobopic.com",
@@ -59,13 +78,13 @@ namespace TimelineWallpaper.Utils {
                     "; provider=mty        图源：墨天逸API - 随机图片 https://api.mtyqx.cn",
                     "; provider=seovx      图源：夏沫博客API - 在线古风美图二次元 https://cdn.seovx.com",
                     "",
-                    "desktopprovider=",
+                    providerDesktop,
                     "; desktopprovider={provider}  桌面背景推送图源：参数参考 provider（置空则关闭推送）",
                     "",
-                    "lockprovider=",
+                    providerLock,
                     "; lockprovider={provider}  锁屏背景推送图源：参数参考 provider（置空则关闭推送）",
                     "",
-                    "theme=",
+                    theme,
                     "; theme=       主题：跟随系统（默认）",
                     "; theme=light  主题：亮色",
                     "; theme=dark   主题：暗色",
@@ -121,6 +140,7 @@ namespace TimelineWallpaper.Utils {
                     "",
                     "order=date",
                     "; order=date    排序：日期（默认）",
+                    "; order=score   排序：热度",
                     "; order=random  排序：随机",
                     "",
                     "cate=",
@@ -183,8 +203,8 @@ namespace TimelineWallpaper.Utils {
                     "; cate=delicacy      类别：美食蔬果",
                     "; cate=nature        类别：山水花草",
                     "",
-                    "qc=1",
-                    "; qc={n}  质检：0或1（默认为1，仅展示已质检图片，过滤R18内容、含水印图）",
+                    "r18=0",
+                    "; r18={n}  R18内容：0或1（默认为0，不含R18内容）",
                     "",
                     "[qingbz]",
                     "",
@@ -210,8 +230,34 @@ namespace TimelineWallpaper.Utils {
                     "; cate=game      类别：游戏迷",
                     "; cate=animal    类别：动物萌宠",
                     "",
-                    "qc=1",
-                    "; qc={n}  质检：0或1（默认为1，仅展示已质检图片，过滤R18内容、含水印图）",
+                    "r18=0",
+                    "; r18={n}  R18内容：0或1（默认为0，不含R18内容）",
+                    "",
+                    "[obzhi]",
+                    "",
+                    "desktopperiod=24",
+                    "; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "lockperiod=24",
+                    "; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）",
+                    "",
+                    "order=random",
+                    "; order=date    排序：收录",
+                    "; order=score   排序：热度",
+                    "; order=random  排序：随机（默认）",
+                    "",
+                    "cate=",
+                    "; cate=          类别：全部（默认）",
+                    "; cate=acg       类别：动漫",
+                    "; cate=specific  类别：另类",
+                    "; cate=concise   类别：简约",
+                    "; cate=nature    类别：风景",
+                    "; cate=portrait  类别：人物",
+                    "; cate=game      类别：游戏",
+                    "; cate=animal    类别：动物",
+                    "",
+                    "r18=0",
+                    "; r18={n}  R18内容：0或1（默认为0，不含R18内容）",
                     "",
                     "[infinity]",
                     "",
@@ -386,6 +432,16 @@ namespace TimelineWallpaper.Utils {
             _ = WritePrivateProfileString("qingbz", "cate", cate, iniFile.Path);
         }
 
+        public static async void SaveObzhiOrder(string order) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("obzhi", "order", order, iniFile.Path);
+        }
+
+        public static async void SaveObzhiCate(string cate) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("obzhi", "cate", cate, iniFile.Path);
+        }
+
         public static async Task<StorageFile> GetIniPath() {
             return await GenerateIniFileAsync();
         }
@@ -400,10 +456,6 @@ namespace TimelineWallpaper.Utils {
             StringBuilder sb = new StringBuilder(1024);
             _ = GetPrivateProfileString("timelinewallpaper", "provider", "bing", sb, 1024, iniFile);
             ini.Provider = sb.ToString();
-            //_ = GetPrivateProfileString("timelinewallpaper", "push", "", sb, 1024, iniFile);
-            //ini.Push = sb.ToString();
-            //_ = GetPrivateProfileString("timelinewallpaper", "pushprovider", "bing", sb, 1024, iniFile);
-            //ini.PushProvider = sb.ToString();
             _ = GetPrivateProfileString("timelinewallpaper", "desktopprovider", "", sb, 1024, iniFile);
             ini.DesktopProvider = sb.ToString();
             _ = GetPrivateProfileString("timelinewallpaper", "lockprovider", "", sb, 1024, iniFile);
@@ -468,9 +520,9 @@ namespace TimelineWallpaper.Utils {
             ymyouliIni.Order = sb.ToString();
             _ = GetPrivateProfileString("ymyouli", "cate", "", sb, 1024, iniFile);
             ymyouliIni.Cate = sb.ToString();
-            _ = GetPrivateProfileString("ymyouli", "qc", "1", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out int qc);
-            ymyouliIni.Qc = qc;
+            _ = GetPrivateProfileString("ymyouli", "r18", "0", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out int r18);
+            ymyouliIni.R18 = r18;
             ini.SetIni("ymyouli", ymyouliIni);
             _ = GetPrivateProfileString("himawari8", "desktopperiod", "1", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
@@ -515,10 +567,26 @@ namespace TimelineWallpaper.Utils {
             qingbzIni.Order = sb.ToString();
             _ = GetPrivateProfileString("qingbz", "cate", "", sb, 1024, iniFile);
             qingbzIni.Cate = sb.ToString();
-            _ = GetPrivateProfileString("qingbz", "qc", "1", sb, 1024, iniFile);
-            _ = int.TryParse(sb.ToString(), out qc);
-            qingbzIni.Qc = qc;
+            _ = GetPrivateProfileString("qingbz", "r18", "0", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out r18);
+            qingbzIni.R18 = r18;
             ini.SetIni("qingbz", qingbzIni);
+            _ = GetPrivateProfileString("obzhi", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out desktopPeriod);
+            _ = GetPrivateProfileString("obzhi", "lockperiod", "24", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out lockPeriod);
+            ObzhiIni obzhiIni = new ObzhiIni {
+                DesktopPeriod = desktopPeriod,
+                LockPeriod = lockPeriod
+            };
+            _ = GetPrivateProfileString("obzhi", "order", "random", sb, 1024, iniFile);
+            obzhiIni.Order = sb.ToString();
+            _ = GetPrivateProfileString("obzhi", "cate", "", sb, 1024, iniFile);
+            obzhiIni.Cate = sb.ToString();
+            _ = GetPrivateProfileString("obzhi", "r18", "0", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out r18);
+            obzhiIni.R18 = r18;
+            ini.SetIni("obzhi", obzhiIni);
             _ = GetPrivateProfileString("3g", "desktopperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
             _ = GetPrivateProfileString("3g", "lockperiod", "24", sb, 1024, iniFile);

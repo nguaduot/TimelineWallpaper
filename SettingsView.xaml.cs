@@ -32,6 +32,8 @@ namespace TimelineWallpaper {
         private readonly List<Paras> listOneOrder = new List<Paras>();
         private readonly List<Paras> listQingbzCate = new List<Paras>();
         private readonly List<Paras> listQingbzOrder = new List<Paras>();
+        private readonly List<Paras> listObzhiCate = new List<Paras>();
+        private readonly List<Paras> listObzhiOrder = new List<Paras>();
 
         private bool paneOpened = false; // 避免初始化设置选项的非必要事件
 
@@ -107,6 +109,18 @@ namespace TimelineWallpaper {
                     Name = resLoader.GetString("QingbzOrder_" + item)
                 });
             }
+            foreach (string item in ObzhiIni.CATE) {
+                listObzhiCate.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("ObzhiCate_" + item)
+                });
+            }
+            foreach (string item in ObzhiIni.ORDER) {
+                listObzhiOrder.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("ObzhiOrder_" + item)
+                });
+            }
 
             BoxHimawari8Offset.NumberFormatter = new DecimalFormatter {
                 IntegerDigits = 1,
@@ -158,6 +172,7 @@ namespace TimelineWallpaper {
             ExpanderInfinity.IsExpanded = InfinityIni.ID.Equals(ini.Provider);
             ExpanderOne.IsExpanded = OneIni.ID.Equals(ini.Provider);
             ExpanderQingbz.IsExpanded = QingbzIni.ID.Equals(ini.Provider);
+            ExpanderObzhi.IsExpanded = ObzhiIni.ID.Equals(ini.Provider);
 
             BoxBingLang.SelectedIndex = listBingLang.Select(t => t.Id).ToList().IndexOf(((BingIni)ini.GetIni(BingIni.ID)).Lang);
             ToggleNasaMirror.IsOn = "bjp".Equals(((NasaIni)ini.GetIni(NasaIni.ID)).Mirror);
@@ -171,6 +186,8 @@ namespace TimelineWallpaper {
             BoxOneOrder.SelectedIndex = listOneOrder.Select(t => t.Id).ToList().IndexOf(((OneIni)ini.GetIni(OneIni.ID)).Order);
             BoxQingbzCate.SelectedIndex = listQingbzCate.Select(t => t.Id).ToList().IndexOf(((QingbzIni)ini.GetIni(QingbzIni.ID)).Cate);
             BoxQingbzOrder.SelectedIndex = listQingbzOrder.Select(t => t.Id).ToList().IndexOf(((QingbzIni)ini.GetIni(QingbzIni.ID)).Order);
+            BoxObzhiCate.SelectedIndex = listObzhiCate.Select(t => t.Id).ToList().IndexOf(((ObzhiIni)ini.GetIni(ObzhiIni.ID)).Cate);
+            BoxObzhiOrder.SelectedIndex = listObzhiOrder.Select(t => t.Id).ToList().IndexOf(((ObzhiIni)ini.GetIni(ObzhiIni.ID)).Order);
 
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
@@ -415,6 +432,34 @@ namespace TimelineWallpaper {
 
         private void BtnQingbzDonate_Click(object sender, RoutedEventArgs e) {
             _ = Launcher.LaunchUriAsync(new Uri(resLoader.GetString("UrlQingbz")));
+        }
+
+        private void BoxObzhiCate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            ObzhiIni bi = (ObzhiIni)ini.GetIni(ObzhiIni.ID);
+            bi.Cate = paras.Id;
+            IniUtil.SaveObzhiCate(paras.Id);
+            IniUtil.SaveProvider(ObzhiIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BoxObzhiOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            ObzhiIni bi = (ObzhiIni)ini.GetIni(ObzhiIni.ID);
+            bi.Order = paras.Id;
+            IniUtil.SaveObzhiOrder(paras.Id);
+            IniUtil.SaveProvider(ObzhiIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
         }
 
         private void BtnReview_Click(object sender, RoutedEventArgs e) {

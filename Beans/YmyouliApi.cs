@@ -53,9 +53,9 @@ namespace TimelineWallpaper.Beans {
         [JsonProperty(PropertyName = "score")]
         public float Score { set; get; }
 
-        // 隐藏标记
-        [JsonProperty(PropertyName = "deprecated")]
-        public int Deprecated { set; get; }
+        // R18内容
+        [JsonProperty(PropertyName = "r18")]
+        public int R18 { set; get; }
 
         // ...
     }

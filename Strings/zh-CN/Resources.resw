@@ -610,10 +610,10 @@
     <value>前往评分</value>
   </data>
   <data name="MsgCtrlR" xml:space="preserve">
-    <value>Ctrl+R：刷新；左方向键：浏览往期图片</value>
+    <value>Ctrl+R：刷新；左方向键/滚轮：浏览往期图片</value>
   </data>
   <data name="MsgF5" xml:space="preserve">
-    <value>F5：刷新；左方向键：浏览往期图片</value>
+    <value>F5：刷新；左方向键/滚轮：浏览往期图片</value>
   </data>
   <data name="MsgKey" xml:space="preserve">
     <value>快捷键</value>
@@ -816,13 +816,70 @@
   <data name="TextQingbzOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
-  <data name="TimelineOrder_score" xml:space="preserve">
-    <value>热度</value>
-  </data>
   <data name="UrlQingbz" xml:space="preserve">
     <value>https://bz.qinggongju.com/</value>
   </data>
+  <data name="MenuProviderObzhi.Text" xml:space="preserve">
+    <value>乌云壁纸 - 高清壁纸站</value>
+  </data>
+  <data name="Provider_obzhi" xml:space="preserve">
+    <value>乌云壁纸</value>
+  </data>
+  <data name="ObzhiCate_" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="ObzhiCate_acg" xml:space="preserve">
+    <value>动漫</value>
+  </data>
+  <data name="ObzhiCate_animal" xml:space="preserve">
+    <value>动物</value>
+  </data>
+  <data name="ObzhiCate_specific" xml:space="preserve">
+    <value>另类</value>
+  </data>
+  <data name="ObzhiCate_concise" xml:space="preserve">
+    <value>简约</value>
+  </data>
+  <data name="ObzhiCate_game" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="ObzhiCate_nature" xml:space="preserve">
+    <value>风景</value>
+  </data>
+  <data name="ObzhiCate_portrait" xml:space="preserve">
+    <value>人物</value>
+  </data>
+  <data name="ObzhiOrder_date" xml:space="preserve">
+    <value>收录</value>
+  </data>
+  <data name="ObzhiOrder_random" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="ObzhiOrder_score" xml:space="preserve">
+    <value>热度</value>
+  </data>
+  <data name="SettingsObzhiDesc.Text" xml:space="preserve">
+    <value>高清壁纸站</value>
+  </data>
+  <data name="SettingsObzhiTitle.Text" xml:space="preserve">
+    <value>乌云壁纸</value>
+  </data>
+  <data name="Slogan_Obzhi" xml:space="preserve">
+    <value>高清壁纸站</value>
+  </data>
+  <data name="TextObzhiCate.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="TextObzhiOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="TimelineOrder_score" xml:space="preserve">
+    <value>热度</value>
+  </data>
   <data name="YmyouliOrder_score" xml:space="preserve">
     <value>热度</value>
+  </data>
+  <data name="MsgLeft" xml:space="preserve">
+    <value>你还可以使用方向键或滚轮进行回顾</value>
   </data>
 </root>

@@ -13,7 +13,7 @@ namespace TimelineWallpaper.Providers {
         // 页数据索引（从1开始）（用于按需加载）
         private int pageIndex = 0;
 
-        private const string URL_API = "https://api.nguaduot.cn/ymyouli?client=timelinewallpaper&cate={0}&order={1}&qc={2}&page={3}";
+        private const string URL_API = "https://api.nguaduot.cn/ymyouli?client=timelinewallpaper&cate={0}&order={1}&r18={2}&page={3}";
         
         private Meta ParseBean(YmyouliApiData bean, string order) {
             Meta meta = new Meta {
@@ -28,7 +28,7 @@ namespace TimelineWallpaper.Providers {
             //    ResourceLoader.GetForCurrentView().GetString("Provider_" + this.Id), bean.Cate);
             meta.Title = string.Format("{0} #{1}", bean.CateAlt, bean.CateAltNo);
             meta.Caption = string.Format("{0} · {1}", bean.Cate, bean.Group);
-            if (bean.Deprecated != 0) {
+            if (bean.R18 == 1) {
                 meta.Title = "🚫 " + meta.Title;
             }
             if (!string.IsNullOrEmpty(bean.Copyright)) {
@@ -49,7 +49,7 @@ namespace TimelineWallpaper.Providers {
             await base.LoadData(ini, date);
 
             string urlApi = string.Format(URL_API, ((YmyouliIni)ini).Cate, ((YmyouliIni)ini).Order,
-                ((YmyouliIni)ini).Qc, ++pageIndex);
+                ((YmyouliIni)ini).R18, ++pageIndex);
             Debug.WriteLine("provider url: " + urlApi);
             try {
                 HttpClient client = new HttpClient();

@@ -13,6 +13,7 @@ namespace TimelineWallpaper.Utils {
             { InfinityIni.ID, new InfinityIni() },
             { OneIni.ID, new OneIni() },
             { QingbzIni.ID, new QingbzIni() },
+            { ObzhiIni.ID, new ObzhiIni() },
             { G3Ini.ID, new G3Ini() },
             { BoboIni.ID, new BoboIni() },
             { AbyssIni.ID, new AbyssIni() },
@@ -148,7 +149,7 @@ namespace TimelineWallpaper.Utils {
 
     public class TimelineIni : BaseIni {
         public const string ID = "timeline";
-        public static readonly List<string> ORDER = new List<string>() { "date", "random" };
+        public static readonly List<string> ORDER = new List<string>() { "date", "score", "random" };
         public static readonly List<string> CATE = new List<string>() { "", "landscape", "portrait", "culture", "term" };
 
         private string order = "date";
@@ -211,13 +212,13 @@ namespace TimelineWallpaper.Utils {
             get => cate;
         }
 
-        public int Qc { set; get; } = 1;
+        public int R18 { set; get; } = 0;
 
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new YmyouliProvider() { Id = ID };
 
-        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&qc={Qc}";
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&r18={R18}";
     }
 
     public class InfinityIni : BaseIni {
@@ -272,13 +273,40 @@ namespace TimelineWallpaper.Utils {
             get => cate;
         }
 
-        public int Qc { set; get; } = 1;
+        public int R18 { set; get; } = 0;
 
         public override bool IsSequential() => false;
 
         public override BaseProvider GenerateProvider() => new QingbzProvider() { Id = ID };
 
-        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&qc={Qc}";
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&r18={R18}";
+    }
+
+    public class ObzhiIni : BaseIni {
+        public const string ID = "obzhi";
+        public static readonly List<string> ORDER = new List<string>() { "date", "score", "random" };
+        public static readonly List<string> CATE = new List<string>() { "", "acg", "specific", "concise",
+            "nature", "portrait", "game", "animal" };
+
+        private string order = "random";
+        public string Order {
+            set => order = ORDER.Contains(value) ? value : "random";
+            get => order;
+        }
+
+        private string cate = "";
+        public string Cate {
+            set => cate = CATE.Contains(value) ? value : "";
+            get => cate;
+        }
+
+        public int R18 { set; get; } = 0;
+
+        public override bool IsSequential() => false;
+
+        public override BaseProvider GenerateProvider() => new ObzhiProvider() { Id = ID };
+
+        override public string ToString() => $"desktopperiod={DesktopPeriod}&lockperiod={LockPeriod}&order={Order}&cate={Cate}&r18={R18}";
     }
 
     public class G3Ini : BaseIni {

@@ -68,7 +68,7 @@ namespace TimelineWallpaper.Providers {
                 foreach (TimelineApiData item in timelineApi.Data) {
                     metasAdd.Add(ParseBean(item, ((TimelineIni)ini).Order));
                 }
-                if ("date".Equals(((TimelineIni)ini).Order)) { // 按时序倒序排列
+                if ("date".Equals(((TimelineIni)ini).Order) || "score".Equals(((TimelineIni)ini).Order)) { // 有序排列
                     SortMetas(metasAdd);
                 } else {
                     AppendMetas(metasAdd);

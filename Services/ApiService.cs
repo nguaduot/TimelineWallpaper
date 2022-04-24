@@ -22,7 +22,7 @@ namespace TimelineWallpaper.Services {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
-            const string URL_API_STATS = "https://api.nguaduot.cn/appstats";
+            const string URL_API = "https://api.nguaduot.cn/appstats";
             StatsApiReq req = new StatsApiReq {
                 App = Package.Current.DisplayName, // 不会随语言改变
                 Package = Package.Current.Id.FamilyName,
@@ -40,7 +40,7 @@ namespace TimelineWallpaper.Services {
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
                     Encoding.UTF8, "application/json");
                 //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                HttpResponseMessage response = await client.PostAsync(URL_API_STATS, content);
+                HttpResponseMessage response = await client.PostAsync(URL_API, content);
                 _ = response.EnsureSuccessStatusCode();
                 string jsonData = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine("stats: " + jsonData.Trim());
@@ -56,7 +56,7 @@ namespace TimelineWallpaper.Services {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
-            const string URL_API_RANK = "https://api.nguaduot.cn/appstats/rank";
+            const string URL_API = "https://api.nguaduot.cn/appstats/rank";
             RankApiReq req = new RankApiReq {
                 Provider = ini?.Provider,
                 ImgId = meta?.Id,
@@ -70,7 +70,7 @@ namespace TimelineWallpaper.Services {
                 HttpClient client = new HttpClient();
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
                     Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(URL_API_RANK, content);
+                HttpResponseMessage response = await client.PostAsync(URL_API, content);
                 _ = response.EnsureSuccessStatusCode();
                 string jsonData = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine("rank: " + jsonData.Trim());
@@ -83,14 +83,14 @@ namespace TimelineWallpaper.Services {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return false;
             }
-            const string URL_API_CONTRIBUTE = "https://api.nguaduot.cn/timeline/contribute";
+            const string URL_API = "https://api.nguaduot.cn/timeline/contribute";
             req.AppVer = VerUtil.GetPkgVer(false);
             try {
                 HttpClient client = new HttpClient();
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
                     Encoding.UTF8, "application/json");
                 //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                HttpResponseMessage response = await client.PostAsync(URL_API_CONTRIBUTE, content);
+                HttpResponseMessage response = await client.PostAsync(URL_API, content);
                 _ = response.EnsureSuccessStatusCode();
                 string jsonData = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine("stats: " + jsonData.Trim());
@@ -99,6 +99,35 @@ namespace TimelineWallpaper.Services {
                 Debug.WriteLine(e);
             }
             return false;
+        }
+
+        public static async void Crash(Exception e) {
+            if (!NetworkInterface.GetIsNetworkAvailable()) {
+                return;
+            }
+            const string URL_API = "https://api.nguaduot.cn/appstats/crash";
+            CrashApiReq req = new CrashApiReq {
+                App = Package.Current.DisplayName, // 不会随语言改变
+                Package = Package.Current.Id.FamilyName,
+                Version = VerUtil.GetPkgVer(false),
+                Os = AnalyticsInfo.VersionInfo.DeviceFamily,
+                OsVersion = VerUtil.GetOsVer(),
+                Device = VerUtil.GetDevice(),
+                DeviceId = VerUtil.GetDeviceId(),
+                Exception = e.ToString()
+            };
+            try {
+                HttpClient client = new HttpClient();
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(req),
+                    Encoding.UTF8, "application/json");
+                //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                HttpResponseMessage response = await client.PostAsync(URL_API, content);
+                _ = response.EnsureSuccessStatusCode();
+                string jsonData = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine("crash: " + jsonData.Trim());
+            } catch (Exception ex) {
+                Debug.WriteLine(ex);
+            }
         }
 
         public static async Task<ReleaseApi> CheckUpdate() {

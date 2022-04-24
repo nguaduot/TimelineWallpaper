@@ -1,6 +1,6 @@
-﻿using Microsoft.AppCenter;
-using Microsoft.AppCenter.Crashes;
-using System;
+﻿using System;
+using System.Threading.Tasks;
+using TimelineWallpaper.Services;
 using TimelineWallpaper.Utils;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -26,19 +26,13 @@ namespace TimelineWallpaper {
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            
+
             // 集成崩溃日志反馈
-            AppCenter.Start("867dbb71-eaa5-4525-8f70-9877a65d0796", typeof(Crashes));
-            // 输出崩溃日志
-            //this.UnhandledException += (sender, e) => {
-            //    StorageFolder folder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            //    Task<StorageFile> tFile = folder.CreateFileAsync("crash.txt", CreationCollisionOption.ReplaceExisting).AsTask<StorageFile>();
-            //    tFile.Wait();
-            //    StorageFile file = tFile.Result;
-            //    Task t = Windows.Storage.FileIO.WriteTextAsync(file, e.Exception.ToString()).AsTask();
-            //    t.Wait();
-            //    e.Handled = false;
-            //};
+            //AppCenter.Start("867dbb71-eaa5-4525-8f70-9877a65d0796", typeof(Crashes));
+            // 上传崩溃日志
+            this.UnhandledException += OnUnhandledException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedException;
+            AppDomain.CurrentDomain.UnhandledException += OnBgUnhandledException;
         }
 
         /// <summary>
@@ -132,6 +126,41 @@ namespace TimelineWallpaper {
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        }
+
+        private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e) {
+            ApiService.Crash(e.Exception);
+            e.Handled = true;
+            // TODO
+            //_ = await new ContentDialog {
+            //    Title = "未知异常1",
+            //    Content = e.Exception.Message,
+            //    CloseButtonText = "关闭",
+            //    DefaultButton = ContentDialogButton.Close
+            //}.ShowAsync();
+        }
+
+        private void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e) {
+            ApiService.Crash(e.Exception);
+            e.SetObserved();
+            // TODO
+            //_ = await new ContentDialog {
+            //    Title = "未知异常2",
+            //    Content = e.Exception,
+            //    CloseButtonText = "关闭",
+            //    DefaultButton = ContentDialogButton.Close
+            //}.ShowAsync();
+        }
+
+        private void OnBgUnhandledException(object sender, System.UnhandledExceptionEventArgs e) {
+            ApiService.Crash((Exception)e.ExceptionObject);
+            // TODO
+            //_ = await new ContentDialog {
+            //    Title = "未知异常3",
+            //    Content = ((Exception)e.ExceptionObject).Message,
+            //    CloseButtonText = "关闭",
+            //    DefaultButton = ContentDialogButton.Close
+            //}.ShowAsync();
         }
     }
 }

@@ -131,45 +131,21 @@ namespace TimelineWallpaper.Providers {
         }
 
         public Meta Latest() {
-            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
-            for (int i = 0; i < metas.Count; i++) {
-                if (metas[i].Date >= metaFarthest.Date) {
-                    indexFocus = i;
-                    metaFarthest = metas[i];
-                }
-            }
-            return metaFarthest;
+            indexFocus = 0;
+            return metas.Count > 0 ? metas[indexFocus] : null;
         }
 
         public Meta GetLatest() {
-            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
-            for (int i = 0; i < metas.Count; i++) {
-                if (metas[i].Date >= metaFarthest.Date) {
-                    metaFarthest = metas[i];
-                }
-            }
-            return metaFarthest;
+            return metas.Count > 0 ? metas[0] : null;
         }
 
         public Meta Farthest() {
-            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
-            for (int i = 0; i < metas.Count; i++) {
-                if (metas[i].Date <= metaFarthest.Date) {
-                    indexFocus = i;
-                    metaFarthest = metas[i];
-                }
-            }
-            return metaFarthest;
+            indexFocus = metas.Count - 1;
+            return metas.Count > 0 ? metas[indexFocus] : null;
         }
 
         public Meta GetFarthest() {
-            Meta metaFarthest = metas.Count > 0 ? metas[0] : null;
-            for (int i = 0; i < metas.Count; i++) {
-                if (metas[i].Date <= metaFarthest.Date) {
-                    metaFarthest = metas[i];
-                }
-            }
-            return metaFarthest;
+            return metas.Count > 0 ? metas[metas.Count - 1] : null;
         }
 
         public Meta Target(DateTime date) {

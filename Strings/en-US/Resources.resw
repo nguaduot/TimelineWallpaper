@@ -816,6 +816,60 @@
   <data name="TextQingbzOrder.Text" xml:space="preserve">
     <value>Order</value>
   </data>
+  <data name="MenuProviderObzhi.Text" xml:space="preserve">
+    <value>乌云壁纸 - 高清壁纸站</value>
+  </data>
+  <data name="Provider_obzhi" xml:space="preserve">
+    <value>乌云壁纸</value>
+  </data>
+  <data name="ObzhiCate_" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ObzhiCate_acg" xml:space="preserve">
+    <value>ACG</value>
+  </data>
+  <data name="ObzhiCate_animal" xml:space="preserve">
+    <value>Animal</value>
+  </data>
+  <data name="ObzhiCate_specific" xml:space="preserve">
+    <value>Specific</value>
+  </data>
+  <data name="ObzhiCate_concise" xml:space="preserve">
+    <value>Concise</value>
+  </data>
+  <data name="ObzhiCate_game" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="ObzhiCate_nature" xml:space="preserve">
+    <value>Nature</value>
+  </data>
+  <data name="ObzhiCate_portrait" xml:space="preserve">
+    <value>Portrait</value>
+  </data>
+  <data name="ObzhiOrder_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ObzhiOrder_random" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="ObzhiOrder_score" xml:space="preserve">
+    <value>Recently popular</value>
+  </data>
+  <data name="SettingsObzhiDesc.Text" xml:space="preserve">
+    <value>高清壁纸站</value>
+  </data>
+  <data name="SettingsObzhiTitle.Text" xml:space="preserve">
+    <value>乌云壁纸</value>
+  </data>
+  <data name="Slogan_Obzhi" xml:space="preserve">
+    <value>高清壁纸站</value>
+  </data>
+  <data name="TextObzhiCate.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TextObzhiOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
   <data name="TimelineOrder_score" xml:space="preserve">
     <value>Recently popular</value>
   </data>
@@ -824,5 +878,8 @@
   </data>
   <data name="YmyouliOrder_score" xml:space="preserve">
     <value>Recently popular</value>
+  </data>
+  <data name="MsgLeft" xml:space="preserve">
+    <value>Use LEFT or WHEEL to look back.</value>
   </data>
 </root>

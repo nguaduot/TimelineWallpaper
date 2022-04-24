@@ -43,6 +43,8 @@ namespace TimelineWallpaper {
 
         private DispatcherTimer resizeTimer = null;
         private DispatcherTimer stretchTimer = null;
+        private DispatcherTimer dislikeTimer = null;
+        private int timerValue = 0;
 
         private const string BG_TASK_NAME = "PushTask";
         private const string BG_TASK_NAME_TIMER = "PushTaskTimer";
@@ -158,6 +160,32 @@ namespace TimelineWallpaper {
             }
 
             meta = provider.Target(date);
+            Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
+            ShowText(meta);
+            Meta metaCache = await provider.Cache(meta);
+            if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
+                await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
+            }
+            if (metaCache != null && metaCache.Id == meta?.Id) {
+                ShowImg(meta);
+            }
+
+            // 预加载
+            PreLoadYesterdayAsync();
+        }
+
+        private async void LoadEndAsync(bool farthestOrLatest) {
+            long cost = DateTime.Now.Ticks;
+            if (!await provider.LoadData(ini.GetIni())) {
+                Debug.WriteLine("failed to load data");
+                if ((cost = DateTime.Now.Ticks - cost) / 10000 < MIN_COST_OF_LOAD) {
+                    await Task.Delay(MIN_COST_OF_LOAD - (int)(cost / 10000));
+                }
+                ShowText(null);
+                return;
+            }
+
+            meta = farthestOrLatest ? provider.Farthest() : provider.Latest();
             Debug.WriteLine("meta: " + JsonConvert.SerializeObject(meta).Trim());
             ShowText(meta);
             Meta metaCache = await provider.Cache(meta);
@@ -613,8 +641,14 @@ namespace TimelineWallpaper {
 
         private void MenuYesterday_Click(object sender, RoutedEventArgs e) {
             AnimeYesterday1.Begin();
-            StatusLoading();
-            LoadYesterdayAsync();
+            int.TryParse(localSettings.Values["actionYesterday"]?.ToString(), out int times);
+            localSettings.Values["actionYesterday"] = ++times;
+            if (times == 2) {
+                ToggleInfo(resLoader.GetString("MsgKey"), resLoader.GetString("MsgLeft"), InfoBarSeverity.Informational);
+            } else {
+                StatusLoading();
+                LoadYesterdayAsync();
+            }
         }
 
         private void MenuSetDesktop_Click(object sender, RoutedEventArgs e) {
@@ -633,7 +667,6 @@ namespace TimelineWallpaper {
 
         private void MenuFill_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
-
             ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
         }
 
@@ -725,6 +758,7 @@ namespace TimelineWallpaper {
 
         private void MenuProvider_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
+            ViewSplit.IsPaneOpen = false;
 
             IniUtil.SaveProvider(((RadioMenuFlyoutItem)sender).Tag.ToString());
             ini = null;
@@ -786,11 +820,18 @@ namespace TimelineWallpaper {
         }
 
         private void ViewMain_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
+            timerValue = e.GetCurrentPoint((UIElement)sender).Properties.MouseWheelDelta;
             if (stretchTimer == null) {
-                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 400) };
+                stretchTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 300) };
                 stretchTimer.Tick += (sender2, e2) => {
                     stretchTimer.Stop();
-                    ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
+                    //ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
+                    StatusLoading();
+                    if (timerValue > 0) {
+                        LoadYesterdayAsync();
+                    } else {
+                        LoadTormorrowAsync();
+                    }
                 };
             }
             stretchTimer.Stop();
@@ -809,11 +850,19 @@ namespace TimelineWallpaper {
                     StatusLoading();
                     LoadTormorrowAsync();
                     break;
+                case VirtualKey.Escape:
                 case VirtualKey.Enter:
                     ToggleFullscreenMode();
                     break;
-                case VirtualKey.Escape:
-                    ToggleFullscreenMode(false);
+                case VirtualKey.Home:
+                case VirtualKey.PageUp:
+                    StatusLoading();
+                    LoadEndAsync(true);
+                    break;
+                case VirtualKey.End:
+                case VirtualKey.PageDown:
+                    StatusLoading();
+                    LoadEndAsync(false);
                     break;
                 case VirtualKey.B:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
@@ -825,6 +874,7 @@ namespace TimelineWallpaper {
                         MenuSetLock_Click(null, null);
                     }
                     break;
+                case VirtualKey.D:
                 case VirtualKey.S:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
                         MenuSave_Click(null, null);
@@ -838,10 +888,17 @@ namespace TimelineWallpaper {
                         }
                     }
                     break;
-                case VirtualKey.D:
-                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
-                        MenuDislike_Click(null, null);
+                case VirtualKey.Back:
+                case VirtualKey.Delete:
+                    if (dislikeTimer == null) {
+                        dislikeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 500) };
+                        dislikeTimer.Tick += (sender2, e2) => {
+                            dislikeTimer.Stop();
+                            MenuDislike_Click(null, null);
+                        };
                     }
+                    dislikeTimer.Stop();
+                    dislikeTimer.Start();
                     break;
                 case VirtualKey.R:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {

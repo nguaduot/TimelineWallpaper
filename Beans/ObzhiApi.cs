@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 
 namespace TimelineWallpaper.Beans {
-    public class QingbzApi {
+    public class ObzhiApi {
         // 图片信息数组
         [JsonProperty(PropertyName = "data")]
-        public List<QingbzApiData> Data { set; get; }
+        public List<ObzhiApiData> Data { set; get; }
     }
 
-    public class QingbzApiData {
-        // 类别内排序序号
-        [JsonProperty(PropertyName = "catealtno")]
-        public int CateAltNo { set; get; }
-
+    public class ObzhiApiData {
         // 类别ID
         [JsonProperty(PropertyName = "cateidalt")]
         public string CateIdAlt { set; get; }
@@ -20,6 +16,18 @@ namespace TimelineWallpaper.Beans {
         // 类别
         [JsonProperty(PropertyName = "catealt")]
         public string CateAlt { set; get; }
+
+        // 标题
+        [JsonProperty(PropertyName = "title")]
+        public string Title { set; get; }
+
+        // 图文故事
+        [JsonProperty(PropertyName = "story")]
+        public string Story { set; get; }
+
+        // 作者
+        [JsonProperty(PropertyName = "author")]
+        public string Author { set; get; }
 
         // 图片ID
         [JsonProperty(PropertyName = "imgid")]
