@@ -137,16 +137,13 @@
     <Compile Include="Beans\CrashApiReq.cs" />
     <Compile Include="Beans\StatsApiReq.cs" />
     <Compile Include="Beans\OneApi.cs" />
-    <Compile Include="Beans\EdgeApi.cs" />
     <Compile Include="Beans\QingbzApi.cs" />
     <Compile Include="Beans\YmyouliApi.cs" />
     <Compile Include="Beans\TimelineApi.cs" />
-    <Compile Include="Beans\MxgApi.cs" />
     <Compile Include="Beans\MtyApiItem.cs" />
     <Compile Include="Beans\ToubiecApiItem.cs" />
     <Compile Include="Beans\DmoeApiItem.cs" />
     <Compile Include="Beans\InfinityApi.cs" />
-    <Compile Include="Beans\PixivelApi.cs" />
     <Compile Include="ContributeDlg.xaml.cs">
       <DependentUpon>ContributeDlg.xaml</DependentUpon>
     </Compile>
@@ -250,6 +247,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Assets\Icons\Segoe-Fluent-Icons.ttf" />
+    <Content Include="Assets\Ini\config.txt" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

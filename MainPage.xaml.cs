@@ -819,6 +819,26 @@ namespace TimelineWallpaper {
             ToggleFullscreenMode();
         }
 
+        //private void ViewMain_RightTapped(object sender, RightTappedRoutedEventArgs e) {
+        //    Debug.WriteLine("ViewMain_RightTapped");
+        //    var flyout = FlyoutBase.GetAttachedFlyout((FrameworkElement)sender);
+        //    var options = new FlyoutShowOptions() {
+        //        Position = e.GetPosition((FrameworkElement)sender),
+        //        ShowMode = FlyoutShowMode.Standard
+        //    };
+        //    flyout?.ShowAt((FrameworkElement)sender, options);
+        //}
+
+        private void ViewBarPointer_Tapped(object sender, TappedRoutedEventArgs e) {
+            Debug.WriteLine("ViewBarPointer_Tapped");
+            e.Handled = true;
+        }
+
+        private void ViewBarPointer_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
+            Debug.WriteLine("ViewBarPointer_DoubleTapped");
+            e.Handled = true;
+        }
+
         private void ViewMain_PointerWheelChanged(object sender, PointerRoutedEventArgs e) {
             timerValue = e.GetCurrentPoint((UIElement)sender).Properties.MouseWheelDelta;
             if (stretchTimer == null) {

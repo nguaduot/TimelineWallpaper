@@ -402,6 +402,9 @@
         </SplitView.Pane>
 
         <!-- 避免浮出菜单无法呼出：Background="Transparent"-->
+        <!--ContextFlyout="{x:Bind FlyoutMenu}"-->
+        <!--FlyoutBase.AttachedFlyout="{x:Bind FlyoutMenu}"-->
+        <!--RightTapped="ViewMain_RightTapped"-->
         <RelativePanel KeyboardAcceleratorPlacementMode="Hidden"
                        Background="Transparent"
                        Tapped="ViewMain_Tapped"
@@ -496,6 +499,8 @@
 
             <RelativePanel Name="ViewBarPointer"
                            Background="Transparent"
+                           Tapped="ViewBarPointer_Tapped"
+                           DoubleTapped="ViewBarPointer_DoubleTapped"
                            RelativePanel.AlignLeftWithPanel="True"
                            RelativePanel.AlignRightWithPanel="False"
                            RelativePanel.AlignBottomWithPanel="True"
