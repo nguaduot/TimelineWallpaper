@@ -72,9 +72,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsBingTitle"
+                                <TextBlock Name="SettingsBingTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsBingDesc"
+                                <TextBlock Name="SettingsBingDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -123,9 +123,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsNasaTitle"
+                                <TextBlock Name="SettingsNasaTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsNasaDesc"
+                                <TextBlock Name="SettingsNasaDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -174,9 +174,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsOneplusTitle"
+                                <TextBlock Name="SettingsOneplusTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsOneplusDesc"
+                                <TextBlock Name="SettingsOneplusDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -226,9 +226,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsTimelineTitle"
+                                <TextBlock Name="SettingsTimelineTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsTimelineDesc"
+                                <TextBlock Name="SettingsTimelineDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -323,9 +323,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsOneTitle"
+                                <TextBlock Name="SettingsOneTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsOneDesc"
+                                <TextBlock Name="SettingsOneDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -376,9 +376,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsHimiwari8Title"
+                                <TextBlock Name="SettingsHimawari8Title"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsHimiwari8Desc"
+                                <TextBlock Name="SettingsHimawari8Desc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -400,7 +400,7 @@
                                       FontSize="16"
                                       Glyph="&#xE759;" />
                             <TextBlock Grid.Column="1"
-                                       x:Uid="TextHimiwari8Offset"
+                                       x:Uid="TextHimawari8Offset"
                                        VerticalAlignment="Center"
                                        Style="{StaticResource BodyTextBlockStyle}" />
                             <muxc:NumberBox Name="BoxHimawari8Offset"
@@ -433,9 +433,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsYmyouliTitle"
+                                <TextBlock Name="SettingsYmyouliTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsYmyouliDesc"
+                                <TextBlock Name="SettingsYmyouliDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -530,9 +530,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsQingbzTitle"
+                                <TextBlock Name="SettingsQingbzTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsQingbzDesc"
+                                <TextBlock Name="SettingsQingbzDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -627,9 +627,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsObzhiTitle"
+                                <TextBlock Name="SettingsObzhiTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsObzhiDesc"
+                                <TextBlock Name="SettingsObzhiDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -686,6 +686,82 @@
                         </StackPanel>
                     </muxc:Expander.Content>
                 </muxc:Expander>
+                <muxc:Expander Name="ExpanderWallhere"
+                               ExpandDirection="Down"
+                               IsExpanded="False"
+                               Tag="wallhere"
+                               Expanding="ExpanderProvider_Expanding"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Stretch"
+                               Margin="0,8,0,0">
+                    <muxc:Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="1"
+                                        Margin="0,12"
+                                        Orientation="Vertical">
+                                <TextBlock Name="SettingsWallhereTitle"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBlock Name="SettingsWallhereDesc"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           MaxLines="1"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Grid>
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE8F1;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextWallhereCate"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <ComboBox Name="BoxWallhereCate"
+                                          Grid.Column="2"
+                                          MinWidth="140"
+                                          ItemsSource="{x:Bind listWallhereCate}"
+                                          SelectionChanged="BoxWallhereCate_SelectionChanged" />
+                            </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Margin="0,0,12,0"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                          FontFamily="{ThemeResource FluentIcons}"
+                                          FontSize="16"
+                                          Glyph="&#xE8CB;" />
+                                <TextBlock Grid.Column="1"
+                                           x:Uid="TextWallhereOrder"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource BodyTextBlockStyle}" />
+                                <ComboBox Name="BoxWallhereOrder"
+                                          Grid.Column="2"
+                                          MinWidth="140"
+                                          ItemsSource="{x:Bind listWallhereOrder}"
+                                          SelectionChanged="BoxWallhereOrder_SelectionChanged" />
+                            </Grid>
+                        </StackPanel>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
                 <muxc:Expander Name="ExpanderInfinity"
                                ExpandDirection="Down"
                                IsExpanded="False"
@@ -703,9 +779,9 @@
                             <StackPanel Grid.Column="1"
                                         Margin="0,12"
                                         Orientation="Vertical">
-                                <TextBlock x:Uid="SettingsInfinityTitle"
+                                <TextBlock Name="SettingsInfinityTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsInfinityDesc"
+                                <TextBlock Name="SettingsInfinityDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            MaxLines="1"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"

@@ -1,4 +1,4 @@
-﻿; 拾光 v4.3
+﻿; 拾光 v4.5
 ; https://github.com/nguaduot/TimelineWallpaper
 ; nguaduot@163.com
 
@@ -16,7 +16,7 @@ provider=bing
 ; provider=obzhi      图源：乌云壁纸 - 高清壁纸站 https://www.obzhi.com
 ; provider=infinity   图源：Infinity - 精选壁纸 http://cn.infinitynewtab.com
 ; provider=3g         图源：3G壁纸 - 电脑壁纸专家 https://desk.3gbizhi.com
-; provider=bobo       图源：BoBoPic - 每天都有好看的壁纸图片 https://bobopic.com
+; provider=wallhere   图源：WallHere - 壁纸库 https://wallhere.com
 ; provider=abyss      图源：Wallpaper Abyss - 壁纸聚集地 https://wall.alphacoders.com
 ; provider=daihan     图源：呆憨API - 随机二次元ACG图片 https://api.daihan.top/html/acg.html
 ; provider=dmoe       图源：樱花API - 随机二次元图片 https://www.dmoe.cc
@@ -229,13 +229,26 @@ order=date
 ; order=date  排序：最新壁纸（默认）
 ; order=view  排序：热门壁纸
 
-[bobo]
+[wallhere]
 
 desktopperiod=24
 ; desktopperiod={n}  桌面背景推送周期：1~24（默认为24h/次，开启推送后生效）
 
 lockperiod=24
 ; lockperiod={n}  锁屏背景推送周期：1~24（默认为24h/次，开启推送后生效）
+
+order=random
+; order=date    排序：收录
+; order=score   排序：热度
+; order=random  排序：随机（默认）
+
+cate=
+; cate=            类别：全部（默认）
+; cate=acg         类别：ACG
+; cate=photograph  类别：摄影
+
+r18=0
+; r18={n}  R18内容：0或1（默认为0，不含R18内容）
 
 [abyss]
 

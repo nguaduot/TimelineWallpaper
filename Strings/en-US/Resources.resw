@@ -174,10 +174,10 @@
   <data name="MenuSetLock.Label" xml:space="preserve">
     <value>Set as lock screen</value>
   </data>
-  <data name="MenuFillOff.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="MenuFillOff.Label" xml:space="preserve">
     <value>Uniform</value>
   </data>
-  <data name="MenuFillOn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="MenuFillOn.Label" xml:space="preserve">
     <value>Uniform to fill</value>
   </data>
   <data name="YmyouliCate_acgcharacter" xml:space="preserve">
@@ -438,18 +438,6 @@
   <data name="RbThemeSys.Content" xml:space="preserve">
     <value>Use system setting</value>
   </data>
-  <data name="SettingsBingDesc.Text" xml:space="preserve">
-    <value>Explorer the world one photo at a time</value>
-  </data>
-  <data name="SettingsBingTitle.Text" xml:space="preserve">
-    <value>Microsoft Bing</value>
-  </data>
-  <data name="SettingsIniDesc.Text" xml:space="preserve">
-    <value>Beta, only for experienced users</value>
-  </data>
-  <data name="SettingsIniTitle.Text" xml:space="preserve">
-    <value>Configuration file</value>
-  </data>
   <data name="SettingsThemeDesc.Text" xml:space="preserve">
     <value>Select which app theme to display</value>
   </data>
@@ -474,7 +462,7 @@
   <data name="TextSettingsProvider.Text" xml:space="preserve">
     <value>Provider</value>
   </data>
-  <data name="BoxHimiwari8Offset.PlaceholderText" xml:space="preserve">
+  <data name="BoxHimawari8Offset.PlaceholderText" xml:space="preserve">
     <value>-1.0~1.0</value>
   </data>
   <data name="BtnShowCache.Content" xml:space="preserve">
@@ -504,49 +492,13 @@
   <data name="OneplusOrder_view" xml:space="preserve">
     <value>Recently popular</value>
   </data>
-  <data name="SettingsHimiwari8Desc.Text" xml:space="preserve">
-    <value>Real-time earth</value>
-  </data>
-  <data name="SettingsHimiwari8Title.Text" xml:space="preserve">
-    <value>Himawari-8</value>
-  </data>
-  <data name="SettingsInfinityDesc.Text" xml:space="preserve">
-    <value>Pictures from all over the world</value>
-  </data>
-  <data name="SettingsInfinityTitle.Text" xml:space="preserve">
-    <value>Infinity</value>
-  </data>
-  <data name="SettingsNasaDesc.Text" xml:space="preserve">
-    <value>Astronomy picture of the day</value>
-  </data>
-  <data name="SettingsNasaTitle.Text" xml:space="preserve">
-    <value>NASA</value>
-  </data>
-  <data name="SettingsOneplusDesc.Text" xml:space="preserve">
-    <value>Shot on OnePlus</value>
-  </data>
-  <data name="SettingsOneplusTitle.Text" xml:space="preserve">
-    <value>OnePlus</value>
-  </data>
   <data name="SettingsSaveTitle.Text" xml:space="preserve">
     <value>Save location</value>
-  </data>
-  <data name="SettingsTimelineDesc.Text" xml:space="preserve">
-    <value>One photo one story</value>
-  </data>
-  <data name="SettingsTimelineTitle.Text" xml:space="preserve">
-    <value>Timeline</value>
-  </data>
-  <data name="SettingsYmyouliDesc.Text" xml:space="preserve">
-    <value>8K high-quality wallpapers</value>
-  </data>
-  <data name="SettingsYmyouliTitle.Text" xml:space="preserve">
-    <value>Ymyouli</value>
   </data>
   <data name="TextCache.Text" xml:space="preserve">
     <value>Cache location</value>
   </data>
-  <data name="TextHimiwari8Offset.Text" xml:space="preserve">
+  <data name="TextHimawari8Offset.Text" xml:space="preserve">
     <value>Earth position</value>
   </data>
   <data name="TextInfinityOrder.Text" xml:space="preserve">
@@ -621,11 +573,11 @@
   <data name="TextContributePrivacy.Text" xml:space="preserve">
     <value>Once adopted, this project will use your photographic works for free and non-commercial use.</value>
   </data>
-  <data name="Provider_bobo" xml:space="preserve">
-    <value>BoBoPic</value>
+  <data name="Provider_wallhere" xml:space="preserve">
+    <value>WallHere</value>
   </data>
-  <data name="Slogan_bobo" xml:space="preserve">
-    <value>每天都有好看的壁纸图片</value>
+  <data name="Slogan_wallhere" xml:space="preserve">
+    <value>One of the best hd wallpapers site</value>
   </data>
   <data name="BoxContact.Header" xml:space="preserve">
     <value>Contact (Optional)</value>
@@ -693,12 +645,6 @@
   <data name="OneOrder_random" xml:space="preserve">
     <value>Random</value>
   </data>
-  <data name="SettingsOneDesc.Text" xml:space="preserve">
-    <value>ONE IS ALL</value>
-  </data>
-  <data name="SettingsOneTitle.Text" xml:space="preserve">
-    <value>ONE</value>
-  </data>
   <data name="TextOneOrder.Text" xml:space="preserve">
     <value>Order</value>
   </data>
@@ -738,8 +684,8 @@
   <data name="MenuDislike.Label" xml:space="preserve">
     <value>Dislike the picture</value>
   </data>
-  <data name="MsgDislike" xml:space="preserve">
-    <value>Disliked.</value>
+  <data name="MsgMarkDislike" xml:space="preserve">
+    <value>Marked as DISLIKE.</value>
   </data>
   <data name="TextYmyouliOrder.Text" xml:space="preserve">
     <value>Order</value>
@@ -798,12 +744,6 @@
   <data name="QingbzOrder_score" xml:space="preserve">
     <value>Recently popular</value>
   </data>
-  <data name="SettingsQingbzDesc.Text" xml:space="preserve">
-    <value>4K壁纸分享站</value>
-  </data>
-  <data name="SettingsQingbzTitle.Text" xml:space="preserve">
-    <value>轻壁纸</value>
-  </data>
   <data name="Slogan_qingbz" xml:space="preserve">
     <value>4K壁纸分享站</value>
   </data>
@@ -855,13 +795,7 @@
   <data name="ObzhiOrder_score" xml:space="preserve">
     <value>Recently popular</value>
   </data>
-  <data name="SettingsObzhiDesc.Text" xml:space="preserve">
-    <value>高清壁纸站</value>
-  </data>
-  <data name="SettingsObzhiTitle.Text" xml:space="preserve">
-    <value>乌云壁纸</value>
-  </data>
-  <data name="Slogan_Obzhi" xml:space="preserve">
+  <data name="Slogan_obzhi" xml:space="preserve">
     <value>高清壁纸站</value>
   </data>
   <data name="TextObzhiCate.Text" xml:space="preserve">
@@ -881,5 +815,47 @@
   </data>
   <data name="MsgLeft" xml:space="preserve">
     <value>Use LEFT or WHEEL to look back.</value>
+  </data>
+  <data name="MenuProviderWallhere.Text" xml:space="preserve">
+    <value>WallHere - One of the best hd wallpapers site</value>
+  </data>
+  <data name="MsgMarkAcg" xml:space="preserve">
+    <value>Marked as ACG.</value>
+  </data>
+  <data name="MsgMarkPhotograph" xml:space="preserve">
+    <value>Marked as PHOTOGRAPH.</value>
+  </data>
+  <data name="MsgMarkR18" xml:space="preserve">
+    <value>Marked as R18.</value>
+  </data>
+  <data name="TextWallhereCate.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TextWallhereOrder.Text" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="WallhereCate_" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="WallhereCate_acg" xml:space="preserve">
+    <value>ACG</value>
+  </data>
+  <data name="WallhereCate_photograph" xml:space="preserve">
+    <value>Photograph</value>
+  </data>
+  <data name="WallhereOrder_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="WallhereOrder_random" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="WallhereOrder_score" xml:space="preserve">
+    <value>Recently popular</value>
+  </data>
+  <data name="SettingsIniDesc.Text" xml:space="preserve">
+    <value>Beta, only for experienced users</value>
+  </data>
+	<data name="SettingsIniTitle.Text" xml:space="preserve">
+    <value>Configuration file</value>
   </data>
 </root>

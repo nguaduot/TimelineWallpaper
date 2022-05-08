@@ -8,14 +8,13 @@ using Windows.Storage;
 using Windows.Storage.FileProperties;
 using TimelineWallpaper.Utils;
 using Windows.Graphics.Imaging;
-using Windows.Media.Editing;
 using System.Drawing;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
 using System.Linq;
 using Windows.Media.FaceAnalysis;
-using System.Net.NetworkInformation;
+using System.Threading;
 
 namespace TimelineWallpaper.Providers {
     public class BaseProvider {
@@ -29,6 +28,12 @@ namespace TimelineWallpaper.Providers {
         protected int indexFocus = 0;
 
         protected Dictionary<string, int> dicHistory = new Dictionary<string, int>();
+
+        private BackgroundDownloader downloader = new BackgroundDownloader();
+        private Queue<DownloadOperation> activeDownloads = new Queue<DownloadOperation>();
+        private CancellationTokenSource cancelToken = new CancellationTokenSource();
+
+        private static int POOL_CACHE = 5;
 
         protected void AppendMetas(List<Meta> metasAdd) {
             List<string> list = metas.Select(t => t.Id).ToList();
@@ -162,40 +167,76 @@ namespace TimelineWallpaper.Providers {
         }
 
         public virtual async Task<Meta> Cache(Meta meta) {
-            if (meta == null || File.Exists(meta.CacheUhd?.Path)) {
-                return meta;
+            Debug.WriteLine("Cache() " + meta?.Id);
+            int index = -1;
+            for (int i = 0; i < metas.Count; i++) { // 定位索引以便缓存多个
+                if (meta != null && metas[i].Id.Equals(meta.Id)) {
+                    index = i;
+                    break;
+                }
             }
-            // 缓存到临时文件夹（允许随时被清理）
-            StorageFile cacheFile = await ApplicationData.Current.TemporaryFolder
-                .CreateFileAsync(Id + "-" + meta.Id + meta.Format, CreationCollisionOption.OpenIfExists);
-            BasicProperties fileProperties = await cacheFile.GetBasicPropertiesAsync();
-            if (fileProperties.Size > 0) { // 已缓存过
-                meta.CacheUhd = cacheFile;
-                Debug.WriteLine("cached from disk: " + JsonConvert.SerializeObject(meta).Trim());
-            } else if (meta.Uhd != null && NetworkInterface.GetIsNetworkAvailable()) {
-                try {
-                    BackgroundDownloader downloader = new BackgroundDownloader();
-                    DownloadOperation operation = downloader.CreateDownload(new Uri(meta.Uhd), cacheFile);
-                    //Progress<DownloadOperation> progress = new Progress<DownloadOperation>((op) => {
-                    //    if (op.Progress.TotalBytesToReceive > 0 && op.Progress.BytesReceived > 0) {
-                    //        ulong value = op.Progress.BytesReceived * 100 / op.Progress.TotalBytesToReceive;
-                    //        Debug.WriteLine("progress: " + value + "%");
-                    //    }
-                    //});
-                    //DownloadOperation resOperation = await operation.StartAsync().AsTask(progress);
-                    DownloadOperation resOperation = await operation.StartAsync();
-                    if (resOperation.Progress.Status == BackgroundTransferStatus.Completed) {
-                        meta.CacheUhd = cacheFile;
-                        Debug.WriteLine("cached from network: " + JsonConvert.SerializeObject(meta).Trim());
+            if (index < 0) {
+                return null;
+            }
+            Debug.WriteLine("Cache() index " + index);
+            IReadOnlyList<DownloadOperation> historyDownloads = await BackgroundDownloader.GetCurrentDownloadsAsync();
+            Debug.WriteLine("Cache() current downloads " + historyDownloads.Count);
+            for (int i = index; i < Math.Min(metas.Count, index + POOL_CACHE); i++) { // 缓存多个
+                Meta m = metas[i];
+                if (m.CacheUhd != null) { // 无需缓存
+                    continue;
+                }
+                string cacheName = string.Format("{0}-{1}{2}", Id, m.Id, m.Format);
+                StorageFile cacheFile = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(cacheName, CreationCollisionOption.OpenIfExists);
+                BasicProperties fileProperties = await cacheFile.GetBasicPropertiesAsync();
+                if (fileProperties.Size > 0) { // 已缓存过
+                    m.CacheUhd = cacheFile;
+                    Debug.WriteLine("Cache() cached from disk: " + cacheFile.Path);
+                } else if (m.Uhd != null && m.Do == null) { // 开始缓存
+                    Debug.WriteLine("Cache() cache from network: " + m.Uhd);
+                    foreach (DownloadOperation o in historyDownloads) { // 从历史中恢复任务
+                        if (m.Uhd.Equals(o.RequestedUri)) {
+                            m.Do = o;
+                            break;
+                        }
                     }
-                } catch (Exception) {
-                    Debug.WriteLine("cache error");
+                    if (m.Do == null) { // 新建下载任务
+                        try {
+                            m.Do = downloader.CreateDownload(new Uri(m.Uhd), cacheFile);
+                            _ = m.Do.StartAsync();
+                        } catch (Exception e) {
+                            Debug.WriteLine(e);
+                        }
+                    }
+                    if (activeDownloads.Count >= 5) { // 暂停缓存池之外的任务
+                        DownloadOperation o = activeDownloads.Dequeue();
+                        if (o.Progress.Status == BackgroundTransferStatus.Running) {
+                            o.Pause();
+                        }
+                    }
+                    activeDownloads.Enqueue(m.Do);
+                }
+            }
+            // 等待当前任务下载完成
+            if (meta.CacheUhd == null && meta.Do != null) {
+                Debug.WriteLine("Cache() wait for cache: " + meta.Do.Guid);
+                try {
+                    if (meta.Do.Progress.Status == BackgroundTransferStatus.PausedByApplication) {
+                        meta.Do.Resume();
+                    }
+                    _ = await meta.Do.AttachAsync();
+                    if (meta.Do.Progress.Status == BackgroundTransferStatus.Completed) {
+                        meta.CacheUhd = meta.Do.ResultFile as StorageFile;
+                    }
+                } catch (Exception e) {
+                    // 未找到(404)。 (Exception from HRESULT: 0x80190194)
+                    Debug.WriteLine(e);
                 }
             }
             // 获取图片尺寸&检测人像位置
             if (meta.CacheUhd != null && FaceDetector.IsSupported) {
-                using (var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
-                    try {
+                try {
+                    using (var stream = await meta.CacheUhd.OpenAsync(FileAccessMode.Read)) {
                         var decoder = await BitmapDecoder.CreateAsync(stream);
                         // 获取图片尺寸
                         meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
@@ -215,25 +256,11 @@ namespace TimelineWallpaper.Providers {
                         }
                         meta.FaceOffset = offset >= 0 ? offset : 0.5f;
                         bitmap.Dispose();
-                    } catch (Exception ex) {
-                        Debug.WriteLine(ex);
                     }
+                } catch (Exception ex) {
+                    Debug.WriteLine(ex);
                 }
             }
-            // 获取视频尺寸
-            //if (meta.CacheVideo != null) {
-            //    try {
-            //        MediaClip mediaClip = await MediaClip.CreateFromFileAsync(meta.CacheVideo);
-            //        MediaComposition mediaComposition = new MediaComposition();
-            //        mediaComposition.Clips.Add(mediaClip);
-            //        var stream = await mediaComposition.GetThumbnailAsync(TimeSpan.FromMilliseconds(5000), 0, 0,
-            //            VideoFramePrecision.NearestFrame);
-            //        var decoder = await BitmapDecoder.CreateAsync(stream);
-            //        meta.Dimen = new Size((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-            //    } catch (Exception) {
-            //        Debug.WriteLine("dimen error");
-            //    }
-            //}
             return meta;
         }
 
@@ -264,8 +291,12 @@ namespace TimelineWallpaper.Providers {
         }
 
         public static void SaveHistory(string provider, Dictionary<string, int> dic) {
-            string file = Path.Combine(ApplicationData.Current.LocalFolder.Path, provider + ".json");
-            File.WriteAllText(file, JsonConvert.SerializeObject(dic), UTF8Encoding.UTF8);
+            try {
+                string file = Path.Combine(ApplicationData.Current.LocalFolder.Path, provider + ".json");
+                File.WriteAllText(file, JsonConvert.SerializeObject(dic), UTF8Encoding.UTF8);
+            } catch (Exception) {
+                Debug.WriteLine("save history error");
+            }
         }
     }
 }

@@ -174,10 +174,10 @@
   <data name="MenuSetLock.Label" xml:space="preserve">
     <value>用作锁屏背景</value>
   </data>
-  <data name="MenuFillOff.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="MenuFillOff.Label" xml:space="preserve">
     <value>切换显示模式：全图</value>
   </data>
-  <data name="MenuFillOn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="MenuFillOn.Label" xml:space="preserve">
     <value>切换显示模式：拉伸</value>
   </data>
   <data name="YmyouliCate_acgcharacter" xml:space="preserve">
@@ -417,12 +417,6 @@
   <data name="RbThemeSys.Content" xml:space="preserve">
     <value>使用系统设置</value>
   </data>
-  <data name="SettingsIniDesc.Text" xml:space="preserve">
-    <value>实验性功能，谨慎尝试</value>
-  </data>
-  <data name="SettingsIniTitle.Text" xml:space="preserve">
-    <value>配置文件</value>
-  </data>
   <data name="SettingsThemeDesc.Text" xml:space="preserve">
     <value>选择要显示的应用主题</value>
   </data>
@@ -465,16 +459,10 @@
   <data name="BtnIni.Content" xml:space="preserve">
     <value>打开</value>
   </data>
-  <data name="SettingsBingDesc.Text" xml:space="preserve">
-    <value>每天发现一个新地方</value>
-  </data>
-  <data name="SettingsBingTitle.Text" xml:space="preserve">
-    <value>Microsoft Bing</value>
-  </data>
   <data name="TextBingLang.Text" xml:space="preserve">
     <value>地区</value>
   </data>
-  <data name="BoxHimiwari8Offset.PlaceholderText" xml:space="preserve">
+  <data name="BoxHimawari8Offset.PlaceholderText" xml:space="preserve">
     <value>-1.0~1.0</value>
   </data>
   <data name="BtnShowCache.Content" xml:space="preserve">
@@ -504,49 +492,13 @@
   <data name="OneplusOrder_view" xml:space="preserve">
     <value>浏览最多</value>
   </data>
-  <data name="SettingsHimiwari8Desc.Text" xml:space="preserve">
-    <value>实时地球</value>
-  </data>
-  <data name="SettingsHimiwari8Title.Text" xml:space="preserve">
-    <value>向日葵8号</value>
-  </data>
-  <data name="SettingsInfinityDesc.Text" xml:space="preserve">
-    <value>精选壁纸</value>
-  </data>
-  <data name="SettingsInfinityTitle.Text" xml:space="preserve">
-    <value>Infinity</value>
-  </data>
-  <data name="SettingsNasaDesc.Text" xml:space="preserve">
-    <value>每日天文一图</value>
-  </data>
-  <data name="SettingsNasaTitle.Text" xml:space="preserve">
-    <value>NASA</value>
-  </data>
-  <data name="SettingsOneplusDesc.Text" xml:space="preserve">
-    <value>Shot on OnePlus</value>
-  </data>
-  <data name="SettingsOneplusTitle.Text" xml:space="preserve">
-    <value>OnePlus</value>
-  </data>
   <data name="SettingsSaveTitle.Text" xml:space="preserve">
     <value>图片保存位置</value>
-  </data>
-  <data name="SettingsTimelineDesc.Text" xml:space="preserve">
-    <value>时光如歌，岁月如诗</value>
-  </data>
-  <data name="SettingsTimelineTitle.Text" xml:space="preserve">
-    <value>拾光</value>
-  </data>
-  <data name="SettingsYmyouliDesc.Text" xml:space="preserve">
-    <value>8K优质壁纸资源</value>
-  </data>
-  <data name="SettingsYmyouliTitle.Text" xml:space="preserve">
-    <value>一梦幽黎</value>
   </data>
   <data name="TextCache.Text" xml:space="preserve">
     <value>图片缓存位置</value>
   </data>
-  <data name="TextHimiwari8Offset.Text" xml:space="preserve">
+  <data name="TextHimawari8Offset.Text" xml:space="preserve">
     <value>地球偏移量</value>
   </data>
   <data name="TextInfinityOrder.Text" xml:space="preserve">
@@ -621,11 +573,8 @@
   <data name="TextContributePrivacy.Text" xml:space="preserve">
     <value>投稿一经采用，本项目将无偿非商业性使用您的摄影作品。</value>
   </data>
-  <data name="Provider_bobo" xml:space="preserve">
-    <value>BoBoPic</value>
-  </data>
-  <data name="Slogan_bobo" xml:space="preserve">
-    <value>每天都有好看的壁纸图片</value>
+  <data name="Provider_wallhere" xml:space="preserve">
+    <value>WallHere</value>
   </data>
   <data name="BoxContact.Header" xml:space="preserve">
     <value>联系方式（选填）</value>
@@ -693,12 +642,6 @@
   <data name="OneOrder_random" xml:space="preserve">
     <value>随机</value>
   </data>
-  <data name="SettingsOneDesc.Text" xml:space="preserve">
-    <value>复杂世界里，一个就够了</value>
-  </data>
-  <data name="SettingsOneTitle.Text" xml:space="preserve">
-    <value>ONE · 一个</value>
-  </data>
   <data name="TextOneOrder.Text" xml:space="preserve">
     <value>排序</value>
   </data>
@@ -738,7 +681,7 @@
   <data name="MenuDislike.Label" xml:space="preserve">
     <value>我不喜欢这张图片</value>
   </data>
-  <data name="MsgDislike" xml:space="preserve">
+  <data name="MsgMarkDislike" xml:space="preserve">
     <value>您已将该图标记为“不喜欢”</value>
   </data>
   <data name="TextYmyouliOrder.Text" xml:space="preserve">
@@ -798,12 +741,6 @@
   <data name="QingbzOrder_score" xml:space="preserve">
     <value>热度</value>
   </data>
-  <data name="SettingsQingbzDesc.Text" xml:space="preserve">
-    <value>4K壁纸分享站</value>
-  </data>
-  <data name="SettingsQingbzTitle.Text" xml:space="preserve">
-    <value>轻壁纸</value>
-  </data>
   <data name="Slogan_qingbz" xml:space="preserve">
     <value>4K壁纸分享站</value>
   </data>
@@ -858,13 +795,7 @@
   <data name="ObzhiOrder_score" xml:space="preserve">
     <value>热度</value>
   </data>
-  <data name="SettingsObzhiDesc.Text" xml:space="preserve">
-    <value>高清壁纸站</value>
-  </data>
-  <data name="SettingsObzhiTitle.Text" xml:space="preserve">
-    <value>乌云壁纸</value>
-  </data>
-  <data name="Slogan_Obzhi" xml:space="preserve">
+  <data name="Slogan_obzhi" xml:space="preserve">
     <value>高清壁纸站</value>
   </data>
   <data name="TextObzhiCate.Text" xml:space="preserve">
@@ -881,5 +812,50 @@
   </data>
   <data name="MsgLeft" xml:space="preserve">
     <value>你还可以使用方向键或滚轮进行回顾</value>
+  </data>
+  <data name="MenuProviderWallhere.Text" xml:space="preserve">
+    <value>WallHere - 世界著名的壁纸网站之一</value>
+  </data>
+  <data name="MsgMarkAcg" xml:space="preserve">
+    <value>您已将该图分类为“ACG”</value>
+  </data>
+  <data name="MsgMarkPhotograph" xml:space="preserve">
+    <value>您已将该图分类为“摄影”</value>
+  </data>
+  <data name="MsgMarkR18" xml:space="preserve">
+    <value>您已将该图标记为“R18”</value>
+  </data>
+  <data name="Slogan_wallhere" xml:space="preserve">
+    <value>世界著名的壁纸网站之一</value>
+  </data>
+  <data name="TextWallhereCate.Text" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="TextWallhereOrder.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="WallhereCate_" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="WallhereCate_acg" xml:space="preserve">
+    <value>ACG</value>
+  </data>
+  <data name="WallhereCate_photograph" xml:space="preserve">
+    <value>摄影</value>
+  </data>
+  <data name="WallhereOrder_date" xml:space="preserve">
+    <value>收录</value>
+  </data>
+  <data name="WallhereOrder_random" xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="WallhereOrder_score" xml:space="preserve">
+    <value>热度</value>
+  </data>
+  <data name="SettingsIniDesc.Text" xml:space="preserve">
+    <value>实验性功能，谨慎尝试</value>
+  </data>
+	<data name="SettingsIniTitle.Text" xml:space="preserve">
+    <value>配置文件</value>
   </data>
 </root>

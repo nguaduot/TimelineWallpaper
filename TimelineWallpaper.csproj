@@ -22,9 +22,9 @@
     <PackageCertificateKeyFile>TimelineWallpaper_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <GenerateTestArtifacts>False</GenerateTestArtifacts>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Auto</AppxBundle>
-    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <AppInstallerUri>D:\uwp\TimelineWallpaper\AppPackages</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
@@ -110,6 +110,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -131,6 +132,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Beans\ObzhiApi.cs" />
+    <Compile Include="Beans\WallhereApi.cs" />
     <Compile Include="Beans\ReleaseApi.cs" />
     <Compile Include="Beans\ContributeApiReq.cs" />
     <Compile Include="Beans\RankApiReq.cs" />
@@ -151,10 +153,10 @@
       <DependentUpon>DonateDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="Providers\AbyssProvider.cs" />
-    <Compile Include="Providers\BoboProvider.cs" />
     <Compile Include="Providers\Himawari8Provider.cs" />
     <Compile Include="Providers\OneProvider.cs" />
     <Compile Include="Providers\ObzhiProvider.cs" />
+    <Compile Include="Providers\WallhereProvider.cs" />
     <Compile Include="Providers\TimelineProvider.cs" />
     <Compile Include="Providers\SeovxProvider.cs" />
     <Compile Include="Providers\MtyProvider.cs" />
@@ -198,6 +200,7 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\Images\default.png" />
     <Content Include="Assets\Images\donate_alipay.png" />
     <Content Include="Assets\Images\donate_wechat.png" />
     <Content Include="Assets\Images\tip_menu.jpg" />

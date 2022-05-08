@@ -17,7 +17,7 @@ using Windows.UI.Xaml;
 namespace TimelineWallpaper.Utils {
     public class IniUtil {
         // TODO: 参数有变动时需调整配置名
-        private const string FILE_INI = "timelinewallpaper-4.3.ini";
+        private const string FILE_INI = "timelinewallpaper-4.5.ini";
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defValue,
@@ -146,6 +146,16 @@ namespace TimelineWallpaper.Utils {
         public static async void SaveObzhiCate(string cate) {
             StorageFile iniFile = await GenerateIniFileAsync();
             _ = WritePrivateProfileString("obzhi", "cate", cate, iniFile.Path);
+        }
+
+        public static async void SaveWallhereOrder(string order) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("wallhere", "order", order, iniFile.Path);
+        }
+
+        public static async void SaveWallhereCate(string cate) {
+            StorageFile iniFile = await GenerateIniFileAsync();
+            _ = WritePrivateProfileString("wallhere", "cate", cate, iniFile.Path);
         }
 
         public static async Task<StorageFile> GetIniPath() {
@@ -303,14 +313,22 @@ namespace TimelineWallpaper.Utils {
                 LockPeriod = lockPeriod,
                 Order = sb.ToString()
             });
-            _ = GetPrivateProfileString("bing", "desktopperiod", "24", sb, 1024, iniFile);
+            _ = GetPrivateProfileString("wallhere", "desktopperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
-            _ = GetPrivateProfileString("bing", "lockperiod", "24", sb, 1024, iniFile);
+            _ = GetPrivateProfileString("wallhere", "lockperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out lockPeriod);
-            ini.SetIni("bobo", new BoboIni {
+            WallhereIni wallhereIni = new WallhereIni {
                 DesktopPeriod = desktopPeriod,
                 LockPeriod = lockPeriod
-            });
+            };
+            _ = GetPrivateProfileString("wallhere", "order", "random", sb, 1024, iniFile);
+            wallhereIni.Order = sb.ToString();
+            _ = GetPrivateProfileString("wallhere", "cate", "", sb, 1024, iniFile);
+            wallhereIni.Cate = sb.ToString();
+            _ = GetPrivateProfileString("wallhere", "r18", "0", sb, 1024, iniFile);
+            _ = int.TryParse(sb.ToString(), out r18);
+            wallhereIni.R18 = r18;
+            ini.SetIni("wallhere", wallhereIni);
             _ = GetPrivateProfileString("abyss", "desktopperiod", "24", sb, 1024, iniFile);
             _ = int.TryParse(sb.ToString(), out desktopPeriod);
             _ = GetPrivateProfileString("abyss", "lockperiod", "24", sb, 1024, iniFile);

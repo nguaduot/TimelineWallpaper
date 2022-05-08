@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using TimelineWallpaper.Utils;
 using Windows.ApplicationModel.Resources;
 using Windows.Globalization.NumberFormatting;
@@ -34,6 +36,8 @@ namespace TimelineWallpaper {
         private readonly List<Paras> listQingbzOrder = new List<Paras>();
         private readonly List<Paras> listObzhiCate = new List<Paras>();
         private readonly List<Paras> listObzhiOrder = new List<Paras>();
+        private readonly List<Paras> listWallhereCate = new List<Paras>();
+        private readonly List<Paras> listWallhereOrder = new List<Paras>();
 
         private bool paneOpened = false; // 避免初始化设置选项的非必要事件
 
@@ -121,6 +125,18 @@ namespace TimelineWallpaper {
                     Name = resLoader.GetString("ObzhiOrder_" + item)
                 });
             }
+            foreach (string item in WallhereIni.CATE) {
+                listWallhereCate.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("WallhereCate_" + item)
+                });
+            }
+            foreach (string item in WallhereIni.ORDER) {
+                listWallhereOrder.Add(new Paras {
+                    Id = item,
+                    Name = resLoader.GetString("WallhereOrder_" + item)
+                });
+            }
 
             BoxHimawari8Offset.NumberFormatter = new DecimalFormatter {
                 IntegerDigits = 1,
@@ -173,6 +189,7 @@ namespace TimelineWallpaper {
             ExpanderOne.IsExpanded = OneIni.ID.Equals(ini.Provider);
             ExpanderQingbz.IsExpanded = QingbzIni.ID.Equals(ini.Provider);
             ExpanderObzhi.IsExpanded = ObzhiIni.ID.Equals(ini.Provider);
+            ExpanderWallhere.IsExpanded = WallhereIni.ID.Equals(ini.Provider);
 
             BoxBingLang.SelectedIndex = listBingLang.Select(t => t.Id).ToList().IndexOf(((BingIni)ini.GetIni(BingIni.ID)).Lang);
             ToggleNasaMirror.IsOn = "bjp".Equals(((NasaIni)ini.GetIni(NasaIni.ID)).Mirror);
@@ -188,6 +205,8 @@ namespace TimelineWallpaper {
             BoxQingbzOrder.SelectedIndex = listQingbzOrder.Select(t => t.Id).ToList().IndexOf(((QingbzIni)ini.GetIni(QingbzIni.ID)).Order);
             BoxObzhiCate.SelectedIndex = listObzhiCate.Select(t => t.Id).ToList().IndexOf(((ObzhiIni)ini.GetIni(ObzhiIni.ID)).Cate);
             BoxObzhiOrder.SelectedIndex = listObzhiOrder.Select(t => t.Id).ToList().IndexOf(((ObzhiIni)ini.GetIni(ObzhiIni.ID)).Order);
+            BoxWallhereCate.SelectedIndex = listWallhereCate.Select(t => t.Id).ToList().IndexOf(((WallhereIni)ini.GetIni(WallhereIni.ID)).Cate);
+            BoxWallhereOrder.SelectedIndex = listWallhereOrder.Select(t => t.Id).ToList().IndexOf(((WallhereIni)ini.GetIni(WallhereIni.ID)).Order);
 
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
@@ -197,6 +216,31 @@ namespace TimelineWallpaper {
         }
 
         private void ExpanderProvider_Expanding(Microsoft.UI.Xaml.Controls.Expander sender, Microsoft.UI.Xaml.Controls.ExpanderExpandingEventArgs args) {
+            //string tagCheck = HttpUtility.HtmlDecode("&#128994;&#32;");
+            string tagCheck = "● ";
+            SettingsBingTitle.Text = (BingIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + BingIni.ID);
+            SettingsBingDesc.Text = resLoader.GetString("Slogan_" + BingIni.ID);
+            SettingsNasaTitle.Text = (NasaIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + NasaIni.ID);
+            SettingsNasaDesc.Text = resLoader.GetString("Slogan_" + NasaIni.ID);
+            SettingsOneplusTitle.Text = (OneplusIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + OneplusIni.ID);
+            SettingsOneplusDesc.Text = resLoader.GetString("Slogan_" + OneplusIni.ID);
+            SettingsTimelineTitle.Text = (TimelineIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + TimelineIni.ID);
+            SettingsTimelineDesc.Text = resLoader.GetString("Slogan_" + TimelineIni.ID);
+            SettingsHimawari8Title.Text = (Himawari8Ini.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + Himawari8Ini.ID);
+            SettingsHimawari8Desc.Text = resLoader.GetString("Slogan_" + Himawari8Ini.ID);
+            SettingsYmyouliTitle.Text = (YmyouliIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + YmyouliIni.ID);
+            SettingsYmyouliDesc.Text = resLoader.GetString("Slogan_" + YmyouliIni.ID);
+            SettingsInfinityTitle.Text = (InfinityIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + InfinityIni.ID);
+            SettingsInfinityDesc.Text = resLoader.GetString("Slogan_" + InfinityIni.ID);
+            SettingsOneTitle.Text = (OneIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + OneIni.ID);
+            SettingsOneDesc.Text = resLoader.GetString("Slogan_" + OneIni.ID);
+            SettingsQingbzTitle.Text = (QingbzIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + QingbzIni.ID);
+            SettingsQingbzDesc.Text = resLoader.GetString("Slogan_" + QingbzIni.ID);
+            SettingsObzhiTitle.Text = (ObzhiIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + ObzhiIni.ID);
+            SettingsObzhiDesc.Text = resLoader.GetString("Slogan_" + ObzhiIni.ID);
+            SettingsWallhereTitle.Text = (WallhereIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + WallhereIni.ID);
+            SettingsWallhereDesc.Text = resLoader.GetString("Slogan_" + WallhereIni.ID);
+
             if (!ini.Provider.Equals(sender.Tag)) {
                 IniUtil.SaveProvider(sender.Tag.ToString());
                 SettingsChanged?.Invoke(this, new SettingsEventArgs {
@@ -457,6 +501,34 @@ namespace TimelineWallpaper {
             bi.Order = paras.Id;
             IniUtil.SaveObzhiOrder(paras.Id);
             IniUtil.SaveProvider(ObzhiIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BoxWallhereCate_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            WallhereIni bi = (WallhereIni)ini.GetIni(WallhereIni.ID);
+            bi.Cate = paras.Id;
+            IniUtil.SaveWallhereCate(paras.Id);
+            IniUtil.SaveProvider(WallhereIni.ID);
+            SettingsChanged?.Invoke(this, new SettingsEventArgs {
+                ProviderChanged = true
+            });
+        }
+
+        private void BoxWallhereOrder_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (!paneOpened) {
+                return;
+            }
+            Paras paras = e.AddedItems[0] as Paras;
+            WallhereIni bi = (WallhereIni)ini.GetIni(WallhereIni.ID);
+            bi.Order = paras.Id;
+            IniUtil.SaveWallhereOrder(paras.Id);
+            IniUtil.SaveProvider(WallhereIni.ID);
             SettingsChanged?.Invoke(this, new SettingsEventArgs {
                 ProviderChanged = true
             });

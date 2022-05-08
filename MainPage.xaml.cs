@@ -92,7 +92,7 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadYesterdayAsync();
+            //PreLoadYesterdayAsync();
         }
 
         private async void LoadYesterdayAsync() {
@@ -119,7 +119,7 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadYesterdayAsync();
+            //PreLoadYesterdayAsync();
         }
 
         private async void LoadTormorrowAsync() {
@@ -145,7 +145,7 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadYesterdayAsync();
+            //PreLoadYesterdayAsync();
         }
 
         private async void LoadTargetAsync(DateTime date) {
@@ -171,7 +171,7 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadYesterdayAsync();
+            //PreLoadYesterdayAsync();
         }
 
         private async void LoadEndAsync(bool farthestOrLatest) {
@@ -197,15 +197,15 @@ namespace TimelineWallpaper {
             }
 
             // 预加载
-            PreLoadYesterdayAsync();
+            //PreLoadYesterdayAsync();
         }
 
-        private async void PreLoadYesterdayAsync() {
-            Debug.WriteLine("PreLoadYesterdayAsync");
-            if (await provider.LoadData(ini.GetIni())) {
-                _ = provider.Cache(provider.GetYesterday());
-            }
-        }
+        //private async void PreLoadYesterdayAsync() {
+        //    Debug.WriteLine("PreLoadYesterdayAsync");
+        //    if (await provider.LoadData(ini.GetIni())) {
+        //        _ = provider.Cache(provider.GetYesterday());
+        //    }
+        //}
 
         private async Task<bool> InitProvider() {
             if (ini == null) {
@@ -296,7 +296,7 @@ namespace TimelineWallpaper {
         }
 
         private void ShowImg(Meta meta) {
-            if (meta?.CacheUhd == null) {
+            if (meta == null) {
                 StatusError();
                 return;
             }
@@ -308,6 +308,10 @@ namespace TimelineWallpaper {
             biUhd.ImageOpened += (sender, e) => {
                 Debug.WriteLine("ImageOpened");
                 StatusEnjoy();
+
+                Debug.WriteLine(MemoryManager.AppMemoryUsageLimit / 1024 / 1024);
+                Debug.WriteLine(MemoryManager.AppMemoryUsage / 1024 / 1024);
+                Debug.WriteLine((MemoryManager.AppMemoryUsageLimit - MemoryManager.AppMemoryUsage) / 1024 / 1024);
             };
             ImgUhd.Source = biUhd;
             biUhd.DecodePixelType = DecodePixelType.Logical;
@@ -320,24 +324,25 @@ namespace TimelineWallpaper {
             }
             Debug.WriteLine("img pixel: {0}x{1}, win logical: {2}x{3}, scale logical: {4}x{5}",
                 meta.Dimen.Width, meta.Dimen.Height, winW, winH, biUhd.DecodePixelWidth, biUhd.DecodePixelHeight);
-            biUhd.UriSource = new Uri(meta.CacheUhd.Path, UriKind.Absolute);
+            biUhd.UriSource = new Uri(meta.CacheUhd != null ? meta.CacheUhd.Path : "ms-appx:///Assets/Images/default.png", UriKind.Absolute);
 
-            // 显示与图片文件相关的信息
-            string source = resLoader.GetString("Provider_" + provider.Id) + (meta.Cate != null ? (" · " + meta.Cate) : "");
-            string fileSize = FileUtil.ConvertFileSize(File.Exists(meta.CacheUhd.Path)
-                ? new FileInfo(meta.CacheUhd.Path).Length : 0);
-            TextDetailProperties.Text = string.Format("{0} / {1}x{2}, {3}",
-                source, meta.Dimen.Width, meta.Dimen.Height, fileSize);
-            TextDetailProperties.Visibility = Visibility.Visible;
-
-            // 根据人脸识别优化组件放置位置
-            bool faceLeft = meta.FaceOffset < 0.4;
-            RelativePanel.SetAlignLeftWithPanel(ViewBarPointer, !faceLeft);
-            RelativePanel.SetAlignRightWithPanel(ViewBarPointer, faceLeft);
-            RelativePanel.SetAlignLeftWithPanel(Info, !faceLeft);
-            RelativePanel.SetAlignRightWithPanel(Info, faceLeft);
-            RelativePanel.SetAlignLeftWithPanel(AnchorGo, faceLeft);
-            RelativePanel.SetAlignRightWithPanel(AnchorGo, !faceLeft);
+            if (meta.CacheUhd != null) {
+                // 显示与图片文件相关的信息
+                string source = resLoader.GetString("Provider_" + provider.Id) + (meta.Cate != null ? (" · " + meta.Cate) : "");
+                string fileSize = FileUtil.ConvertFileSize(File.Exists(meta.CacheUhd.Path)
+                    ? new FileInfo(meta.CacheUhd.Path).Length : 0);
+                TextDetailProperties.Text = string.Format("{0} / {1}x{2}, {3}",
+                    source, meta.Dimen.Width, meta.Dimen.Height, fileSize);
+                TextDetailProperties.Visibility = Visibility.Visible;
+                // 根据人脸识别优化组件放置位置
+                bool faceLeft = meta.FaceOffset < 0.4;
+                RelativePanel.SetAlignLeftWithPanel(ViewBarPointer, !faceLeft);
+                RelativePanel.SetAlignRightWithPanel(ViewBarPointer, faceLeft);
+                RelativePanel.SetAlignLeftWithPanel(Info, !faceLeft);
+                RelativePanel.SetAlignRightWithPanel(Info, faceLeft);
+                RelativePanel.SetAlignLeftWithPanel(AnchorGo, faceLeft);
+                RelativePanel.SetAlignRightWithPanel(AnchorGo, !faceLeft);
+            }
         }
 
         private void ReDecodeImg() {
@@ -367,6 +372,7 @@ namespace TimelineWallpaper {
         private void StatusEnjoy() {
             ImgUhd.Opacity = 1;
             ImgUhd.Scale = new Vector3(1, 1, 1);
+
             ProgressLoading.ShowPaused = true;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = ViewStory.Visibility;
@@ -384,14 +390,17 @@ namespace TimelineWallpaper {
         private void StatusLoading() {
             ImgUhd.Opacity = 0;
             ImgUhd.Scale = new Vector3(1.014f, 1.014f, 1.014f);
+
             ProgressLoading.ShowPaused = false;
             ProgressLoading.ShowError = false;
             ProgressLoading.Visibility = Visibility.Visible;
+            
             ToggleInfo(null, null);
         }
 
         private void StatusError() {
             ImgUhd.Opacity = 0;
+
             TextTitle.Text = resLoader.GetString("AppDesc");
             TextDetailCaption.Visibility = Visibility.Collapsed;
             TextDetailLocation.Visibility = Visibility.Collapsed;
@@ -399,6 +408,7 @@ namespace TimelineWallpaper {
             TextDetailCopyright.Visibility = Visibility.Collapsed;
             TextDetailDate.Visibility = Visibility.Collapsed;
             TextDetailProperties.Visibility = Visibility.Collapsed;
+
             ProgressLoading.ShowError = true;
             ProgressLoading.Visibility = Visibility.Visible;
 
@@ -680,7 +690,7 @@ namespace TimelineWallpaper {
         private void MenuDislike_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
             ApiService.Rank(ini, meta, "dislike");
-            ToggleInfo(null, resLoader.GetString("MsgDislike"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
+            ToggleInfo(null, resLoader.GetString("MsgMarkDislike"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
                 ToggleInfo(null, null);
                 ApiService.Rank(ini, meta, "dislike", true);
             });
@@ -884,6 +894,57 @@ namespace TimelineWallpaper {
                     StatusLoading();
                     LoadEndAsync(false);
                     break;
+                case VirtualKey.Space:
+                    ToggleImgMode(ImgUhd.Stretch != Stretch.UniformToFill);
+                    break;
+                case VirtualKey.Back:
+                case VirtualKey.Delete:
+                    if (dislikeTimer == null) {
+                        dislikeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 500) };
+                        dislikeTimer.Tick += (sender2, e2) => {
+                            dislikeTimer.Stop();
+                            MenuDislike_Click(null, null);
+                        };
+                    }
+                    dislikeTimer.Stop();
+                    dislikeTimer.Start();
+                    break;
+                case VirtualKey.Number1:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        ApiService.Rank(ini, meta, "dislike");
+                        ToggleInfo(null, resLoader.GetString("MsgMarkDislike"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
+                            ToggleInfo(null, null);
+                            ApiService.Rank(ini, meta, "dislike", true);
+                        });
+                    }
+                    break;
+                case VirtualKey.Number2:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        ApiService.Rank(ini, meta, "r18");
+                        ToggleInfo(null, resLoader.GetString("MsgMarkR18"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
+                            ToggleInfo(null, null);
+                            ApiService.Rank(ini, meta, "r18", true);
+                        });
+                    }
+                    break;
+                case VirtualKey.Number3:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        ApiService.Rank(ini, meta, "acg");
+                        ToggleInfo(null, resLoader.GetString("MsgMarkAcg"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
+                            ToggleInfo(null, null);
+                            ApiService.Rank(ini, meta, "acg", true);
+                        });
+                    }
+                    break;
+                case VirtualKey.Number4:
+                    if (sender.Modifiers == VirtualKeyModifiers.Control) {
+                        ApiService.Rank(ini, meta, "photograph");
+                        ToggleInfo(null, resLoader.GetString("MsgMarkPhotograph"), InfoBarSeverity.Success, resLoader.GetString("ActionUndo"), () => {
+                            ToggleInfo(null, null);
+                            ApiService.Rank(ini, meta, "photograph", true);
+                        });
+                    }
+                    break;
                 case VirtualKey.B:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {
                         MenuSetDesktop_Click(null, null);
@@ -907,18 +968,6 @@ namespace TimelineWallpaper {
                             ToggleInfo(null, resLoader.GetString("MsgIdCopied"), InfoBarSeverity.Success);
                         }
                     }
-                    break;
-                case VirtualKey.Back:
-                case VirtualKey.Delete:
-                    if (dislikeTimer == null) {
-                        dislikeTimer = new DispatcherTimer { Interval = new TimeSpan(0, 0, 0, 0, 500) };
-                        dislikeTimer.Tick += (sender2, e2) => {
-                            dislikeTimer.Stop();
-                            MenuDislike_Click(null, null);
-                        };
-                    }
-                    dislikeTimer.Stop();
-                    dislikeTimer.Start();
                     break;
                 case VirtualKey.R:
                     if (sender.Modifiers == VirtualKeyModifiers.Control) {

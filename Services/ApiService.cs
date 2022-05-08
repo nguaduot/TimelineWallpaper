@@ -56,6 +56,7 @@ namespace TimelineWallpaper.Services {
             if (!NetworkInterface.GetIsNetworkAvailable()) {
                 return;
             }
+            Debug.WriteLine("Rank() " + action);
             const string URL_API = "https://api.nguaduot.cn/appstats/rank";
             RankApiReq req = new RankApiReq {
                 Provider = ini?.Provider,

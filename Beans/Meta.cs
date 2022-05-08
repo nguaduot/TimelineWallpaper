@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 
 namespace TimelineWallpaper.Beans {
@@ -42,6 +43,8 @@ namespace TimelineWallpaper.Beans {
 
         // 原图本地缓存文件
         public StorageFile CacheUhd { set; get; }
+
+        public DownloadOperation Do { set; get; }
 
         // 主题色笔刷
         //public SolidColorBrush Dominant { set; get; }
