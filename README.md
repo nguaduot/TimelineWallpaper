@@ -38,13 +38,13 @@
 + [Microsoft Bing](https://cn.bing.com) - 每天发现一个新地方
 + [NASA](https://apod.nasa.gov/apod) - 每日天文一图
 + [OnePlus](https://photos.oneplus.com) - Shot on OnePlus
++ [ONE · 一个](http://m.wufazhuce.com/one) - 复杂世界里，一个就够了
 + [向日葵8号](https://himawari8.nict.go.jp/) - 实时地球
 + [一梦幽黎](https://www.ymyouli.com) - 8K优质壁纸资源
-
-  *维护不易，若喜欢该图源，可前往其官网赞助。*
-
-+ [Infinity](http://cn.infinitynewtab.com) - 365天精选壁纸
-+ [ONE · 一个](http://m.wufazhuce.com/one) - 复杂世界里，一个就够了
++ [轻壁纸](https://bz.qinggongju.com) - 壁纸分享站
++ [乌云壁纸](https://www.obzhi.com) - 高清壁纸站
++ [WallHere](https://wallhere.com) - 世界著名的壁纸网站之一
++ [Infinity](http://cn.infinitynewtab.com) - 精选壁纸
 
 *特别注明：三方图源均为来自网络，本应用无权且不提供商用授权，所以请勿用于商业用途，仅供学习交流。欢迎分享图源*
 
@@ -56,7 +56,8 @@
   + `鼠标滚轮`：回顾前一天/预览下一天
   + `左方向键` / `上方向键`：回顾前一天
   + `右方向键` / `下方向键`：预览下一天
-  + `Delete` / `Backspace`：标记“不喜欢”
+  + `Backspace` / `Delete`：标记“不喜欢”
+  + `Space`：切换全图/拉伸
   + `Ctrl` + `B`：用作桌面背景
   + `Ctrl` + `L`：用作锁屏背景
   + `Ctrl` + `S` / `Ctrl` + `D`：保存图片
