@@ -9,7 +9,7 @@
   <Identity
     Name="54311Bysyk.forWindows11"
     Publisher="CN=2D8A43ED-3DC1-4AB1-AFFC-B379B33C48BD"
-    Version="4.5.111.0" />
+    Version="4.5.132.0" />
 
   <mp:PhoneIdentity PhoneProductId="6d47048f-fdc5-4720-8d9b-f7b7818e8700" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -30,7 +30,7 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="TImelineWallpaper.App">
+      EntryPoint="TimelineWallpaper.App">
       <uap:VisualElements
         DisplayName="ms-resource:AppName"
         Square150x150Logo="Assets\Square150x150Logo.png"
