@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -465,6 +466,18 @@ namespace TimelineWallpaper.Utils {
                 return (size / 1024.0 / 1024.0).ToString("0.0MB");
             }
             return (size / 1024.0 / 1024.0 / 1024.0).ToString("0.00GB");
+        }
+
+        public static async Task<IList<string>> GetGlitter() {
+            try {
+                StorageFile file = await Package.Current.InstalledLocation.GetFileAsync("Assets\\Ini\\glitter.txt");
+                if (file != null) {
+                    return await FileIO.ReadLinesAsync(file);
+                }
+            } catch (Exception) {
+                Debug.WriteLine("read history error");
+            }
+            return new List<string>();
         }
     }
 

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using TimelineWallpaper.Utils;
 using Windows.ApplicationModel.Resources;
 using Windows.Globalization.NumberFormatting;
@@ -211,11 +210,24 @@ namespace TimelineWallpaper {
             RadioButton rb = RbTheme.Items.Cast<RadioButton>().FirstOrDefault(c => ini.Theme.Equals(c?.Tag?.ToString()));
             rb.IsChecked = true;
             TextThemeCur.Text = rb.Content.ToString();
+            RandomGlitter();
 
             paneOpened = true;
         }
 
-        private void ExpanderProvider_Expanding(Microsoft.UI.Xaml.Controls.Expander sender, Microsoft.UI.Xaml.Controls.ExpanderExpandingEventArgs args) {
+        private async void RandomGlitter() {
+            IList<string> glitter = await FileUtil.GetGlitter();
+            Debug.WriteLine("glitters: " + glitter.Count);
+            if (glitter.Count >= 2) {
+                string glitter1 = glitter[new Random().Next(glitter.Count)];
+                glitter.Remove(glitter1);
+                string glitter2 = glitter[new Random().Next(glitter.Count)];
+                SettingsReviewDesc.Text = glitter1.Length > glitter2.Length ? glitter2 : glitter1;
+                SettingsThankDesc.Text = glitter1.Length > glitter2.Length ? glitter1 : glitter2;
+            }
+        }
+
+        private void ExpanderProvider_Expanding(Expander sender, ExpanderExpandingEventArgs args) {
             //string tagCheck = HttpUtility.HtmlDecode("&#128994;&#32;");
             string tagCheck = "● ";
             SettingsBingTitle.Text = (BingIni.ID.Equals(sender.Tag) ? tagCheck : "") + resLoader.GetString("Provider_" + BingIni.ID);

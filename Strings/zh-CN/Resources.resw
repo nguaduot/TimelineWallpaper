@@ -562,10 +562,10 @@
     <value>前往评分</value>
   </data>
   <data name="MsgCtrlR" xml:space="preserve">
-    <value>Ctrl+R：刷新；左方向键/滚轮：浏览往期图片</value>
+    <value>Ctrl+R：刷新；向左键/滚轮：浏览往期图片</value>
   </data>
   <data name="MsgF5" xml:space="preserve">
-    <value>F5：刷新；左方向键/滚轮：浏览往期图片</value>
+    <value>F5：刷新；向左/滚轮：浏览往期图片</value>
   </data>
   <data name="MsgKey" xml:space="preserve">
     <value>快捷键</value>
@@ -658,7 +658,7 @@
     <value>支持</value>
   </data>
   <data name="SettingsThankDesc.Text" xml:space="preserve">
-    <value>但从今、记取楚楼风，裴台月</value>
+    <value>最是人间留不住，朱颜辞镜花辞树</value>
   </data>
   <data name="SettingsThankTitle.Text" xml:space="preserve">
     <value>致谢</value>
@@ -855,7 +855,13 @@
   <data name="SettingsIniDesc.Text" xml:space="preserve">
     <value>实验性功能，谨慎尝试</value>
   </data>
-	<data name="SettingsIniTitle.Text" xml:space="preserve">
+  <data name="SettingsIniTitle.Text" xml:space="preserve">
     <value>配置文件</value>
+  </data>
+  <data name="ActionPin" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="MsgPin" xml:space="preserve">
+    <value>将「拾光」固定到任务栏？</value>
   </data>
 </root>

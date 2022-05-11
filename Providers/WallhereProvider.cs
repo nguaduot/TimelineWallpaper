@@ -22,12 +22,15 @@ namespace TimelineWallpaper.Providers {
                 Thumb = bean.ThumbUrl,
                 Cate = bean.CateAlt,
                 Date = DateTime.Now,
-                SortFactor = "score".Equals(order) ? bean.Score : bean.ImgId
+                SortFactor = "score".Equals(order) ? bean.Score : bean.No
             };
             meta.Title = string.Format("{0} #{1}", bean.CateAlt, bean.CateAltNo);
             meta.Story = bean.Tag?.Replace(",", " ");
             if (bean.R18 == 1) {
                 meta.Title = "🚫 " + meta.Title;
+            }
+            if (!string.IsNullOrEmpty(bean.Author)) {
+                meta.Copyright = "@" + bean.Author;
             }
             return meta;
         }

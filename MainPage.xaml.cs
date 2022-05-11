@@ -18,6 +18,7 @@ using Windows.Storage;
 using Windows.System;
 using Windows.System.UserProfile;
 using Windows.UI.Core;
+using Windows.UI.Shell;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -87,7 +88,7 @@ namespace TimelineWallpaper {
             if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
                 ShowTips();
-                ChecReviewAsync();
+                CheckReviewAsync();
                 ApiService.Stats(ini, true);
             }
 
@@ -115,11 +116,8 @@ namespace TimelineWallpaper {
             }
             if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
-                ChecReviewAsync();
+                CheckReviewAsync();
             }
-
-            // 预加载
-            //PreLoadYesterdayAsync();
         }
 
         private async void LoadTormorrowAsync() {
@@ -143,9 +141,6 @@ namespace TimelineWallpaper {
             if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
             }
-
-            // 预加载
-            //PreLoadYesterdayAsync();
         }
 
         private async void LoadTargetAsync(DateTime date) {
@@ -169,9 +164,6 @@ namespace TimelineWallpaper {
             if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
             }
-
-            // 预加载
-            //PreLoadYesterdayAsync();
         }
 
         private async void LoadEndAsync(bool farthestOrLatest) {
@@ -195,17 +187,7 @@ namespace TimelineWallpaper {
             if (metaCache != null && metaCache.Id == meta?.Id) {
                 ShowImg(meta);
             }
-
-            // 预加载
-            //PreLoadYesterdayAsync();
         }
-
-        //private async void PreLoadYesterdayAsync() {
-        //    Debug.WriteLine("PreLoadYesterdayAsync");
-        //    if (await provider.LoadData(ini.GetIni())) {
-        //        _ = provider.Cache(provider.GetYesterday());
-        //    }
-        //}
 
         private async Task<bool> InitProvider() {
             if (ini == null) {
@@ -308,10 +290,6 @@ namespace TimelineWallpaper {
             biUhd.ImageOpened += (sender, e) => {
                 Debug.WriteLine("ImageOpened");
                 StatusEnjoy();
-
-                Debug.WriteLine(MemoryManager.AppMemoryUsageLimit / 1024 / 1024);
-                Debug.WriteLine(MemoryManager.AppMemoryUsage / 1024 / 1024);
-                Debug.WriteLine((MemoryManager.AppMemoryUsageLimit - MemoryManager.AppMemoryUsage) / 1024 / 1024);
             };
             ImgUhd.Source = biUhd;
             biUhd.DecodePixelType = DecodePixelType.Logical;
@@ -547,6 +525,7 @@ namespace TimelineWallpaper {
         private async void CheckUpdateAsync() {
             release = await ApiService.CheckUpdate();
             if (release == null) {
+                CheckPinAsync();
                 return;
             }
             await Task.Delay(2000);
@@ -556,10 +535,25 @@ namespace TimelineWallpaper {
             });
         }
 
-        private async void ChecReviewAsync() {
+        private async void CheckPinAsync() {
+            if (!TaskbarManager.GetDefault().IsPinningAllowed) { // 任务栏不存在或不允许固定
+                return;
+            }
+            int.TryParse(localSettings.Values["checkPinTimes"]?.ToString(), out int times);
+            localSettings.Values["checkPinTimes"] = ++times;
+            if (times != 2 || await TaskbarManager.GetDefault().IsCurrentAppPinnedAsync()) { // 确保仅提示一次，若已固定则不提示
+                return;
+            }
+            await Task.Delay(1000);
+            ToggleInfo(null, resLoader.GetString("MsgPin"), InfoBarSeverity.Informational, resLoader.GetString("ActionPin"), async () => {
+                _ = await TaskbarManager.GetDefault().RequestPinCurrentAppAsync();
+            });
+        }
+
+        private async void CheckReviewAsync() {
             int.TryParse(localSettings.Values["launchTimes"]?.ToString(), out int times);
             localSettings.Values["launchTimes"] = ++times;
-            if (times != 15) {
+            if (times != 15) { // 确保仅提示一次
                 return;
             }
             await Task.Delay(1000);
@@ -665,14 +659,14 @@ namespace TimelineWallpaper {
             FlyoutMenu.Hide();
             SetWallpaperAsync(meta, true);
             ApiService.Rank(ini, meta, "desktop");
-            ChecReviewAsync();
+            CheckReviewAsync();
         }
 
         private void MenuSetLock_Click(object sender, RoutedEventArgs e) {
             FlyoutMenu.Hide();
             SetWallpaperAsync(meta, false);
             ApiService.Rank(ini, meta, "lock");
-            ChecReviewAsync();
+            CheckReviewAsync();
         }
 
         private void MenuFill_Click(object sender, RoutedEventArgs e) {
@@ -684,7 +678,7 @@ namespace TimelineWallpaper {
             FlyoutMenu.Hide();
             DownloadAsync();
             ApiService.Rank(ini, meta, "save");
-            ChecReviewAsync();
+            CheckReviewAsync();
         }
 
         private void MenuDislike_Click(object sender, RoutedEventArgs e) {

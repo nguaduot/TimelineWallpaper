@@ -661,7 +661,7 @@
     <value>Rate it</value>
   </data>
   <data name="SettingsThankDesc.Text" xml:space="preserve">
-    <value>但从今、记取楚楼风，裴台月</value>
+    <value>最是人间留不住，朱颜辞镜花辞树</value>
   </data>
   <data name="SettingsThankTitle.Text" xml:space="preserve">
     <value>Thanks</value>
@@ -855,7 +855,13 @@
   <data name="SettingsIniDesc.Text" xml:space="preserve">
     <value>Beta, only for experienced users</value>
   </data>
-	<data name="SettingsIniTitle.Text" xml:space="preserve">
+  <data name="SettingsIniTitle.Text" xml:space="preserve">
     <value>Configuration file</value>
+  </data>
+  <data name="ActionPin" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="MsgPin" xml:space="preserve">
+    <value>Pin Timeline Wallpaper to the taskbar?</value>
   </data>
 </root>

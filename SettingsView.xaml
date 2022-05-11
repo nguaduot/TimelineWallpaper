@@ -995,7 +995,8 @@
                                         Orientation="Vertical">
                                 <TextBlock x:Uid="SettingsReviewTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsReviewDesc"
+                                <TextBlock Name="SettingsReviewDesc"
+                                           x:Uid="SettingsReviewDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                            MaxLines="1"
@@ -1050,7 +1051,8 @@
                                         Orientation="Vertical">
                                 <TextBlock x:Uid="SettingsThankTitle"
                                            Style="{StaticResource BodyTextBlockStyle}" />
-                                <TextBlock x:Uid="SettingsThankDesc"
+                                <TextBlock Name="SettingsThankDesc"
+                                           x:Uid="SettingsThankDesc"
                                            Style="{StaticResource CaptionTextBlockStyle}"
                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                            MaxLines="1"

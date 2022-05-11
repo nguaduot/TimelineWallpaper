@@ -9,6 +9,10 @@ namespace TimelineWallpaper.Beans {
     }
 
     public class WallhereApiData {
+        // 排序编号
+        [JsonProperty(PropertyName = "no")]
+        public int No { set; get; }
+
         // 类别内排序序号
         [JsonProperty(PropertyName = "catealtno")]
         public int CateAltNo { set; get; }

@@ -282,12 +282,16 @@ namespace TimelineWallpaper.Providers {
         }
 
         public static Dictionary<string, int> GetHistory(string provider) {
-            string file = Path.Combine(ApplicationData.Current.LocalFolder.Path, provider + ".json");
-            if (!File.Exists(file)) {
-                return new Dictionary<string, int>();
+            try {
+                string file = Path.Combine(ApplicationData.Current.LocalFolder.Path, provider + ".json");
+                if (File.Exists(file)) {
+                    string content = File.ReadAllText(file, UTF8Encoding.UTF8);
+                    return JsonConvert.DeserializeObject<Dictionary<string, int>>(content);
+                }
+            } catch (Exception) {
+                Debug.WriteLine("read history error");
             }
-            string content = File.ReadAllText(file, UTF8Encoding.UTF8);
-            return JsonConvert.DeserializeObject<Dictionary<string, int>>(content);
+            return new Dictionary<string, int>();
         }
 
         public static void SaveHistory(string provider, Dictionary<string, int> dic) {
