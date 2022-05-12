@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace TimelineWallpaper.Providers {
     public class InfinityProvider : BaseProvider {
@@ -15,19 +16,25 @@ namespace TimelineWallpaper.Providers {
 
         // Infinity新标签页 - 壁纸库
         // http://cn.infinitynewtab.com/
-        private const string URL_API = "https://infinity-api.infinitynewtab.com/get-wallpaper?source=&tag=&order=1&page={0}";
+        //private const string URL_API = "https://infinity-api.infinitynewtab.com/get-wallpaper?source=&tag=&order=1&page={0}";
+        private const string URL_API = "https://api.infinitynewtab.com/v2/get_wallpaper_list?client=pc&order=like&page={0}";
+        private const string URL_API_LANDSCAPE = "https://api.infinitynewtab.com/v2/get_wallpaper_list?client=pc&source=InfinityLandscape&page={0}";
+        private const string URL_API_ACG = "https://api.infinitynewtab.com/v2/get_wallpaper_list?client=pc&source=Infinity&page={0}";
         private const string URL_API_RANDOM = "https://infinity-api.infinitynewtab.com/random-wallpaper?_={0}";
 
         private Meta ParseBean(InfinityApiData bean) {
             Meta meta = new Meta {
                 Id = bean.Id,
                 Uhd = bean.Src?.RawSrc,
-                Thumb = bean.Src?.SmallSrc,
-                Story = string.Join(" ", bean.Tags ?? new List<string>()),
-                Copyright = "© " + bean.Source,
+                Thumb = bean.Src?.SmallSrc ?? bean.Src?.RawSrc,
                 Date = DateTime.Now
             };
 
+            string[] nodes = (bean.No ?? "").Split("/");
+            meta.Title = string.Format("{0} #{1}", bean.Source, nodes[nodes.Length - 1]);
+            if (bean.Tags != null) {
+                meta.Story = string.Join(" ", bean.Tags ?? new List<string>());
+            }
             if (!string.IsNullOrEmpty(bean.Src?.RawSrc)) {
                 Uri uri = new Uri(bean.Src.RawSrc);
                 string[] nameSuffix = uri.Segments[uri.Segments.Length - 1].Split(".");
@@ -54,14 +61,18 @@ namespace TimelineWallpaper.Providers {
                 HttpClient client = new HttpClient();
                 string jsonData = await client.GetStringAsync(urlApi);
                 Debug.WriteLine("provider data: " + jsonData.Trim());
-                InfinityApi infinityApi = JsonConvert.DeserializeObject<InfinityApi>(jsonData);
                 List<Meta> metasAdd = new List<Meta>();
-                foreach (InfinityApiData item in infinityApi.Data) {
-                    metasAdd.Add(ParseBean(item));
-                }
                 if ("rate".Equals(((InfinityIni)ini).Order)) {
+                    InfinityApi2 infinityApi = JsonConvert.DeserializeObject<InfinityApi2>(jsonData);
+                    foreach (InfinityApiData item in infinityApi.Data.List) {
+                        metasAdd.Add(ParseBean(item));
+                    }
                     RandomMetas(metasAdd);
                 } else {
+                    InfinityApi1 infinityApi = JsonConvert.DeserializeObject<InfinityApi1>(jsonData);
+                    foreach (InfinityApiData item in infinityApi.Data) {
+                        metasAdd.Add(ParseBean(item));
+                    }
                     AppendMetas(metasAdd);
                 }
             } catch (Exception e) {

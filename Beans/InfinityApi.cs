@@ -2,19 +2,43 @@
 using System.Collections.Generic;
 
 namespace TimelineWallpaper.Beans {
-    public class InfinityApi {
+    public class InfinityApi1 {
         // 图片信息数组
         [JsonProperty(PropertyName = "data")]
         public List<InfinityApiData> Data { set; get; }
     }
 
+    public class InfinityApi2 {
+        // 图片信息数组
+        [JsonProperty(PropertyName = "data")]
+        public InfinityApiData2 Data { set; get; }
+    }
+
+    public class InfinityApiData2 {
+        // 图片信息数组
+        [JsonProperty(PropertyName = "list")]
+        public List<InfinityApiData> List { set; get; }
+    }
+
     public class InfinityApiData {
+        // 排序编号
+        [JsonProperty(PropertyName = "imgId")]
+        public string No { set; get; }
+
         // ID
         [JsonProperty(PropertyName = "_id")]
         public string Id { set; get; }
 
         [JsonProperty(PropertyName = "src")]
         public InfinityApiSrc Src { set; get; }
+
+        // 赞数
+        [JsonProperty(PropertyName = "rate")]
+        public int Rate { set; get; }
+
+        // 收藏数
+        [JsonProperty(PropertyName = "like")]
+        public int Like { set; get; }
 
         // 标签
         [JsonProperty(PropertyName = "tags")]
