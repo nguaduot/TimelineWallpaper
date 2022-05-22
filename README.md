@@ -9,6 +9,12 @@
 
 `拾光` 是一款壁纸应用，集成丰富图源，支持每日推送桌面/锁屏。使用 UWP 框架开发，遵循 Fluent Design，是原生的 Windows 应用，于 Windows 11 体验最佳，向下兼容 Windows 10。
 
+## 停更
+
+> **重要说明 2022/05/15：**
+> 
+> 本项目 GitHub 源码停止更新，源码托管已转 Gitee：https://gitee.com/nguaduot/timeline
+
 ## 开始
 
 提供以下两种安装方式：
